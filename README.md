@@ -64,7 +64,7 @@ cp env.example .env
 ### API Keys Required
 - **OpenAI API Key**: For ChatGPT/GPT-4 integration
 - **Firecrawl API Key**: For web scraping and content extraction
-  - Your Firecrawl API key: `fc-b4714ee8a2124d93b0ba3449b627d795` (from MCP config)
+  - Your Firecrawl API key (get it from https://firecrawl.dev)
 
 ## Project Structure
 

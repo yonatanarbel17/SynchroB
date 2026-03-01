@@ -36,8 +36,8 @@ api_spec = client.get_api_specs("https://api.example.com/openapi.json")
 
 ## MCP Integration
 
-The Firecrawl MCP server is configured separately. The API key from your MCP config (`fc-b4714ee8a2124d93b0ba3449b627d795`) can be used with this client by setting it in your `.env` file or passing it directly:
+The Firecrawl MCP server is configured separately. The API key from your MCP config can be used with this client by setting it in your `.env` file or passing it directly:
 
 ```python
-client = FirecrawlClient(api_key="fc-b4714ee8a2124d93b0ba3449b627d795")
+client = FirecrawlClient(api_key="your_firecrawl_api_key_here")
 ```

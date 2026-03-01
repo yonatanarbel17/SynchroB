@@ -19,7 +19,7 @@ The Firecrawl MCP server has been configured in multiple locations to ensure Cur
       "command": "npx",
       "args": ["-y", "firecrawl-mcp"],
       "env": {
-        "FIRECRAWL_API_KEY": "fc-b4714ee8a2124d93b0ba3449b627d795"
+        "FIRECRAWL_API_KEY": "your_firecrawl_api_key_here"
       }
     }
   }

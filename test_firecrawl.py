@@ -17,7 +17,7 @@ def test_firecrawl():
         print("⚠️  Warning: FIRECRAWL_API_KEY not set in .env")
         print("Using API key from MCP config...")
         # Use the API key from MCP config
-        api_key = "fc-b4714ee8a2124d93b0ba3449b627d795"
+        api_key = "your_firecrawl_api_key_here"  # Replace with your actual API key
     else:
         api_key = config.FIRECRAWL_API_KEY
     
