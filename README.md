@@ -57,8 +57,10 @@ pip install -r requirements.txt
 
 4. Configure API keys:
 ```bash
-cp env.example .env
-# Edit .env and add your API keys
+# Create .env file and add your API keys:
+# OPENAI_API_KEY=your_key_here
+# GEMINI_API_KEY=your_key_here
+# FIRECRAWL_API_KEY=your_key_here
 ```
 
 ### API Keys Required
@@ -72,7 +74,6 @@ cp env.example .env
 SynchroB/
 ├── README.md
 ├── requirements.txt
-├── env.example
 ├── config.py
 ├── src/
 │   ├── ingestion/

@@ -2,7 +2,10 @@
 Configuration module for SynchroB.
 Loads API keys and configuration from environment variables.
 
-All API keys must be set in the .env file. See env.example for reference.
+All API keys must be set in the .env file. Create a .env file with the following variables:
+# OPENAI_API_KEY=your_key_here
+# GEMINI_API_KEY=your_key_here
+# FIRECRAWL_API_KEY=your_key_here
 """
 
 import os
@@ -45,7 +48,7 @@ class Config:
         if missing_keys:
             raise ValueError(
                 f"Missing required API keys: {', '.join(missing_keys)}\n"
-                "Please set them in your .env file. See .env.example for reference."
+                "Please set them in your .env file. See README.md for setup instructions."
             )
         
         return True
