@@ -1,0 +1,39 @@
+# Core Dependencies
+python-dotenv>=1.0.0
+requests>=2.31.0
+
+# Web Scraping & Content Extraction
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+firecrawl-py>=0.0.1
+
+# OpenAI API
+openai>=1.0.0
+
+# Google Gemini API (using new package)
+google-genai>=1.65.0
+
+# Code Parsing
+tree-sitter>=0.20.0
+tree-sitter-python>=0.20.0
+
+# Data Processing
+numpy>=1.24.0
+pandas>=2.0.0
+
+# Graph Processing
+networkx>=3.1
+torch>=2.0.0
+torch-geometric>=2.3.0
+
+# Code Analysis
+libcst>=1.1.0
+
+# Utilities
+pydantic>=2.0.0
+pyyaml>=6.0
+
+# Development (optional)
+pytest>=7.4.0
+black>=23.0.0
+flake8>=6.0.0

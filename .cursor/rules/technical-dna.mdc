@@ -1,0 +1,32 @@
+---
+alwaysApply: true
+description: Technical DNA requirements for analysis strategies
+---
+
+# Technical DNA Requirements
+
+When implementing new `AnalysisStrategy` classes or enhancing existing ones, ensure that the output always includes a **"Technical DNA"** object containing:
+
+## Required Fields
+
+1. **Time Complexity**: Algorithmic complexity analysis (e.g., O(n log n), O(1), O(n²))
+2. **Language-Agnostic Logic Patterns**: Abstract patterns that work across programming languages (e.g., "Map-Reduce", "Event Sourcing", "Consensus Algorithm")
+3. **Specific I/O Constraints**: 
+   - Input types and constraints
+   - Output types and formats
+   - State transitions (if applicable)
+
+## Implementation Guidelines
+
+- The `underlying_algorithm` field in analysis results should capture the abstract problem being solved, not just the implementation details
+- Focus on **mathematical/structural problems** rather than specific technology choices
+- Examples of good problem types:
+  - "Byzantine Fault Tolerance Protocol"
+  - "Graph Traversal / Pathfinding"
+  - "Stream Processing / Event Sourcing"
+  - "CRUD Wrapper / Resource Management"
+  - "Recommendation System / Collaborative Filtering"
+
+## Code Reference
+
+See [processor.py](mdc:src/step1/processor.py) `_infer_underlying_algorithm()` method for the pattern matching implementation. For LLM-based strategies, enhance the prompt to extract this information semantically.
