@@ -1,0 +1,357 @@
+---
+alwaysApply: true
+description: Step 2 Generalization - functional DNA extraction, integration analysis, and cross-industry mapping
+---
+
+# Step 2: Generalization & Integration Mapping — Cursor Skill
+
+You are working on SynchroB's Step 2 pipeline (`src/step2/generalizer.py`, `src/step2/generalization_strategy.py`).
+Step 2 takes Step 1's structured output and transforms it into a **product-agnostic functional profile** that expresses the full capabilities of the product and how it can be integrated into other systems.
+
+## Mission
+
+After Step 2, a technical architect should be able to read the output and understand:
+1. **What this product fundamentally does** (stripped of brand/industry context)
+2. **Every capability it offers** and the technical mechanism behind each
+3. **Exactly how to integrate it** — APIs, SDKs, data formats, auth methods, webhooks, event models
+4. **What other products/industries it could serve** — with concrete reasoning, not generic lists
+5. **What the integration will cost** in real engineering effort — with honest assessments
+
+---
+
+## Known Quality Problems You MUST Fix
+
+### 1. Repurposing Confidence 10/10 With No Evidence (CRITICAL)
+**Bad output:** `"repurposing_confidence": 10` with `"information_gaps": ["No API documentation found"]`
+**Root cause:** `_calculate_repurposing_confidence()` gives +3 for "Stream Processor" and +2 for "Combinatorial Optimization" regardless of evidence quality. A product with NO API docs, NO code samples, and NO integration guide cannot have 10/10 confidence.
+**Fix:** Repurposing confidence MUST be penalized for:
+- No API documentation found → max confidence 4
+- No code samples or SDK → max confidence 5
+- No integration guide → -2
+- Only marketing page scraped (no technical pages) → max confidence 3
+- Evidence quality: all "Low" confidence facts → cap at 5
+The score must reflect: "How confident are we that this product's logic can be extracted and reused?" Without technical docs, the answer is: NOT confident.
+
+### 2. Logic Archetype With Empty Evidence (CRITICAL)
+**Bad output:** `"logic_archetype": "Stream Processor"`, `"evidence": "Found keywords: []"`
+**Root cause:** `_infer_logic_archetype()` matches keywords in a massive combined string that includes marketing copy. When the keyword match fails but a broader category catches, it returns the archetype with empty evidence.
+**Fix:**
+- If the evidence list is empty, the archetype MUST be `"Unknown"` or `"Insufficient Evidence"`
+- Never return an archetype you can't justify with at least one specific piece of evidence
+- The evidence field must contain actual quotes or references, not `"Found keywords: []"`
+
+### 3. Cross-Industry Applications Are Generic Templates (CRITICAL)
+**Bad output:** Same 5 industries for every product: "E-commerce & Retail", "Transportation & Logistics", "HR & Recruitment", "Social & Networking", "Supply Chain"
+**Root cause:** `_map_to_new_industries()` has hardcoded industry lists per problem type.
+**Fix:** Cross-industry mapping must be DERIVED from the actual capabilities:
+- Identify the ABSTRACT FUNCTION of each capability (e.g., "copy trading" → "real-time state replication across multiple agents")
+- Then map THAT abstract function to industries where it's needed
+- Each cross-industry suggestion must include a 1-sentence reasoning: WHY this industry needs this function
+**Good output:**
+```json
+{
+  "industry": "Collaborative Software",
+  "reasoning": "Real-time state replication (used for copy trading) maps directly to collaborative editing — syncing document state across multiple users",
+  "applicable_capabilities": ["real-time portfolio replication", "multi-user state sync"]
+}
+```
+
+### 4. Interface Map is Empty Boilerplate
+**Bad output:** `"required_fields": ["Generic API Request"]`, `"authentication": {"type": "Unknown", "method": "API Key"}`
+**Root cause:** `_create_interface_map()` falls through to generic defaults when no OpenAPI spec exists.
+**Fix:** Even without an OpenAPI spec, the interface map should extract EVERYTHING available:
+- Auth methods mentioned anywhere (OAuth, API keys, JWT, session tokens)
+- Data formats mentioned (JSON, XML, CSV, Protobuf, GraphQL)
+- Webhook support mentioned
+- SDK availability (language-specific clients)
+- Rate limiting information
+- Pagination patterns
+- Error response formats
+If truly nothing is found, the output should explicitly say so with `"standardization_level": "Undocumented"` and list what's missing
+
+### 5. Integration Friction is Unrealistically Optimistic
+**Bad output:** `"difficulty": "Low"`, `"estimated_hours": 16` for a product with NO API documentation
+**Root cause:** `_estimate_integration_friction()` starts at 8 hours base and only adds time for specific tech keywords. A product with NO docs is much harder to integrate than one with full OpenAPI specs.
+**Fix:**
+- No API documentation → difficulty: "High", add 40+ hours (you have to reverse-engineer it)
+- No SDK → add 16 hours (you have to write your own client)
+- No auth docs → add 8 hours (you have to figure out auth flow)
+- No webhook/event support → add 8 hours (you have to poll instead)
+- Only marketing page analyzed → difficulty: "Unknown — insufficient technical data"
+
+### 6. Dependencies Propagate Step 1 Hallucinations
+**Bad output:** `"runtime_dependencies": ["Go", "Rust"]` (from Step 1's false positive keyword matching)
+**Root cause:** `_extract_dependencies()` trusts Step 1's tech_stack blindly.
+**Fix:** Step 2 must VALIDATE Step 1 data before using it:
+- Check if each tech stack item has evidence in Step 1's `evidence_tracking`
+- If a technology has no evidence or Low confidence, DON'T include it in dependencies
+- Add a validation step at the beginning of `_extract_functional_dna()` that filters the Step 1 data
+
+---
+
+## What Step 2 Output MUST Express
+
+### A. Complete Product Capabilities (Functional DNA)
+The `functional_dna` section must be a comprehensive technical profile:
+
+#### `abstract_problem` (string)
+- Describe what PROBLEM the product solves, independent of industry
+- NOT just a label — a 1-2 sentence description
+- **Bad:** `"Real-time Order Matching / Market Making Engine"`
+- **Good:** `"Bidirectional multi-party state synchronization with asset rebalancing — maintains consistent portfolio state across leader and follower accounts in real-time, with conflict resolution for partial fills and market volatility"`
+
+#### `core_capabilities` (NEW FIELD — add this)
+A detailed list of every functional capability, expressed technically:
+```json
+{
+  "core_capabilities": [
+    {
+      "name": "Portfolio Replication (CopyTrader)",
+      "technical_description": "Real-time mirroring of trading positions from a leader account to N follower accounts, with proportional position sizing based on follower's capital allocation",
+      "data_operations": ["read leader positions", "calculate proportional sizes", "execute follower trades", "sync state on position changes"],
+      "integration_surface": "Likely event-driven: position change events trigger follower order execution",
+      "evidence": "Found on product page: 'Copy top investors' feature description",
+      "confidence": "Medium"
+    },
+    {
+      "name": "Multi-asset Trading",
+      "technical_description": "Order execution across stocks, ETFs, and cryptocurrencies through a unified interface, abstracting away exchange-specific protocols",
+      "data_operations": ["submit order", "query positions", "stream market data", "calculate P&L"],
+      "integration_surface": "REST API for order management, WebSocket for market data streaming",
+      "evidence": "Landing page lists stocks, crypto, ETFs as supported asset classes",
+      "confidence": "High"
+    }
+  ]
+}
+```
+
+#### `integration_surface` (NEW FIELD — add this)
+Everything needed to integrate with this product:
+```json
+{
+  "integration_surface": {
+    "api": {
+      "type": "REST/GraphQL/gRPC/Unknown",
+      "base_url_pattern": "/api/v1/ (if found)",
+      "authentication": {
+        "methods": ["OAuth 2.0", "API Key"],
+        "evidence": "Found OAuth login flow on /login page"
+      },
+      "endpoints_found": [
+        {"method": "GET", "path": "/api/v1/portfolio", "evidence": "Developer docs page"}
+      ],
+      "rate_limiting": "Unknown — not documented",
+      "pagination": "Unknown"
+    },
+    "webhooks": {
+      "available": true/false/"unknown",
+      "events": ["order.filled", "position.opened"],
+      "evidence": "Found webhook docs at /docs/webhooks"
+    },
+    "sdks": {
+      "languages": ["Python", "JavaScript"],
+      "package_manager": "npm: @etoro/sdk",
+      "evidence": "Found SDK reference in developer docs"
+    },
+    "data_formats": {
+      "request": "JSON",
+      "response": "JSON",
+      "streaming": "WebSocket with JSON payloads",
+      "evidence": "Inferred from API documentation"
+    },
+    "embedding_options": {
+      "iframe": true/false/"unknown",
+      "widget": true/false/"unknown",
+      "white_label": true/false/"unknown",
+      "evidence": "Found embed documentation at /developers/embed"
+    }
+  }
+}
+```
+
+#### `fit_assessment` (NEW FIELD — add this)
+How this product fits into different system architectures:
+```json
+{
+  "fit_assessment": {
+    "as_microservice": {
+      "feasibility": "High/Medium/Low",
+      "reasoning": "Can be wrapped as a trading execution microservice behind an API gateway",
+      "adapter_needed": "REST-to-internal adapter for order normalization"
+    },
+    "as_data_source": {
+      "feasibility": "High/Medium/Low",
+      "reasoning": "Market data and portfolio state can feed analytics pipelines",
+      "data_available": ["portfolio positions", "trade history", "market prices"]
+    },
+    "as_event_producer": {
+      "feasibility": "High/Medium/Low",
+      "reasoning": "Trade execution events could drive downstream workflows",
+      "events_available": ["order.placed", "order.filled", "position.changed"]
+    },
+    "as_embedded_component": {
+      "feasibility": "High/Medium/Low",
+      "reasoning": "Widget/iframe embedding for white-label solutions"
+    }
+  }
+}
+```
+
+---
+
+## Evidence Validation Protocol
+
+Step 2 MUST validate Step 1 data before using it. Add this as the first operation:
+
+### Validation Rules:
+1. **Tech stack validation**: For each technology in `analysis.technical_stack`:
+   - Check if it appears in `evidence_tracking.technical_facts` with evidence
+   - If no evidence → remove from the working data
+   - If the evidence is just "Found in content analysis" → treat as Low confidence
+
+2. **Capability validation**: For each capability in `analysis.capabilities`:
+   - If it's shorter than 10 chars or longer than 150 chars → likely noise, skip
+   - If it contains markdown artifacts (`**`, `##`, `![`, `](`) → strip or skip
+   - If it's a marketing slogan (contains words like "powerful", "easy", "best") → skip
+
+3. **Confidence cap**: If `evidence_tracking.confidence_level` is "Low" or most facts are "Medium":
+   - Cap repurposing_confidence at 5
+   - Set friction_report.difficulty to at minimum "Medium"
+   - Add explicit note: "Limited technical evidence available — estimates are approximate"
+
+---
+
+## Cross-Industry Mapping (Correct Approach)
+
+Instead of hardcoded industry lists, derive cross-industry applications from abstract functions:
+
+### Step-by-step:
+1. **Extract abstract functions** from capabilities:
+   - "Copy trading" → "Real-time multi-party state replication"
+   - "Portfolio management" → "Multi-asset resource allocation and tracking"
+   - "Social feed" → "Activity stream aggregation and personalization"
+
+2. **Map each abstract function** to industries where that function is needed:
+   - "Real-time state replication" → Collaborative editing (Google Docs-like), IoT fleet management, multi-player gaming state sync, supply chain inventory sync
+   - "Resource allocation" → Cloud infrastructure management, workforce scheduling, inventory optimization
+
+3. **Score each mapping** by how direct the translation is:
+   - Direct (1:1 mapping, same data shapes): score 9-10
+   - Analogous (similar pattern, different data): score 6-8
+   - Stretch (requires significant adaptation): score 3-5
+
+4. **Output format** must include reasoning:
+```json
+{
+  "cross_industry_applications": [
+    {
+      "industry": "Collaborative Software (Google Docs, Figma)",
+      "abstract_function_match": "Real-time state replication",
+      "translation": "Copy trading state sync → document/canvas state sync across collaborators",
+      "directness_score": 8,
+      "adaptation_required": "Replace financial instrument data model with document/object model"
+    }
+  ]
+}
+```
+
+---
+
+## Friction Report (Honest Assessment)
+
+The friction report must give ACTIONABLE engineering estimates:
+
+### Estimation Rules:
+| Condition | Hours Impact | Difficulty Impact |
+|-----------|-------------|------------------|
+| Full OpenAPI spec available | -16h | → Low |
+| SDK in target language available | -8h | → Low |
+| No API docs at all | +40h | → High |
+| No authentication docs | +8h | +1 level |
+| Complex auth (OAuth 2.0 + MFA) | +16h | +1 level |
+| No webhook support | +8h (need polling) | — |
+| Rate limiting undocumented | +8h (need discovery) | — |
+| On-premise deployment only | +24h | → High |
+| Multiple microservice dependencies | +16h per service | +1 level |
+
+### Output must include:
+```json
+{
+  "friction_report": {
+    "overall_difficulty": "Low/Medium/High/Unknown",
+    "estimated_hours": {
+      "minimum": 16,
+      "likely": 40,
+      "maximum": 80,
+      "breakdown": {
+        "api_integration": 16,
+        "authentication": 8,
+        "data_mapping": 8,
+        "testing": 8,
+        "documentation_reverse_engineering": 0
+      }
+    },
+    "blockers": ["No public API — may require partnership agreement"],
+    "accelerators": ["REST API available", "Python SDK published on PyPI"],
+    "risk_factors": [
+      {
+        "risk": "API stability unknown — no versioning policy found",
+        "impact": "High — breaking changes could disrupt integration",
+        "mitigation": "Implement adapter pattern with version abstraction"
+      }
+    ]
+  }
+}
+```
+
+---
+
+## LLM Strategy Prompts (Step 2)
+
+When modifying the Gemini or OpenAI generalization strategies:
+
+### The prompt MUST include:
+1. Instruction to VALIDATE Step 1 data first (remove hallucinated tech stack, strip marketing from capabilities)
+2. The complete list of new fields: `core_capabilities`, `integration_surface`, `fit_assessment`
+3. Instruction to derive cross-industry applications from abstract functions, NOT from hardcoded templates
+4. Instruction to be HONEST about friction — no API docs means HIGH difficulty
+5. Evidence validation protocol: every claim traces back to Step 1 evidence
+
+### The prompt MUST demand:
+- For each capability: what data it reads, writes, transforms
+- For integration: every touchpoint (API, webhook, SDK, embed, file export)
+- For friction: specific engineering tasks, not just a number
+- For cross-industry: WHY each industry is a match (1-sentence reasoning per industry)
+
+---
+
+## File References
+
+- Main generalizer: `src/step2/generalizer.py` (1228 lines)
+  - `_extract_functional_dna()` at ~line 129 — needs new fields, evidence validation
+  - `_calculate_repurposing_confidence()` at ~line 368 — NEEDS evidence-based penalties
+  - `_infer_logic_archetype()` at ~line 291 — NEEDS non-empty evidence requirement
+  - `_map_to_new_industries()` at ~line 652 — NEEDS derived mapping, not hardcoded lists
+  - `_estimate_integration_friction()` at ~line 776 — NEEDS honest estimates
+  - `_create_interface_map()` at ~line 855 — NEEDS comprehensive integration surface
+  - `_extract_dependencies()` at ~line 558 — NEEDS Step 1 validation
+  - `_generate_llm_generalization_gemini()` at ~line 909 — prompt needs all new fields
+  - `_generate_llm_generalization_openai()` at ~line 1019 — prompt needs all new fields
+- Strategies: `src/step2/generalization_strategy.py` (112 lines)
+- Guidelines: `guidelines/technical_extraction_guidelines.md`
+
+---
+
+## Quality Checklist (verify before any PR)
+
+- [ ] Repurposing confidence is penalized when evidence is weak/missing
+- [ ] No archetype has empty evidence — if no evidence, say "Unknown"
+- [ ] Cross-industry applications have per-item reasoning, not generic lists
+- [ ] Interface map lists every integration touchpoint found (or explicitly says "not found")
+- [ ] Friction estimate reflects actual documentation availability
+- [ ] Dependencies are validated against Step 1 evidence (no propagated hallucinations)
+- [ ] `core_capabilities` field exists with technical descriptions per capability
+- [ ] `integration_surface` field exists with API/webhook/SDK/embed details
+- [ ] `fit_assessment` field exists with feasibility per integration pattern
+- [ ] Every "Unknown" field is accompanied by a note in information_gaps explaining what data would resolve it
+- [ ] The output is detailed enough that an engineer could START integration planning from it

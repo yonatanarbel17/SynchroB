@@ -1,5 +1,9 @@
 """
 Step 1 Processor: Analyzes product pages and extracts functional information.
+
+Supports two entry modes:
+  - analyze_product(url)          → single-source (Firecrawl scraping only)
+  - analyze_product_by_name(name) → multi-source discovery pipeline
 """
 
 from typing import Dict, Any, Optional, List
@@ -14,6 +18,13 @@ from src.step1.analysis_strategy import (
     DirectAnalysisStrategy,
     GeminiAnalysisStrategy,
     OpenAIAnalysisStrategy
+)
+from src.discovery.orchestrator import DiscoveryOrchestrator
+from src.discovery.merger import SourceMerger
+from src.discovery.models import (
+    MergedDiscoveryResult,
+    SourceType,
+    ConfidenceLevel,
 )
 from config import config
 
@@ -119,7 +130,416 @@ class Step1Processor:
         
         print("✅ Analysis complete!")
         return result
-    
+
+    # ------------------------------------------------------------------
+    # Multi-source discovery entry point
+    # ------------------------------------------------------------------
+
+    def analyze_product_by_name(
+        self,
+        product_name: str,
+        product_url: Optional[str] = None,
+        crawl_depth: int = 1,
+        skip_llm: bool = False,
+    ) -> Dict[str, Any]:
+        """
+        Analyze a product using multi-source discovery.
+
+        Instead of relying solely on web scraping, this method queries:
+          1. LLM knowledge base (baseline) — skipped in cursor/skip_llm mode
+          2. Package registries (PyPI, NPM)
+          3. OpenAPI/Swagger spec probing
+          4. GitHub repository analysis
+          5. Targeted web scraping (docs pages discovered by other sources)
+
+        The output dict is a backward-compatible superset of analyze_product().
+        Step 2 (generalizer) can consume it without changes.
+
+        Args:
+            product_name: Product name (e.g. "stripe", "twilio", "etoro")
+            product_url:  Optional product URL. If None, will be auto-discovered.
+            crawl_depth:  Depth for web scraping phase (default: 1)
+            skip_llm:     If True, skip all external LLM API calls (cursor mode).
+                          Discovery still runs non-LLM sources and the analysis
+                          is built directly from discovery data. Cursor's own LLM
+                          can then analyze the structured output.
+
+        Returns:
+            Dictionary with same schema as analyze_product() PLUS
+            discovery_metadata and enriched analysis fields.
+        """
+        print(f"🔍 Analyzing product by name: {product_name}")
+        print("=" * 60)
+
+        # 1. Build discovery orchestrator with available clients
+        gemini_client = None if skip_llm else self._get_llm_client("gemini")
+        openai_client = None if skip_llm else self._get_llm_client("openai")
+
+        # Firecrawl may not be configured — that's OK in multi-source mode
+        firecrawl_client = None
+        try:
+            firecrawl_client = self.firecrawl
+        except Exception:
+            pass
+
+        orchestrator = DiscoveryOrchestrator(
+            gemini_client=gemini_client,
+            openai_client=openai_client,
+            firecrawl_client=firecrawl_client,
+            github_token=getattr(config, "GITHUB_TOKEN", None),
+        )
+
+        # 2. Run multi-source discovery
+        if skip_llm:
+            print("\n📡 Running discovery (no external LLM calls)...")
+        else:
+            print("\n📡 Running multi-source discovery...")
+        source_results = orchestrator.run_discovery(
+            product_name,
+            product_url=product_url,
+            crawl_depth=crawl_depth,
+        )
+
+        # 3. Merge all source results
+        print("\n🔀 Merging discovery results...")
+        merger = SourceMerger()
+        merged = merger.merge(source_results, product_name)
+
+        # 4. Convert merged data into the format the analysis strategy expects
+        all_content = self._merged_to_scraped_format(merged)
+        extracted_data = self._extract_important_data(all_content)
+
+        # 5. Enrich extracted_data with discovery-specific data
+        extracted_data = self._enrich_with_discovery(extracted_data, merged)
+
+        effective_url = product_url or merged.product_url or product_name
+
+        # 6. Generate analysis
+        if skip_llm:
+            # Cursor mode: build analysis directly from discovery data
+            # (no external LLM calls — Cursor's own LLM analyzes the output)
+            print("\n🧠 Building analysis from discovery data (cursor mode)...")
+            analysis = self._build_discovery_analysis(merged, extracted_data, effective_url)
+        else:
+            # Normal mode: run analysis strategy on enriched data
+            print(f"\n🧠 Generating analysis using {self.analysis_strategy.get_name()}...")
+            analysis = self.analysis_strategy.analyze(all_content, extracted_data, effective_url)
+
+        # 7. Augment analysis with discovery data that strategies don't know about
+        analysis = self._augment_analysis(analysis, merged)
+
+        # 8. Build result (backward-compatible with analyze_product output)
+        result = {
+            "product_name": product_name,
+            "url": effective_url,
+            "timestamp": datetime.now().isoformat(),
+            "main_page": {
+                "markdown": merged.combined_content[:10000],
+                "html": "",
+                "metadata": {
+                    "title": product_name,
+                    "description": merged.description or "",
+                },
+                "url": effective_url,
+            },
+            "linked_pages": [],
+            "extracted_data": extracted_data,
+            "analysis": analysis,
+            "discovery_metadata": {
+                "sources_used": [s.value for s in merged.sources_used],
+                "sources_failed": merged.sources_failed,
+                "overall_confidence": merged.overall_confidence.value,
+                "source_coverage": merged.source_coverage,
+                "mode": "cursor" if skip_llm else "full",
+                "needs_cursor_analysis": skip_llm,
+            },
+        }
+
+        print("\n✅ Multi-source analysis complete!")
+        sc = merged.source_coverage
+        success_count = sum(1 for v in sc.values() if v)
+        print(f"   Sources: {success_count}/{len(sc)} succeeded")
+        print(f"   Confidence: {merged.overall_confidence.value}")
+        print(f"   Capabilities: {len(analysis.get('capabilities', []))}")
+        print(f"   API endpoints: {len(analysis.get('api_endpoints', []))}")
+        print(f"   SDK languages: {len(analysis.get('sdk_languages', []))}")
+        if skip_llm:
+            print("   ℹ️  Cursor mode: output is ready for Cursor's LLM to analyze")
+
+        return result
+
+    # ------------------------------------------------------------------
+    # Multi-source helper methods
+    # ------------------------------------------------------------------
+
+    def _build_discovery_analysis(
+        self,
+        merged: MergedDiscoveryResult,
+        extracted_data: Dict[str, Any],
+        effective_url: str,
+    ) -> Dict[str, Any]:
+        """
+        Build an analysis dict directly from merged discovery data.
+
+        This is used in cursor mode (skip_llm=True) to produce a clean,
+        structured analysis without calling any external LLM API.
+        Cursor's own LLM can then interpret and enrich this output.
+        """
+        # Capabilities: use discovery facts, sorted by confidence
+        capabilities = [f.value for f in merged.capabilities]
+
+        # API endpoints
+        api_endpoints = []
+        for ep in merged.api_endpoints:
+            ep_str = f"{ep.method} {ep.path}" if ep.method else ep.path
+            api_endpoints.append(ep_str)
+
+        # Technical stack
+        technical_stack = list(dict.fromkeys(
+            f.value for f in merged.technical_stack
+            if f.confidence in (ConfidenceLevel.HIGH, ConfidenceLevel.MEDIUM)
+        ))
+
+        # Integrations
+        integrations = list(dict.fromkeys(
+            f.value for f in merged.integrations
+        ))
+
+        # SDK languages
+        sdk_languages = list(dict.fromkeys(
+            f.value for f in merged.sdk_languages
+        ))
+
+        # Auth methods
+        auth_methods = list(dict.fromkeys(
+            f.value for f in merged.auth_methods
+        ))
+
+        # Architecture
+        architecture = [f.value for f in merged.architecture_patterns] if merged.architecture_patterns else []
+        deployment = [f.value for f in merged.deployment_options] if merged.deployment_options else []
+
+        # Description / summary
+        summary = merged.description or extracted_data.get("description", "")
+        if not summary:
+            summary = f"Technical analysis of {merged.product_name}"
+
+        # Build the analysis dict (same schema as strategy output)
+        analysis = {
+            "summary": summary,
+            "capabilities": capabilities,
+            "use_cases": [],  # Left empty — Cursor's LLM should generate these
+            "technical_stack": technical_stack,
+            "integrations": integrations,
+            "api_endpoints": api_endpoints,
+            "sdk_languages": sdk_languages,
+            "auth_methods": auth_methods,
+            "architecture_patterns": architecture,
+            "deployment_options": deployment,
+            "pricing": {
+                "model": "unknown",
+                "tiers": [],
+                "free_tier": "unknown",
+                "notes": "Pricing requires LLM analysis or manual review."
+            },
+            "target_audience": "",  # Left empty — Cursor's LLM should infer
+            "category": "",  # Left empty — Cursor's LLM should classify
+            "deployment": deployment[0] if deployment else "Unknown",
+            "cursor_mode": True,
+            "note": (
+                "This analysis was built from discovery data without external LLM calls. "
+                "Use Cursor's AI to analyze the raw data in 'extracted_data' and "
+                "'discovery_metadata' for deeper insights, category classification, "
+                "use case generation, and target audience identification."
+            ),
+            # Raw provenance data for Cursor to analyze
+            "raw_capabilities_with_sources": [f.to_dict() for f in merged.capabilities],
+            "raw_endpoints_with_sources": [ep.to_dict() for ep in merged.api_endpoints],
+        }
+
+        return analysis
+
+    def _get_llm_client(self, kind: str):
+        """Try to get an LLM client, first from the strategy, then by creating one."""
+        if kind == "gemini":
+            if hasattr(self.analysis_strategy, "llm"):
+                llm = self.analysis_strategy.llm
+                if isinstance(llm, GeminiClient):
+                    return llm
+            try:
+                return GeminiClient()
+            except Exception:
+                return None
+        elif kind == "openai":
+            if hasattr(self.analysis_strategy, "llm"):
+                llm = self.analysis_strategy.llm
+                if isinstance(llm, OpenAIClient):
+                    return llm
+            try:
+                return OpenAIClient()
+            except Exception:
+                return None
+        return None
+
+    def _merged_to_scraped_format(self, merged: MergedDiscoveryResult) -> Dict[str, Any]:
+        """
+        Convert MergedDiscoveryResult into the dict format expected by
+        _extract_important_data() and analysis strategies.
+        """
+        return {
+            "markdown": merged.combined_content,
+            "main_page": {
+                "markdown": merged.combined_content[:5000],
+                "html": "",
+                "metadata": {
+                    "title": merged.product_name,
+                    "description": merged.description or "",
+                },
+                "url": merged.product_url or "",
+            },
+            "linked_pages": [],
+            "total_pages": 1,
+        }
+
+    def _enrich_with_discovery(
+        self, extracted_data: Dict[str, Any], merged: MergedDiscoveryResult
+    ) -> Dict[str, Any]:
+        """Add discovery-sourced data to extracted_data dict."""
+
+        # SDK languages (new field)
+        extracted_data["sdk_languages"] = [f.to_dict() for f in merged.sdk_languages]
+
+        # Auth methods (new field)
+        extracted_data["auth_methods"] = [f.to_dict() for f in merged.auth_methods]
+
+        # Discovered dependencies (new field)
+        extracted_data["discovered_dependencies"] = [
+            f.to_dict() for f in merged.dependencies
+        ]
+
+        # Enrich existing API endpoints with discovery data
+        discovery_endpoints = []
+        for ep in merged.api_endpoints:
+            ep_str = f"{ep.method} {ep.path}" if ep.method else ep.path
+            if ep_str not in extracted_data.get("api_endpoints_raw", []):
+                discovery_endpoints.append(ep_str)
+        existing_raw = extracted_data.get("api_endpoints_raw", [])
+        extracted_data["api_endpoints_raw"] = existing_raw + discovery_endpoints
+
+        # Enrich tech stack with validated discovery data
+        discovery_tech = set()
+        for fact in merged.technical_stack:
+            if fact.confidence in (ConfidenceLevel.HIGH, ConfidenceLevel.MEDIUM):
+                discovery_tech.add(fact.value.lower())
+        existing_tech = set(extracted_data.get("tech_stack_mentions", []))
+        extracted_data["tech_stack_mentions"] = list(existing_tech | discovery_tech)
+
+        # Add discovery description if extracted one is empty
+        if not extracted_data.get("description") and merged.description:
+            extracted_data["description"] = merged.description
+
+        return extracted_data
+
+    def _augment_analysis(
+        self, analysis: Dict[str, Any], merged: MergedDiscoveryResult
+    ) -> Dict[str, Any]:
+        """Post-process analysis to inject discovery-sourced data."""
+
+        # Inject full OpenAPI spec if found
+        if merged.openapi_spec:
+            analysis["api_spec"] = merged.openapi_spec
+
+        # Add SDK languages
+        analysis["sdk_languages"] = list(
+            dict.fromkeys(f.value for f in merged.sdk_languages)
+        )
+
+        # Add auth methods
+        analysis["auth_methods"] = list(
+            dict.fromkeys(f.value for f in merged.auth_methods)
+        )
+
+        # Merge discovery capabilities into analysis capabilities
+        existing_caps = set(
+            c.lower().strip() for c in analysis.get("capabilities", [])
+        )
+        discovery_caps = []
+        for fact in merged.capabilities:
+            if fact.value.lower().strip() not in existing_caps:
+                discovery_caps.append(fact.value)
+                existing_caps.add(fact.value.lower().strip())
+        analysis["capabilities"] = (
+            analysis.get("capabilities", []) + discovery_caps
+        )
+
+        # Merge discovery endpoints into analysis endpoints
+        existing_eps = set(str(e) for e in analysis.get("api_endpoints", []))
+        for ep in merged.api_endpoints:
+            ep_str = f"{ep.method} {ep.path}" if ep.method else ep.path
+            if ep_str not in existing_eps:
+                analysis.setdefault("api_endpoints", []).append(ep_str)
+                existing_eps.add(ep_str)
+
+        # Merge discovery integrations
+        existing_integ = set(
+            i.lower() for i in analysis.get("integrations", [])
+        )
+        for fact in merged.integrations:
+            if fact.value.lower() not in existing_integ:
+                analysis.setdefault("integrations", []).append(fact.value)
+                existing_integ.add(fact.value.lower())
+
+        # Add source tracking to evidence
+        source_tracking = {}
+        for field_name, facts in [
+            ("capabilities", merged.capabilities),
+            ("technical_stack", merged.technical_stack),
+            ("integrations", merged.integrations),
+        ]:
+            source_tracking[field_name] = [
+                {
+                    "value": f.value,
+                    "sources": [f.source.value],
+                    "confidence": f.confidence.value,
+                }
+                for f in facts
+            ]
+        source_tracking["api_endpoints"] = [
+            {
+                "path": ep.path,
+                "method": ep.method,
+                "sources": [ep.source.value],
+                "confidence": ep.confidence.value,
+            }
+            for ep in merged.api_endpoints
+        ]
+        analysis["source_tracking"] = source_tracking
+
+        # Enrich evidence tracking
+        evidence = analysis.get("evidence_tracking", {})
+        facts = evidence.get("technical_facts", [])
+        for src_type in merged.sources_used:
+            facts.append(
+                {
+                    "fact": f"Data collected from {src_type.value}",
+                    "evidence": f"Discovery source: {src_type.value}",
+                    "confidence": "High"
+                    if src_type
+                    in (SourceType.OPENAPI_SPEC, SourceType.PACKAGE_REGISTRY)
+                    else "Medium",
+                }
+            )
+        evidence["technical_facts"] = facts
+
+        # Adjust confidence level based on discovery coverage
+        if merged.overall_confidence == ConfidenceLevel.HIGH:
+            evidence["confidence_level"] = "High"
+        elif merged.overall_confidence == ConfidenceLevel.MEDIUM:
+            evidence["confidence_level"] = "Medium"
+        analysis["evidence_tracking"] = evidence
+
+        return analysis
+
     def _scrape_page(self, url: str) -> Dict[str, Any]:
         """Scrape a single page using Firecrawl."""
         try:

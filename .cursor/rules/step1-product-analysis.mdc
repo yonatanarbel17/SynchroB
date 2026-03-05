@@ -1,0 +1,239 @@
+---
+alwaysApply: true
+description: Step 1 Product Analysis - extraction quality, de-marketing, and evidence-based technical inference
+---
+
+# Step 1: Product Analysis & Technical Extraction — Cursor Skill
+
+You are working on SynchroB's Step 1 pipeline (`src/step1/processor.py`, `src/step1/analysis_strategy.py`).
+Step 1 takes a product URL, scrapes it via Firecrawl, and extracts a structured technical profile.
+
+## Mission
+
+The output of Step 1 must express **what the product actually does technically** — not what it claims in marketing copy. Every field in the output JSON must be useful to a technical architect evaluating whether to integrate this product into another system.
+
+---
+
+## Known Quality Problems You MUST Fix
+
+These are real bugs in the current output. When modifying Step 1 code, ensure these never happen:
+
+### 1. Capabilities Are Marketing Slogans (CRITICAL)
+**Bad output:** `"Yep, it's all in one app"`, `"It's time for loud investing"`
+**Root cause:** `_extract_capabilities()` pulls raw headings verbatim without filtering.
+**Fix:** Capabilities must be functional descriptions of what the product DOES. Apply the de-marketing filter below. Transform slogans into technical capabilities or discard them entirely.
+**Good output:** `"Multi-asset trading (stocks, crypto, ETFs)"`, `"Social/copy trading — replicate other users' portfolios in real-time"`, `"Fractional share purchases"`
+
+### 2. Use Cases Are Useless Template Strings (CRITICAL)
+**Bad output:** `"Use Invest With eToro™ | Stocks, Crypto & ETFs in One Powerful App for Yep, it's all in one app"`
+**Root cause:** `_generate_use_cases()` just prepends the product title to each capability.
+**Fix:** Use cases must describe a real scenario where someone would use this product. They should be independent sentences that don't repeat the product title.
+**Good output:** `"Retail investors diversifying across asset classes without multiple brokerage accounts"`, `"Beginner traders learning by copying experienced investor strategies"`
+
+### 3. Tech Stack Hallucination (CRITICAL)
+**Bad output:** `"go", "rust"` listed for eToro (a consumer trading app)
+**Root cause:** `_extract_tech_mentions()` matches `\bgo\b` which catches the English word "go" in phrases like "go to", "let's go". Similarly `\brust\b` can match "trust", "frustrate" etc.
+**Fix:** Tech mentions must have **context validation**. The word must appear in a technical context (code block, API docs, tech stack section, architecture description), not in marketing prose. Add exclusion patterns for common false positives:
+- `go` → only match if preceded/followed by technical context ("written in Go", "Go SDK", "Golang", "Go 1.x")
+- `rust` → only match if preceded/followed by "Rust lang", "Rust SDK", "written in Rust", "cargo"
+- `api`, `rest`, `http`, `https` → these are infrastructure, not programming languages; categorize them separately
+
+### 4. Target Audience is Wrong
+**Bad output:** `"Developers and technical teams"` for eToro (a consumer trading platform)
+**Root cause:** `_determine_target_audience()` matches "api" keyword and returns "Developers" even for consumer products.
+**Fix:** Consider the primary audience from the product's positioning. If the landing page talks about "investing", "trading", "portfolio" for end users, the audience is retail investors, not developers. The keyword matching should weight the CONTEXT of who the page is talking TO, not just which tech words appear.
+
+### 5. Summary is Title + Meta Description Pasted Together
+**Bad output:** `"Invest With eToro™ | Stocks, Crypto & ETFs in One Powerful App Join millions on eToro..."`
+**Root cause:** `_generate_summary()` just concatenates title and description fields.
+**Fix:** The summary should be a 2-3 sentence technical description written in your own words, describing the product's core function, architecture pattern, and primary data operations. Strip marketing entirely.
+**Good output:** `"Multi-asset trading platform supporting stocks, cryptocurrencies, and ETFs. Provides social trading features including portfolio replication (CopyTrader). Operates as a SaaS platform with web and mobile clients."`
+
+### 6. Pricing Tiers Contain Random Page Content
+**Bad output:** `"## Your funds are held in top-tier institutions"` listed as a pricing tier
+**Root cause:** `_extract_pricing_intelligent()` matches any line containing "free", "plan", "tier" etc.
+**Fix:** Pricing tiers must be actual pricing information — dollar amounts, plan names (Free/Pro/Enterprise), or billing terms. Random sentences that happen to contain the word "tier" or "free" are not pricing tiers.
+
+---
+
+## De-Marketing Filter (MANDATORY)
+
+Every text field in the Step 1 output MUST pass through this filter:
+
+### Strip Completely (never appears in output):
+- Marketing superlatives: "powerful", "easy-to-use", "revolutionary", "cutting-edge", "best-in-class", "world-class", "industry-leading", "trusted by millions"
+- Social proof: "Join millions", "Trusted worldwide", "#1 rated", user counts, award badges
+- Emotional language: "It's time for loud investing", "Yep, it's all in one app"
+- Testimonials and reviews
+- Promotional offers and campaign slogans
+- Legal disclaimers and regulatory footnotes
+- Broken formatting artifacts: stray markdown, image alt text fragments, navigation breadcrumbs
+
+### Keep and Transform:
+- Marketing claims WITH factual content → extract the fact: "Powerful real-time analytics" → "Real-time analytics"
+- Feature descriptions → rewrite as technical capabilities: "Copy top investors" → "Social/copy trading: replicate portfolio positions of other users in real-time"
+- Quantitative claims → keep with evidence flag: "handles 10M requests/day" → keep, mark confidence: Medium
+
+### Keep As-Is:
+- API endpoints, SDK references, code blocks
+- Architecture patterns mentioned: "microservices", "event-driven", "RESTful"
+- Technology names in technical context
+- Data formats, protocols, authentication methods
+- Performance metrics with numbers
+
+---
+
+## Output Schema Quality Rules
+
+### `summary` (string)
+- MUST be 2-3 sentences, written in plain technical English
+- MUST NOT contain the product title as a sentence
+- MUST NOT paste meta description verbatim
+- MUST describe: (1) what it does, (2) primary data/operations, (3) delivery model
+- NO marketing language whatsoever
+
+### `capabilities` (list of strings)
+- Each capability MUST be a functional description of something the product DOES
+- NO slogans, NO headings pasted verbatim
+- Each item should be independently understandable
+- Minimum: describe data operations (what it reads, writes, transforms)
+- Include: APIs exposed, data formats supported, integration methods, core algorithms used
+- Maximum 15 items, each under 120 characters
+
+### `use_cases` (list of strings)
+- Each must describe a real-world scenario (WHO does WHAT with this product)
+- NO product title in the string
+- NO capability repeated verbatim — use cases are APPLICATIONS of capabilities
+- Format: "[Actor] [action] [using what feature] [to achieve what goal]"
+- Maximum 10 items
+
+### `technical_stack` (list of strings)
+- ONLY technologies with EVIDENCE of actual use
+- NEVER include a technology just because the word appears in prose
+- Separate into categories mentally: languages, frameworks, databases, infrastructure, protocols
+- `http`, `https` are protocols, not stack items (omit unless specifically relevant)
+- When uncertain, DON'T include — mark as information gap instead
+
+### `target_audience` (string)
+- Must reflect who the product's PRIMARY users are, not who might tangentially use it
+- If the product is B2C: describe the consumer profile
+- If the product is B2B/developer-facing: describe the developer/team profile
+- Evidence: look at signup flow, pricing, and feature descriptions to determine this
+
+### `pricing` (object)
+- `tiers`: ONLY actual pricing plans with names and/or amounts
+- NOT random sentences containing the word "free" or "plan"
+- If no clear pricing found, say `"model": "unknown"` and `"tiers": []` — don't guess
+
+### `underlying_algorithm` (object)
+- `problem_type`: The abstract computational problem being solved
+- Must be inferred from WHAT THE PRODUCT DOES, not from keyword matching
+- A trading platform solves order matching, yes, but ONLY if evidence shows it does matching (not just because the word "trading" appears)
+- If you can't determine the algorithm with Medium or High confidence, say `"Unknown"` — don't fabricate
+- `complexity`: Only state if you have actual evidence (code, docs mentioning Big-O, or architectural patterns that imply it)
+- `logic_signature`: Extract from actual code blocks or API contracts found; leave empty `{}` if none found
+
+### `evidence_tracking` (object)
+- Every `technical_facts` entry must have a real `evidence` field (URL, section heading, or content quote)
+- `"Found in content analysis"` is NOT valid evidence — cite the specific source
+- `information_gaps` must list what you COULDN'T find that would be valuable (API docs, source code, architecture docs, etc.)
+
+---
+
+## Crawling Strategy
+
+When implementing or modifying the crawling logic:
+
+### Priority (already implemented, but enforce):
+1. **OpenAPI/Swagger/API docs** (score 90-100): These are gold. Extract every endpoint, parameter, and response schema.
+2. **Developer/SDK docs** (score 65-75): Extract integration methods, authentication flows, data formats.
+3. **Technical blog posts** (score 30-40): Only if they discuss architecture, not marketing.
+4. **Landing pages** (score 10): Only extract quantitative facts and feature names.
+
+### Minimum crawl depth
+- The default `crawl_depth` should be at least 2 to reach docs/API pages
+- If only the landing page is scraped (depth 0), the output quality will be severely limited — flag this in `evidence_tracking.information_gaps`
+
+---
+
+## LLM Strategy Prompts
+
+When modifying the Gemini or OpenAI analysis strategies (`analysis_strategy.py`):
+
+### The prompt MUST include:
+1. The de-marketing filter rules (strip list above)
+2. Explicit instruction: "Do NOT include the product title in the summary"
+3. Explicit instruction: "Capabilities must be functional descriptions, not slogans"
+4. Explicit instruction: "Only list technologies you can PROVE are used"
+5. The evidence requirement: every claim needs source + confidence
+6. Context window: send as much crawled content as the model supports (not just 8000 chars of the landing page)
+
+### The prompt MUST NOT:
+- Ask for "use cases" without specifying the format (actor + action + goal)
+- Accept "Unknown" for fields where the scraped content actually has evidence
+- Allow the LLM to fabricate endpoints or technologies
+
+---
+
+## Cursor Mode (`--cursor` flag)
+
+When Step 1 is run with `--cursor`, external LLM APIs are skipped entirely.
+The output JSON will contain `discovery_metadata.needs_cursor_analysis: true`.
+
+### What Cursor MUST do when analyzing cursor-mode output:
+
+1. **Read the raw discovery data** in `analysis.raw_capabilities_with_sources` and `analysis.raw_endpoints_with_sources` — these contain provenance-tracked facts.
+2. **Fill empty fields** that the script left for you:
+   - `analysis.category` — classify the product (e.g. "Payment Processing", "Financial Services / Trading Platform")
+   - `analysis.target_audience` — determine from capabilities who this product is for
+   - `analysis.use_cases` — generate 5-10 real-world use cases from the capabilities list
+   - `analysis.summary` — write a 2-3 sentence technical summary from the discovery data
+3. **Apply the de-marketing filter** to capabilities inherited from web scraping (any item with `source: "web_scrape"` and `confidence: "low"` should be reviewed for marketing language).
+4. **Cross-reference sources**: capabilities confirmed by 2+ sources (look at `source_tracking`) are high confidence. Single-source capabilities need scrutiny.
+5. **Don't call external LLM APIs** — you ARE the LLM in this mode. Use your own knowledge to enrich.
+
+### Example command:
+```bash
+python step1_cli.py stripe --cursor
+```
+
+The output file will be in `outputs/` — read it, then apply the rules above to produce the final analysis.
+
+---
+
+## File References
+
+- Main processor: `src/step1/processor.py`
+  - `analyze_product_by_name()` — multi-source discovery entry point
+  - `_build_discovery_analysis()` — cursor mode analysis builder
+  - `_extract_capabilities()` — NEEDS de-marketing filter
+  - `_generate_use_cases()` — NEEDS complete rewrite of template pattern
+  - `_generate_summary()` — NEEDS to stop pasting title+description
+  - `_extract_technical_stack()` — NEEDS context validation for keywords
+  - `_determine_target_audience()` — NEEDS better signal weighting
+  - `_extract_pricing_intelligent()` — NEEDS actual pricing extraction
+  - `_infer_underlying_algorithm()` — NEEDS evidence-based inference, not pure keyword matching
+  - `_generate_fallback_analysis()` — SAME problems, same fixes needed
+- Discovery pipeline: `src/discovery/` (8 files)
+  - `orchestrator.py` — runs 5 sources in 3 phases
+  - `merger.py` — deduplicates and upgrades confidence
+  - Individual sources: `llm_knowledge.py`, `package_registry.py`, `openapi_discovery.py`, `github_discovery.py`, `web_scraping.py`
+- Strategies: `src/step1/analysis_strategy.py`
+  - `GeminiAnalysisStrategy.analyze()` — prompt needs the rules above
+  - `OpenAIAnalysisStrategy.analyze()` — prompt needs the rules above
+- Guidelines: `guidelines/technical_extraction_guidelines.md` — the gold standard, but NOT implemented in code
+
+---
+
+## Quality Checklist (verify before any PR)
+
+- [ ] No marketing superlatives in any output field
+- [ ] Capabilities are functional descriptions, not slogans
+- [ ] Use cases describe real scenarios without product title
+- [ ] Tech stack has zero false positives (no "go" from English text)
+- [ ] Target audience matches who the product is actually for
+- [ ] Summary is rewritten, not title+description pasted
+- [ ] Pricing tiers are actual pricing, not random page content
+- [ ] Evidence tracking cites specific sources, not "content analysis"
+- [ ] Information gaps explicitly list what's missing
+- [ ] No `"Unknown"` fields where evidence actually exists in scraped data
