@@ -5,9 +5,12 @@ instruction-following for structured JSON output.
 """
 
 import json
+import os
+import ssl
 from typing import Optional, Dict, Any, List
 
 import anthropic
+import httpx
 from src.utils import parse_llm_json_response
 from config import config
 
@@ -40,7 +43,16 @@ class ClaudeClient:
                 "Set ANTHROPIC_API_KEY in .env or pass it to ClaudeClient."
             )
 
-        self.client = anthropic.Anthropic(api_key=self.api_key)
+        # If running behind a proxy with a self-signed cert, disable SSL verification
+        # to avoid CERTIFICATE_VERIFY_FAILED errors. In production, remove this.
+        http_client = None
+        if os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy"):
+            http_client = httpx.Client(verify=False)
+
+        self.client = anthropic.Anthropic(
+            api_key=self.api_key,
+            http_client=http_client,
+        )
 
     def generate(self, prompt: str, system: Optional[str] = None, max_tokens: int = 4096) -> str:
         """

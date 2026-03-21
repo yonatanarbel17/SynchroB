@@ -11,35 +11,54 @@ All API keys must be set in the .env file. Create a .env file with the following
 """
 
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
-load_dotenv()
+# Load environment variables from .env file at the project root
+_project_root = Path(__file__).resolve().parent
+load_dotenv(_project_root / ".env", override=True)
 
 
 class Config:
-    """Application configuration."""
+    """Application configuration.
 
-    # Anthropic / Claude API Configuration (DEFAULT — go-to LLM)
-    ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
-    CLAUDE_MODEL = os.getenv("CLAUDE_MODEL", "claude-sonnet-4-20250514")
+    Uses properties so that values are read from os.environ at access time,
+    AFTER load_dotenv() has populated the environment.
+    """
 
-    # OpenAI API Configuration (fallback)
-    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-    OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o")
+    @property
+    def ANTHROPIC_API_KEY(self):
+        return os.getenv("ANTHROPIC_API_KEY")
 
-    # Gemini API Configuration (fallback)
-    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-    GEMINI_MODEL = os.getenv("GEMINI_MODEL", "models/gemini-2.0-flash")
+    @property
+    def CLAUDE_MODEL(self):
+        return os.getenv("CLAUDE_MODEL", "claude-sonnet-4-20250514")
 
-    # Firecrawl API Configuration
-    FIRECRAWL_API_KEY = os.getenv("FIRECRAWL_API_KEY")
+    @property
+    def OPENAI_API_KEY(self):
+        return os.getenv("OPENAI_API_KEY")
 
-    # GitHub Token (optional — increases API rate limit from 60 to 5000 req/hr)
-    GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+    @property
+    def OPENAI_MODEL(self):
+        return os.getenv("OPENAI_MODEL", "gpt-4o")
 
-    @classmethod
-    def validate(cls, multi_source: bool = False):
+    @property
+    def GEMINI_API_KEY(self):
+        return os.getenv("GEMINI_API_KEY")
+
+    @property
+    def GEMINI_MODEL(self):
+        return os.getenv("GEMINI_MODEL", "models/gemini-2.0-flash")
+
+    @property
+    def FIRECRAWL_API_KEY(self):
+        return os.getenv("FIRECRAWL_API_KEY")
+
+    @property
+    def GITHUB_TOKEN(self):
+        return os.getenv("GITHUB_TOKEN")
+
+    def validate(self, multi_source: bool = False):
         """
         Validate that required API keys are set.
 
@@ -50,11 +69,11 @@ class Config:
         missing_keys = []
 
         # In multi-source mode, Firecrawl is just one of many sources
-        if not multi_source and not cls.FIRECRAWL_API_KEY:
+        if not multi_source and not self.FIRECRAWL_API_KEY:
             missing_keys.append("FIRECRAWL_API_KEY")
 
         # At least one LLM API key should be set (Claude preferred)
-        if not cls.ANTHROPIC_API_KEY and not cls.OPENAI_API_KEY and not cls.GEMINI_API_KEY:
+        if not self.ANTHROPIC_API_KEY and not self.OPENAI_API_KEY and not self.GEMINI_API_KEY:
             missing_keys.append("ANTHROPIC_API_KEY (or OPENAI_API_KEY / GEMINI_API_KEY)")
 
         if missing_keys:

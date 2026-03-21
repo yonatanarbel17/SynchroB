@@ -1,0 +1,4 @@
+# Batch analysis targets
+https://github.com/arduino/Arduino.git
+https://github.com/Growstuff/growstuff.git
+https://github.com/axem-solutions/dem.git

@@ -1,0 +1,270 @@
+{
+  "url": "https://github.com/arduino/Arduino.git",
+  "repo_name": "Arduino",
+  "timestamp": "2026-03-21T14:22:34.653210",
+  "step1": {
+    "product_name": "Arduino",
+    "url": "https://github.com/arduino/Arduino.git",
+    "analysis": {
+      "summary": "Arduino IDE 1.x is a Java-based integrated development environment for programming Arduino microcontrollers. It provides code editing, compilation, and board management capabilities for embedded hardware development.",
+      "capabilities": [
+        "Code editing with syntax highlighting for Arduino sketches (app/src/processing/app/Editor.java)",
+        "Sketch compilation and uploading to Arduino boards (app/src/processing/app/Sketch.java)",
+        "Board and library management through contribution system (app/src/cc/arduino/contributions/)",
+        "Serial monitor for debugging and communication (app/src/processing/app/SerialMonitor.java)",
+        "Multi-platform GUI application using Java Swing (app/src/processing/app/Base.java)",
+        "Library and core package installation from online repositories (app/src/cc/arduino/contributions/libraries/)",
+        "Source code navigation with go-to-line functionality (app/src/cc/arduino/view/GoToLineNumber.java)"
+      ],
+      "use_cases": [],
+      "technical_stack": [
+        "Java (primary language - 276 .java files)",
+        "Apache Ant build system (app/build.xml)",
+        "RSyntaxTextArea for code editing (app/lib/rsyntaxtextarea-3.0.3-SNAPSHOT.jar)",
+        "Apache Batik for SVG rendering (app/lib/batik-*.jar)",
+        "Apache Commons libraries for utilities (app/lib/commons-*.jar)",
+        "Jackson for JSON processing (app/lib/jackson-*.jar)",
+        "JSSC for serial communication (app/lib/jssc-2.8.0-arduino4.jar)",
+        "BouncyCastle for cryptography (app/lib/bcpg-jdk15on-152.jar, app/lib/bcprov-jdk15on-152.jar)"
+      ],
+      "integrations": [
+        "Arduino hardware boards via serial communication (JSSC library)",
+        "Online package repositories for libraries and cores",
+        "Apple macOS integration (app/lib/apple.jar, app/lib/jtouchbar-1.0.0.jar)",
+        "Network discovery services via mDNS (app/lib/jmdns-3.5.5.jar)"
+      ],
+      "api_endpoints": [],
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      },
+      "target_audience": "Developers",
+      "category": "Open Source Software",
+      "deployment": "Self-hosted",
+      "underlying_algorithm": {
+        "problem_type": "",
+        "pattern": ""
+      },
+      "evidence_tracking": {
+        "confidence_level": "High",
+        "technical_facts": [
+          "Code editing with syntax highlighting for Arduino sketches (app/src/processing/app/Editor.java)",
+          "Sketch compilation and uploading to Arduino boards (app/src/processing/app/Sketch.java)",
+          "Board and library management through contribution system (app/src/cc/arduino/contributions/)",
+          "Serial monitor for debugging and communication (app/src/processing/app/SerialMonitor.java)",
+          "Multi-platform GUI application using Java Swing (app/src/processing/app/Base.java)",
+          "Library and core package installation from online repositories (app/src/cc/arduino/contributions/libraries/)",
+          "Source code navigation with go-to-line functionality (app/src/cc/arduino/view/GoToLineNumber.java)"
+        ],
+        "information_gaps": []
+      },
+      "architecture_patterns": [
+        "desktop application",
+        "Concurrency: multi-threaded with Swing EDT for UI operations and background threads for compilation/upload tasks"
+      ],
+      "auth_methods": [],
+      "sdk_languages": [
+        "Java"
+      ],
+      "dependencies": [
+        "RSyntaxTextArea 3.0.3-SNAPSHOT",
+        "Apache Batik 1.8",
+        "Apache Commons (codec, compress, exec, httpclient, io, lang3, logging, net)",
+        "Jackson 2.9.5",
+        "JSSC 2.8.0-arduino4",
+        "jMDNS 3.5.5",
+        "JSch 0.1.50",
+        "BouncyCastle 1.52",
+        "Java Semver 0.8.0",
+        "SLF4J 1.7.22",
+        "Infrastructure: Java Runtime Environment",
+        "Infrastructure: Serial communication drivers"
+      ],
+      "deployment_options": []
+    },
+    "extracted_data": {},
+    "source": "local_repo",
+    "source_confidence": "high",
+    "timestamp": "2026-03-21T14:23:50.782645"
+  },
+  "step2": {
+    "step1_data": {
+      "product_name": "Arduino",
+      "url": "https://github.com/arduino/Arduino.git",
+      "analysis": {
+        "summary": "Arduino IDE 1.x is a Java-based integrated development environment for programming Arduino microcontrollers. It provides code editing, compilation, and board management capabilities for embedded hardware development.",
+        "capabilities": [
+          "Code editing with syntax highlighting for Arduino sketches (app/src/processing/app/Editor.java)",
+          "Sketch compilation and uploading to Arduino boards (app/src/processing/app/Sketch.java)",
+          "Board and library management through contribution system (app/src/cc/arduino/contributions/)",
+          "Serial monitor for debugging and communication (app/src/processing/app/SerialMonitor.java)",
+          "Multi-platform GUI application using Java Swing (app/src/processing/app/Base.java)",
+          "Library and core package installation from online repositories (app/src/cc/arduino/contributions/libraries/)",
+          "Source code navigation with go-to-line functionality (app/src/cc/arduino/view/GoToLineNumber.java)"
+        ],
+        "use_cases": [],
+        "technical_stack": [
+          "Java (primary language - 276 .java files)",
+          "Apache Ant build system (app/build.xml)",
+          "RSyntaxTextArea for code editing (app/lib/rsyntaxtextarea-3.0.3-SNAPSHOT.jar)",
+          "Apache Batik for SVG rendering (app/lib/batik-*.jar)",
+          "Apache Commons libraries for utilities (app/lib/commons-*.jar)",
+          "Jackson for JSON processing (app/lib/jackson-*.jar)",
+          "JSSC for serial communication (app/lib/jssc-2.8.0-arduino4.jar)",
+          "BouncyCastle for cryptography (app/lib/bcpg-jdk15on-152.jar, app/lib/bcprov-jdk15on-152.jar)"
+        ],
+        "integrations": [
+          "Arduino hardware boards via serial communication (JSSC library)",
+          "Online package repositories for libraries and cores",
+          "Apple macOS integration (app/lib/apple.jar, app/lib/jtouchbar-1.0.0.jar)",
+          "Network discovery services via mDNS (app/lib/jmdns-3.5.5.jar)"
+        ],
+        "api_endpoints": [],
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        },
+        "target_audience": "Developers",
+        "category": "Open Source Software",
+        "deployment": "Self-hosted",
+        "underlying_algorithm": {
+          "problem_type": "",
+          "pattern": ""
+        },
+        "evidence_tracking": {
+          "confidence_level": "High",
+          "technical_facts": [
+            "Code editing with syntax highlighting for Arduino sketches (app/src/processing/app/Editor.java)",
+            "Sketch compilation and uploading to Arduino boards (app/src/processing/app/Sketch.java)",
+            "Board and library management through contribution system (app/src/cc/arduino/contributions/)",
+            "Serial monitor for debugging and communication (app/src/processing/app/SerialMonitor.java)",
+            "Multi-platform GUI application using Java Swing (app/src/processing/app/Base.java)",
+            "Library and core package installation from online repositories (app/src/cc/arduino/contributions/libraries/)",
+            "Source code navigation with go-to-line functionality (app/src/cc/arduino/view/GoToLineNumber.java)"
+          ],
+          "information_gaps": []
+        },
+        "architecture_patterns": [
+          "desktop application",
+          "Concurrency: multi-threaded with Swing EDT for UI operations and background threads for compilation/upload tasks"
+        ],
+        "auth_methods": [],
+        "sdk_languages": [
+          "Java"
+        ],
+        "dependencies": [
+          "RSyntaxTextArea 3.0.3-SNAPSHOT",
+          "Apache Batik 1.8",
+          "Apache Commons (codec, compress, exec, httpclient, io, lang3, logging, net)",
+          "Jackson 2.9.5",
+          "JSSC 2.8.0-arduino4",
+          "jMDNS 3.5.5",
+          "JSch 0.1.50",
+          "BouncyCastle 1.52",
+          "Java Semver 0.8.0",
+          "SLF4J 1.7.22",
+          "Infrastructure: Java Runtime Environment",
+          "Infrastructure: Serial communication drivers"
+        ],
+        "deployment_options": []
+      },
+      "extracted_data": {},
+      "source": "local_repo",
+      "source_confidence": "high",
+      "timestamp": "2026-03-21T14:23:50.782645"
+    },
+    "generalization": {
+      "functional_dna": {
+        "logic_archetype": "Stateful Orchestrator",
+        "logic_archetype_evidence": "Multi-platform GUI application using Java Swing (app/src/processing/app/Base.java) orchestrates code editing, compilation, board management, and serial communication workflows with persistent state management",
+        "data_contract_strictness": "Moderately Structured",
+        "data_contract_evidence": "Arduino sketches have defined syntax, board configurations use structured formats, library metadata follows JSON schema (Jackson 2.9.5), but allows flexible sketch content",
+        "core_algorithmic_class": "CRUD Operations",
+        "core_algorithmic_evidence": "Code editing with syntax highlighting (app/src/processing/app/Editor.java), sketch compilation (app/src/processing/app/Sketch.java), library management (app/src/cc/arduino/contributions/libraries/), basic file operations without complex algorithms",
+        "concurrency_requirements": "No Consistency Requirements",
+        "concurrency_evidence": "Multi-threaded with Swing EDT for UI operations and background threads for compilation/upload tasks - typical desktop application concurrency without strict consistency needs",
+        "repurposing_confidence": 7,
+        "repurposing_reasoning": "High reusability due to generic IDE components (syntax highlighting, file management, project structure), serial communication abstraction, and plugin architecture. Domain-specific elements limited to Arduino compilation toolchain."
+      },
+      "evidence_claims": [
+        {
+          "claim": "Java-based desktop application with Swing GUI",
+          "evidence": "Multi-platform GUI application using Java Swing (app/src/processing/app/Base.java)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Extensible syntax highlighting system",
+          "evidence": "RSyntaxTextArea for code editing (app/lib/rsyntaxtextarea-3.0.3-SNAPSHOT.jar)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Plugin-based architecture for contributions",
+          "evidence": "Board and library management through contribution system (app/src/cc/arduino/contributions/)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Serial communication abstraction",
+          "evidence": "JSSC for serial communication (app/lib/jssc-2.8.0-arduino4.jar)",
+          "confidence": "High"
+        }
+      ],
+      "market_reach": {
+        "primary_industry": "Embedded Systems Development",
+        "cross_industry_applications": [
+          "Education Technology",
+          "IoT Development",
+          "Maker/DIY Electronics",
+          "Research and Development",
+          "Prototyping Tools"
+        ],
+        "utility_score": 8,
+        "market_potential": "High"
+      },
+      "friction_report": {
+        "difficulty": "Medium",
+        "estimated_hours": 120,
+        "required_technologies": [
+          "Java Swing (app/src/processing/app/Base.java)",
+          "RSyntaxTextArea (app/lib/rsyntaxtextarea-3.0.3-SNAPSHOT.jar)",
+          "Apache Ant build system (app/build.xml)",
+          "JSSC serial library (app/lib/jssc-2.8.0-arduino4.jar)"
+        ],
+        "complexity_factors": [
+          "Legacy Java Swing architecture",
+          "Hardware-specific serial communication",
+          "Build toolchain integration",
+          "Multi-platform compatibility requirements"
+        ],
+        "risk_level": "Medium"
+      },
+      "interface_map": {
+        "adapter_schema": {
+          "input": {
+            "format": "File System",
+            "required_fields": [
+              "sketch_files",
+              "library_definitions",
+              "board_configurations"
+            ]
+          },
+          "output": {
+            "format": "Serial Protocol"
+          },
+          "authentication": {
+            "type": "None",
+            "method": "Open Source"
+          }
+        },
+        "standardization_level": "Medium"
+      },
+      "information_gaps": [
+        "API documentation for extension points",
+        "Database schema for project persistence",
+        "Network protocol specifications for board discovery",
+        "Build system configuration details beyond Ant"
+      ]
+    },
+    "timestamp": "2026-03-21T14:24:06.157845"
+  },
+  "errors": []
+}

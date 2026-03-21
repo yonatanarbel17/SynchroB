@@ -26,6 +26,7 @@ import json
 import logging
 import os
 import sys
+import time
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
@@ -129,12 +130,10 @@ def _source_result_to_step1_dict(source_result) -> Dict[str, Any]:
     This bridges the gap between the new discovery pipeline's data model
     and the existing Step 1 → Step 2 interface.
     """
-    return {
-        "product_name": source_result.product_name or "",
-        "url": source_result.product_url or "",
+    analysis = {
         "summary": source_result.description or "",
         "capabilities": [f.value for f in source_result.capabilities],
-        "use_cases": [],  # Not produced by local analysis
+        "use_cases": [],
         "technical_stack": [f.value for f in source_result.technical_stack],
         "integrations": [f.value for f in source_result.integrations],
         "api_endpoints": [
@@ -158,13 +157,18 @@ def _source_result_to_step1_dict(source_result) -> Dict[str, Any]:
             "technical_facts": [f.value for f in source_result.capabilities[:10]],
             "information_gaps": [],
         },
-        # Architecture details from SourceResult
         "architecture_patterns": [f.value for f in source_result.architecture_patterns],
         "auth_methods": [f.value for f in source_result.auth_methods],
         "sdk_languages": [f.value for f in source_result.sdk_languages],
         "dependencies": [f.value for f in source_result.dependencies],
         "deployment_options": [f.value for f in source_result.deployment_options],
-        # Metadata
+    }
+
+    return {
+        "product_name": source_result.product_name or "",
+        "url": source_result.product_url or "",
+        "analysis": analysis,
+        "extracted_data": {},
         "source": "local_repo",
         "source_confidence": "high",
         "timestamp": datetime.now().isoformat(),
@@ -243,9 +247,14 @@ def run_batch(
     # Create output directory
     os.makedirs(output_dir, exist_ok=True)
 
-    # Process each repo
+    # Process each repo (with rate-limit delay between requests)
     results = []
     for i, url in enumerate(urls, 1):
+        # Rate-limit delay — avoid 429 errors on API tiers with low token/min limits
+        if i > 1:
+            logger.info("Waiting 70s between repos to respect API rate limits...")
+            time.sleep(70)
+
         logger.info("--- Repo %d/%d ---", i, len(urls))
         try:
             result = analyze_single_repo(

@@ -343,14 +343,13 @@ Respond ONLY with valid JSON matching the schema described above. No additional 
         """
         parts = []
 
-        # File tree (truncate if huge)
+        # File tree (truncate aggressively to stay within token limits)
         file_tree = extraction.get("file_tree", [])
         parts.append(f"### File Tree ({len(file_tree)} files)")
-        if len(file_tree) > 200:
-            parts.append("\n".join(file_tree[:200]))
-            parts.append(f"... and {len(file_tree) - 200} more files")
-        else:
-            parts.append("\n".join(file_tree))
+        max_tree = min(100, len(file_tree))
+        parts.append("\n".join(file_tree[:max_tree]))
+        if len(file_tree) > max_tree:
+            parts.append(f"... and {len(file_tree) - max_tree} more files")
 
         # Language distribution
         lang_dist = extraction.get("language_distribution", {})
@@ -359,13 +358,13 @@ Respond ONLY with valid JSON matching the schema described above. No additional 
             for ext, count in lang_dist.items():
                 parts.append(f"  {ext}: {count} files")
 
-        # README
+        # README (truncate to save tokens)
         readme = extraction.get("readme")
         if readme:
             parts.append("\n### README")
-            parts.append(readme[:5000])
+            parts.append(readme[:3000])
 
-        # Dependencies
+        # Dependencies (compact)
         deps = extraction.get("dependencies", {})
         if deps:
             parts.append("\n### Dependency Manifests")
@@ -373,10 +372,10 @@ Respond ONLY with valid JSON matching the schema described above. No additional 
                 parts.append(f"\n**{fpath}** ({dep_info.get('ecosystem', 'unknown')}):")
                 parsed = dep_info.get("parsed")
                 if parsed:
-                    parts.append(json.dumps(parsed, indent=2)[:3000])
+                    parts.append(json.dumps(parsed, indent=2)[:1500])
                 else:
                     raw = dep_info.get("raw", "")
-                    parts.append(raw[:2000])
+                    parts.append(raw[:1000])
 
         # OpenAPI specs
         specs = extraction.get("openapi_specs", {})
@@ -406,7 +405,11 @@ Respond ONLY with valid JSON matching the schema described above. No additional 
                 parts.append(f"\n**{fpath}**:")
                 parts.append(f"```\n{content}\n```")
 
-        return "\n".join(parts)
+        result = "\n".join(parts)
+        # Hard cap at ~20k chars to stay within API token limits
+        if len(result) > 20000:
+            result = result[:20000] + "\n\n... [truncated to fit token limit]"
+        return result
 
     # ------------------------------------------------------------------
     # Step 5: Build SourceResult
