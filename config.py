@@ -3,8 +3,9 @@ Configuration module for SynchroB.
 Loads API keys and configuration from environment variables.
 
 All API keys must be set in the .env file. Create a .env file with the following variables:
-# OPENAI_API_KEY=your_key_here
-# GEMINI_API_KEY=your_key_here
+# ANTHROPIC_API_KEY=your_key_here    (preferred — Claude is the default LLM)
+# OPENAI_API_KEY=your_key_here       (fallback)
+# GEMINI_API_KEY=your_key_here       (fallback)
 # FIRECRAWL_API_KEY=your_key_here
 # GITHUB_TOKEN=your_github_token_here  (optional, increases rate limit)
 """
@@ -18,15 +19,19 @@ load_dotenv()
 
 class Config:
     """Application configuration."""
-    
-    # OpenAI API Configuration
+
+    # Anthropic / Claude API Configuration (DEFAULT — go-to LLM)
+    ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
+    CLAUDE_MODEL = os.getenv("CLAUDE_MODEL", "claude-sonnet-4-20250514")
+
+    # OpenAI API Configuration (fallback)
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-    OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o")  # Default to GPT-4o (or use gpt-4-turbo, gpt-3.5-turbo)
-    
-    # Gemini API Configuration
+    OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o")
+
+    # Gemini API Configuration (fallback)
     GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-    GEMINI_MODEL = os.getenv("GEMINI_MODEL", "models/gemini-2.0-flash")  # Default to Gemini 2.0 Flash
-    
+    GEMINI_MODEL = os.getenv("GEMINI_MODEL", "models/gemini-2.0-flash")
+
     # Firecrawl API Configuration
     FIRECRAWL_API_KEY = os.getenv("FIRECRAWL_API_KEY")
 
@@ -48,9 +53,9 @@ class Config:
         if not multi_source and not cls.FIRECRAWL_API_KEY:
             missing_keys.append("FIRECRAWL_API_KEY")
 
-        # At least one LLM API key should be set
-        if not cls.OPENAI_API_KEY and not cls.GEMINI_API_KEY:
-            missing_keys.append("OPENAI_API_KEY or GEMINI_API_KEY")
+        # At least one LLM API key should be set (Claude preferred)
+        if not cls.ANTHROPIC_API_KEY and not cls.OPENAI_API_KEY and not cls.GEMINI_API_KEY:
+            missing_keys.append("ANTHROPIC_API_KEY (or OPENAI_API_KEY / GEMINI_API_KEY)")
 
         if missing_keys:
             raise ValueError(

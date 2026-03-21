@@ -21,6 +21,7 @@ from src.discovery.models import (
 # Higher weight = more authoritative and preferred when deduplicating.
 SOURCE_WEIGHTS: Dict[SourceType, int] = {
     SourceType.OPENAPI_SPEC: 95,
+    SourceType.LOCAL_REPO: 90,
     SourceType.GITHUB_REPO: 80,
     SourceType.PACKAGE_REGISTRY: 75,
     SourceType.WEB_SCRAPE: 40,
@@ -285,7 +286,8 @@ class SourceMerger:
 
         source_types = {r.source_type for r in results}
 
-        if SourceType.OPENAPI_SPEC in source_types or SourceType.GITHUB_REPO in source_types:
+        high_authority = {SourceType.OPENAPI_SPEC, SourceType.GITHUB_REPO, SourceType.LOCAL_REPO}
+        if source_types & high_authority:
             return ConfidenceLevel.HIGH
 
         if len(results) >= 2:

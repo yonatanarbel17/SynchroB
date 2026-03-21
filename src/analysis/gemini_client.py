@@ -5,6 +5,7 @@ Optimized for cost-effective classification and domain mapping.
 
 from typing import Optional, Dict, Any, List
 import google.genai as genai
+from src.utils import parse_llm_json_response
 from config import config
 
 
@@ -69,9 +70,8 @@ Respond in valid JSON format only."""
                 model=self.model_name,
                 contents=prompt
             )
-            # Parse JSON from response
-            import json
-            result = json.loads(response.text.strip())
+            # Parse JSON from response (handles markdown code fences)
+            result = parse_llm_json_response(response.text)
             return result
         except Exception as e:
             raise Exception(f"Error classifying domain: {str(e)}")
@@ -163,8 +163,7 @@ Respond in valid JSON format only."""
                 model=self.model_name,
                 contents=prompt
             )
-            import json
-            schema = json.loads(response.text.strip())
+            schema = parse_llm_json_response(response.text)
             return schema
         except Exception as e:
             raise Exception(f"Error inferring abstract schema: {str(e)}")

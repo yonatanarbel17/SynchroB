@@ -12,12 +12,13 @@ import re
 from datetime import datetime
 
 from src.ingestion import FirecrawlClient
-from src.analysis import GeminiClient, OpenAIClient
+from src.analysis import GeminiClient, OpenAIClient, ClaudeClient
 from src.step1.analysis_strategy import (
     AnalysisStrategy,
     DirectAnalysisStrategy,
     GeminiAnalysisStrategy,
-    OpenAIAnalysisStrategy
+    OpenAIAnalysisStrategy,
+    ClaudeAnalysisStrategy,
 )
 from src.discovery.orchestrator import DiscoveryOrchestrator
 from src.discovery.merger import SourceMerger
@@ -26,7 +27,10 @@ from src.discovery.models import (
     SourceType,
     ConfidenceLevel,
 )
+from src.utils import setup_logger
 from config import config
+
+logger = setup_logger(__name__)
 
 
 class Step1Processor:
@@ -39,50 +43,65 @@ class Step1Processor:
     - Product capabilities
     """
     
-    def __init__(self, analysis_strategy: Optional[AnalysisStrategy] = None, 
-                 use_gemini: bool = True, use_llm: bool = False):
+    def __init__(self, analysis_strategy: Optional[AnalysisStrategy] = None,
+                 use_gemini: bool = False, use_llm: bool = False):
         """
         Initialize Step 1 processor.
-        
+
         Args:
-            analysis_strategy: Optional custom analysis strategy. If None, will be auto-selected based on use_llm/use_gemini.
-            use_gemini: If True, use Gemini for LLM (when use_llm=True). Default: True
-            use_llm: If True, use LLM APIs for analysis. If False, use direct intelligent analysis (default).
+            analysis_strategy: Optional custom analysis strategy. If None, will be auto-selected.
+            use_gemini: If True, prefer Gemini when use_llm=True. Default: False
+            use_llm: If True, use LLM APIs for analysis. Default: False (direct analysis).
+
+        When use_llm=True, the priority order is:
+          1. Claude (Anthropic) — the default / go-to
+          2. Gemini (if use_gemini=True or Claude unavailable)
+          3. OpenAI (fallback)
+          4. Direct analysis (final fallback)
         """
         self.firecrawl = FirecrawlClient()
-        
+
         # Initialize analysis strategy
         if analysis_strategy is not None:
-            # Use provided strategy
             self.analysis_strategy = analysis_strategy
         elif use_llm:
-            # Initialize LLM-based strategy
-            if use_gemini:
-                try:
-                    gemini_client = GeminiClient()
-                    self.analysis_strategy = GeminiAnalysisStrategy(self, gemini_client)
-                except Exception as e:
-                    print(f"⚠️  Warning: Could not initialize Gemini client: {str(e)}")
-                    print("🔄 Falling back to direct intelligent analysis...")
-                    self.analysis_strategy = DirectAnalysisStrategy(self)
-            else:
-                try:
-                    openai_client = OpenAIClient()
-                    self.analysis_strategy = OpenAIAnalysisStrategy(self, openai_client)
-                except Exception as e:
-                    print(f"⚠️  Warning: Could not initialize OpenAI client: {str(e)}")
-                    print("🔄 Falling back to Gemini...")
-                    try:
-                        gemini_client = GeminiClient()
-                        self.analysis_strategy = GeminiAnalysisStrategy(self, gemini_client)
-                    except:
-                        print("🔄 Falling back to direct intelligent analysis...")
-                        self.analysis_strategy = DirectAnalysisStrategy(self)
+            self.analysis_strategy = self._init_llm_strategy(use_gemini)
         else:
-            # Default: Direct intelligent analysis (no LLM)
-            self.analysis_strategy = DirectAnalysisStrategy(self)
-        
-        print(f"📊 Using analysis strategy: {self.analysis_strategy.get_name()}")
+            self.analysis_strategy = DirectAnalysisStrategy(self._generate_intelligent_analysis)
+
+        logger.info(f"Using analysis strategy: {self.analysis_strategy.get_name()}")
+
+    def _init_llm_strategy(self, use_gemini: bool) -> AnalysisStrategy:
+        """Try Claude first, then Gemini/OpenAI, then direct analysis."""
+        fallback = self._generate_intelligent_analysis
+
+        # 1. Try Claude first (default / go-to)
+        if config.ANTHROPIC_API_KEY:
+            try:
+                claude_client = ClaudeClient()
+                return ClaudeAnalysisStrategy(fallback, claude_client)
+            except Exception as e:
+                logger.warning(f"Could not initialize Claude client: {e}")
+
+        # 2. Try Gemini
+        if use_gemini or config.GEMINI_API_KEY:
+            try:
+                gemini_client = GeminiClient()
+                return GeminiAnalysisStrategy(fallback, gemini_client)
+            except Exception as e:
+                logger.warning(f"Could not initialize Gemini client: {e}")
+
+        # 3. Try OpenAI
+        if config.OPENAI_API_KEY:
+            try:
+                openai_client = OpenAIClient()
+                return OpenAIAnalysisStrategy(fallback, openai_client)
+            except Exception as e:
+                logger.warning(f"Could not initialize OpenAI client: {e}")
+
+        # 4. Final fallback
+        logger.info("No LLM client available, using direct intelligent analysis")
+        return DirectAnalysisStrategy(fallback)
     
     def analyze_product(self, url: str, crawl_depth: int = 2) -> Dict[str, Any]:
         """
@@ -95,27 +114,27 @@ class Step1Processor:
         Returns:
             Dictionary containing all extracted data and analysis
         """
-        print(f"🔍 Analyzing product: {url}")
-        
+        logger.info(f"Analyzing product: {url}")
+
         # Step 1: Scrape the main page
-        print("📥 Scraping main page...")
+        logger.info("Scraping main page...")
         main_page_data = self._scrape_page(url)
         
         # Step 2: Crawl linked pages (docs, API, etc.)
         linked_pages_data = []
         if crawl_depth > 0:
-            print(f"🕷️  Crawling linked pages (depth: {crawl_depth})...")
+            logger.info(f"Crawling linked pages (depth: {crawl_depth})...")
             linked_pages_data = self._crawl_linked_pages(url, crawl_depth)
         
         # Step 3: Combine all scraped content
         all_content = self._combine_content(main_page_data, linked_pages_data)
         
         # Step 4: Extract important data
-        print("📊 Extracting important data...")
+        logger.info("Extracting important data...")
         extracted_data = self._extract_important_data(all_content)
         
         # Step 5: Generate comprehensive analysis using selected strategy
-        print(f"🧠 Generating analysis using {self.analysis_strategy.get_name()}...")
+        logger.info(f"Generating analysis using {self.analysis_strategy.get_name()}...")
         analysis = self.analysis_strategy.analyze(all_content, extracted_data, url)
         
         # Step 6: Combine all data
@@ -128,7 +147,7 @@ class Step1Processor:
             "analysis": analysis,
         }
         
-        print("✅ Analysis complete!")
+        logger.info("Analysis complete!")
         return result
 
     # ------------------------------------------------------------------
@@ -168,8 +187,8 @@ class Step1Processor:
             Dictionary with same schema as analyze_product() PLUS
             discovery_metadata and enriched analysis fields.
         """
-        print(f"🔍 Analyzing product by name: {product_name}")
-        print("=" * 60)
+        logger.info(f"Analyzing product by name: {product_name}")
+        logger.info("=" * 60)
 
         # 1. Build discovery orchestrator with available clients
         gemini_client = None if skip_llm else self._get_llm_client("gemini")
@@ -191,9 +210,9 @@ class Step1Processor:
 
         # 2. Run multi-source discovery
         if skip_llm:
-            print("\n📡 Running discovery (no external LLM calls)...")
+            logger.info("Running discovery (no external LLM calls)...")
         else:
-            print("\n📡 Running multi-source discovery...")
+            logger.info("Running multi-source discovery...")
         source_results = orchestrator.run_discovery(
             product_name,
             product_url=product_url,
@@ -201,7 +220,7 @@ class Step1Processor:
         )
 
         # 3. Merge all source results
-        print("\n🔀 Merging discovery results...")
+        logger.info("Merging discovery results...")
         merger = SourceMerger()
         merged = merger.merge(source_results, product_name)
 
@@ -218,11 +237,11 @@ class Step1Processor:
         if skip_llm:
             # Cursor mode: build analysis directly from discovery data
             # (no external LLM calls — Cursor's own LLM analyzes the output)
-            print("\n🧠 Building analysis from discovery data (cursor mode)...")
+            logger.info("Building analysis from discovery data (cursor mode)...")
             analysis = self._build_discovery_analysis(merged, extracted_data, effective_url)
         else:
             # Normal mode: run analysis strategy on enriched data
-            print(f"\n🧠 Generating analysis using {self.analysis_strategy.get_name()}...")
+            logger.info(f"Generating analysis using {self.analysis_strategy.get_name()}...")
             analysis = self.analysis_strategy.analyze(all_content, extracted_data, effective_url)
 
         # 7. Augment analysis with discovery data that strategies don't know about
@@ -255,16 +274,16 @@ class Step1Processor:
             },
         }
 
-        print("\n✅ Multi-source analysis complete!")
+        logger.info("Multi-source analysis complete!")
         sc = merged.source_coverage
         success_count = sum(1 for v in sc.values() if v)
-        print(f"   Sources: {success_count}/{len(sc)} succeeded")
-        print(f"   Confidence: {merged.overall_confidence.value}")
-        print(f"   Capabilities: {len(analysis.get('capabilities', []))}")
-        print(f"   API endpoints: {len(analysis.get('api_endpoints', []))}")
-        print(f"   SDK languages: {len(analysis.get('sdk_languages', []))}")
+        logger.info(f"Sources: {success_count}/{len(sc)} succeeded")
+        logger.info(f"Confidence: {merged.overall_confidence.value}")
+        logger.info(f"Capabilities: {len(analysis.get('capabilities', []))}")
+        logger.info(f"API endpoints: {len(analysis.get('api_endpoints', []))}")
+        logger.info(f"SDK languages: {len(analysis.get('sdk_languages', []))}")
         if skip_llm:
-            print("   ℹ️  Cursor mode: output is ready for Cursor's LLM to analyze")
+            logger.info("Cursor mode: output is ready for Cursor's LLM to analyze")
 
         return result
 
@@ -589,12 +608,12 @@ class Step1Processor:
             ]
             
             if relevant_pages:
-                print(f"📊 Prioritized {len(relevant_pages)} technical pages (top priority: {scored_pages[0]['priority_score']})")
+                logger.info(f"Prioritized {len(relevant_pages)} technical pages (top priority: {scored_pages[0]['priority_score']})")
             
             return relevant_pages
             
         except Exception as e:
-            print(f"⚠️  Warning: Error crawling linked pages: {str(e)}")
+            logger.warning(f"Error crawling linked pages: {str(e)}")
             return []
     
     def _calculate_page_priority(self, url: str) -> int:
@@ -1358,7 +1377,7 @@ Respond ONLY with valid JSON, no additional text."""
                     "note": "Basic structure. Use LLM strategy for full OpenAPI generation."
                 }
         except Exception as e:
-            print(f"⚠️  Warning: Could not standardize API endpoints: {str(e)}")
+            logger.warning(f"Could not standardize API endpoints: {str(e)}")
         
         return None
     

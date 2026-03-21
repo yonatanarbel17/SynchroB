@@ -1,0 +1,22 @@
+# Heavy dependencies for future Step 3 implementation
+# These are NOT currently used but reserved for advanced features
+
+# Machine Learning & PyTorch
+torch>=2.0.0
+torch-geometric>=2.3.0
+
+# Graph Processing
+networkx>=3.1
+
+# Code Parsing & AST Analysis
+tree-sitter>=0.20.0
+tree-sitter-python>=0.20.0
+libcst>=1.1.0
+
+# Data Processing
+numpy>=1.24.0
+pandas>=2.0.0
+
+# Web Content Parsing
+beautifulsoup4>=4.12.0
+lxml>=4.9.0

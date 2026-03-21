@@ -20,6 +20,7 @@ from .models import (
 )
 from .orchestrator import DiscoveryOrchestrator
 from .merger import SourceMerger
+from .local_repo_discovery import LocalRepoDiscovery
 
 __all__ = [
     "SourceType",
@@ -30,4 +31,5 @@ __all__ = [
     "MergedDiscoveryResult",
     "DiscoveryOrchestrator",
     "SourceMerger",
+    "LocalRepoDiscovery",
 ]

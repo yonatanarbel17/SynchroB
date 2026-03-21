@@ -5,5 +5,6 @@ Handles semantic analysis, logical signature extraction, and inference.
 
 from .gemini_client import GeminiClient
 from .openai_client import OpenAIClient
+from .claude_client import ClaudeClient
 
-__all__ = ["GeminiClient", "OpenAIClient"]
+__all__ = ["GeminiClient", "OpenAIClient", "ClaudeClient"]

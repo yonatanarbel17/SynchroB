@@ -3,7 +3,7 @@ Data models for the multi-source discovery pipeline.
 Every piece of discovered data carries its provenance (source, confidence, evidence).
 """
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 from typing import List, Optional, Dict, Any
 from enum import Enum
 from datetime import datetime
@@ -15,6 +15,7 @@ class SourceType(str, Enum):
     GITHUB_REPO = "github_repo"
     LLM_KNOWLEDGE = "llm_knowledge"
     WEB_SCRAPE = "web_scrape"
+    LOCAL_REPO = "local_repo"
 
 
 class ConfidenceLevel(str, Enum):
@@ -107,8 +108,7 @@ class SourceResult(BaseModel):
     # Raw content for downstream analysis
     raw_content: Optional[str] = None
 
-    class Config:
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
 
 class MergedDiscoveryResult(BaseModel):
@@ -138,5 +138,4 @@ class MergedDiscoveryResult(BaseModel):
     overall_confidence: ConfidenceLevel = ConfidenceLevel.MEDIUM
     source_coverage: Dict[str, bool] = Field(default_factory=dict)
 
-    class Config:
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(arbitrary_types_allowed=True)

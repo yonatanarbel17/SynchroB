@@ -5,6 +5,7 @@ Uses Firecrawl to scrape product websites, documentation pages, and API docs.
 Supports both targeted scraping of known URLs and fallback crawling of a base URL.
 """
 
+import logging
 import re
 from typing import Optional, List
 from datetime import datetime
@@ -15,6 +16,8 @@ from src.discovery.models import (
     SourcedFact,
     SourceResult,
 )
+
+logger = logging.getLogger(__name__)
 
 
 # Tech keywords matching processor.py patterns for consistent extraction
@@ -171,7 +174,7 @@ class WebScrapingDiscovery:
                     # Docs / API pages get MEDIUM confidence later
                     docs_urls.append(target_url)
             except Exception as exc:
-                print(f"Warning: Failed to scrape target URL {target_url}: {exc}")
+                logger.warning(f"Failed to scrape target URL {target_url}: {exc}")
 
         return all_markdown, scraped_urls, docs_urls
 
@@ -201,7 +204,7 @@ class WebScrapingDiscovery:
                 all_markdown.append(main_md)
                 scraped_urls.append(url)
         except Exception as exc:
-            print(f"Warning: Failed to scrape main URL {url}: {exc}")
+            logger.warning(f"Failed to scrape main URL {url}: {exc}")
 
         # 2. Crawl linked pages
         try:
@@ -226,7 +229,7 @@ class WebScrapingDiscovery:
                     if self._is_docs_page(page_url):
                         docs_urls.append(page_url)
         except Exception as exc:
-            print(f"Warning: Crawl failed for {url}: {exc}")
+            logger.warning(f"Crawl failed for {url}: {exc}")
 
         return all_markdown, scraped_urls, docs_urls
 

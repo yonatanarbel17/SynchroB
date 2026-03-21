@@ -5,7 +5,10 @@ Supports both direct API usage and MCP integration.
 
 from typing import Optional, Dict, List, Any
 from firecrawl import FirecrawlApp
+from src.utils import setup_logger
 from config import config
+
+logger = setup_logger(__name__)
 
 
 class FirecrawlClient:
@@ -113,7 +116,7 @@ class FirecrawlClient:
                 result = self.scrape_url(url, options)
                 results.append(result)
             except Exception as e:
-                print(f"Warning: Failed to scrape {url}: {str(e)}")
+                logger.warning(f"Failed to scrape {url}: {str(e)}")
                 results.append({"url": url, "error": str(e)})
         return results
     
@@ -184,13 +187,13 @@ class FirecrawlClient:
                                 "markdown": p.get("markdown", "") if isinstance(p, dict) else getattr(p, "markdown", ""), 
                                 "metadata": p.get("metadata", {}) if isinstance(p, dict) else getattr(p, "metadata", {})} 
                                for p in pages_data["data"]]
-                except:
+                except Exception:
                     pass
             
             return []
         except Exception as e:
             # If start_crawl fails, return empty list (crawling is optional)
-            print(f"⚠️  Note: Could not crawl linked pages: {str(e)}")
+            logger.warning(f"Could not crawl linked pages: {str(e)}")
             return []
     
     def extract_technical_docs(self, urls: List[str]) -> Dict[str, Any]:

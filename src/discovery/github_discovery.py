@@ -144,11 +144,14 @@ class GitHubDiscovery:
         if url.startswith("git://"):
             url = "https://" + url[6:]
 
+        # Remove trailing slash before .git check so "repo.git/" is handled
+        url = url.rstrip("/")
+
         # Remove .git suffix
         if url.endswith(".git"):
             url = url[:-4]
 
-        # Remove trailing slash
+        # Remove any remaining trailing slash
         url = url.rstrip("/")
 
         # Match github.com/owner/repo pattern

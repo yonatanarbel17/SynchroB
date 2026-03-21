@@ -7,14 +7,18 @@ import json
 import re
 from datetime import datetime
 
-from src.analysis import GeminiClient, OpenAIClient
+from src.analysis import GeminiClient, OpenAIClient, ClaudeClient
 from src.step2.generalization_strategy import (
     GeneralizationStrategy,
     DirectGeneralizationStrategy,
     GeminiGeneralizationStrategy,
-    OpenAIGeneralizationStrategy
+    OpenAIGeneralizationStrategy,
+    ClaudeGeneralizationStrategy,
 )
+from src.utils import setup_logger
 from config import config
+
+logger = setup_logger(__name__)
 
 
 class Step2Generalizer:
@@ -29,45 +33,73 @@ class Step2Generalizer:
     """
     
     def __init__(self, generalization_strategy: Optional[GeneralizationStrategy] = None,
-                 use_gemini: bool = True, use_llm: bool = False):
+                 use_gemini: bool = False, use_llm: bool = False):
         """
         Initialize Step 2 generalizer.
-        
+
         Args:
             generalization_strategy: Optional custom generalization strategy. If None, auto-selected.
-            use_gemini: If True, use Gemini for LLM (when use_llm=True). Default: True
-            use_llm: If True, use LLM APIs for generalization. If False, use direct analysis (default).
+            use_gemini: If True, prefer Gemini when use_llm=True. Default: False
+            use_llm: If True, use LLM APIs for generalization. Default: False (direct analysis).
+
+        When use_llm=True, the priority order is:
+          1. Claude (Anthropic) — the default / go-to
+          2. Gemini (if use_gemini=True or Claude unavailable)
+          3. OpenAI (fallback)
+          4. Direct analysis (final fallback)
         """
-        # Initialize generalization strategy
         if generalization_strategy is not None:
             self.generalization_strategy = generalization_strategy
         elif use_llm:
-            if use_gemini:
-                try:
-                    gemini_client = GeminiClient()
-                    self.generalization_strategy = GeminiGeneralizationStrategy(self, gemini_client)
-                except Exception as e:
-                    print(f"⚠️  Warning: Could not initialize Gemini client: {str(e)}")
-                    print("🔄 Falling back to direct intelligent generalization...")
-                    self.generalization_strategy = DirectGeneralizationStrategy(self)
-            else:
-                try:
-                    openai_client = OpenAIClient()
-                    self.generalization_strategy = OpenAIGeneralizationStrategy(self, openai_client)
-                except Exception as e:
-                    print(f"⚠️  Warning: Could not initialize OpenAI client: {str(e)}")
-                    print("🔄 Falling back to Gemini...")
-                    try:
-                        gemini_client = GeminiClient()
-                        self.generalization_strategy = GeminiGeneralizationStrategy(self, gemini_client)
-                    except:
-                        print("🔄 Falling back to direct intelligent generalization...")
-                        self.generalization_strategy = DirectGeneralizationStrategy(self)
+            self.generalization_strategy = self._init_llm_strategy(use_gemini)
         else:
-            # Default: Direct intelligent generalization (no LLM)
-            self.generalization_strategy = DirectGeneralizationStrategy(self)
-        
-        print(f"📊 Using generalization strategy: {self.generalization_strategy.get_name()}")
+            self.generalization_strategy = DirectGeneralizationStrategy(self._generate_direct_generalization)
+
+        logger.info(f"Using generalization strategy: {self.generalization_strategy.get_name()}")
+
+    def _init_llm_strategy(self, use_gemini: bool) -> GeneralizationStrategy:
+        """Try Claude first, then Gemini/OpenAI, then direct generalization."""
+        fallback = self._generate_direct_generalization
+
+        # 1. Try Claude first (default / go-to)
+        if config.ANTHROPIC_API_KEY:
+            try:
+                claude_client = ClaudeClient()
+                return ClaudeGeneralizationStrategy(
+                    fallback,
+                    self._generate_llm_generalization_claude,
+                    claude_client,
+                )
+            except Exception as e:
+                logger.warning(f"Could not initialize Claude client: {e}")
+
+        # 2. Try Gemini
+        if use_gemini or config.GEMINI_API_KEY:
+            try:
+                gemini_client = GeminiClient()
+                return GeminiGeneralizationStrategy(
+                    fallback,
+                    self._generate_llm_generalization_gemini,
+                    gemini_client,
+                )
+            except Exception as e:
+                logger.warning(f"Could not initialize Gemini client: {e}")
+
+        # 3. Try OpenAI
+        if config.OPENAI_API_KEY:
+            try:
+                openai_client = OpenAIClient()
+                return OpenAIGeneralizationStrategy(
+                    fallback,
+                    self._generate_llm_generalization_openai,
+                    openai_client,
+                )
+            except Exception as e:
+                logger.warning(f"Could not initialize OpenAI client: {e}")
+
+        # 4. Final fallback
+        logger.info("No LLM client available, using direct intelligent generalization")
+        return DirectGeneralizationStrategy(fallback)
     
     def generalize_product(self, step1_data: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -79,7 +111,7 @@ class Step2Generalizer:
         Returns:
             Dictionary containing generalization results
         """
-        print("🔬 Generalizing product from Step 1 data...")
+        logger.info("Generalizing product from Step 1 data...")
         
         # Validate Step 1 data structure
         if not isinstance(step1_data, dict):
@@ -98,7 +130,7 @@ class Step2Generalizer:
             "timestamp": datetime.now().isoformat(),
         }
         
-        print("✅ Generalization complete!")
+        logger.info("Generalization complete!")
         return result
     
     def _generate_direct_generalization(self, step1_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -1083,6 +1115,97 @@ Respond ONLY with valid JSON, no additional text."""
         except Exception as e:
             raise Exception(f"OpenAI generalization failed: {str(e)}")
     
+    def _generate_llm_generalization_claude(self, step1_data: Dict[str, Any], llm_client) -> Dict[str, Any]:
+        """Generate generalization using Claude API with evidence-based strict schema."""
+        analysis = step1_data.get("analysis", {})
+        evidence_tracking = analysis.get("evidence_tracking", {})
+
+        prompt = f"""You are a Technical Architect performing Logic Abstraction with EVIDENCE-BASED inference.
+
+TWO-PASS REASONING REQUIRED:
+
+PASS 1: Technical Audit
+- List ONLY explicit technical facts from Step 1
+- Cite evidence for each fact
+- Identify information gaps
+
+PASS 2: Abstraction
+- Map facts to Logic Archetype (choose from strict list)
+- Identify Core Algorithmic Class
+- Assess Repurposing Confidence (1-10)
+
+FORBIDDEN:
+- Inferring technologies not in Step 1 evidence
+- Making claims without evidence quotes
+- Using marketing language
+- Hallucinating technical details
+
+REQUIRED:
+- Every claim must have: Claim + Evidence + Confidence
+- Use strict schema fields only
+
+Product Analysis:
+{json.dumps(analysis, indent=2)[:6000]}
+
+Evidence Tracking:
+{json.dumps(evidence_tracking, indent=2)[:1000]}
+
+Provide a JSON response with this STRICT structure:
+{{
+    "functional_dna": {{
+        "logic_archetype": "MUST choose from: Stream Processor, Batch Optimizer, Stateful Orchestrator, Stateless Transformer, Matching Engine, Search/Index Engine, Recommendation Engine, Authentication/Authorization Service, Data Aggregator, API Gateway",
+        "logic_archetype_evidence": "Quote or reference supporting this choice",
+        "data_contract_strictness": "Highly Structured / Moderately Structured / Schema-less / Unknown",
+        "data_contract_evidence": "Evidence for contract strictness",
+        "core_algorithmic_class": "Graph Algorithms / Combinatorial Optimization / Time-Series Processing / Linear Algebra / Distributed Consensus / Search Algorithms / Statistical Models / Neural Networks / CRUD Operations / Unknown",
+        "core_algorithmic_evidence": "Evidence for algorithmic class",
+        "concurrency_requirements": "ACID Compliance Required / Eventually Consistent / No Consistency Requirements / Unknown",
+        "concurrency_evidence": "Evidence for concurrency requirements",
+        "repurposing_confidence": 1-10,
+        "repurposing_reasoning": "Why this confidence score? What makes it reusable or domain-specific?"
+    }},
+    "evidence_claims": [
+        {{
+            "claim": "Technical statement",
+            "evidence": "Quote or reference from Step 1",
+            "confidence": "High/Medium/Low"
+        }}
+    ],
+    "market_reach": {{
+        "primary_industry": "Current industry",
+        "cross_industry_applications": ["List of broader industry categories"],
+        "utility_score": 1-10,
+        "market_potential": "High/Medium/Low"
+    }},
+    "friction_report": {{
+        "difficulty": "Low/Medium/High",
+        "estimated_hours": int,
+        "required_technologies": ["List with evidence"],
+        "complexity_factors": ["List"],
+        "risk_level": "Low/Medium/High"
+    }},
+    "interface_map": {{
+        "adapter_schema": {{
+            "input": {{"format": "JSON", "required_fields": []}},
+            "output": {{"format": "JSON"}},
+            "authentication": {{"type": "...", "method": "..."}}
+        }},
+        "standardization_level": "High/Medium/Low"
+    }},
+    "information_gaps": ["List of missing information that would improve analysis"]
+}}
+
+Respond ONLY with valid JSON, no additional text."""
+
+        try:
+            return llm_client.generate_json(
+                prompt,
+                system="You are a Technical Architect. Respond only with valid JSON.",
+                max_tokens=4096,
+            )
+        except Exception as e:
+            raise Exception(f"Claude generalization failed: {str(e)}")
+
     def save_output(self, result: Dict[str, Any], output_file: Optional[str] = None,
                    format: str = "markdown") -> str:
         """Save generalization results to a file."""

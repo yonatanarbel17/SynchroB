@@ -9,6 +9,7 @@ import json
 import logging
 from typing import Optional
 
+from src.utils import parse_llm_json_response
 from src.discovery.models import (
     SourceType,
     ConfidenceLevel,
@@ -54,14 +55,16 @@ IMPORTANT:
 class LLMKnowledgeDiscovery:
     """Query LLM knowledge base for product information."""
 
-    def __init__(self, gemini_client=None, openai_client=None):
+    def __init__(self, claude_client=None, gemini_client=None, openai_client=None):
         """
         Initialize with existing LLM client instances.
 
         Args:
-            gemini_client: Initialized GeminiClient (preferred, cheaper)
+            claude_client: Initialized ClaudeClient (default / go-to)
+            gemini_client: Initialized GeminiClient (fallback)
             openai_client: Initialized OpenAIClient (fallback)
         """
+        self.claude_client = claude_client
         self.gemini_client = gemini_client
         self.openai_client = openai_client
 
@@ -84,8 +87,12 @@ class LLMKnowledgeDiscovery:
 
         response_text = None
 
-        # Try Gemini first (cheaper)
-        if self.gemini_client:
+        # Try Claude first (default / go-to)
+        if self.claude_client:
+            response_text = self._query_claude(prompt)
+
+        # Fall back to Gemini
+        if response_text is None and self.gemini_client:
             response_text = self._query_gemini(prompt)
 
         # Fall back to OpenAI
@@ -116,6 +123,20 @@ class LLMKnowledgeDiscovery:
     # ------------------------------------------------------------------
     # LLM query helpers
     # ------------------------------------------------------------------
+
+    def _query_claude(self, prompt: str) -> Optional[str]:
+        """Query Claude (Anthropic) API and return raw text response."""
+        try:
+            return self.claude_client.generate(
+                prompt,
+                system=(
+                    "You are a Technical Product Analyst. "
+                    "Respond only with valid JSON."
+                ),
+            )
+        except Exception as exc:
+            logger.warning("Claude query failed: %s", exc)
+            return None
 
     def _query_gemini(self, prompt: str) -> Optional[str]:
         """Query Gemini API and return raw text response."""
@@ -162,15 +183,7 @@ class LLMKnowledgeDiscovery:
     @staticmethod
     def _parse_json_response(text: str) -> dict:
         """Parse JSON from LLM response, handling markdown code fences."""
-        cleaned = text.strip()
-        if cleaned.startswith("```json"):
-            cleaned = cleaned[7:]
-        elif cleaned.startswith("```"):
-            cleaned = cleaned[3:]
-        if cleaned.endswith("```"):
-            cleaned = cleaned[:-3]
-        cleaned = cleaned.strip()
-        return json.loads(cleaned)
+        return parse_llm_json_response(text)
 
     def _build_source_result(
         self,

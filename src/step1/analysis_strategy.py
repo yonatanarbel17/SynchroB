@@ -5,6 +5,7 @@ This allows easy switching between direct analysis, LLM-based analysis, etc.
 
 from abc import ABC, abstractmethod
 from typing import Dict, Any
+from src.utils import parse_llm_json_response
 
 
 class AnalysisStrategy(ABC):
@@ -33,37 +34,38 @@ class AnalysisStrategy(ABC):
 
 class DirectAnalysisStrategy(AnalysisStrategy):
     """Direct intelligent analysis using pattern matching and heuristics (no LLM)."""
-    
-    def __init__(self, processor):
+
+    def __init__(self, analyze_fn):
         """
         Initialize direct analysis strategy.
-        
+
         Args:
-            processor: Reference to Step1Processor for accessing helper methods
+            analyze_fn: Callable that takes (markdown, extracted_data, url) and returns analysis dict.
+                        Typically Step1Processor._generate_intelligent_analysis.
         """
-        self.processor = processor
-    
+        self._analyze_fn = analyze_fn
+
     def analyze(self, scraped_data: Dict[str, Any], extracted_data: Dict[str, Any], url: str) -> Dict[str, Any]:
         """Generate analysis using intelligent pattern matching."""
         markdown = scraped_data.get("markdown", "")
-        return self.processor._generate_intelligent_analysis(markdown, extracted_data, url)
-    
+        return self._analyze_fn(markdown, extracted_data, url)
+
     def get_name(self) -> str:
         return "Direct Intelligent Analysis"
 
 
 class GeminiAnalysisStrategy(AnalysisStrategy):
     """Analysis using Google Gemini API."""
-    
-    def __init__(self, processor, gemini_client):
+
+    def __init__(self, fallback_fn, gemini_client):
         """
         Initialize Gemini analysis strategy.
-        
+
         Args:
-            processor: Reference to Step1Processor for accessing helper methods
+            fallback_fn: Callable fallback (e.g., Step1Processor._generate_intelligent_analysis)
             gemini_client: Initialized GeminiClient instance
         """
-        self.processor = processor
+        self._fallback_fn = fallback_fn
         self.llm = gemini_client
     
     def analyze(self, scraped_data: Dict[str, Any], extracted_data: Dict[str, Any], url: str) -> Dict[str, Any]:
@@ -148,26 +150,16 @@ Respond ONLY with valid JSON, no additional text."""
                 response_text = response.candidates[0].content.parts[0].text.strip()
             else:
                 response_text = str(response)
-            
-            # Clean JSON response
-            import json
-            if "```json" in response_text:
-                json_start = response_text.find("```json") + 7
-                json_end = response_text.find("```", json_start)
-                response_text = response_text[json_start:json_end].strip()
-            elif "```" in response_text:
-                json_start = response_text.find("```") + 3
-                json_end = response_text.find("```", json_start)
-                response_text = response_text[json_start:json_end].strip()
-            
-            analysis = json.loads(response_text)
+
+            # Parse JSON response (handles markdown code fences)
+            analysis = parse_llm_json_response(response_text)
             return analysis
             
         except Exception as e:
             print(f"⚠️  Gemini analysis failed: {str(e)}")
             print("🔄 Falling back to direct intelligent analysis...")
             # Fallback to direct analysis
-            return self.processor._generate_intelligent_analysis(markdown, extracted_data, url)
+            return self._fallback_fn(markdown, extracted_data, url)
     
     def get_name(self) -> str:
         return "Gemini API Analysis"
@@ -175,30 +167,60 @@ Respond ONLY with valid JSON, no additional text."""
 
 class OpenAIAnalysisStrategy(AnalysisStrategy):
     """Analysis using OpenAI GPT API."""
-    
-    def __init__(self, processor, openai_client):
+
+    def __init__(self, fallback_fn, openai_client):
         """
         Initialize OpenAI analysis strategy.
-        
+
         Args:
-            processor: Reference to Step1Processor for accessing helper methods
+            fallback_fn: Callable fallback (e.g., Step1Processor._generate_intelligent_analysis)
             openai_client: Initialized OpenAIClient instance
         """
-        self.processor = processor
+        self._fallback_fn = fallback_fn
         self.llm = openai_client
-    
+
     def analyze(self, scraped_data: Dict[str, Any], extracted_data: Dict[str, Any], url: str) -> Dict[str, Any]:
         """Generate analysis using OpenAI API."""
         markdown = scraped_data.get("markdown", "")
         content_preview = markdown[:12000]
-        
+
         try:
             return self.llm.analyze_product(content_preview, url)
         except Exception as e:
             print(f"⚠️  OpenAI analysis failed: {str(e)}")
             print("🔄 Falling back to direct intelligent analysis...")
             # Fallback to direct analysis
-            return self.processor._generate_intelligent_analysis(markdown, extracted_data, url)
-    
+            return self._fallback_fn(markdown, extracted_data, url)
+
     def get_name(self) -> str:
         return "OpenAI GPT Analysis"
+
+
+class ClaudeAnalysisStrategy(AnalysisStrategy):
+    """Analysis using Anthropic Claude API. The default / go-to strategy."""
+
+    def __init__(self, fallback_fn, claude_client):
+        """
+        Initialize Claude analysis strategy.
+
+        Args:
+            fallback_fn: Callable fallback (e.g., Step1Processor._generate_intelligent_analysis)
+            claude_client: Initialized ClaudeClient instance
+        """
+        self._fallback_fn = fallback_fn
+        self.llm = claude_client
+
+    def analyze(self, scraped_data: Dict[str, Any], extracted_data: Dict[str, Any], url: str) -> Dict[str, Any]:
+        """Generate analysis using Claude API."""
+        markdown = scraped_data.get("markdown", "")
+        content_preview = markdown[:12000]
+
+        try:
+            return self.llm.analyze_product(content_preview, url)
+        except Exception as e:
+            print(f"⚠️  Claude analysis failed: {str(e)}")
+            print("🔄 Falling back to direct intelligent analysis...")
+            return self._fallback_fn(markdown, extracted_data, url)
+
+    def get_name(self) -> str:
+        return "Claude API Analysis (Default)"

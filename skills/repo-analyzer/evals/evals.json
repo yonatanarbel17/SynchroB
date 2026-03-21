@@ -1,0 +1,23 @@
+{
+  "skill_name": "repo-analyzer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Analyze this cloned repository. It's a Python Flask web framework project. Use the repo-analyzer skill to extract its technical DNA.",
+      "expected_output": "JSON analysis with Flask in technical_stack, REST API endpoints extracted, architecture identified as monolith or similar, dependencies from requirements.txt parsed",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Run a deep technical analysis on this JavaScript/TypeScript repo. It appears to be a CLI tool. Use the repo-analyzer skill.",
+      "expected_output": "JSON analysis with Node.js ecosystem technologies, CLI tool architecture identified, npm dependencies parsed from package.json, entry points found",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Analyze the SynchroB repo itself using the repo-analyzer skill. This is a Python project with an AI pipeline for B2B integration analysis.",
+      "expected_output": "JSON analysis identifying the multi-step pipeline architecture, Gemini/OpenAI clients, Pydantic models, discovery sources, and Python dependencies",
+      "files": []
+    }
+  ]
+}
