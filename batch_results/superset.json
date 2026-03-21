@@ -1,0 +1,427 @@
+{
+  "url": "https://github.com/apache/superset.git",
+  "repo_name": "superset",
+  "timestamp": "2026-03-21T19:42:09.051287",
+  "step1": {
+    "product_name": "superset",
+    "url": "https://github.com/apache/superset.git",
+    "analysis": {
+      "summary": "Apache Superset is a modern business intelligence web application that connects to databases, creates data visualizations, and builds interactive dashboards through a React-based frontend and Flask Python backend.",
+      "capabilities": [
+        "Connects to multiple database types and executes SQL queries (superset/db_engine_specs/)",
+        "Creates and manages interactive data visualizations and charts (superset-frontend/src/visualizations/)",
+        "Builds and shares interactive dashboards with filters and controls (superset/dashboards/)",
+        "Provides REST API for programmatic access to all functionality (superset/views/api.py)",
+        "Manages user authentication and role-based access control (superset/security/)",
+        "Executes SQL queries with caching and result optimization (superset/sql_lab/)",
+        "Sends alerts and reports via email and Slack (superset/reports/)",
+        "Supports data exploration through SQL Lab interface (superset-frontend/src/SqlLab/)",
+        "Provides embedded dashboard capabilities via SDK (superset-embedded-sdk/)"
+      ],
+      "use_cases": [],
+      "technical_stack": [
+        "Flask (Python web framework - setup.py dependencies)",
+        "React (Frontend framework - superset-frontend/package.json)",
+        "TypeScript (Frontend typing - .ts/.tsx files)",
+        "SQLAlchemy (Database ORM - setup.py dependencies)",
+        "Celery (Distributed task queue - setup.py dependencies)",
+        "Redis (Caching and message broker - docker configurations)",
+        "PostgreSQL (Primary database - docker-compose configurations)",
+        "Webpack (Frontend bundling - superset-frontend/webpack.config.js)",
+        "Babel (JavaScript compilation - .babelrc files)",
+        "Jest (Testing framework - package.json devDependencies)",
+        "Cypress (E2E testing - superset-frontend/cypress-base/)",
+        "Apache ECharts (Charting library - package.json dependencies)",
+        "Deck.gl (WebGL data visualization - package.json dependencies)"
+      ],
+      "integrations": [
+        "50+ database engines via SQLAlchemy (MySQL, PostgreSQL, Snowflake, BigQuery, etc.)",
+        "Slack (for alerts and notifications)",
+        "Email SMTP (for reports and alerts)",
+        "Google Sheets (via @googleapis/sheets)",
+        "Various cloud storage providers for caching"
+      ],
+      "api_endpoints": [
+        {
+          "method": "GET",
+          "path": "/api/v1/dashboard/",
+          "summary": "List dashboards (superset/dashboards/api.py)"
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/dashboard/",
+          "summary": "Create dashboard (superset/dashboards/api.py)"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/chart/",
+          "summary": "List charts (superset/charts/api.py)"
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/chart/",
+          "summary": "Create chart (superset/charts/api.py)"
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/chart/data",
+          "summary": "Execute chart query (superset/charts/data/api.py)"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/database/",
+          "summary": "List databases (superset/databases/api.py)"
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/database/",
+          "summary": "Create database connection (superset/databases/api.py)"
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/sqllab/execute/",
+          "summary": "Execute SQL query (superset/sqllab/api.py)"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/security/login",
+          "summary": "User authentication (superset/security/api.py)"
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/security/refresh",
+          "summary": "Refresh JWT token (superset/security/api.py)"
+        }
+      ],
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      },
+      "target_audience": "Developers",
+      "category": "Open Source Software",
+      "deployment": "Self-hosted",
+      "underlying_algorithm": {
+        "problem_type": "",
+        "pattern": ""
+      },
+      "evidence_tracking": {
+        "confidence_level": "High",
+        "technical_facts": [
+          "Connects to multiple database types and executes SQL queries (superset/db_engine_specs/)",
+          "Creates and manages interactive data visualizations and charts (superset-frontend/src/visualizations/)",
+          "Builds and shares interactive dashboards with filters and controls (superset/dashboards/)",
+          "Provides REST API for programmatic access to all functionality (superset/views/api.py)",
+          "Manages user authentication and role-based access control (superset/security/)",
+          "Executes SQL queries with caching and result optimization (superset/sql_lab/)",
+          "Sends alerts and reports via email and Slack (superset/reports/)",
+          "Supports data exploration through SQL Lab interface (superset-frontend/src/SqlLab/)",
+          "Provides embedded dashboard capabilities via SDK (superset-embedded-sdk/)"
+        ],
+        "information_gaps": []
+      },
+      "architecture_patterns": [
+        "monolith",
+        "Concurrency: async with Celery for background tasks (reports, alerts, query execution), Flask with gevent for web requests"
+      ],
+      "auth_methods": [
+        "JWT tokens",
+        "OAuth2",
+        "LDAP",
+        "Database authentication",
+        "Custom security managers"
+      ],
+      "sdk_languages": [
+        "TypeScript/JavaScript"
+      ],
+      "dependencies": [
+        "Flask",
+        "SQLAlchemy",
+        "Celery",
+        "pandas",
+        "numpy",
+        "Redis",
+        "cryptography",
+        "Pillow",
+        "React",
+        "TypeScript",
+        "Apache ECharts",
+        "Deck.gl",
+        "Infrastructure: PostgreSQL/MySQL",
+        "Infrastructure: Redis",
+        "Infrastructure: SMTP server",
+        "Infrastructure: File storage system"
+      ],
+      "deployment_options": [
+        "Containerized (Docker)",
+        "CI/CD: GitHub Actions"
+      ]
+    },
+    "extracted_data": {},
+    "source": "local_repo",
+    "source_confidence": "high",
+    "timestamp": "2026-03-21T19:42:48.219810"
+  },
+  "step2": {
+    "step1_data": {
+      "product_name": "superset",
+      "url": "https://github.com/apache/superset.git",
+      "analysis": {
+        "summary": "Apache Superset is a modern business intelligence web application that connects to databases, creates data visualizations, and builds interactive dashboards through a React-based frontend and Flask Python backend.",
+        "capabilities": [
+          "Connects to multiple database types and executes SQL queries (superset/db_engine_specs/)",
+          "Creates and manages interactive data visualizations and charts (superset-frontend/src/visualizations/)",
+          "Builds and shares interactive dashboards with filters and controls (superset/dashboards/)",
+          "Provides REST API for programmatic access to all functionality (superset/views/api.py)",
+          "Manages user authentication and role-based access control (superset/security/)",
+          "Executes SQL queries with caching and result optimization (superset/sql_lab/)",
+          "Sends alerts and reports via email and Slack (superset/reports/)",
+          "Supports data exploration through SQL Lab interface (superset-frontend/src/SqlLab/)",
+          "Provides embedded dashboard capabilities via SDK (superset-embedded-sdk/)"
+        ],
+        "use_cases": [],
+        "technical_stack": [
+          "Flask (Python web framework - setup.py dependencies)",
+          "React (Frontend framework - superset-frontend/package.json)",
+          "TypeScript (Frontend typing - .ts/.tsx files)",
+          "SQLAlchemy (Database ORM - setup.py dependencies)",
+          "Celery (Distributed task queue - setup.py dependencies)",
+          "Redis (Caching and message broker - docker configurations)",
+          "PostgreSQL (Primary database - docker-compose configurations)",
+          "Webpack (Frontend bundling - superset-frontend/webpack.config.js)",
+          "Babel (JavaScript compilation - .babelrc files)",
+          "Jest (Testing framework - package.json devDependencies)",
+          "Cypress (E2E testing - superset-frontend/cypress-base/)",
+          "Apache ECharts (Charting library - package.json dependencies)",
+          "Deck.gl (WebGL data visualization - package.json dependencies)"
+        ],
+        "integrations": [
+          "50+ database engines via SQLAlchemy (MySQL, PostgreSQL, Snowflake, BigQuery, etc.)",
+          "Slack (for alerts and notifications)",
+          "Email SMTP (for reports and alerts)",
+          "Google Sheets (via @googleapis/sheets)",
+          "Various cloud storage providers for caching"
+        ],
+        "api_endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/v1/dashboard/",
+            "summary": "List dashboards (superset/dashboards/api.py)"
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/dashboard/",
+            "summary": "Create dashboard (superset/dashboards/api.py)"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/chart/",
+            "summary": "List charts (superset/charts/api.py)"
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/chart/",
+            "summary": "Create chart (superset/charts/api.py)"
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/chart/data",
+            "summary": "Execute chart query (superset/charts/data/api.py)"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/database/",
+            "summary": "List databases (superset/databases/api.py)"
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/database/",
+            "summary": "Create database connection (superset/databases/api.py)"
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/sqllab/execute/",
+            "summary": "Execute SQL query (superset/sqllab/api.py)"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/security/login",
+            "summary": "User authentication (superset/security/api.py)"
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/security/refresh",
+            "summary": "Refresh JWT token (superset/security/api.py)"
+          }
+        ],
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        },
+        "target_audience": "Developers",
+        "category": "Open Source Software",
+        "deployment": "Self-hosted",
+        "underlying_algorithm": {
+          "problem_type": "",
+          "pattern": ""
+        },
+        "evidence_tracking": {
+          "confidence_level": "High",
+          "technical_facts": [
+            "Connects to multiple database types and executes SQL queries (superset/db_engine_specs/)",
+            "Creates and manages interactive data visualizations and charts (superset-frontend/src/visualizations/)",
+            "Builds and shares interactive dashboards with filters and controls (superset/dashboards/)",
+            "Provides REST API for programmatic access to all functionality (superset/views/api.py)",
+            "Manages user authentication and role-based access control (superset/security/)",
+            "Executes SQL queries with caching and result optimization (superset/sql_lab/)",
+            "Sends alerts and reports via email and Slack (superset/reports/)",
+            "Supports data exploration through SQL Lab interface (superset-frontend/src/SqlLab/)",
+            "Provides embedded dashboard capabilities via SDK (superset-embedded-sdk/)"
+          ],
+          "information_gaps": []
+        },
+        "architecture_patterns": [
+          "monolith",
+          "Concurrency: async with Celery for background tasks (reports, alerts, query execution), Flask with gevent for web requests"
+        ],
+        "auth_methods": [
+          "JWT tokens",
+          "OAuth2",
+          "LDAP",
+          "Database authentication",
+          "Custom security managers"
+        ],
+        "sdk_languages": [
+          "TypeScript/JavaScript"
+        ],
+        "dependencies": [
+          "Flask",
+          "SQLAlchemy",
+          "Celery",
+          "pandas",
+          "numpy",
+          "Redis",
+          "cryptography",
+          "Pillow",
+          "React",
+          "TypeScript",
+          "Apache ECharts",
+          "Deck.gl",
+          "Infrastructure: PostgreSQL/MySQL",
+          "Infrastructure: Redis",
+          "Infrastructure: SMTP server",
+          "Infrastructure: File storage system"
+        ],
+        "deployment_options": [
+          "Containerized (Docker)",
+          "CI/CD: GitHub Actions"
+        ]
+      },
+      "extracted_data": {},
+      "source": "local_repo",
+      "source_confidence": "high",
+      "timestamp": "2026-03-21T19:42:48.219810"
+    },
+    "generalization": {
+      "functional_dna": {
+        "logic_archetype": "Data Aggregator",
+        "logic_archetype_evidence": "Connects to multiple database types and executes SQL queries (superset/db_engine_specs/), Creates and manages interactive data visualizations and charts (superset-frontend/src/visualizations/), Builds and shares interactive dashboards with filters and controls (superset/dashboards/)",
+        "data_contract_strictness": "Highly Structured",
+        "data_contract_evidence": "Uses SQLAlchemy (Database ORM - setup.py dependencies) and provides REST API endpoints with defined paths and methods (superset/views/api.py)",
+        "core_algorithmic_class": "CRUD Operations",
+        "core_algorithmic_evidence": "Provides REST API for programmatic access to all functionality (superset/views/api.py) with standard CRUD operations: GET /api/v1/dashboard/, POST /api/v1/dashboard/, GET /api/v1/chart/, POST /api/v1/chart/",
+        "concurrency_requirements": "Eventually Consistent",
+        "concurrency_evidence": "Celery (Distributed task queue - setup.py dependencies) for background tasks and Redis (Caching and message broker - docker configurations) for caching and message queuing",
+        "repurposing_confidence": 8,
+        "repurposing_reasoning": "High confidence due to modular architecture with clear separation between data connection layer (superset/db_engine_specs/), visualization layer (superset-frontend/src/visualizations/), and API layer (superset/views/api.py). The database abstraction via SQLAlchemy makes it adaptable to different data sources."
+      },
+      "evidence_claims": [
+        {
+          "claim": "Multi-database connectivity capability",
+          "evidence": "Connects to multiple database types and executes SQL queries (superset/db_engine_specs/)",
+          "confidence": "High"
+        },
+        {
+          "claim": "REST API architecture",
+          "evidence": "Provides REST API for programmatic access to all functionality (superset/views/api.py)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Distributed task processing",
+          "evidence": "Celery (Distributed task queue - setup.py dependencies)",
+          "confidence": "High"
+        },
+        {
+          "claim": "React-based frontend",
+          "evidence": "React (Frontend framework - superset-frontend/package.json)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Advanced visualization capabilities",
+          "evidence": "Apache ECharts (Charting library - package.json dependencies), Deck.gl (WebGL data visualization - package.json dependencies)",
+          "confidence": "High"
+        }
+      ],
+      "market_reach": {
+        "primary_industry": "Business Intelligence",
+        "cross_industry_applications": [
+          "Financial Services",
+          "Healthcare Analytics",
+          "E-commerce Analytics",
+          "Manufacturing Intelligence",
+          "Government Reporting",
+          "Education Analytics"
+        ],
+        "utility_score": 9,
+        "market_potential": "High"
+      },
+      "friction_report": {
+        "difficulty": "Medium",
+        "estimated_hours": 120,
+        "required_technologies": [
+          "Flask",
+          "React",
+          "TypeScript",
+          "SQLAlchemy",
+          "Celery",
+          "Redis",
+          "PostgreSQL/MySQL"
+        ],
+        "complexity_factors": [
+          "Multi-technology stack coordination",
+          "Database engine abstraction layer",
+          "Real-time visualization rendering",
+          "Role-based access control implementation"
+        ],
+        "risk_level": "Medium"
+      },
+      "interface_map": {
+        "adapter_schema": {
+          "input": {
+            "format": "JSON",
+            "required_fields": [
+              "database_uri",
+              "query",
+              "visualization_type"
+            ]
+          },
+          "output": {
+            "format": "JSON"
+          },
+          "authentication": {
+            "type": "JWT tokens",
+            "method": "Bearer token in Authorization header"
+          }
+        },
+        "standardization_level": "High"
+      },
+      "information_gaps": [
+        "Specific performance benchmarks for large dataset processing",
+        "Detailed error handling and recovery mechanisms",
+        "Horizontal scaling capabilities and limitations",
+        "Memory usage patterns for different visualization types"
+      ]
+    },
+    "timestamp": "2026-03-21T19:43:02.154223"
+  },
+  "errors": []
+}

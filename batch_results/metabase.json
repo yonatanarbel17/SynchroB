@@ -1,0 +1,422 @@
+{
+  "url": "https://github.com/metabase/metabase.git",
+  "repo_name": "metabase",
+  "timestamp": "2026-03-21T19:40:01.609749",
+  "step1": {
+    "product_name": "metabase",
+    "url": "https://github.com/metabase/metabase.git",
+    "analysis": {
+      "summary": "Metabase is an open-source business intelligence and data visualization platform that enables users to explore, query, and visualize data from multiple databases through web interfaces, dashboards, and embedded analytics.",
+      "capabilities": [
+        "Provides web-based query builder for non-SQL users (frontend/src/metabase/query_builder/)",
+        "Executes SQL queries through native editor interface (frontend/src/metabase/native/)",
+        "Generates interactive dashboards with filters and visualizations (frontend/src/metabase/dashboard/)",
+        "Embeds charts and dashboards in external applications (frontend/src/metabase/public/)",
+        "Connects to multiple database types through driver architecture (modules/drivers/)",
+        "Provides REST API for programmatic access (src/metabase/api/)",
+        "Manages user authentication and permissions (src/metabase/models/permissions/)",
+        "Processes and caches query results (src/metabase/query_processor/)",
+        "Schedules automated reports and alerts (src/metabase/task/)",
+        "Provides embedding SDK for React applications (@metabase/embedding-sdk-react)"
+      ],
+      "use_cases": [],
+      "technical_stack": [
+        "Clojure (deps.edn backend)",
+        "React (package.json frontend dependencies)",
+        "TypeScript (4996 .ts files, package.json devDependencies)",
+        "Node.js (engines requirement in package.json)",
+        "Java (Dockerfile references Java 21)",
+        "SQL databases (multiple driver modules)",
+        "Docker (Dockerfile, docker-compose configurations)",
+        "Webpack (webpack.config.js)",
+        "Jest (package.json test dependencies)",
+        "Cypress (e2e test framework)",
+        "H2 Database (default embedded database)",
+        "CodeMirror (SQL/code editor components)",
+        "D3.js (data visualization)",
+        "Redux (state management)"
+      ],
+      "integrations": [
+        "Google Sheets (resources/openapi/openapi.json)",
+        "Slack (release/package.json @slack/web-api)",
+        "Multiple databases (PostgreSQL, MySQL, MongoDB, BigQuery, Snowflake drivers)",
+        "Email SMTP servers",
+        "Webhook endpoints",
+        "Git repositories for version control"
+      ],
+      "api_endpoints": [
+        {
+          "method": "GET",
+          "path": "/api/database",
+          "summary": "Database connection management"
+        },
+        {
+          "method": "POST",
+          "path": "/api/dataset",
+          "summary": "Execute queries and return results"
+        },
+        {
+          "method": "GET",
+          "path": "/api/dashboard/:id",
+          "summary": "Retrieve dashboard configuration"
+        },
+        {
+          "method": "POST",
+          "path": "/api/card",
+          "summary": "Create/update saved questions"
+        },
+        {
+          "method": "GET",
+          "path": "/api/user/current",
+          "summary": "Current user information"
+        },
+        {
+          "method": "POST",
+          "path": "/api/session",
+          "summary": "User authentication"
+        },
+        {
+          "method": "GET",
+          "path": "/api/table/:id/query_metadata",
+          "summary": "Table schema information"
+        },
+        {
+          "method": "POST",
+          "path": "/api/gsheets",
+          "summary": "Google Sheets integration (resources/openapi/openapi.json)"
+        },
+        {
+          "method": "GET",
+          "path": "/api/embed/card/:token",
+          "summary": "Public embedded cards"
+        },
+        {
+          "method": "GET",
+          "path": "/api/embed/dashboard/:token",
+          "summary": "Public embedded dashboards"
+        }
+      ],
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      },
+      "target_audience": "Developers",
+      "category": "Open Source Software",
+      "deployment": "Self-hosted",
+      "underlying_algorithm": {
+        "problem_type": "",
+        "pattern": ""
+      },
+      "evidence_tracking": {
+        "confidence_level": "High",
+        "technical_facts": [
+          "Provides web-based query builder for non-SQL users (frontend/src/metabase/query_builder/)",
+          "Executes SQL queries through native editor interface (frontend/src/metabase/native/)",
+          "Generates interactive dashboards with filters and visualizations (frontend/src/metabase/dashboard/)",
+          "Embeds charts and dashboards in external applications (frontend/src/metabase/public/)",
+          "Connects to multiple database types through driver architecture (modules/drivers/)",
+          "Provides REST API for programmatic access (src/metabase/api/)",
+          "Manages user authentication and permissions (src/metabase/models/permissions/)",
+          "Processes and caches query results (src/metabase/query_processor/)",
+          "Schedules automated reports and alerts (src/metabase/task/)",
+          "Provides embedding SDK for React applications (@metabase/embedding-sdk-react)"
+        ],
+        "information_gaps": []
+      },
+      "architecture_patterns": [
+        "monolith",
+        "Concurrency: JVM-based with Clojure core.async for async operations, JavaScript event loop for frontend"
+      ],
+      "auth_methods": [
+        "Session-based authentication",
+        "JWT tokens for embedding",
+        "LDAP integration",
+        "SAML SSO",
+        "Google OAuth"
+      ],
+      "sdk_languages": [
+        "JavaScript",
+        "TypeScript",
+        "React"
+      ],
+      "dependencies": [
+        "React ^18",
+        "TypeScript",
+        "Clojure",
+        "@codemirror/lang-sql",
+        "@dagrejs/dagre",
+        "redux",
+        "react-router",
+        "Infrastructure: Database (H2/PostgreSQL/MySQL)",
+        "Infrastructure: Java Runtime Environment",
+        "Infrastructure: SMTP server for emails"
+      ],
+      "deployment_options": [
+        "Containerized (Docker)",
+        "CI/CD: GitHub Actions (inferred from .github presence)"
+      ]
+    },
+    "extracted_data": {},
+    "source": "local_repo",
+    "source_confidence": "high",
+    "timestamp": "2026-03-21T19:40:45.375298"
+  },
+  "step2": {
+    "step1_data": {
+      "product_name": "metabase",
+      "url": "https://github.com/metabase/metabase.git",
+      "analysis": {
+        "summary": "Metabase is an open-source business intelligence and data visualization platform that enables users to explore, query, and visualize data from multiple databases through web interfaces, dashboards, and embedded analytics.",
+        "capabilities": [
+          "Provides web-based query builder for non-SQL users (frontend/src/metabase/query_builder/)",
+          "Executes SQL queries through native editor interface (frontend/src/metabase/native/)",
+          "Generates interactive dashboards with filters and visualizations (frontend/src/metabase/dashboard/)",
+          "Embeds charts and dashboards in external applications (frontend/src/metabase/public/)",
+          "Connects to multiple database types through driver architecture (modules/drivers/)",
+          "Provides REST API for programmatic access (src/metabase/api/)",
+          "Manages user authentication and permissions (src/metabase/models/permissions/)",
+          "Processes and caches query results (src/metabase/query_processor/)",
+          "Schedules automated reports and alerts (src/metabase/task/)",
+          "Provides embedding SDK for React applications (@metabase/embedding-sdk-react)"
+        ],
+        "use_cases": [],
+        "technical_stack": [
+          "Clojure (deps.edn backend)",
+          "React (package.json frontend dependencies)",
+          "TypeScript (4996 .ts files, package.json devDependencies)",
+          "Node.js (engines requirement in package.json)",
+          "Java (Dockerfile references Java 21)",
+          "SQL databases (multiple driver modules)",
+          "Docker (Dockerfile, docker-compose configurations)",
+          "Webpack (webpack.config.js)",
+          "Jest (package.json test dependencies)",
+          "Cypress (e2e test framework)",
+          "H2 Database (default embedded database)",
+          "CodeMirror (SQL/code editor components)",
+          "D3.js (data visualization)",
+          "Redux (state management)"
+        ],
+        "integrations": [
+          "Google Sheets (resources/openapi/openapi.json)",
+          "Slack (release/package.json @slack/web-api)",
+          "Multiple databases (PostgreSQL, MySQL, MongoDB, BigQuery, Snowflake drivers)",
+          "Email SMTP servers",
+          "Webhook endpoints",
+          "Git repositories for version control"
+        ],
+        "api_endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/database",
+            "summary": "Database connection management"
+          },
+          {
+            "method": "POST",
+            "path": "/api/dataset",
+            "summary": "Execute queries and return results"
+          },
+          {
+            "method": "GET",
+            "path": "/api/dashboard/:id",
+            "summary": "Retrieve dashboard configuration"
+          },
+          {
+            "method": "POST",
+            "path": "/api/card",
+            "summary": "Create/update saved questions"
+          },
+          {
+            "method": "GET",
+            "path": "/api/user/current",
+            "summary": "Current user information"
+          },
+          {
+            "method": "POST",
+            "path": "/api/session",
+            "summary": "User authentication"
+          },
+          {
+            "method": "GET",
+            "path": "/api/table/:id/query_metadata",
+            "summary": "Table schema information"
+          },
+          {
+            "method": "POST",
+            "path": "/api/gsheets",
+            "summary": "Google Sheets integration (resources/openapi/openapi.json)"
+          },
+          {
+            "method": "GET",
+            "path": "/api/embed/card/:token",
+            "summary": "Public embedded cards"
+          },
+          {
+            "method": "GET",
+            "path": "/api/embed/dashboard/:token",
+            "summary": "Public embedded dashboards"
+          }
+        ],
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        },
+        "target_audience": "Developers",
+        "category": "Open Source Software",
+        "deployment": "Self-hosted",
+        "underlying_algorithm": {
+          "problem_type": "",
+          "pattern": ""
+        },
+        "evidence_tracking": {
+          "confidence_level": "High",
+          "technical_facts": [
+            "Provides web-based query builder for non-SQL users (frontend/src/metabase/query_builder/)",
+            "Executes SQL queries through native editor interface (frontend/src/metabase/native/)",
+            "Generates interactive dashboards with filters and visualizations (frontend/src/metabase/dashboard/)",
+            "Embeds charts and dashboards in external applications (frontend/src/metabase/public/)",
+            "Connects to multiple database types through driver architecture (modules/drivers/)",
+            "Provides REST API for programmatic access (src/metabase/api/)",
+            "Manages user authentication and permissions (src/metabase/models/permissions/)",
+            "Processes and caches query results (src/metabase/query_processor/)",
+            "Schedules automated reports and alerts (src/metabase/task/)",
+            "Provides embedding SDK for React applications (@metabase/embedding-sdk-react)"
+          ],
+          "information_gaps": []
+        },
+        "architecture_patterns": [
+          "monolith",
+          "Concurrency: JVM-based with Clojure core.async for async operations, JavaScript event loop for frontend"
+        ],
+        "auth_methods": [
+          "Session-based authentication",
+          "JWT tokens for embedding",
+          "LDAP integration",
+          "SAML SSO",
+          "Google OAuth"
+        ],
+        "sdk_languages": [
+          "JavaScript",
+          "TypeScript",
+          "React"
+        ],
+        "dependencies": [
+          "React ^18",
+          "TypeScript",
+          "Clojure",
+          "@codemirror/lang-sql",
+          "@dagrejs/dagre",
+          "redux",
+          "react-router",
+          "Infrastructure: Database (H2/PostgreSQL/MySQL)",
+          "Infrastructure: Java Runtime Environment",
+          "Infrastructure: SMTP server for emails"
+        ],
+        "deployment_options": [
+          "Containerized (Docker)",
+          "CI/CD: GitHub Actions (inferred from .github presence)"
+        ]
+      },
+      "extracted_data": {},
+      "source": "local_repo",
+      "source_confidence": "high",
+      "timestamp": "2026-03-21T19:40:45.375298"
+    },
+    "generalization": {
+      "functional_dna": {
+        "logic_archetype": "Data Aggregator",
+        "logic_archetype_evidence": "Processes and caches query results (src/metabase/query_processor/), Connects to multiple database types through driver architecture (modules/drivers/), Generates interactive dashboards with filters and visualizations (frontend/src/metabase/dashboard/)",
+        "data_contract_strictness": "Highly Structured",
+        "data_contract_evidence": "REST API endpoints with defined schemas (src/metabase/api/), Table schema information endpoint (/api/table/:id/query_metadata), Multiple database driver architecture requiring structured data contracts",
+        "core_algorithmic_class": "CRUD Operations",
+        "core_algorithmic_evidence": "Executes SQL queries through native editor interface (frontend/src/metabase/native/), Database connection management (/api/database), Create/update saved questions (/api/card)",
+        "concurrency_requirements": "ACID Compliance Required",
+        "concurrency_evidence": "Processes and caches query results (src/metabase/query_processor/), Connects to multiple database types including PostgreSQL and MySQL which require ACID compliance, User authentication and permissions management",
+        "repurposing_confidence": 8,
+        "repurposing_reasoning": "High confidence due to modular architecture with driver abstraction layer, REST API design, and clear separation between query processing, visualization, and authentication components. The dashboard and visualization components are domain-agnostic."
+      },
+      "evidence_claims": [
+        {
+          "claim": "Multi-database connectivity through driver architecture",
+          "evidence": "Connects to multiple database types through driver architecture (modules/drivers/)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Query processing and caching capabilities",
+          "evidence": "Processes and caches query results (src/metabase/query_processor/)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Embeddable visualization components",
+          "evidence": "Embeds charts and dashboards in external applications (frontend/src/metabase/public/), Provides embedding SDK for React applications (@metabase/embedding-sdk-react)",
+          "confidence": "High"
+        },
+        {
+          "claim": "RESTful API architecture",
+          "evidence": "Provides REST API for programmatic access (src/metabase/api/)",
+          "confidence": "High"
+        }
+      ],
+      "market_reach": {
+        "primary_industry": "Business Intelligence",
+        "cross_industry_applications": [
+          "Financial Services",
+          "Healthcare Analytics",
+          "E-commerce",
+          "Manufacturing",
+          "Education",
+          "Government",
+          "Non-profit"
+        ],
+        "utility_score": 9,
+        "market_potential": "High"
+      },
+      "friction_report": {
+        "difficulty": "Medium",
+        "estimated_hours": 80,
+        "required_technologies": [
+          "Clojure (deps.edn backend)",
+          "React (package.json frontend dependencies)",
+          "TypeScript (4996 .ts files)",
+          "Java (Dockerfile references Java 21)",
+          "Docker (Dockerfile, docker-compose configurations)"
+        ],
+        "complexity_factors": [
+          "Multi-language stack (Clojure/Java backend, React/TypeScript frontend)",
+          "Database driver architecture customization",
+          "Query processor modifications",
+          "Authentication system integration"
+        ],
+        "risk_level": "Medium"
+      },
+      "interface_map": {
+        "adapter_schema": {
+          "input": {
+            "format": "JSON",
+            "required_fields": [
+              "database_config",
+              "query_params",
+              "auth_token"
+            ]
+          },
+          "output": {
+            "format": "JSON"
+          },
+          "authentication": {
+            "type": "Session-based authentication",
+            "method": "POST /api/session"
+          }
+        },
+        "standardization_level": "High"
+      },
+      "information_gaps": [
+        "Specific query optimization algorithms used",
+        "Cache invalidation strategies",
+        "Performance metrics and scaling limits",
+        "Security audit details",
+        "Database driver extension mechanisms"
+      ]
+    },
+    "timestamp": "2026-03-21T19:40:59.029481"
+  },
+  "errors": []
+}

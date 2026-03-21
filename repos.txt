@@ -1,4 +1,7 @@
-# Batch 3 analysis targets
-https://github.com/grafana/grafana.git
-https://github.com/RocketChat/Rocket.Chat.git
-https://github.com/mastodon/mastodon.git
+# Batch 4 analysis targets
+https://github.com/ClickHouse/ClickHouse.git
+https://github.com/woocommerce/woocommerce.git
+https://github.com/pingcap/tidb.git
+https://github.com/metabase/metabase.git
+https://github.com/apache/superset.git
+https://github.com/go-gitea/gitea.git

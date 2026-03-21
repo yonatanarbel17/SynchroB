@@ -1,0 +1,317 @@
+{
+  "url": "https://github.com/ClickHouse/ClickHouse.git",
+  "repo_name": "ClickHouse",
+  "timestamp": "2026-03-21T19:33:43.250394",
+  "step1": {
+    "product_name": "ClickHouse",
+    "url": "https://github.com/ClickHouse/ClickHouse.git",
+    "analysis": {
+      "summary": "ClickHouse is an open-source columnar OLAP database management system that processes analytical queries on large datasets in real-time. It implements a high-performance SQL engine with vectorized execution, distributed query processing, and specialized storage formats optimized for analytical workloads.",
+      "capabilities": [
+        "Executes SQL queries with OLAP-specific extensions and functions (src/Parsers/, src/Interpreters/)",
+        "Stores data in columnar format with compression and indexing (src/Storages/)",
+        "Processes distributed queries across multiple nodes with query coordination (src/Interpreters/Cluster*)",
+        "Implements vectorized query execution with SIMD optimizations (src/Columns/, src/Functions/)",
+        "Provides HTTP and TCP network interfaces for client connections (src/Server/)",
+        "Supports real-time data ingestion and streaming (src/Storages/Kafka/, src/Storages/RabbitMQ/)",
+        "Implements table engines for various data sources and formats (src/Storages/)",
+        "Provides backup and replication capabilities (src/Backups/, src/Storages/MergeTree/)",
+        "Offers integration with external systems via table functions (src/TableFunctions/)"
+      ],
+      "use_cases": [],
+      "technical_stack": [
+        "C++ (primary implementation language - 4560 .cpp files, 4245 .h files)",
+        "Python (testing and tooling - 1976 .py files)",
+        "CMake (build system - CMakeLists.txt files throughout)",
+        "Rust (performance-critical components - cargo manifests in rust/)",
+        "LLVM (JIT compilation support)",
+        "ClickHouse-specific storage formats and protocols"
+      ],
+      "integrations": [
+        "Apache Kafka (src/Storages/Kafka/)",
+        "RabbitMQ (src/Storages/RabbitMQ/)",
+        "MySQL (src/Storages/MySQL/)",
+        "PostgreSQL (src/Storages/PostgreSQL/)",
+        "MongoDB (src/Storages/MongoDB/)",
+        "Apache Hive (src/Storages/Hive/)",
+        "HDFS (src/Storages/HDFS/)",
+        "S3 and S3-compatible storage (src/Storages/S3/)",
+        "Azure Blob Storage",
+        "Google Cloud Storage",
+        "NATS messaging system",
+        "Redis",
+        "Cassandra"
+      ],
+      "api_endpoints": [],
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      },
+      "target_audience": "Developers",
+      "category": "Open Source Software",
+      "deployment": "Self-hosted",
+      "underlying_algorithm": {
+        "problem_type": "",
+        "pattern": ""
+      },
+      "evidence_tracking": {
+        "confidence_level": "High",
+        "technical_facts": [
+          "Executes SQL queries with OLAP-specific extensions and functions (src/Parsers/, src/Interpreters/)",
+          "Stores data in columnar format with compression and indexing (src/Storages/)",
+          "Processes distributed queries across multiple nodes with query coordination (src/Interpreters/Cluster*)",
+          "Implements vectorized query execution with SIMD optimizations (src/Columns/, src/Functions/)",
+          "Provides HTTP and TCP network interfaces for client connections (src/Server/)",
+          "Supports real-time data ingestion and streaming (src/Storages/Kafka/, src/Storages/RabbitMQ/)",
+          "Implements table engines for various data sources and formats (src/Storages/)",
+          "Provides backup and replication capabilities (src/Backups/, src/Storages/MergeTree/)",
+          "Offers integration with external systems via table functions (src/TableFunctions/)"
+        ],
+        "information_gaps": []
+      },
+      "architecture_patterns": [
+        "monolith with distributed query capabilities",
+        "Concurrency: multi-threaded with thread pools for query execution, background merges, and network handling"
+      ],
+      "auth_methods": [
+        "User/password authentication",
+        "SSL/TLS encryption",
+        "LDAP integration",
+        "Kerberos support"
+      ],
+      "sdk_languages": [
+        "Python",
+        "Java",
+        "Rust",
+        "JavaScript",
+        "C#",
+        "Go",
+        "PHP"
+      ],
+      "dependencies": [
+        "LLVM (JIT compilation)",
+        "Poco (networking and utilities)",
+        "librdkafka (Kafka integration)",
+        "AWS SDK (S3 integration)",
+        "Azure SDK (Azure storage)",
+        "Google Cloud SDK",
+        "OpenSSL (cryptography)",
+        "Infrastructure: ZooKeeper or ClickHouse Keeper (distributed coordination)",
+        "Infrastructure: Optional external storage (S3, HDFS, etc.)",
+        "Infrastructure: Optional message queues (Kafka, RabbitMQ)"
+      ],
+      "deployment_options": [
+        "Containerized (Docker)",
+        "CI/CD: GitHub Actions (extensive CI pipeline in .github/workflows/)"
+      ]
+    },
+    "extracted_data": {},
+    "source": "local_repo",
+    "source_confidence": "high",
+    "timestamp": "2026-03-21T19:34:40.299780"
+  },
+  "step2": {
+    "step1_data": {
+      "product_name": "ClickHouse",
+      "url": "https://github.com/ClickHouse/ClickHouse.git",
+      "analysis": {
+        "summary": "ClickHouse is an open-source columnar OLAP database management system that processes analytical queries on large datasets in real-time. It implements a high-performance SQL engine with vectorized execution, distributed query processing, and specialized storage formats optimized for analytical workloads.",
+        "capabilities": [
+          "Executes SQL queries with OLAP-specific extensions and functions (src/Parsers/, src/Interpreters/)",
+          "Stores data in columnar format with compression and indexing (src/Storages/)",
+          "Processes distributed queries across multiple nodes with query coordination (src/Interpreters/Cluster*)",
+          "Implements vectorized query execution with SIMD optimizations (src/Columns/, src/Functions/)",
+          "Provides HTTP and TCP network interfaces for client connections (src/Server/)",
+          "Supports real-time data ingestion and streaming (src/Storages/Kafka/, src/Storages/RabbitMQ/)",
+          "Implements table engines for various data sources and formats (src/Storages/)",
+          "Provides backup and replication capabilities (src/Backups/, src/Storages/MergeTree/)",
+          "Offers integration with external systems via table functions (src/TableFunctions/)"
+        ],
+        "use_cases": [],
+        "technical_stack": [
+          "C++ (primary implementation language - 4560 .cpp files, 4245 .h files)",
+          "Python (testing and tooling - 1976 .py files)",
+          "CMake (build system - CMakeLists.txt files throughout)",
+          "Rust (performance-critical components - cargo manifests in rust/)",
+          "LLVM (JIT compilation support)",
+          "ClickHouse-specific storage formats and protocols"
+        ],
+        "integrations": [
+          "Apache Kafka (src/Storages/Kafka/)",
+          "RabbitMQ (src/Storages/RabbitMQ/)",
+          "MySQL (src/Storages/MySQL/)",
+          "PostgreSQL (src/Storages/PostgreSQL/)",
+          "MongoDB (src/Storages/MongoDB/)",
+          "Apache Hive (src/Storages/Hive/)",
+          "HDFS (src/Storages/HDFS/)",
+          "S3 and S3-compatible storage (src/Storages/S3/)",
+          "Azure Blob Storage",
+          "Google Cloud Storage",
+          "NATS messaging system",
+          "Redis",
+          "Cassandra"
+        ],
+        "api_endpoints": [],
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        },
+        "target_audience": "Developers",
+        "category": "Open Source Software",
+        "deployment": "Self-hosted",
+        "underlying_algorithm": {
+          "problem_type": "",
+          "pattern": ""
+        },
+        "evidence_tracking": {
+          "confidence_level": "High",
+          "technical_facts": [
+            "Executes SQL queries with OLAP-specific extensions and functions (src/Parsers/, src/Interpreters/)",
+            "Stores data in columnar format with compression and indexing (src/Storages/)",
+            "Processes distributed queries across multiple nodes with query coordination (src/Interpreters/Cluster*)",
+            "Implements vectorized query execution with SIMD optimizations (src/Columns/, src/Functions/)",
+            "Provides HTTP and TCP network interfaces for client connections (src/Server/)",
+            "Supports real-time data ingestion and streaming (src/Storages/Kafka/, src/Storages/RabbitMQ/)",
+            "Implements table engines for various data sources and formats (src/Storages/)",
+            "Provides backup and replication capabilities (src/Backups/, src/Storages/MergeTree/)",
+            "Offers integration with external systems via table functions (src/TableFunctions/)"
+          ],
+          "information_gaps": []
+        },
+        "architecture_patterns": [
+          "monolith with distributed query capabilities",
+          "Concurrency: multi-threaded with thread pools for query execution, background merges, and network handling"
+        ],
+        "auth_methods": [
+          "User/password authentication",
+          "SSL/TLS encryption",
+          "LDAP integration",
+          "Kerberos support"
+        ],
+        "sdk_languages": [
+          "Python",
+          "Java",
+          "Rust",
+          "JavaScript",
+          "C#",
+          "Go",
+          "PHP"
+        ],
+        "dependencies": [
+          "LLVM (JIT compilation)",
+          "Poco (networking and utilities)",
+          "librdkafka (Kafka integration)",
+          "AWS SDK (S3 integration)",
+          "Azure SDK (Azure storage)",
+          "Google Cloud SDK",
+          "OpenSSL (cryptography)",
+          "Infrastructure: ZooKeeper or ClickHouse Keeper (distributed coordination)",
+          "Infrastructure: Optional external storage (S3, HDFS, etc.)",
+          "Infrastructure: Optional message queues (Kafka, RabbitMQ)"
+        ],
+        "deployment_options": [
+          "Containerized (Docker)",
+          "CI/CD: GitHub Actions (extensive CI pipeline in .github/workflows/)"
+        ]
+      },
+      "extracted_data": {},
+      "source": "local_repo",
+      "source_confidence": "high",
+      "timestamp": "2026-03-21T19:34:40.299780"
+    },
+    "generalization": {
+      "functional_dna": {
+        "logic_archetype": "Data Aggregator",
+        "logic_archetype_evidence": "Stores data in columnar format with compression and indexing (src/Storages/), Processes distributed queries across multiple nodes with query coordination (src/Interpreters/Cluster*), Executes SQL queries with OLAP-specific extensions and functions",
+        "data_contract_strictness": "Highly Structured",
+        "data_contract_evidence": "Executes SQL queries with OLAP-specific extensions and functions (src/Parsers/, src/Interpreters/), Stores data in columnar format with compression and indexing (src/Storages/)",
+        "core_algorithmic_class": "Time-Series Processing",
+        "core_algorithmic_evidence": "Supports real-time data ingestion and streaming (src/Storages/Kafka/, src/Storages/RabbitMQ/), Implements vectorized query execution with SIMD optimizations (src/Columns/, src/Functions/)",
+        "concurrency_requirements": "Eventually Consistent",
+        "concurrency_evidence": "Processes distributed queries across multiple nodes with query coordination (src/Interpreters/Cluster*), Infrastructure: ZooKeeper or ClickHouse Keeper (distributed coordination)",
+        "repurposing_confidence": 8,
+        "repurposing_reasoning": "High confidence due to generic SQL interface, extensive integration capabilities, and modular storage engines. The columnar storage and vectorized execution patterns are broadly applicable to analytical workloads across industries."
+      },
+      "evidence_claims": [
+        {
+          "claim": "Implements columnar storage with vectorized execution",
+          "evidence": "Stores data in columnar format with compression and indexing (src/Storages/), Implements vectorized query execution with SIMD optimizations (src/Columns/, src/Functions/)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Supports distributed query processing",
+          "evidence": "Processes distributed queries across multiple nodes with query coordination (src/Interpreters/Cluster*)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Provides standard SQL interface with OLAP extensions",
+          "evidence": "Executes SQL queries with OLAP-specific extensions and functions (src/Parsers/, src/Interpreters/)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Supports real-time data ingestion",
+          "evidence": "Supports real-time data ingestion and streaming (src/Storages/Kafka/, src/Storages/RabbitMQ/)",
+          "confidence": "High"
+        }
+      ],
+      "market_reach": {
+        "primary_industry": "Data Analytics",
+        "cross_industry_applications": [
+          "Financial Services",
+          "E-commerce",
+          "Telecommunications",
+          "Healthcare",
+          "Manufacturing",
+          "IoT",
+          "Gaming"
+        ],
+        "utility_score": 9,
+        "market_potential": "High"
+      },
+      "friction_report": {
+        "difficulty": "Medium",
+        "estimated_hours": 80,
+        "required_technologies": [
+          "C++ (primary implementation language - 4560 .cpp files, 4245 .h files)",
+          "CMake (build system - CMakeLists.txt files throughout)",
+          "Infrastructure: ZooKeeper or ClickHouse Keeper (distributed coordination)"
+        ],
+        "complexity_factors": [
+          "Distributed system coordination",
+          "C++ compilation requirements",
+          "Storage engine configuration",
+          "Query optimization tuning"
+        ],
+        "risk_level": "Medium"
+      },
+      "interface_map": {
+        "adapter_schema": {
+          "input": {
+            "format": "SQL",
+            "required_fields": [
+              "query",
+              "database",
+              "table"
+            ]
+          },
+          "output": {
+            "format": "JSON"
+          },
+          "authentication": {
+            "type": "User/password authentication",
+            "method": "HTTP and TCP network interfaces for client connections (src/Server/)"
+          }
+        },
+        "standardization_level": "High"
+      },
+      "information_gaps": [
+        "Specific query performance metrics",
+        "Memory requirements for different data volumes",
+        "Detailed backup/recovery procedures",
+        "Specific SIMD instruction sets supported"
+      ]
+    },
+    "timestamp": "2026-03-21T19:34:53.033277"
+  },
+  "errors": []
+}
