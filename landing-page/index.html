@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SynchroB — Stop Re-inventing. Start Re-integrating.</title>
+  <meta name="description" content="AI-powered B2B hub that mediates between technology providers and seekers.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #1C1C1C;
+      color: #fff;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 120px;
+      background: #1C1C1C;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+    }
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: white;
+    }
+    .navbar-logo span {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+    }
+    .navbar-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .navbar-links a {
+      font-size: 14px;
+      color: white;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .navbar-links a:hover { color: #8B7355; }
+
+    /* Hero */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 700px;
+      padding: 120px;
+      padding-top: 160px;
+    }
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 72px;
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      max-width: 780px;
+      margin-bottom: 24px;
+    }
+    .hero p {
+      font-size: 18px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.6);
+      max-width: 600px;
+      margin-bottom: 40px;
+    }
+    .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 24px;
+      background: #8B7355;
+      color: white;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 8px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-gold:hover { background: #9c8362; }
+
+    /* Sections */
+    .section { padding: 120px; }
+    .section-badge {
+      display: inline-flex;
+      padding: 6px 14px;
+      border: 1px solid rgba(139,115,85,0.3);
+      border-radius: 100px;
+      margin-bottom: 16px;
+    }
+    .section-badge span {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      color: #8B7355;
+      text-transform: uppercase;
+    }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 44px;
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      margin-bottom: 48px;
+    }
+
+    /* Cards */
+    .cards-row {
+      display: flex;
+      gap: 24px;
+      padding: 0 120px;
+      margin-top: -72px;
+    }
+    .card {
+      flex: 1;
+      background: #2A2A2A;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 32px;
+    }
+    .card-icon {
+      width: 48px; height: 48px;
+      border-radius: 10px;
+      background: rgba(139,115,85,0.1);
+      border: 1px solid rgba(139,115,85,0.3);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .card p {
+      font-size: 15px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* How It Works */
+    .how-section {
+      padding: 120px;
+      background: #141414;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .steps-row { display: flex; gap: 32px; }
+    .step { flex: 1; }
+    .step-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: #8B7355;
+      margin-bottom: 16px;
+    }
+    .step h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .step p {
+      font-size: 15px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* Market */
+    .market-section {
+      padding: 120px;
+      background: #141414;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .market-row { display: flex; gap: 32px; }
+    .market-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 24px;
+      background: #1C1C1C;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+    }
+    .market-card .value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 56px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .market-card .label {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 4px;
+    }
+    .market-card .sub {
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* Team */
+    .team-section { padding: 120px; }
+    .team-row {
+      display: flex;
+      gap: 32px;
+      max-width: 1200px;
+    }
+    .team-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #2A2A2A;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 32px;
+    }
+    .team-card .avatar {
+      width: 146px; height: 159px;
+      border-radius: 50%;
+      border: 2px solid rgba(139,115,85,0.3);
+      margin-bottom: 16px;
+      overflow: hidden;
+      background: #1C1C1C;
+    }
+    .team-card .avatar img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .team-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .team-card .role {
+      font-size: 14px;
+      font-weight: 500;
+      color: #8B7355;
+      margin-bottom: 12px;
+    }
+    .team-card p {
+      font-size: 14px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+    }
+
+    /* Footer */
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 40px 120px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .navbar { padding: 10px 24px; }
+      .navbar-links { display: none; }
+      .hero { padding: 100px 24px; }
+      .hero h1 { font-size: 36px; }
+      .section, .how-section, .market-section, .team-section { padding: 80px 24px; }
+      .cards-row { flex-direction: column; padding: 0 24px; margin-top: -40px; }
+      .steps-row, .market-row, .team-row { flex-direction: column; }
+      .footer { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="#" class="navbar-logo">
+      <svg width="36" height="36" viewBox="0 0 100 100" fill="none">
+        <path d="M50 10 L75 25 L75 45 L60 53 L75 61 L75 80 L50 95 L25 80 L25 61 L40 53 L25 45 L25 25 Z" stroke="white" stroke-width="3" fill="none"/>
+        <circle cx="30" cy="20" r="4" fill="white"/>
+        <circle cx="70" cy="85" r="4" fill="white"/>
+      </svg>
+      <span>SYNCHRO B</span>
+    </a>
+    <ul class="navbar-links">
+      <li><a href="#problem">Problem</a></li>
+      <li><a href="#solution">Solution</a></li>
+
+      <li><a href="#market">Market</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="early-access.html" class="btn-gold" style="border-radius: 20px; font-size: 14px;">Get Early Access</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Stop Re-inventing. Start Re-integrating.</h1>
+    <p>SynchroB is a global AI-driven B2B hub, that autonomously analyzes millions of software products to pinpoint the perfect technical match for any R&D requirement. Unlike traditional marketplaces that rely on active seller listings, our system independently maps the functional DNA of existing technologies, providing seekers with instant compatibility analysis and automated integration roadmaps to replace 'from-scratch' development.</p>
+    <div>
+      <a href="early-access.html" class="btn-gold">Get Early Access</a>
+    </div>
+  </section>
+
+  <!-- Problem -->
+  <section id="problem" class="section">
+    <div class="section-badge"><span>The Problem</span></div>
+    <h2 class="section-title" style="max-width: 600px;">The tech industry wastes billions re-building what already exists</h2>
+  </section>
+
+  <div class="cards-row">
+    <div class="card">
+      <div class="card-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8B7355" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      </div>
+      <h3>Redundant R&D Spending</h3>
+      <p>Global tech companies waste billions annually re-inventing the wheel — building features that have already been perfected elsewhere.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8B7355" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
+      <h3>The Startup Death Valley</h3>
+      <p>High-potential startups collapse between funding rounds, despite possessing world-class, market-ready intellectual property.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8B7355" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      </div>
+      <h3>The Implementation Gap</h3>
+      <p>Companies avoid licensing existing tech because they don't know how to fit it into their architecture, leading to wasted time and resources.</p>
+    </div>
+  </div>
+
+  <!-- How It Works -->
+  <section id="solution" class="how-section">
+    <div class="section-badge"><span>How It Works</span></div>
+    <h2 class="section-title" style="max-width: 700px;">The intelligent mediator between technology supply and demand</h2>
+    <div class="steps-row">
+      <div class="step">
+        <div class="step-number">01</div>
+        <h3>The Global Detective (Deep Discovery)</h3>
+        <p>Our AI doesn't wait for "sellers" to sign up. It acts as a 24/7 researcher, scanning millions of software products across the globe. It looks "under the hood" to understand exactly what a piece of technology does at a granular level—not just what the marketing says.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">02</div>
+        <h3>The Expert Audit (Strength Assessment)</h3>
+        <p>Finding the tech is only the start. Our system automatically identifies the "superpowers" of every module. We evaluate its performance and reliability so that when we recommend a solution, you know it's the absolute best-in-class for your needs.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">03</div>
+        <h3>The Perfect Match & Manual (Instant Integration)</h3>
+        <p>You simply describe the feature you want to build. SynchroB instantly finds the perfect existing "puzzle piece" to match your request. We don't just give you a link; we provide a custom Integration Blueprint—a step-by-step instruction manual that turns few months of hard coding into just a few days of simple integration.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Market -->
+  <section id="market" class="market-section">
+    <div class="section-badge"><span>Market Opportunity</span></div>
+    <h2 class="section-title">A massive, underserved market</h2>
+    <div class="market-row">
+      <div class="market-card">
+        <div class="value">$450B</div>
+        <div class="label">Total Addressable Market</div>
+        <div class="sub">Global IT Integration</div>
+      </div>
+      <div class="market-card">
+        <div class="value">$60B</div>
+        <div class="label">Serviceable Addressable Market</div>
+        <div class="sub">B2B Software Licensing & AI Tools</div>
+      </div>
+      <div class="market-card">
+        <div class="value">$150M</div>
+        <div class="label">Serviceable Obtainable Market</div>
+        <div class="sub">First 3 years — AI, FinTech, Cyber</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section id="team" class="team-section">
+    <div class="section-badge"><span>The Team</span></div>
+    <h2 class="section-title">Meet the Founders</h2>
+    <div class="team-row">
+      <div class="team-card">
+        <div class="avatar"><img src="assets/5236ab2a-2228-4131-8524-a0b9f3e9dd5d.JPG" alt="Yonatan Arbel"></div>
+        <h3>Yonatan Arbel</h3>
+        <div class="role">Founder | CEO & Chief of Innovation</div>
+        <p>B.Sc. in Computer Science (Data Science). Member of the 'Ashalim' excellence program. Software Engineer Intern at eToro. Expert in Deep Learning algorithms and high-scale systems.</p>
+      </div>
+      <div class="team-card">
+        <div class="avatar"><img src="assets/2yxPMj3d0EM.JPEG" alt="Nadav Levy"></div>
+        <h3>Nadav Levy</h3>
+        <div class="role">Co-Founder | GTM & Head of Product</div>
+        <p>Customer Success Lead at Bites. Leads end-to-end client management for Israeli and European markets, specializing in strategic account management and B2B strategy. Currently a 3rd year Communications student.</p>
+      </div>
+      <div class="team-card">
+        <div class="avatar"><img src="assets/97bf693f-81a8-443d-8a2a-ae01d0d800c1.JPG" alt="Ohad Rosenfeld"></div>
+        <h3>Ohad Rosenfeld</h3>
+        <div class="role">Co-Founder | Head of Revenue Team</div>
+        <p>Ex Israeli Air Force. Working as a field salesman and running a non-profit for children at risk.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2026 SynchroB. All rights reserved.</p>
+  </footer>
+
+
+  <script>
+    const TRACKER = 'https://script.google.com/macros/s/AKfycbznfxd6jRiNQcpzPY6tTU9mLcycLuPu6ixZQLj8JVDxvV2FQe00C8JCx0G7k5mpmDlMzw/exec';
+
+    function track(event, page) {
+      fetch(`${TRACKER}?event=${event}&page=${page}&referrer=${encodeURIComponent(document.referrer)}`, { mode: 'no-cors' });
+    }
+
+    // Track page view
+    track('view', 'index');
+
+    // Track all "Get Early Access" clicks
+    document.querySelectorAll('a[href="early-access.html"]').forEach(el => {
+      el.addEventListener('click', () => track('click', 'index'));
+    });
+  </script>
+</body>
+</html>

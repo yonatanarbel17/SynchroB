@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SynchroB — Early Access</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #1C1C1C;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 24px;
+    }
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 36px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    p {
+      color: rgba(255,255,255,0.6);
+      font-size: 18px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>Coming Soon</h1>
+    <p>We're working on something exciting. Stay tuned for early access to SynchroB.</p>
+  </div>
+
+  <script>
+    const TRACKER = 'https://script.google.com/macros/s/AKfycbznfxd6jRiNQcpzPY6tTU9mLcycLuPu6ixZQLj8JVDxvV2FQe00C8JCx0G7k5mpmDlMzw/exec';
+    fetch(`${TRACKER}?event=view&page=early-access&referrer=${encodeURIComponent(document.referrer)}`, { mode: 'no-cors' });
+  </script>
+</body>
+</html>
