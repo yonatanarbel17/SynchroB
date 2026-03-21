@@ -1,0 +1,383 @@
+{
+  "url": "https://github.com/RocketChat/Rocket.Chat.git",
+  "repo_name": "Rocket.Chat",
+  "timestamp": "2026-03-21T15:12:33.524527",
+  "step1": {
+    "product_name": "Rocket.Chat",
+    "url": "https://github.com/RocketChat/Rocket.Chat.git",
+    "analysis": {
+      "summary": "Rocket.Chat is an open-source team communication platform built on Meteor/Node.js that provides real-time messaging, omnichannel customer support, and collaborative workspace features with role-based access control and extensive integration capabilities.",
+      "capabilities": [
+        "Real-time messaging and chat functionality with WebSocket support (apps/meteor/app/lib/server/methods/sendMessage.ts, WebSocket handlers)",
+        "Two-factor authentication with TOTP and email verification (apps/meteor/app/2fa/server/)",
+        "Omnichannel customer support with transcript generation (ee/apps/omnichannel-transcript/)",
+        "REST API with comprehensive endpoint coverage (apps/meteor/app/api/server/)",
+        "File upload and storage with S3 and Google Cloud integration (apps/meteor dependencies @aws-sdk, @google-cloud/storage)",
+        "Video conferencing integration with WebRTC (apps/meteor dependencies)",
+        "User presence tracking and status management (ee/apps/presence-service/)",
+        "Push notifications via FCM and APN (apps/meteor dependencies @parse/node-apn)",
+        "OAuth2 server functionality (apps/meteor dependency @node-oauth/oauth2-server)",
+        "PDF generation for transcripts and reports (dependencies @react-pdf/renderer)",
+        "Email processing and SMTP integration (apps/meteor/app/api/server/lib/emailInbox.ts)",
+        "Rate limiting and security controls (apps/meteor/app/api/server/)",
+        "Multi-tenant workspace support with role-based permissions",
+        "App marketplace and custom app development platform (dependencies @rocket.chat/apps-engine)"
+      ],
+      "use_cases": [],
+      "technical_stack": [
+        "Meteor.js framework (apps/meteor/.meteor/)",
+        "Node.js runtime",
+        "TypeScript (5843 .ts files, package.json typescript ~5.9.3)",
+        "React 18.3.1 (apps/meteor/package.json)",
+        "MongoDB 6.16.0 (multiple package.json files)",
+        "Express.js (multiple services)",
+        "WebSockets (ws ~8.19.0)",
+        "NATS message broker (nats ^2.28.2)",
+        "Moleculer microservices framework (moleculer ^0.14.35)",
+        "AWS SDK v3 (S3 integration)",
+        "Google Cloud Storage",
+        "bcrypt for password hashing",
+        "Pino logging framework",
+        "Docker containerization"
+      ],
+      "integrations": [
+        "AWS S3 for file storage (@aws-sdk packages)",
+        "Google Cloud Storage (@google-cloud/storage)",
+        "Apple Push Notifications (@parse/node-apn)",
+        "Firebase Cloud Messaging",
+        "WhatsApp Business API",
+        "SMS providers",
+        "Email services (SMTP)",
+        "WebRTC for video calls",
+        "LDAP/Active Directory",
+        "Jaeger distributed tracing (jaeger-client)",
+        "OpenTelemetry (@opentelemetry packages)",
+        "Bugsnag error tracking (@bugsnag/js)"
+      ],
+      "api_endpoints": [
+        {
+          "method": "GET",
+          "path": "/api/info",
+          "summary": "Server information endpoint (apps/meteor/app/api/server/default/info.ts)"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/openapi",
+          "summary": "OpenAPI documentation (apps/meteor/app/api/server/default/openApi.ts)"
+        },
+        {
+          "method": null,
+          "path": "Various REST API endpoints under /api/v1/ namespace (apps/meteor/app/api/server/)",
+          "summary": null
+        }
+      ],
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      },
+      "target_audience": "Developers",
+      "category": "Open Source Software",
+      "deployment": "Self-hosted",
+      "underlying_algorithm": {
+        "problem_type": "",
+        "pattern": ""
+      },
+      "evidence_tracking": {
+        "confidence_level": "High",
+        "technical_facts": [
+          "Real-time messaging and chat functionality with WebSocket support (apps/meteor/app/lib/server/methods/sendMessage.ts, WebSocket handlers)",
+          "Two-factor authentication with TOTP and email verification (apps/meteor/app/2fa/server/)",
+          "Omnichannel customer support with transcript generation (ee/apps/omnichannel-transcript/)",
+          "REST API with comprehensive endpoint coverage (apps/meteor/app/api/server/)",
+          "File upload and storage with S3 and Google Cloud integration (apps/meteor dependencies @aws-sdk, @google-cloud/storage)",
+          "Video conferencing integration with WebRTC (apps/meteor dependencies)",
+          "User presence tracking and status management (ee/apps/presence-service/)",
+          "Push notifications via FCM and APN (apps/meteor dependencies @parse/node-apn)",
+          "OAuth2 server functionality (apps/meteor dependency @node-oauth/oauth2-server)",
+          "PDF generation for transcripts and reports (dependencies @react-pdf/renderer)"
+        ],
+        "information_gaps": []
+      },
+      "architecture_patterns": [
+        "microservices",
+        "Concurrency: async/await with Node.js event loop, Meteor Fibers for legacy code, microservices communication via NATS"
+      ],
+      "auth_methods": [
+        "Two-Factor Authentication with TOTP (apps/meteor/app/2fa/server/)",
+        "Email verification codes (apps/meteor/app/2fa/server/code/EmailCheck.ts)",
+        "OAuth2 server (dependency @node-oauth/oauth2-server)",
+        "JWT tokens",
+        "Password-based authentication with bcrypt",
+        "LDAP integration",
+        "SAML authentication"
+      ],
+      "sdk_languages": [],
+      "dependencies": [
+        "Meteor framework",
+        "MongoDB 6.16.0",
+        "NATS ^2.28.2",
+        "moleculer ^0.14.35",
+        "express ^4.21.2",
+        "ws ~8.19.0",
+        "bcrypt ^5.1.1",
+        "pino 10.3.1",
+        "@aws-sdk/client-s3 ^3.862.0",
+        "@google-cloud/storage ^7.15.0",
+        "Infrastructure: MongoDB database",
+        "Infrastructure: NATS message broker",
+        "Infrastructure: Redis (for caching)",
+        "Infrastructure: S3-compatible storage",
+        "Infrastructure: SMTP server"
+      ],
+      "deployment_options": [
+        "Containerized (Docker)",
+        "CI/CD: GitHub Actions (multiple workflow files in .github/)"
+      ]
+    },
+    "extracted_data": {},
+    "source": "local_repo",
+    "source_confidence": "high",
+    "timestamp": "2026-03-21T15:14:18.708373"
+  },
+  "step2": {
+    "step1_data": {
+      "product_name": "Rocket.Chat",
+      "url": "https://github.com/RocketChat/Rocket.Chat.git",
+      "analysis": {
+        "summary": "Rocket.Chat is an open-source team communication platform built on Meteor/Node.js that provides real-time messaging, omnichannel customer support, and collaborative workspace features with role-based access control and extensive integration capabilities.",
+        "capabilities": [
+          "Real-time messaging and chat functionality with WebSocket support (apps/meteor/app/lib/server/methods/sendMessage.ts, WebSocket handlers)",
+          "Two-factor authentication with TOTP and email verification (apps/meteor/app/2fa/server/)",
+          "Omnichannel customer support with transcript generation (ee/apps/omnichannel-transcript/)",
+          "REST API with comprehensive endpoint coverage (apps/meteor/app/api/server/)",
+          "File upload and storage with S3 and Google Cloud integration (apps/meteor dependencies @aws-sdk, @google-cloud/storage)",
+          "Video conferencing integration with WebRTC (apps/meteor dependencies)",
+          "User presence tracking and status management (ee/apps/presence-service/)",
+          "Push notifications via FCM and APN (apps/meteor dependencies @parse/node-apn)",
+          "OAuth2 server functionality (apps/meteor dependency @node-oauth/oauth2-server)",
+          "PDF generation for transcripts and reports (dependencies @react-pdf/renderer)",
+          "Email processing and SMTP integration (apps/meteor/app/api/server/lib/emailInbox.ts)",
+          "Rate limiting and security controls (apps/meteor/app/api/server/)",
+          "Multi-tenant workspace support with role-based permissions",
+          "App marketplace and custom app development platform (dependencies @rocket.chat/apps-engine)"
+        ],
+        "use_cases": [],
+        "technical_stack": [
+          "Meteor.js framework (apps/meteor/.meteor/)",
+          "Node.js runtime",
+          "TypeScript (5843 .ts files, package.json typescript ~5.9.3)",
+          "React 18.3.1 (apps/meteor/package.json)",
+          "MongoDB 6.16.0 (multiple package.json files)",
+          "Express.js (multiple services)",
+          "WebSockets (ws ~8.19.0)",
+          "NATS message broker (nats ^2.28.2)",
+          "Moleculer microservices framework (moleculer ^0.14.35)",
+          "AWS SDK v3 (S3 integration)",
+          "Google Cloud Storage",
+          "bcrypt for password hashing",
+          "Pino logging framework",
+          "Docker containerization"
+        ],
+        "integrations": [
+          "AWS S3 for file storage (@aws-sdk packages)",
+          "Google Cloud Storage (@google-cloud/storage)",
+          "Apple Push Notifications (@parse/node-apn)",
+          "Firebase Cloud Messaging",
+          "WhatsApp Business API",
+          "SMS providers",
+          "Email services (SMTP)",
+          "WebRTC for video calls",
+          "LDAP/Active Directory",
+          "Jaeger distributed tracing (jaeger-client)",
+          "OpenTelemetry (@opentelemetry packages)",
+          "Bugsnag error tracking (@bugsnag/js)"
+        ],
+        "api_endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/info",
+            "summary": "Server information endpoint (apps/meteor/app/api/server/default/info.ts)"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/openapi",
+            "summary": "OpenAPI documentation (apps/meteor/app/api/server/default/openApi.ts)"
+          },
+          {
+            "method": null,
+            "path": "Various REST API endpoints under /api/v1/ namespace (apps/meteor/app/api/server/)",
+            "summary": null
+          }
+        ],
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        },
+        "target_audience": "Developers",
+        "category": "Open Source Software",
+        "deployment": "Self-hosted",
+        "underlying_algorithm": {
+          "problem_type": "",
+          "pattern": ""
+        },
+        "evidence_tracking": {
+          "confidence_level": "High",
+          "technical_facts": [
+            "Real-time messaging and chat functionality with WebSocket support (apps/meteor/app/lib/server/methods/sendMessage.ts, WebSocket handlers)",
+            "Two-factor authentication with TOTP and email verification (apps/meteor/app/2fa/server/)",
+            "Omnichannel customer support with transcript generation (ee/apps/omnichannel-transcript/)",
+            "REST API with comprehensive endpoint coverage (apps/meteor/app/api/server/)",
+            "File upload and storage with S3 and Google Cloud integration (apps/meteor dependencies @aws-sdk, @google-cloud/storage)",
+            "Video conferencing integration with WebRTC (apps/meteor dependencies)",
+            "User presence tracking and status management (ee/apps/presence-service/)",
+            "Push notifications via FCM and APN (apps/meteor dependencies @parse/node-apn)",
+            "OAuth2 server functionality (apps/meteor dependency @node-oauth/oauth2-server)",
+            "PDF generation for transcripts and reports (dependencies @react-pdf/renderer)"
+          ],
+          "information_gaps": []
+        },
+        "architecture_patterns": [
+          "microservices",
+          "Concurrency: async/await with Node.js event loop, Meteor Fibers for legacy code, microservices communication via NATS"
+        ],
+        "auth_methods": [
+          "Two-Factor Authentication with TOTP (apps/meteor/app/2fa/server/)",
+          "Email verification codes (apps/meteor/app/2fa/server/code/EmailCheck.ts)",
+          "OAuth2 server (dependency @node-oauth/oauth2-server)",
+          "JWT tokens",
+          "Password-based authentication with bcrypt",
+          "LDAP integration",
+          "SAML authentication"
+        ],
+        "sdk_languages": [],
+        "dependencies": [
+          "Meteor framework",
+          "MongoDB 6.16.0",
+          "NATS ^2.28.2",
+          "moleculer ^0.14.35",
+          "express ^4.21.2",
+          "ws ~8.19.0",
+          "bcrypt ^5.1.1",
+          "pino 10.3.1",
+          "@aws-sdk/client-s3 ^3.862.0",
+          "@google-cloud/storage ^7.15.0",
+          "Infrastructure: MongoDB database",
+          "Infrastructure: NATS message broker",
+          "Infrastructure: Redis (for caching)",
+          "Infrastructure: S3-compatible storage",
+          "Infrastructure: SMTP server"
+        ],
+        "deployment_options": [
+          "Containerized (Docker)",
+          "CI/CD: GitHub Actions (multiple workflow files in .github/)"
+        ]
+      },
+      "extracted_data": {},
+      "source": "local_repo",
+      "source_confidence": "high",
+      "timestamp": "2026-03-21T15:14:18.708373"
+    },
+    "generalization": {
+      "functional_dna": {
+        "logic_archetype": "Stateful Orchestrator",
+        "logic_archetype_evidence": "Real-time messaging and chat functionality with WebSocket support (apps/meteor/app/lib/server/methods/sendMessage.ts, WebSocket handlers), User presence tracking and status management (ee/apps/presence-service/), microservices architecture with NATS message broker",
+        "data_contract_strictness": "Moderately Structured",
+        "data_contract_evidence": "MongoDB 6.16.0 (multiple package.json files), TypeScript (5843 .ts files, package.json typescript ~5.9.3), REST API with comprehensive endpoint coverage",
+        "core_algorithmic_class": "Distributed Consensus",
+        "core_algorithmic_evidence": "NATS message broker (nats ^2.28.2), Moleculer microservices framework (moleculer ^0.14.35), WebSocket support for real-time state synchronization across distributed services",
+        "concurrency_requirements": "Eventually Consistent",
+        "concurrency_evidence": "NATS message broker for async communication, WebSocket handlers for real-time messaging, microservices architecture with distributed state management",
+        "repurposing_confidence": 8,
+        "repurposing_reasoning": "High confidence due to modular microservices architecture with clear separation of concerns. Core real-time messaging, presence tracking, and orchestration patterns are highly reusable across domains requiring collaborative features."
+      },
+      "evidence_claims": [
+        {
+          "claim": "Real-time messaging capabilities with WebSocket support",
+          "evidence": "Real-time messaging and chat functionality with WebSocket support (apps/meteor/app/lib/server/methods/sendMessage.ts, WebSocket handlers)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Microservices architecture with message broker",
+          "evidence": "NATS message broker (nats ^2.28.2), Moleculer microservices framework (moleculer ^0.14.35)",
+          "confidence": "High"
+        },
+        {
+          "claim": "User presence and state management",
+          "evidence": "User presence tracking and status management (ee/apps/presence-service/)",
+          "confidence": "High"
+        },
+        {
+          "claim": "OAuth2 authentication server",
+          "evidence": "OAuth2 server functionality (apps/meteor dependency @node-oauth/oauth2-server)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Multi-cloud storage integration",
+          "evidence": "File upload and storage with S3 and Google Cloud integration (apps/meteor dependencies @aws-sdk, @google-cloud/storage)",
+          "confidence": "High"
+        }
+      ],
+      "market_reach": {
+        "primary_industry": "Communication Software",
+        "cross_industry_applications": [
+          "Healthcare",
+          "Education",
+          "Financial Services",
+          "Gaming",
+          "E-commerce",
+          "Remote Work",
+          "Customer Support"
+        ],
+        "utility_score": 9,
+        "market_potential": "High"
+      },
+      "friction_report": {
+        "difficulty": "Medium",
+        "estimated_hours": 120,
+        "required_technologies": [
+          "Node.js",
+          "MongoDB",
+          "NATS",
+          "Docker",
+          "TypeScript"
+        ],
+        "complexity_factors": [
+          "Microservices coordination",
+          "Real-time state synchronization",
+          "Multi-tenant architecture",
+          "WebSocket connection management"
+        ],
+        "risk_level": "Medium"
+      },
+      "interface_map": {
+        "adapter_schema": {
+          "input": {
+            "format": "JSON",
+            "required_fields": [
+              "message",
+              "channel_id",
+              "user_id"
+            ]
+          },
+          "output": {
+            "format": "JSON"
+          },
+          "authentication": {
+            "type": "OAuth2",
+            "method": "Bearer token"
+          }
+        },
+        "standardization_level": "High"
+      },
+      "information_gaps": [
+        "Database schema details beyond MongoDB usage",
+        "Specific WebRTC implementation details",
+        "Rate limiting configuration and thresholds",
+        "Scaling metrics and performance benchmarks",
+        "Message queue depth and processing guarantees"
+      ]
+    },
+    "timestamp": "2026-03-21T15:14:31.702794"
+  },
+  "errors": []
+}

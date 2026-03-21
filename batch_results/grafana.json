@@ -1,0 +1,429 @@
+{
+  "url": "https://github.com/grafana/grafana.git",
+  "repo_name": "grafana",
+  "timestamp": "2026-03-21T15:09:50.133609",
+  "step1": {
+    "product_name": "grafana",
+    "url": "https://github.com/grafana/grafana.git",
+    "analysis": {
+      "summary": "Grafana is a comprehensive observability platform that processes metrics and logs from multiple data sources, renders interactive dashboards with real-time visualizations, and manages alerting workflows for monitoring and incident response.",
+      "capabilities": [
+        "Renders interactive data visualizations and dashboards from multiple data sources (public/app/core/services/backend_srv.ts)",
+        "Processes and queries metrics from Prometheus, InfluxDB, Elasticsearch and other data sources (pkg/tsdb/)",
+        "Manages alerting rules evaluation and notification delivery to external systems (pkg/services/ngalert/)",
+        "Provides user authentication and authorization with RBAC (pkg/services/auth/)",
+        "Executes real-time log streaming and search capabilities (public/app/features/logs/)",
+        "Manages dashboard provisioning and configuration as code (pkg/services/provisioning/)",
+        "Processes plugin installations and manages plugin lifecycle (pkg/plugins/)",
+        "Handles data source configuration and health monitoring (pkg/services/datasources/)",
+        "Manages team-based access control and organizational units (pkg/services/team/, pkg/services/org/)"
+      ],
+      "use_cases": [],
+      "technical_stack": [
+        "Go (primary backend language, go.mod files throughout)",
+        "TypeScript/React (frontend, package.json files in public/)",
+        "SQLite (default database, pkg/services/sqlstore/)",
+        "PostgreSQL (supported database, docker/blocks/postgres/)",
+        "MySQL (supported database, pkg/services/sqlstore/migrations/)",
+        "Redis (caching layer, pkg/infra/remotecache/)",
+        "Prometheus (metrics collection, pkg/tsdb/prometheus/)",
+        "Grafana UI component library (@grafana/ui in package.json)",
+        "Wire (dependency injection, wire.go files)",
+        "Testify (Go testing, go.mod dependencies)"
+      ],
+      "integrations": [
+        "Prometheus (pkg/tsdb/prometheus/)",
+        "InfluxDB (pkg/tsdb/influxdb/)",
+        "Elasticsearch (pkg/tsdb/elasticsearch/)",
+        "MySQL (pkg/services/sqlstore/)",
+        "PostgreSQL (pkg/services/sqlstore/)",
+        "LDAP (pkg/services/ldap/)",
+        "Slack (pkg/services/notifications/)",
+        "PagerDuty (pkg/services/notifications/)",
+        "Webhook notifications (pkg/services/notifications/)"
+      ],
+      "api_endpoints": [
+        {
+          "method": "GET",
+          "path": "/api/health",
+          "summary": "Health check endpoint (pkg/api/health.go)"
+        },
+        {
+          "method": "POST",
+          "path": "/api/login",
+          "summary": "User authentication (pkg/api/login.go)"
+        },
+        {
+          "method": "GET",
+          "path": "/api/dashboards/home",
+          "summary": "Home dashboard retrieval (pkg/api/dashboard.go)"
+        },
+        {
+          "method": "POST",
+          "path": "/api/dashboards/db",
+          "summary": "Dashboard creation/update (pkg/api/dashboard.go)"
+        },
+        {
+          "method": "GET",
+          "path": "/api/datasources",
+          "summary": "Data source listing (pkg/api/datasource.go)"
+        },
+        {
+          "method": "POST",
+          "path": "/api/datasources",
+          "summary": "Data source creation (pkg/api/datasource.go)"
+        },
+        {
+          "method": "POST",
+          "path": "/api/tsdb/query",
+          "summary": "Time series data querying (pkg/api/metrics.go)"
+        },
+        {
+          "method": "GET",
+          "path": "/api/alerts",
+          "summary": "Alert rule retrieval (pkg/api/alerting.go)"
+        },
+        {
+          "method": "POST",
+          "path": "/api/alerts",
+          "summary": "Alert rule creation (pkg/api/alerting.go)"
+        },
+        {
+          "method": "GET",
+          "path": "/api/user",
+          "summary": "Current user info (pkg/api/user.go)"
+        },
+        {
+          "method": "GET",
+          "path": "/api/org/users",
+          "summary": "Organization user management (pkg/api/org.go)"
+        }
+      ],
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      },
+      "target_audience": "Developers",
+      "category": "Open Source Software",
+      "deployment": "Self-hosted",
+      "underlying_algorithm": {
+        "problem_type": "",
+        "pattern": ""
+      },
+      "evidence_tracking": {
+        "confidence_level": "High",
+        "technical_facts": [
+          "Renders interactive data visualizations and dashboards from multiple data sources (public/app/core/services/backend_srv.ts)",
+          "Processes and queries metrics from Prometheus, InfluxDB, Elasticsearch and other data sources (pkg/tsdb/)",
+          "Manages alerting rules evaluation and notification delivery to external systems (pkg/services/ngalert/)",
+          "Provides user authentication and authorization with RBAC (pkg/services/auth/)",
+          "Executes real-time log streaming and search capabilities (public/app/features/logs/)",
+          "Manages dashboard provisioning and configuration as code (pkg/services/provisioning/)",
+          "Processes plugin installations and manages plugin lifecycle (pkg/plugins/)",
+          "Handles data source configuration and health monitoring (pkg/services/datasources/)",
+          "Manages team-based access control and organizational units (pkg/services/team/, pkg/services/org/)"
+        ],
+        "information_gaps": []
+      },
+      "architecture_patterns": [
+        "monolith",
+        "Concurrency: Go goroutines with HTTP server handling concurrent requests, background services for alerting evaluation and provisioning"
+      ],
+      "auth_methods": [
+        "Basic authentication",
+        "OAuth2",
+        "LDAP",
+        "SAML",
+        "JWT tokens",
+        "API keys",
+        "Anonymous access"
+      ],
+      "sdk_languages": [
+        "Go",
+        "JavaScript/TypeScript",
+        "Python"
+      ],
+      "dependencies": [
+        "github.com/gin-gonic/gin",
+        "github.com/go-sql-driver/mysql",
+        "github.com/lib/pq",
+        "github.com/mattn/go-sqlite3",
+        "github.com/prometheus/client_golang",
+        "github.com/grafana/grafana-plugin-sdk-go",
+        "xorm.io/xorm",
+        "Infrastructure: SQL database (SQLite/PostgreSQL/MySQL)",
+        "Infrastructure: Redis (optional caching)",
+        "Infrastructure: SMTP server (alerting)",
+        "Infrastructure: External data sources (Prometheus, InfluxDB, etc.)"
+      ],
+      "deployment_options": [
+        "Containerized (Docker)",
+        "CI/CD: GitHub Actions"
+      ]
+    },
+    "extracted_data": {},
+    "source": "local_repo",
+    "source_confidence": "high",
+    "timestamp": "2026-03-21T15:11:09.478091"
+  },
+  "step2": {
+    "step1_data": {
+      "product_name": "grafana",
+      "url": "https://github.com/grafana/grafana.git",
+      "analysis": {
+        "summary": "Grafana is a comprehensive observability platform that processes metrics and logs from multiple data sources, renders interactive dashboards with real-time visualizations, and manages alerting workflows for monitoring and incident response.",
+        "capabilities": [
+          "Renders interactive data visualizations and dashboards from multiple data sources (public/app/core/services/backend_srv.ts)",
+          "Processes and queries metrics from Prometheus, InfluxDB, Elasticsearch and other data sources (pkg/tsdb/)",
+          "Manages alerting rules evaluation and notification delivery to external systems (pkg/services/ngalert/)",
+          "Provides user authentication and authorization with RBAC (pkg/services/auth/)",
+          "Executes real-time log streaming and search capabilities (public/app/features/logs/)",
+          "Manages dashboard provisioning and configuration as code (pkg/services/provisioning/)",
+          "Processes plugin installations and manages plugin lifecycle (pkg/plugins/)",
+          "Handles data source configuration and health monitoring (pkg/services/datasources/)",
+          "Manages team-based access control and organizational units (pkg/services/team/, pkg/services/org/)"
+        ],
+        "use_cases": [],
+        "technical_stack": [
+          "Go (primary backend language, go.mod files throughout)",
+          "TypeScript/React (frontend, package.json files in public/)",
+          "SQLite (default database, pkg/services/sqlstore/)",
+          "PostgreSQL (supported database, docker/blocks/postgres/)",
+          "MySQL (supported database, pkg/services/sqlstore/migrations/)",
+          "Redis (caching layer, pkg/infra/remotecache/)",
+          "Prometheus (metrics collection, pkg/tsdb/prometheus/)",
+          "Grafana UI component library (@grafana/ui in package.json)",
+          "Wire (dependency injection, wire.go files)",
+          "Testify (Go testing, go.mod dependencies)"
+        ],
+        "integrations": [
+          "Prometheus (pkg/tsdb/prometheus/)",
+          "InfluxDB (pkg/tsdb/influxdb/)",
+          "Elasticsearch (pkg/tsdb/elasticsearch/)",
+          "MySQL (pkg/services/sqlstore/)",
+          "PostgreSQL (pkg/services/sqlstore/)",
+          "LDAP (pkg/services/ldap/)",
+          "Slack (pkg/services/notifications/)",
+          "PagerDuty (pkg/services/notifications/)",
+          "Webhook notifications (pkg/services/notifications/)"
+        ],
+        "api_endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/health",
+            "summary": "Health check endpoint (pkg/api/health.go)"
+          },
+          {
+            "method": "POST",
+            "path": "/api/login",
+            "summary": "User authentication (pkg/api/login.go)"
+          },
+          {
+            "method": "GET",
+            "path": "/api/dashboards/home",
+            "summary": "Home dashboard retrieval (pkg/api/dashboard.go)"
+          },
+          {
+            "method": "POST",
+            "path": "/api/dashboards/db",
+            "summary": "Dashboard creation/update (pkg/api/dashboard.go)"
+          },
+          {
+            "method": "GET",
+            "path": "/api/datasources",
+            "summary": "Data source listing (pkg/api/datasource.go)"
+          },
+          {
+            "method": "POST",
+            "path": "/api/datasources",
+            "summary": "Data source creation (pkg/api/datasource.go)"
+          },
+          {
+            "method": "POST",
+            "path": "/api/tsdb/query",
+            "summary": "Time series data querying (pkg/api/metrics.go)"
+          },
+          {
+            "method": "GET",
+            "path": "/api/alerts",
+            "summary": "Alert rule retrieval (pkg/api/alerting.go)"
+          },
+          {
+            "method": "POST",
+            "path": "/api/alerts",
+            "summary": "Alert rule creation (pkg/api/alerting.go)"
+          },
+          {
+            "method": "GET",
+            "path": "/api/user",
+            "summary": "Current user info (pkg/api/user.go)"
+          },
+          {
+            "method": "GET",
+            "path": "/api/org/users",
+            "summary": "Organization user management (pkg/api/org.go)"
+          }
+        ],
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        },
+        "target_audience": "Developers",
+        "category": "Open Source Software",
+        "deployment": "Self-hosted",
+        "underlying_algorithm": {
+          "problem_type": "",
+          "pattern": ""
+        },
+        "evidence_tracking": {
+          "confidence_level": "High",
+          "technical_facts": [
+            "Renders interactive data visualizations and dashboards from multiple data sources (public/app/core/services/backend_srv.ts)",
+            "Processes and queries metrics from Prometheus, InfluxDB, Elasticsearch and other data sources (pkg/tsdb/)",
+            "Manages alerting rules evaluation and notification delivery to external systems (pkg/services/ngalert/)",
+            "Provides user authentication and authorization with RBAC (pkg/services/auth/)",
+            "Executes real-time log streaming and search capabilities (public/app/features/logs/)",
+            "Manages dashboard provisioning and configuration as code (pkg/services/provisioning/)",
+            "Processes plugin installations and manages plugin lifecycle (pkg/plugins/)",
+            "Handles data source configuration and health monitoring (pkg/services/datasources/)",
+            "Manages team-based access control and organizational units (pkg/services/team/, pkg/services/org/)"
+          ],
+          "information_gaps": []
+        },
+        "architecture_patterns": [
+          "monolith",
+          "Concurrency: Go goroutines with HTTP server handling concurrent requests, background services for alerting evaluation and provisioning"
+        ],
+        "auth_methods": [
+          "Basic authentication",
+          "OAuth2",
+          "LDAP",
+          "SAML",
+          "JWT tokens",
+          "API keys",
+          "Anonymous access"
+        ],
+        "sdk_languages": [
+          "Go",
+          "JavaScript/TypeScript",
+          "Python"
+        ],
+        "dependencies": [
+          "github.com/gin-gonic/gin",
+          "github.com/go-sql-driver/mysql",
+          "github.com/lib/pq",
+          "github.com/mattn/go-sqlite3",
+          "github.com/prometheus/client_golang",
+          "github.com/grafana/grafana-plugin-sdk-go",
+          "xorm.io/xorm",
+          "Infrastructure: SQL database (SQLite/PostgreSQL/MySQL)",
+          "Infrastructure: Redis (optional caching)",
+          "Infrastructure: SMTP server (alerting)",
+          "Infrastructure: External data sources (Prometheus, InfluxDB, etc.)"
+        ],
+        "deployment_options": [
+          "Containerized (Docker)",
+          "CI/CD: GitHub Actions"
+        ]
+      },
+      "extracted_data": {},
+      "source": "local_repo",
+      "source_confidence": "high",
+      "timestamp": "2026-03-21T15:11:09.478091"
+    },
+    "generalization": {
+      "functional_dna": {
+        "logic_archetype": "Data Aggregator",
+        "logic_archetype_evidence": "Processes and queries metrics from Prometheus, InfluxDB, Elasticsearch and other data sources (pkg/tsdb/) and Renders interactive data visualizations and dashboards from multiple data sources (public/app/core/services/backend_srv.ts)",
+        "data_contract_strictness": "Moderately Structured",
+        "data_contract_evidence": "API endpoints with specific paths like /api/dashboards/db and /api/tsdb/query (pkg/api/) but handles multiple data source formats from Prometheus, InfluxDB, Elasticsearch",
+        "core_algorithmic_class": "Time-Series Processing",
+        "core_algorithmic_evidence": "Processes and queries metrics from Prometheus, InfluxDB, Elasticsearch and other data sources (pkg/tsdb/) and Executes real-time log streaming and search capabilities (public/app/features/logs/)",
+        "concurrency_requirements": "Eventually Consistent",
+        "concurrency_evidence": "Go goroutines with HTTP server handling concurrent requests, background services for alerting evaluation and provisioning with Redis caching layer (pkg/infra/remotecache/)",
+        "repurposing_confidence": 8,
+        "repurposing_reasoning": "High plugin architecture (pkg/plugins/), multi-database support (SQLite/PostgreSQL/MySQL), and modular data source integration (pkg/tsdb/) make it adaptable. Core time-series aggregation and visualization logic is domain-agnostic."
+      },
+      "evidence_claims": [
+        {
+          "claim": "Multi-source data aggregation capability",
+          "evidence": "Processes and queries metrics from Prometheus, InfluxDB, Elasticsearch and other data sources (pkg/tsdb/)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Plugin-based extensible architecture",
+          "evidence": "Processes plugin installations and manages plugin lifecycle (pkg/plugins/)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Real-time data processing capability",
+          "evidence": "Executes real-time log streaming and search capabilities (public/app/features/logs/)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Multi-database backend support",
+          "evidence": "SQLite (default database, pkg/services/sqlstore/), PostgreSQL (supported database, docker/blocks/postgres/), MySQL (supported database, pkg/services/sqlstore/migrations/)",
+          "confidence": "High"
+        }
+      ],
+      "market_reach": {
+        "primary_industry": "DevOps/Infrastructure Monitoring",
+        "cross_industry_applications": [
+          "Financial Services",
+          "Manufacturing",
+          "Healthcare",
+          "Retail",
+          "Energy",
+          "Telecommunications"
+        ],
+        "utility_score": 9,
+        "market_potential": "High"
+      },
+      "friction_report": {
+        "difficulty": "Medium",
+        "estimated_hours": 40,
+        "required_technologies": [
+          "Go (go.mod files throughout)",
+          "TypeScript/React (package.json files in public/)",
+          "SQL database",
+          "Redis (pkg/infra/remotecache/)"
+        ],
+        "complexity_factors": [
+          "Multi-language codebase",
+          "Complex plugin system",
+          "Multiple database support",
+          "Authentication/authorization integration"
+        ],
+        "risk_level": "Medium"
+      },
+      "interface_map": {
+        "adapter_schema": {
+          "input": {
+            "format": "JSON",
+            "required_fields": [
+              "datasource",
+              "query",
+              "timeRange"
+            ]
+          },
+          "output": {
+            "format": "JSON"
+          },
+          "authentication": {
+            "type": "API keys",
+            "method": "POST /api/login (pkg/api/login.go)"
+          }
+        },
+        "standardization_level": "High"
+      },
+      "information_gaps": [
+        "Performance benchmarks under load",
+        "Specific plugin API specifications",
+        "Data retention policies",
+        "Scalability limits"
+      ]
+    },
+    "timestamp": "2026-03-21T15:11:23.434454"
+  },
+  "errors": []
+}

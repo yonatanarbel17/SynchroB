@@ -1,4 +1,4 @@
-# Batch 2 analysis targets
-https://github.com/godotengine/godot.git
-https://github.com/home-assistant/core.git
-https://github.com/odoo/odoo.git
+# Batch 3 analysis targets
+https://github.com/grafana/grafana.git
+https://github.com/RocketChat/Rocket.Chat.git
+https://github.com/mastodon/mastodon.git

@@ -1,364 +1,108 @@
 {
-  "batch_timestamp": "2026-03-21T14:53:31.329173",
+  "batch_timestamp": "2026-03-21T15:17:09.101946",
   "total_repos": 3,
   "successful": 3,
   "failed": 0,
   "results": [
     {
-      "url": "https://github.com/godotengine/godot.git",
-      "repo_name": "godot",
-      "timestamp": "2026-03-21T14:48:02.656899",
+      "url": "https://github.com/grafana/grafana.git",
+      "repo_name": "grafana",
+      "timestamp": "2026-03-21T15:09:50.133609",
       "step1": {
-        "product_name": "godot",
-        "url": "https://github.com/godotengine/godot.git",
+        "product_name": "grafana",
+        "url": "https://github.com/grafana/grafana.git",
         "analysis": {
-          "summary": "Godot Engine is a cross-platform 2D and 3D game engine written primarily in C++ that provides a comprehensive game development framework with editor, runtime, and multi-platform export capabilities.",
+          "summary": "Grafana is a comprehensive observability platform that processes metrics and logs from multiple data sources, renders interactive dashboards with real-time visualizations, and manages alerting workflows for monitoring and incident response.",
           "capabilities": [
-            "2D and 3D game rendering with various graphics APIs (core/config/engine.cpp, platform/*/display_server_*.cpp)",
-            "Cross-platform compilation and deployment to desktop, mobile, web and console platforms (platform/ directory structure)",
-            "Visual scripting system and GDScript language support (modules/gdscript/)",
-            "Physics simulation for both 2D and 3D environments (modules/physics_*/, servers/physics_*/)",
-            "Audio processing and playback with WASAPI, ALSA, and other audio backends (drivers/wasapi/, drivers/alsa/)",
-            "Resource management and asset pipeline (core/io/, editor/import/)",
-            "Scene tree management and node-based architecture (scene/ directory)",
-            "Extension system for native code integration (core/extension/gdextension.cpp)",
-            "Built-in editor with visual scene editing (editor/ directory)",
-            "Multi-language binding support including C#, Java, Kotlin (modules/mono/, platform/android/java/)"
+            "Renders interactive data visualizations and dashboards from multiple data sources (public/app/core/services/backend_srv.ts)",
+            "Processes and queries metrics from Prometheus, InfluxDB, Elasticsearch and other data sources (pkg/tsdb/)",
+            "Manages alerting rules evaluation and notification delivery to external systems (pkg/services/ngalert/)",
+            "Provides user authentication and authorization with RBAC (pkg/services/auth/)",
+            "Executes real-time log streaming and search capabilities (public/app/features/logs/)",
+            "Manages dashboard provisioning and configuration as code (pkg/services/provisioning/)",
+            "Processes plugin installations and manages plugin lifecycle (pkg/plugins/)",
+            "Handles data source configuration and health monitoring (pkg/services/datasources/)",
+            "Manages team-based access control and organizational units (pkg/services/team/, pkg/services/org/)"
           ],
           "use_cases": [],
           "technical_stack": [
-            "C++ (primary language, 2377+ .cpp files)",
-            "Python (build system and tools, SConstruct, 126+ .py files)",
-            "SCons (build system, SConstruct file)",
-            "OpenGL/Vulkan (graphics rendering, drivers/vulkan/)",
-            "C# (Mono integration, modules/mono/, 301+ .cs files)",
-            "Java/Kotlin (Android platform, platform/android/java/, 190+ .java files, 50+ .kt files)",
-            "JavaScript (web platform, platform/web/, 26+ .js files)",
-            "CMake (Android native builds, platform/android/java/nativeSrcsConfigs/CMakeLists.txt)",
-            "Gradle (Android builds, multiple build.gradle files)",
-            "ESLint/JSDoc (web platform tooling, platform/web/package.json)"
+            "Go (primary backend language, go.mod files throughout)",
+            "TypeScript/React (frontend, package.json files in public/)",
+            "SQLite (default database, pkg/services/sqlstore/)",
+            "PostgreSQL (supported database, docker/blocks/postgres/)",
+            "MySQL (supported database, pkg/services/sqlstore/migrations/)",
+            "Redis (caching layer, pkg/infra/remotecache/)",
+            "Prometheus (metrics collection, pkg/tsdb/prometheus/)",
+            "Grafana UI component library (@grafana/ui in package.json)",
+            "Wire (dependency injection, wire.go files)",
+            "Testify (Go testing, go.mod dependencies)"
           ],
           "integrations": [
-            "Android SDK (platform/android/)",
-            "iOS SDK (platform/ios/)",
-            "Windows APIs including WASAPI (drivers/wasapi/)",
-            "Linux ALSA audio (drivers/alsa/)",
-            "Vulkan graphics API (drivers/vulkan/)",
-            "OpenGL graphics (drivers/gl_context/)",
-            "Steam SDK integration support (modules/)",
-            "XR/VR platforms (modules/xr/)"
-          ],
-          "api_endpoints": [],
-          "pricing": {
-            "model": "open-source",
-            "free_tier": "true"
-          },
-          "target_audience": "Developers",
-          "category": "Open Source Software",
-          "deployment": "Self-hosted",
-          "underlying_algorithm": {
-            "problem_type": "",
-            "pattern": ""
-          },
-          "evidence_tracking": {
-            "confidence_level": "High",
-            "technical_facts": [
-              "2D and 3D game rendering with various graphics APIs (core/config/engine.cpp, platform/*/display_server_*.cpp)",
-              "Cross-platform compilation and deployment to desktop, mobile, web and console platforms (platform/ directory structure)",
-              "Visual scripting system and GDScript language support (modules/gdscript/)",
-              "Physics simulation for both 2D and 3D environments (modules/physics_*/, servers/physics_*/)",
-              "Audio processing and playback with WASAPI, ALSA, and other audio backends (drivers/wasapi/, drivers/alsa/)",
-              "Resource management and asset pipeline (core/io/, editor/import/)",
-              "Scene tree management and node-based architecture (scene/ directory)",
-              "Extension system for native code integration (core/extension/gdextension.cpp)",
-              "Built-in editor with visual scene editing (editor/ directory)",
-              "Multi-language binding support including C#, Java, Kotlin (modules/mono/, platform/android/java/)"
-            ],
-            "information_gaps": []
-          },
-          "architecture_patterns": [
-            "monolithic engine with modular components",
-            "Concurrency: multi-threaded with dedicated render thread, physics thread, and worker thread pool (core/templates/thread_work_pool.h)"
-          ],
-          "auth_methods": [],
-          "sdk_languages": [
-            "C++",
-            "C#",
-            "GDScript",
-            "Java",
-            "Kotlin",
-            "JavaScript"
-          ],
-          "dependencies": [
-            "Platform-specific system libraries",
-            "Graphics drivers",
-            "Audio system libraries",
-            "Infrastructure: No external databases or services required"
-          ],
-          "deployment_options": [
-            "CI/CD: GitHub Actions (inferred from project structure)"
-          ]
-        },
-        "extracted_data": {},
-        "source": "local_repo",
-        "source_confidence": "high",
-        "timestamp": "2026-03-21T14:48:44.375331"
-      },
-      "step2": {
-        "step1_data": {
-          "product_name": "godot",
-          "url": "https://github.com/godotengine/godot.git",
-          "analysis": {
-            "summary": "Godot Engine is a cross-platform 2D and 3D game engine written primarily in C++ that provides a comprehensive game development framework with editor, runtime, and multi-platform export capabilities.",
-            "capabilities": [
-              "2D and 3D game rendering with various graphics APIs (core/config/engine.cpp, platform/*/display_server_*.cpp)",
-              "Cross-platform compilation and deployment to desktop, mobile, web and console platforms (platform/ directory structure)",
-              "Visual scripting system and GDScript language support (modules/gdscript/)",
-              "Physics simulation for both 2D and 3D environments (modules/physics_*/, servers/physics_*/)",
-              "Audio processing and playback with WASAPI, ALSA, and other audio backends (drivers/wasapi/, drivers/alsa/)",
-              "Resource management and asset pipeline (core/io/, editor/import/)",
-              "Scene tree management and node-based architecture (scene/ directory)",
-              "Extension system for native code integration (core/extension/gdextension.cpp)",
-              "Built-in editor with visual scene editing (editor/ directory)",
-              "Multi-language binding support including C#, Java, Kotlin (modules/mono/, platform/android/java/)"
-            ],
-            "use_cases": [],
-            "technical_stack": [
-              "C++ (primary language, 2377+ .cpp files)",
-              "Python (build system and tools, SConstruct, 126+ .py files)",
-              "SCons (build system, SConstruct file)",
-              "OpenGL/Vulkan (graphics rendering, drivers/vulkan/)",
-              "C# (Mono integration, modules/mono/, 301+ .cs files)",
-              "Java/Kotlin (Android platform, platform/android/java/, 190+ .java files, 50+ .kt files)",
-              "JavaScript (web platform, platform/web/, 26+ .js files)",
-              "CMake (Android native builds, platform/android/java/nativeSrcsConfigs/CMakeLists.txt)",
-              "Gradle (Android builds, multiple build.gradle files)",
-              "ESLint/JSDoc (web platform tooling, platform/web/package.json)"
-            ],
-            "integrations": [
-              "Android SDK (platform/android/)",
-              "iOS SDK (platform/ios/)",
-              "Windows APIs including WASAPI (drivers/wasapi/)",
-              "Linux ALSA audio (drivers/alsa/)",
-              "Vulkan graphics API (drivers/vulkan/)",
-              "OpenGL graphics (drivers/gl_context/)",
-              "Steam SDK integration support (modules/)",
-              "XR/VR platforms (modules/xr/)"
-            ],
-            "api_endpoints": [],
-            "pricing": {
-              "model": "open-source",
-              "free_tier": "true"
-            },
-            "target_audience": "Developers",
-            "category": "Open Source Software",
-            "deployment": "Self-hosted",
-            "underlying_algorithm": {
-              "problem_type": "",
-              "pattern": ""
-            },
-            "evidence_tracking": {
-              "confidence_level": "High",
-              "technical_facts": [
-                "2D and 3D game rendering with various graphics APIs (core/config/engine.cpp, platform/*/display_server_*.cpp)",
-                "Cross-platform compilation and deployment to desktop, mobile, web and console platforms (platform/ directory structure)",
-                "Visual scripting system and GDScript language support (modules/gdscript/)",
-                "Physics simulation for both 2D and 3D environments (modules/physics_*/, servers/physics_*/)",
-                "Audio processing and playback with WASAPI, ALSA, and other audio backends (drivers/wasapi/, drivers/alsa/)",
-                "Resource management and asset pipeline (core/io/, editor/import/)",
-                "Scene tree management and node-based architecture (scene/ directory)",
-                "Extension system for native code integration (core/extension/gdextension.cpp)",
-                "Built-in editor with visual scene editing (editor/ directory)",
-                "Multi-language binding support including C#, Java, Kotlin (modules/mono/, platform/android/java/)"
-              ],
-              "information_gaps": []
-            },
-            "architecture_patterns": [
-              "monolithic engine with modular components",
-              "Concurrency: multi-threaded with dedicated render thread, physics thread, and worker thread pool (core/templates/thread_work_pool.h)"
-            ],
-            "auth_methods": [],
-            "sdk_languages": [
-              "C++",
-              "C#",
-              "GDScript",
-              "Java",
-              "Kotlin",
-              "JavaScript"
-            ],
-            "dependencies": [
-              "Platform-specific system libraries",
-              "Graphics drivers",
-              "Audio system libraries",
-              "Infrastructure: No external databases or services required"
-            ],
-            "deployment_options": [
-              "CI/CD: GitHub Actions (inferred from project structure)"
-            ]
-          },
-          "extracted_data": {},
-          "source": "local_repo",
-          "source_confidence": "high",
-          "timestamp": "2026-03-21T14:48:44.375331"
-        },
-        "generalization": {
-          "functional_dna": {
-            "logic_archetype": "Stateful Orchestrator",
-            "logic_archetype_evidence": "Scene tree management and node-based architecture (scene/ directory) - manages complex hierarchical state and coordinates multiple subsystems including rendering, physics, audio, and input",
-            "data_contract_strictness": "Highly Structured",
-            "data_contract_evidence": "Resource management and asset pipeline (core/io/, editor/import/) - requires specific file formats and structured scene definitions",
-            "core_algorithmic_class": "Graph Algorithms",
-            "core_algorithmic_evidence": "Scene tree management and node-based architecture (scene/ directory) - implements hierarchical graph traversal and manipulation for scene graphs",
-            "concurrency_requirements": "No Consistency Requirements",
-            "concurrency_evidence": "Concurrency: multi-threaded with dedicated render thread, physics thread, and worker thread pool (core/templates/thread_work_pool.h) - designed for real-time performance over consistency",
-            "repurposing_confidence": 7,
-            "repurposing_reasoning": "High modularity with platform/ directory structure and extension system suggests good separation of concerns, but game engine architecture is highly specialized for real-time rendering and simulation"
-          },
-          "evidence_claims": [
-            {
-              "claim": "Multi-platform deployment capability",
-              "evidence": "Cross-platform compilation and deployment to desktop, mobile, web and console platforms (platform/ directory structure)",
-              "confidence": "High"
-            },
-            {
-              "claim": "Extensible architecture",
-              "evidence": "Extension system for native code integration (core/extension/gdextension.cpp)",
-              "confidence": "High"
-            },
-            {
-              "claim": "Multi-threaded processing",
-              "evidence": "Concurrency: multi-threaded with dedicated render thread, physics thread, and worker thread pool (core/templates/thread_work_pool.h)",
-              "confidence": "High"
-            },
-            {
-              "claim": "Multi-language support",
-              "evidence": "Multi-language binding support including C#, Java, Kotlin (modules/mono/, platform/android/java/)",
-              "confidence": "High"
-            }
-          ],
-          "market_reach": {
-            "primary_industry": "Gaming",
-            "cross_industry_applications": [
-              "Education",
-              "Training/Simulation",
-              "Data Visualization",
-              "Architecture/Design",
-              "Entertainment",
-              "Marketing"
-            ],
-            "utility_score": 8,
-            "market_potential": "High"
-          },
-          "friction_report": {
-            "difficulty": "High",
-            "estimated_hours": 200,
-            "required_technologies": [
-              "C++",
-              "Platform-specific system libraries",
-              "Graphics drivers",
-              "Audio system libraries"
-            ],
-            "complexity_factors": [
-              "Real-time rendering pipeline",
-              "Multi-platform deployment",
-              "Physics simulation",
-              "Complex build system with SCons"
-            ],
-            "risk_level": "High"
-          },
-          "interface_map": {
-            "adapter_schema": {
-              "input": {
-                "format": "Native API calls",
-                "required_fields": [
-                  "scene_data",
-                  "asset_references",
-                  "configuration"
-                ]
-              },
-              "output": {
-                "format": "Platform-specific executables"
-              },
-              "authentication": {
-                "type": "None",
-                "method": "Open source"
-              }
-            },
-            "standardization_level": "Low"
-          },
-          "information_gaps": [
-            "Network architecture for multiplayer games",
-            "Memory management patterns",
-            "Specific rendering pipeline details",
-            "Performance benchmarks and resource requirements",
-            "Plugin/extension API specifications"
-          ]
-        },
-        "timestamp": "2026-03-21T14:48:57.348360"
-      },
-      "errors": []
-    },
-    {
-      "url": "https://github.com/home-assistant/core.git",
-      "repo_name": "core",
-      "timestamp": "2026-03-21T14:50:07.440041",
-      "step1": {
-        "product_name": "core",
-        "url": "https://github.com/home-assistant/core.git",
-        "analysis": {
-          "summary": "Home Assistant is an open-source home automation platform that provides local control and privacy for IoT devices. It processes device integrations, manages user authentication, serves a web UI, and orchestrates automation rules through a modular architecture supporting thousands of device types.",
-          "capabilities": [
-            "Manages user authentication and authorization with multiple MFA modules (homeassistant/auth/)",
-            "Processes device integrations through component system with 2000+ integrations (homeassistant/components/)",
-            "Serves REST API endpoints for device control and state management (homeassistant/components/api/)",
-            "Provides WebSocket interface for real-time updates (homeassistant/components/websocket_api/)",
-            "Executes automation rules and triggers based on device states and events",
-            "Manages configuration through YAML files and UI-based config flows",
-            "Handles media streaming through Go2RTC integration (homeassistant/components/go2rtc/)",
-            "Supports backup and restore functionality (homeassistant/backup_restore.py)",
-            "Processes voice commands and intents through conversation system"
-          ],
-          "use_cases": [],
-          "technical_stack": [
-            "Python 3.14+ (pyproject.toml)",
-            "asyncio for concurrency (homeassistant/__main__.py, core.py)",
-            "aiohttp 3.13.3 for HTTP server (requirements.txt)",
-            "SQLAlchemy 2.0.41 for database ORM (requirements.txt)",
-            "WebSocket support via aiohttp (requirements.txt)",
-            "Jinja2 3.1.6 for templating (requirements.txt)",
-            "PyJWT 2.10.1 for authentication tokens (requirements.txt)",
-            "YAML configuration support via PyYAML 6.0.3 (requirements.txt)",
-            "Go2RTC for media streaming (Dockerfile, homeassistant/components/go2rtc/)",
-            "Docker containerization (Dockerfile)"
-          ],
-          "integrations": [
-            "MQTT message broker support (homeassistant/brands/mqtt.json)",
-            "Cloud services via hass-nabucasa 2.0.0 (requirements.txt)",
-            "GitHub integration via aiogithubapi 26.0.0 (requirements.txt)",
-            "FFmpeg for media processing (ha-ffmpeg 3.2.2 in requirements.txt)",
-            "Bluetooth device support (home-assistant-bluetooth 1.13.1)",
-            "Various IoT device manufacturers (homeassistant/brands/ directory with 100+ brand files)"
+            "Prometheus (pkg/tsdb/prometheus/)",
+            "InfluxDB (pkg/tsdb/influxdb/)",
+            "Elasticsearch (pkg/tsdb/elasticsearch/)",
+            "MySQL (pkg/services/sqlstore/)",
+            "PostgreSQL (pkg/services/sqlstore/)",
+            "LDAP (pkg/services/ldap/)",
+            "Slack (pkg/services/notifications/)",
+            "PagerDuty (pkg/services/notifications/)",
+            "Webhook notifications (pkg/services/notifications/)"
           ],
           "api_endpoints": [
             {
-              "method": null,
-              "path": "WebSocket /api/websocket \u2014 Real-time communication endpoint",
-              "summary": null
+              "method": "GET",
+              "path": "/api/health",
+              "summary": "Health check endpoint (pkg/api/health.go)"
             },
             {
-              "method": null,
-              "path": "REST /api/* \u2014 Device control and state management APIs",
-              "summary": null
+              "method": "POST",
+              "path": "/api/login",
+              "summary": "User authentication (pkg/api/login.go)"
             },
             {
               "method": "GET",
-              "path": "/api/frame.jpeg",
-              "summary": "Camera snapshot endpoint (homeassistant/components/go2rtc/server.py)"
+              "path": "/api/dashboards/home",
+              "summary": "Home dashboard retrieval (pkg/api/dashboard.go)"
             },
             {
-              "method": null,
-              "path": "Authentication endpoints for login/logout flows",
-              "summary": null
+              "method": "POST",
+              "path": "/api/dashboards/db",
+              "summary": "Dashboard creation/update (pkg/api/dashboard.go)"
+            },
+            {
+              "method": "GET",
+              "path": "/api/datasources",
+              "summary": "Data source listing (pkg/api/datasource.go)"
+            },
+            {
+              "method": "POST",
+              "path": "/api/datasources",
+              "summary": "Data source creation (pkg/api/datasource.go)"
+            },
+            {
+              "method": "POST",
+              "path": "/api/tsdb/query",
+              "summary": "Time series data querying (pkg/api/metrics.go)"
+            },
+            {
+              "method": "GET",
+              "path": "/api/alerts",
+              "summary": "Alert rule retrieval (pkg/api/alerting.go)"
+            },
+            {
+              "method": "POST",
+              "path": "/api/alerts",
+              "summary": "Alert rule creation (pkg/api/alerting.go)"
+            },
+            {
+              "method": "GET",
+              "path": "/api/user",
+              "summary": "Current user info (pkg/api/user.go)"
+            },
+            {
+              "method": "GET",
+              "path": "/api/org/users",
+              "summary": "Organization user management (pkg/api/org.go)"
             }
           ],
           "pricing": {
@@ -375,113 +119,155 @@
           "evidence_tracking": {
             "confidence_level": "High",
             "technical_facts": [
-              "Manages user authentication and authorization with multiple MFA modules (homeassistant/auth/)",
-              "Processes device integrations through component system with 2000+ integrations (homeassistant/components/)",
-              "Serves REST API endpoints for device control and state management (homeassistant/components/api/)",
-              "Provides WebSocket interface for real-time updates (homeassistant/components/websocket_api/)",
-              "Executes automation rules and triggers based on device states and events",
-              "Manages configuration through YAML files and UI-based config flows",
-              "Handles media streaming through Go2RTC integration (homeassistant/components/go2rtc/)",
-              "Supports backup and restore functionality (homeassistant/backup_restore.py)",
-              "Processes voice commands and intents through conversation system"
+              "Renders interactive data visualizations and dashboards from multiple data sources (public/app/core/services/backend_srv.ts)",
+              "Processes and queries metrics from Prometheus, InfluxDB, Elasticsearch and other data sources (pkg/tsdb/)",
+              "Manages alerting rules evaluation and notification delivery to external systems (pkg/services/ngalert/)",
+              "Provides user authentication and authorization with RBAC (pkg/services/auth/)",
+              "Executes real-time log streaming and search capabilities (public/app/features/logs/)",
+              "Manages dashboard provisioning and configuration as code (pkg/services/provisioning/)",
+              "Processes plugin installations and manages plugin lifecycle (pkg/plugins/)",
+              "Handles data source configuration and health monitoring (pkg/services/datasources/)",
+              "Manages team-based access control and organizational units (pkg/services/team/, pkg/services/org/)"
             ],
             "information_gaps": []
           },
           "architecture_patterns": [
             "monolith",
-            "Concurrency: async/await with asyncio event loop for handling concurrent device communications and API requests"
+            "Concurrency: Go goroutines with HTTP server handling concurrent requests, background services for alerting evaluation and provisioning"
           ],
           "auth_methods": [
-            "JWT tokens (PyJWT in requirements.txt, homeassistant/auth/jwt_wrapper.py)",
-            "Local user/password authentication (homeassistant/auth/providers/homeassistant.py)",
-            "Trusted networks authentication (homeassistant/auth/providers/trusted_networks.py)",
-            "TOTP MFA support (homeassistant/auth/mfa_modules/totp.py)",
-            "Command line authentication (homeassistant/auth/providers/command_line.py)"
+            "Basic authentication",
+            "OAuth2",
+            "LDAP",
+            "SAML",
+            "JWT tokens",
+            "API keys",
+            "Anonymous access"
           ],
-          "sdk_languages": [],
+          "sdk_languages": [
+            "Go",
+            "JavaScript/TypeScript",
+            "Python"
+          ],
           "dependencies": [
-            "aiohttp==3.13.3",
-            "SQLAlchemy==2.0.41",
-            "PyJWT==2.10.1",
-            "Jinja2==3.1.6",
-            "PyYAML==6.0.3",
-            "requests==2.32.5",
-            "cryptography==46.0.5",
-            "Pillow==12.1.1",
-            "hass-nabucasa==2.0.0",
-            "home-assistant-bluetooth==1.13.1",
-            "Infrastructure: Database (SQLite/PostgreSQL/MySQL)",
-            "Infrastructure: MQTT broker (optional)",
-            "Infrastructure: Docker runtime"
+            "github.com/gin-gonic/gin",
+            "github.com/go-sql-driver/mysql",
+            "github.com/lib/pq",
+            "github.com/mattn/go-sqlite3",
+            "github.com/prometheus/client_golang",
+            "github.com/grafana/grafana-plugin-sdk-go",
+            "xorm.io/xorm",
+            "Infrastructure: SQL database (SQLite/PostgreSQL/MySQL)",
+            "Infrastructure: Redis (optional caching)",
+            "Infrastructure: SMTP server (alerting)",
+            "Infrastructure: External data sources (Prometheus, InfluxDB, etc.)"
           ],
           "deployment_options": [
             "Containerized (Docker)",
-            "CI/CD: GitHub Actions (inferred from CODEOWNERS and repository structure)"
+            "CI/CD: GitHub Actions"
           ]
         },
         "extracted_data": {},
         "source": "local_repo",
         "source_confidence": "high",
-        "timestamp": "2026-03-21T14:50:50.593041"
+        "timestamp": "2026-03-21T15:11:09.478091"
       },
       "step2": {
         "step1_data": {
-          "product_name": "core",
-          "url": "https://github.com/home-assistant/core.git",
+          "product_name": "grafana",
+          "url": "https://github.com/grafana/grafana.git",
           "analysis": {
-            "summary": "Home Assistant is an open-source home automation platform that provides local control and privacy for IoT devices. It processes device integrations, manages user authentication, serves a web UI, and orchestrates automation rules through a modular architecture supporting thousands of device types.",
+            "summary": "Grafana is a comprehensive observability platform that processes metrics and logs from multiple data sources, renders interactive dashboards with real-time visualizations, and manages alerting workflows for monitoring and incident response.",
             "capabilities": [
-              "Manages user authentication and authorization with multiple MFA modules (homeassistant/auth/)",
-              "Processes device integrations through component system with 2000+ integrations (homeassistant/components/)",
-              "Serves REST API endpoints for device control and state management (homeassistant/components/api/)",
-              "Provides WebSocket interface for real-time updates (homeassistant/components/websocket_api/)",
-              "Executes automation rules and triggers based on device states and events",
-              "Manages configuration through YAML files and UI-based config flows",
-              "Handles media streaming through Go2RTC integration (homeassistant/components/go2rtc/)",
-              "Supports backup and restore functionality (homeassistant/backup_restore.py)",
-              "Processes voice commands and intents through conversation system"
+              "Renders interactive data visualizations and dashboards from multiple data sources (public/app/core/services/backend_srv.ts)",
+              "Processes and queries metrics from Prometheus, InfluxDB, Elasticsearch and other data sources (pkg/tsdb/)",
+              "Manages alerting rules evaluation and notification delivery to external systems (pkg/services/ngalert/)",
+              "Provides user authentication and authorization with RBAC (pkg/services/auth/)",
+              "Executes real-time log streaming and search capabilities (public/app/features/logs/)",
+              "Manages dashboard provisioning and configuration as code (pkg/services/provisioning/)",
+              "Processes plugin installations and manages plugin lifecycle (pkg/plugins/)",
+              "Handles data source configuration and health monitoring (pkg/services/datasources/)",
+              "Manages team-based access control and organizational units (pkg/services/team/, pkg/services/org/)"
             ],
             "use_cases": [],
             "technical_stack": [
-              "Python 3.14+ (pyproject.toml)",
-              "asyncio for concurrency (homeassistant/__main__.py, core.py)",
-              "aiohttp 3.13.3 for HTTP server (requirements.txt)",
-              "SQLAlchemy 2.0.41 for database ORM (requirements.txt)",
-              "WebSocket support via aiohttp (requirements.txt)",
-              "Jinja2 3.1.6 for templating (requirements.txt)",
-              "PyJWT 2.10.1 for authentication tokens (requirements.txt)",
-              "YAML configuration support via PyYAML 6.0.3 (requirements.txt)",
-              "Go2RTC for media streaming (Dockerfile, homeassistant/components/go2rtc/)",
-              "Docker containerization (Dockerfile)"
+              "Go (primary backend language, go.mod files throughout)",
+              "TypeScript/React (frontend, package.json files in public/)",
+              "SQLite (default database, pkg/services/sqlstore/)",
+              "PostgreSQL (supported database, docker/blocks/postgres/)",
+              "MySQL (supported database, pkg/services/sqlstore/migrations/)",
+              "Redis (caching layer, pkg/infra/remotecache/)",
+              "Prometheus (metrics collection, pkg/tsdb/prometheus/)",
+              "Grafana UI component library (@grafana/ui in package.json)",
+              "Wire (dependency injection, wire.go files)",
+              "Testify (Go testing, go.mod dependencies)"
             ],
             "integrations": [
-              "MQTT message broker support (homeassistant/brands/mqtt.json)",
-              "Cloud services via hass-nabucasa 2.0.0 (requirements.txt)",
-              "GitHub integration via aiogithubapi 26.0.0 (requirements.txt)",
-              "FFmpeg for media processing (ha-ffmpeg 3.2.2 in requirements.txt)",
-              "Bluetooth device support (home-assistant-bluetooth 1.13.1)",
-              "Various IoT device manufacturers (homeassistant/brands/ directory with 100+ brand files)"
+              "Prometheus (pkg/tsdb/prometheus/)",
+              "InfluxDB (pkg/tsdb/influxdb/)",
+              "Elasticsearch (pkg/tsdb/elasticsearch/)",
+              "MySQL (pkg/services/sqlstore/)",
+              "PostgreSQL (pkg/services/sqlstore/)",
+              "LDAP (pkg/services/ldap/)",
+              "Slack (pkg/services/notifications/)",
+              "PagerDuty (pkg/services/notifications/)",
+              "Webhook notifications (pkg/services/notifications/)"
             ],
             "api_endpoints": [
               {
-                "method": null,
-                "path": "WebSocket /api/websocket \u2014 Real-time communication endpoint",
-                "summary": null
+                "method": "GET",
+                "path": "/api/health",
+                "summary": "Health check endpoint (pkg/api/health.go)"
               },
               {
-                "method": null,
-                "path": "REST /api/* \u2014 Device control and state management APIs",
-                "summary": null
+                "method": "POST",
+                "path": "/api/login",
+                "summary": "User authentication (pkg/api/login.go)"
               },
               {
                 "method": "GET",
-                "path": "/api/frame.jpeg",
-                "summary": "Camera snapshot endpoint (homeassistant/components/go2rtc/server.py)"
+                "path": "/api/dashboards/home",
+                "summary": "Home dashboard retrieval (pkg/api/dashboard.go)"
               },
               {
-                "method": null,
-                "path": "Authentication endpoints for login/logout flows",
-                "summary": null
+                "method": "POST",
+                "path": "/api/dashboards/db",
+                "summary": "Dashboard creation/update (pkg/api/dashboard.go)"
+              },
+              {
+                "method": "GET",
+                "path": "/api/datasources",
+                "summary": "Data source listing (pkg/api/datasource.go)"
+              },
+              {
+                "method": "POST",
+                "path": "/api/datasources",
+                "summary": "Data source creation (pkg/api/datasource.go)"
+              },
+              {
+                "method": "POST",
+                "path": "/api/tsdb/query",
+                "summary": "Time series data querying (pkg/api/metrics.go)"
+              },
+              {
+                "method": "GET",
+                "path": "/api/alerts",
+                "summary": "Alert rule retrieval (pkg/api/alerting.go)"
+              },
+              {
+                "method": "POST",
+                "path": "/api/alerts",
+                "summary": "Alert rule creation (pkg/api/alerting.go)"
+              },
+              {
+                "method": "GET",
+                "path": "/api/user",
+                "summary": "Current user info (pkg/api/user.go)"
+              },
+              {
+                "method": "GET",
+                "path": "/api/org/users",
+                "summary": "Organization user management (pkg/api/org.go)"
               }
             ],
             "pricing": {
@@ -498,122 +284,121 @@
             "evidence_tracking": {
               "confidence_level": "High",
               "technical_facts": [
-                "Manages user authentication and authorization with multiple MFA modules (homeassistant/auth/)",
-                "Processes device integrations through component system with 2000+ integrations (homeassistant/components/)",
-                "Serves REST API endpoints for device control and state management (homeassistant/components/api/)",
-                "Provides WebSocket interface for real-time updates (homeassistant/components/websocket_api/)",
-                "Executes automation rules and triggers based on device states and events",
-                "Manages configuration through YAML files and UI-based config flows",
-                "Handles media streaming through Go2RTC integration (homeassistant/components/go2rtc/)",
-                "Supports backup and restore functionality (homeassistant/backup_restore.py)",
-                "Processes voice commands and intents through conversation system"
+                "Renders interactive data visualizations and dashboards from multiple data sources (public/app/core/services/backend_srv.ts)",
+                "Processes and queries metrics from Prometheus, InfluxDB, Elasticsearch and other data sources (pkg/tsdb/)",
+                "Manages alerting rules evaluation and notification delivery to external systems (pkg/services/ngalert/)",
+                "Provides user authentication and authorization with RBAC (pkg/services/auth/)",
+                "Executes real-time log streaming and search capabilities (public/app/features/logs/)",
+                "Manages dashboard provisioning and configuration as code (pkg/services/provisioning/)",
+                "Processes plugin installations and manages plugin lifecycle (pkg/plugins/)",
+                "Handles data source configuration and health monitoring (pkg/services/datasources/)",
+                "Manages team-based access control and organizational units (pkg/services/team/, pkg/services/org/)"
               ],
               "information_gaps": []
             },
             "architecture_patterns": [
               "monolith",
-              "Concurrency: async/await with asyncio event loop for handling concurrent device communications and API requests"
+              "Concurrency: Go goroutines with HTTP server handling concurrent requests, background services for alerting evaluation and provisioning"
             ],
             "auth_methods": [
-              "JWT tokens (PyJWT in requirements.txt, homeassistant/auth/jwt_wrapper.py)",
-              "Local user/password authentication (homeassistant/auth/providers/homeassistant.py)",
-              "Trusted networks authentication (homeassistant/auth/providers/trusted_networks.py)",
-              "TOTP MFA support (homeassistant/auth/mfa_modules/totp.py)",
-              "Command line authentication (homeassistant/auth/providers/command_line.py)"
+              "Basic authentication",
+              "OAuth2",
+              "LDAP",
+              "SAML",
+              "JWT tokens",
+              "API keys",
+              "Anonymous access"
             ],
-            "sdk_languages": [],
+            "sdk_languages": [
+              "Go",
+              "JavaScript/TypeScript",
+              "Python"
+            ],
             "dependencies": [
-              "aiohttp==3.13.3",
-              "SQLAlchemy==2.0.41",
-              "PyJWT==2.10.1",
-              "Jinja2==3.1.6",
-              "PyYAML==6.0.3",
-              "requests==2.32.5",
-              "cryptography==46.0.5",
-              "Pillow==12.1.1",
-              "hass-nabucasa==2.0.0",
-              "home-assistant-bluetooth==1.13.1",
-              "Infrastructure: Database (SQLite/PostgreSQL/MySQL)",
-              "Infrastructure: MQTT broker (optional)",
-              "Infrastructure: Docker runtime"
+              "github.com/gin-gonic/gin",
+              "github.com/go-sql-driver/mysql",
+              "github.com/lib/pq",
+              "github.com/mattn/go-sqlite3",
+              "github.com/prometheus/client_golang",
+              "github.com/grafana/grafana-plugin-sdk-go",
+              "xorm.io/xorm",
+              "Infrastructure: SQL database (SQLite/PostgreSQL/MySQL)",
+              "Infrastructure: Redis (optional caching)",
+              "Infrastructure: SMTP server (alerting)",
+              "Infrastructure: External data sources (Prometheus, InfluxDB, etc.)"
             ],
             "deployment_options": [
               "Containerized (Docker)",
-              "CI/CD: GitHub Actions (inferred from CODEOWNERS and repository structure)"
+              "CI/CD: GitHub Actions"
             ]
           },
           "extracted_data": {},
           "source": "local_repo",
           "source_confidence": "high",
-          "timestamp": "2026-03-21T14:50:50.593041"
+          "timestamp": "2026-03-21T15:11:09.478091"
         },
         "generalization": {
           "functional_dna": {
-            "logic_archetype": "Stateful Orchestrator",
-            "logic_archetype_evidence": "Executes automation rules and triggers based on device states and events, manages configuration through YAML files and UI-based config flows, processes device integrations through component system with 2000+ integrations",
+            "logic_archetype": "Data Aggregator",
+            "logic_archetype_evidence": "Processes and queries metrics from Prometheus, InfluxDB, Elasticsearch and other data sources (pkg/tsdb/) and Renders interactive data visualizations and dashboards from multiple data sources (public/app/core/services/backend_srv.ts)",
             "data_contract_strictness": "Moderately Structured",
-            "data_contract_evidence": "YAML configuration support via PyYAML 6.0.3 (requirements.txt), manages configuration through YAML files and UI-based config flows, SQLAlchemy 2.0.41 for database ORM (requirements.txt)",
-            "core_algorithmic_class": "CRUD Operations",
-            "core_algorithmic_evidence": "SQLAlchemy 2.0.41 for database ORM (requirements.txt), serves REST API endpoints for device control and state management (homeassistant/components/api/), supports backup and restore functionality (homeassistant/backup_restore.py)",
+            "data_contract_evidence": "API endpoints with specific paths like /api/dashboards/db and /api/tsdb/query (pkg/api/) but handles multiple data source formats from Prometheus, InfluxDB, Elasticsearch",
+            "core_algorithmic_class": "Time-Series Processing",
+            "core_algorithmic_evidence": "Processes and queries metrics from Prometheus, InfluxDB, Elasticsearch and other data sources (pkg/tsdb/) and Executes real-time log streaming and search capabilities (public/app/features/logs/)",
             "concurrency_requirements": "Eventually Consistent",
-            "concurrency_evidence": "asyncio for concurrency (homeassistant/__main__.py, core.py), provides WebSocket interface for real-time updates (homeassistant/components/websocket_api/), aiohttp 3.13.3 for HTTP server (requirements.txt)",
+            "concurrency_evidence": "Go goroutines with HTTP server handling concurrent requests, background services for alerting evaluation and provisioning with Redis caching layer (pkg/infra/remotecache/)",
             "repurposing_confidence": 8,
-            "repurposing_reasoning": "High repurposing potential due to modular component system with 2000+ integrations, well-defined API structure, and event-driven orchestration patterns. The stateful orchestrator pattern is applicable to many domains requiring coordination of distributed systems."
+            "repurposing_reasoning": "High plugin architecture (pkg/plugins/), multi-database support (SQLite/PostgreSQL/MySQL), and modular data source integration (pkg/tsdb/) make it adaptable. Core time-series aggregation and visualization logic is domain-agnostic."
           },
           "evidence_claims": [
             {
-              "claim": "Uses Python 3.14+ as primary runtime",
-              "evidence": "Python 3.14+ (pyproject.toml)",
+              "claim": "Multi-source data aggregation capability",
+              "evidence": "Processes and queries metrics from Prometheus, InfluxDB, Elasticsearch and other data sources (pkg/tsdb/)",
               "confidence": "High"
             },
             {
-              "claim": "Implements async concurrency model",
-              "evidence": "asyncio for concurrency (homeassistant/__main__.py, core.py)",
+              "claim": "Plugin-based extensible architecture",
+              "evidence": "Processes plugin installations and manages plugin lifecycle (pkg/plugins/)",
               "confidence": "High"
             },
             {
-              "claim": "Supports JWT authentication",
-              "evidence": "PyJWT 2.10.1 for authentication tokens (requirements.txt)",
+              "claim": "Real-time data processing capability",
+              "evidence": "Executes real-time log streaming and search capabilities (public/app/features/logs/)",
               "confidence": "High"
             },
             {
-              "claim": "Uses SQLAlchemy ORM for database operations",
-              "evidence": "SQLAlchemy 2.0.41 for database ORM (requirements.txt)",
-              "confidence": "High"
-            },
-            {
-              "claim": "Provides REST and WebSocket APIs",
-              "evidence": "Serves REST API endpoints for device control and state management (homeassistant/components/api/), provides WebSocket interface for real-time updates (homeassistant/components/websocket_api/)",
+              "claim": "Multi-database backend support",
+              "evidence": "SQLite (default database, pkg/services/sqlstore/), PostgreSQL (supported database, docker/blocks/postgres/), MySQL (supported database, pkg/services/sqlstore/migrations/)",
               "confidence": "High"
             }
           ],
           "market_reach": {
-            "primary_industry": "Home Automation",
+            "primary_industry": "DevOps/Infrastructure Monitoring",
             "cross_industry_applications": [
-              "Industrial IoT",
-              "Building Management",
-              "Smart Cities",
-              "Healthcare Monitoring",
-              "Agricultural Automation"
+              "Financial Services",
+              "Manufacturing",
+              "Healthcare",
+              "Retail",
+              "Energy",
+              "Telecommunications"
             ],
-            "utility_score": 8,
+            "utility_score": 9,
             "market_potential": "High"
           },
           "friction_report": {
             "difficulty": "Medium",
-            "estimated_hours": 120,
+            "estimated_hours": 40,
             "required_technologies": [
-              "Python 3.14+",
-              "asyncio",
-              "aiohttp",
-              "SQLAlchemy",
-              "Docker"
+              "Go (go.mod files throughout)",
+              "TypeScript/React (package.json files in public/)",
+              "SQL database",
+              "Redis (pkg/infra/remotecache/)"
             ],
             "complexity_factors": [
-              "2000+ device integrations",
-              "Component system architecture",
-              "Real-time event processing",
-              "Multi-protocol support"
+              "Multi-language codebase",
+              "Complex plugin system",
+              "Multiple database support",
+              "Authentication/authorization integration"
             ],
             "risk_level": "Medium"
           },
@@ -622,100 +407,103 @@
               "input": {
                 "format": "JSON",
                 "required_fields": [
-                  "entity_id",
-                  "service",
-                  "service_data"
+                  "datasource",
+                  "query",
+                  "timeRange"
                 ]
               },
               "output": {
                 "format": "JSON"
               },
               "authentication": {
-                "type": "JWT",
-                "method": "Bearer token"
+                "type": "API keys",
+                "method": "POST /api/login (pkg/api/login.go)"
               }
             },
             "standardization_level": "High"
           },
           "information_gaps": [
-            "Specific database schema structure",
-            "Performance metrics and scaling limits",
-            "Hardware requirements and resource consumption",
-            "Integration testing framework details",
-            "Deployment architecture patterns beyond Docker"
+            "Performance benchmarks under load",
+            "Specific plugin API specifications",
+            "Data retention policies",
+            "Scalability limits"
           ]
         },
-        "timestamp": "2026-03-21T14:51:03.888918"
+        "timestamp": "2026-03-21T15:11:23.434454"
       },
       "errors": []
     },
     {
-      "url": "https://github.com/odoo/odoo.git",
-      "repo_name": "odoo",
-      "timestamp": "2026-03-21T14:52:13.929548",
+      "url": "https://github.com/RocketChat/Rocket.Chat.git",
+      "repo_name": "Rocket.Chat",
+      "timestamp": "2026-03-21T15:12:33.524527",
       "step1": {
-        "product_name": "odoo",
-        "url": "https://github.com/odoo/odoo.git",
+        "product_name": "Rocket.Chat",
+        "url": "https://github.com/RocketChat/Rocket.Chat.git",
         "analysis": {
-          "summary": "Odoo is a comprehensive open-source enterprise resource planning (ERP) system that provides a suite of integrated business applications including CRM, eCommerce, accounting, inventory management, and project management through a modular addon architecture.",
+          "summary": "Rocket.Chat is an open-source team communication platform built on Meteor/Node.js that provides real-time messaging, omnichannel customer support, and collaborative workspace features with role-based access control and extensive integration capabilities.",
           "capabilities": [
-            "Provides OAuth2 authentication integration with external providers (addons/auth_oauth/controllers/main.py)",
-            "Implements WebAuthn/passkey authentication for passwordless login (addons/auth_passkey/controllers/main.py)",
-            "Handles user registration, password reset, and signup workflows (addons/auth_signup/controllers/main.py)",
-            "Manages business accounting operations including invoicing and financial reporting (addons/account/)",
-            "Processes HTTP requests through web controllers with session management (multiple controller files)",
-            "Supports multi-database operations with database filtering and selection",
-            "Provides REST API endpoints through JSON-RPC protocol",
-            "Implements modular addon system for extending functionality (46+ addon directories)"
+            "Real-time messaging and chat functionality with WebSocket support (apps/meteor/app/lib/server/methods/sendMessage.ts, WebSocket handlers)",
+            "Two-factor authentication with TOTP and email verification (apps/meteor/app/2fa/server/)",
+            "Omnichannel customer support with transcript generation (ee/apps/omnichannel-transcript/)",
+            "REST API with comprehensive endpoint coverage (apps/meteor/app/api/server/)",
+            "File upload and storage with S3 and Google Cloud integration (apps/meteor dependencies @aws-sdk, @google-cloud/storage)",
+            "Video conferencing integration with WebRTC (apps/meteor dependencies)",
+            "User presence tracking and status management (ee/apps/presence-service/)",
+            "Push notifications via FCM and APN (apps/meteor dependencies @parse/node-apn)",
+            "OAuth2 server functionality (apps/meteor dependency @node-oauth/oauth2-server)",
+            "PDF generation for transcripts and reports (dependencies @react-pdf/renderer)",
+            "Email processing and SMTP integration (apps/meteor/app/api/server/lib/emailInbox.ts)",
+            "Rate limiting and security controls (apps/meteor/app/api/server/)",
+            "Multi-tenant workspace support with role-based permissions",
+            "App marketplace and custom app development platform (dependencies @rocket.chat/apps-engine)"
           ],
           "use_cases": [],
           "technical_stack": [
-            "Python 3.10+ (requirements.txt, multiple .py files)",
-            "Werkzeug web framework (import statements in controllers)",
-            "Jinja2 templating engine (requirements.txt)",
-            "PostgreSQL database (implied from ORM patterns)",
-            "lxml for XML processing (requirements.txt)",
-            "Babel for internationalization (requirements.txt)",
-            "gevent for async processing (requirements.txt)",
-            "cryptography for security features (requirements.txt)",
-            "JavaScript/TypeScript frontend (5730+ .js files, 74+ .ts files)"
+            "Meteor.js framework (apps/meteor/.meteor/)",
+            "Node.js runtime",
+            "TypeScript (5843 .ts files, package.json typescript ~5.9.3)",
+            "React 18.3.1 (apps/meteor/package.json)",
+            "MongoDB 6.16.0 (multiple package.json files)",
+            "Express.js (multiple services)",
+            "WebSockets (ws ~8.19.0)",
+            "NATS message broker (nats ^2.28.2)",
+            "Moleculer microservices framework (moleculer ^0.14.35)",
+            "AWS SDK v3 (S3 integration)",
+            "Google Cloud Storage",
+            "bcrypt for password hashing",
+            "Pino logging framework",
+            "Docker containerization"
           ],
           "integrations": [
-            "OAuth2 providers (Google, Facebook, etc.) via auth_oauth addon",
-            "WebAuthn compatible authenticators",
-            "SMTP servers for email notifications",
-            "GeoIP2 services for location data (requirements.txt)"
+            "AWS S3 for file storage (@aws-sdk packages)",
+            "Google Cloud Storage (@google-cloud/storage)",
+            "Apple Push Notifications (@parse/node-apn)",
+            "Firebase Cloud Messaging",
+            "WhatsApp Business API",
+            "SMS providers",
+            "Email services (SMTP)",
+            "WebRTC for video calls",
+            "LDAP/Active Directory",
+            "Jaeger distributed tracing (jaeger-client)",
+            "OpenTelemetry (@opentelemetry packages)",
+            "Bugsnag error tracking (@bugsnag/js)"
           ],
           "api_endpoints": [
             {
-              "method": "POST",
-              "path": "/auth_oauth/signin",
-              "summary": "OAuth2 authentication callback (addons/auth_oauth/controllers/main.py:145)"
-            },
-            {
-              "method": "POST",
-              "path": "/auth/passkey/start-auth",
-              "summary": "Start WebAuthn authentication (addons/auth_passkey/controllers/main.py:11)"
+              "method": "GET",
+              "path": "/api/info",
+              "summary": "Server information endpoint (apps/meteor/app/api/server/default/info.ts)"
             },
             {
               "method": "GET",
-              "path": "/web/signup",
-              "summary": "User registration page (addons/auth_signup/controllers/main.py:36)"
+              "path": "/api/v1/openapi",
+              "summary": "OpenAPI documentation (apps/meteor/app/api/server/default/openApi.ts)"
             },
             {
-              "method": "POST",
-              "path": "/web/signup",
-              "summary": "Process user registration (addons/auth_signup/controllers/main.py:36)"
-            },
-            {
-              "method": "GET",
-              "path": "/web/reset_password",
-              "summary": "Password reset page (addons/auth_signup/controllers/main.py:75)"
-            },
-            {
-              "method": "GET",
-              "path": "/web/login",
-              "summary": "User login page (addons/auth_signup/controllers/main.py:21)"
+              "method": null,
+              "path": "Various REST API endpoints under /api/v1/ namespace (apps/meteor/app/api/server/)",
+              "summary": null
             }
           ],
           "pricing": {
@@ -732,138 +520,128 @@
           "evidence_tracking": {
             "confidence_level": "High",
             "technical_facts": [
-              "Provides OAuth2 authentication integration with external providers (addons/auth_oauth/controllers/main.py)",
-              "Implements WebAuthn/passkey authentication for passwordless login (addons/auth_passkey/controllers/main.py)",
-              "Handles user registration, password reset, and signup workflows (addons/auth_signup/controllers/main.py)",
-              "Manages business accounting operations including invoicing and financial reporting (addons/account/)",
-              "Processes HTTP requests through web controllers with session management (multiple controller files)",
-              "Supports multi-database operations with database filtering and selection",
-              "Provides REST API endpoints through JSON-RPC protocol",
-              "Implements modular addon system for extending functionality (46+ addon directories)"
+              "Real-time messaging and chat functionality with WebSocket support (apps/meteor/app/lib/server/methods/sendMessage.ts, WebSocket handlers)",
+              "Two-factor authentication with TOTP and email verification (apps/meteor/app/2fa/server/)",
+              "Omnichannel customer support with transcript generation (ee/apps/omnichannel-transcript/)",
+              "REST API with comprehensive endpoint coverage (apps/meteor/app/api/server/)",
+              "File upload and storage with S3 and Google Cloud integration (apps/meteor dependencies @aws-sdk, @google-cloud/storage)",
+              "Video conferencing integration with WebRTC (apps/meteor dependencies)",
+              "User presence tracking and status management (ee/apps/presence-service/)",
+              "Push notifications via FCM and APN (apps/meteor dependencies @parse/node-apn)",
+              "OAuth2 server functionality (apps/meteor dependency @node-oauth/oauth2-server)",
+              "PDF generation for transcripts and reports (dependencies @react-pdf/renderer)"
             ],
             "information_gaps": []
           },
           "architecture_patterns": [
-            "monolith",
-            "Concurrency: gevent-based async processing with greenlet coroutines"
+            "microservices",
+            "Concurrency: async/await with Node.js event loop, Meteor Fibers for legacy code, microservices communication via NATS"
           ],
           "auth_methods": [
-            "OAuth2 with external providers",
-            "WebAuthn/Passkey authentication",
-            "Traditional username/password",
-            "Session-based authentication",
-            "Token-based authentication"
+            "Two-Factor Authentication with TOTP (apps/meteor/app/2fa/server/)",
+            "Email verification codes (apps/meteor/app/2fa/server/code/EmailCheck.ts)",
+            "OAuth2 server (dependency @node-oauth/oauth2-server)",
+            "JWT tokens",
+            "Password-based authentication with bcrypt",
+            "LDAP integration",
+            "SAML authentication"
           ],
           "sdk_languages": [],
           "dependencies": [
-            "asn1crypto",
-            "Babel",
-            "cbor2",
-            "chardet",
-            "cryptography",
-            "docutils",
-            "geoip2",
-            "gevent",
-            "greenlet",
-            "idna",
-            "Jinja2",
-            "lxml",
-            "MarkupSafe",
-            "num2words",
-            "ofxparse",
-            "passlib",
-            "Pillow",
-            "polib",
-            "psutil",
-            "psycopg2",
-            "pydot",
-            "pypdf",
-            "PyYAML",
-            "qrcode",
-            "reportlab",
-            "requests",
-            "rjsmin",
-            "urllib3",
-            "vobject",
-            "Werkzeug",
-            "xlrd",
-            "XlsxWriter",
-            "xlwt",
-            "zeep",
-            "Infrastructure: PostgreSQL database",
-            "Infrastructure: SMTP server for email"
+            "Meteor framework",
+            "MongoDB 6.16.0",
+            "NATS ^2.28.2",
+            "moleculer ^0.14.35",
+            "express ^4.21.2",
+            "ws ~8.19.0",
+            "bcrypt ^5.1.1",
+            "pino 10.3.1",
+            "@aws-sdk/client-s3 ^3.862.0",
+            "@google-cloud/storage ^7.15.0",
+            "Infrastructure: MongoDB database",
+            "Infrastructure: NATS message broker",
+            "Infrastructure: Redis (for caching)",
+            "Infrastructure: S3-compatible storage",
+            "Infrastructure: SMTP server"
           ],
-          "deployment_options": []
+          "deployment_options": [
+            "Containerized (Docker)",
+            "CI/CD: GitHub Actions (multiple workflow files in .github/)"
+          ]
         },
         "extracted_data": {},
         "source": "local_repo",
         "source_confidence": "high",
-        "timestamp": "2026-03-21T14:53:17.114010"
+        "timestamp": "2026-03-21T15:14:18.708373"
       },
       "step2": {
         "step1_data": {
-          "product_name": "odoo",
-          "url": "https://github.com/odoo/odoo.git",
+          "product_name": "Rocket.Chat",
+          "url": "https://github.com/RocketChat/Rocket.Chat.git",
           "analysis": {
-            "summary": "Odoo is a comprehensive open-source enterprise resource planning (ERP) system that provides a suite of integrated business applications including CRM, eCommerce, accounting, inventory management, and project management through a modular addon architecture.",
+            "summary": "Rocket.Chat is an open-source team communication platform built on Meteor/Node.js that provides real-time messaging, omnichannel customer support, and collaborative workspace features with role-based access control and extensive integration capabilities.",
             "capabilities": [
-              "Provides OAuth2 authentication integration with external providers (addons/auth_oauth/controllers/main.py)",
-              "Implements WebAuthn/passkey authentication for passwordless login (addons/auth_passkey/controllers/main.py)",
-              "Handles user registration, password reset, and signup workflows (addons/auth_signup/controllers/main.py)",
-              "Manages business accounting operations including invoicing and financial reporting (addons/account/)",
-              "Processes HTTP requests through web controllers with session management (multiple controller files)",
-              "Supports multi-database operations with database filtering and selection",
-              "Provides REST API endpoints through JSON-RPC protocol",
-              "Implements modular addon system for extending functionality (46+ addon directories)"
+              "Real-time messaging and chat functionality with WebSocket support (apps/meteor/app/lib/server/methods/sendMessage.ts, WebSocket handlers)",
+              "Two-factor authentication with TOTP and email verification (apps/meteor/app/2fa/server/)",
+              "Omnichannel customer support with transcript generation (ee/apps/omnichannel-transcript/)",
+              "REST API with comprehensive endpoint coverage (apps/meteor/app/api/server/)",
+              "File upload and storage with S3 and Google Cloud integration (apps/meteor dependencies @aws-sdk, @google-cloud/storage)",
+              "Video conferencing integration with WebRTC (apps/meteor dependencies)",
+              "User presence tracking and status management (ee/apps/presence-service/)",
+              "Push notifications via FCM and APN (apps/meteor dependencies @parse/node-apn)",
+              "OAuth2 server functionality (apps/meteor dependency @node-oauth/oauth2-server)",
+              "PDF generation for transcripts and reports (dependencies @react-pdf/renderer)",
+              "Email processing and SMTP integration (apps/meteor/app/api/server/lib/emailInbox.ts)",
+              "Rate limiting and security controls (apps/meteor/app/api/server/)",
+              "Multi-tenant workspace support with role-based permissions",
+              "App marketplace and custom app development platform (dependencies @rocket.chat/apps-engine)"
             ],
             "use_cases": [],
             "technical_stack": [
-              "Python 3.10+ (requirements.txt, multiple .py files)",
-              "Werkzeug web framework (import statements in controllers)",
-              "Jinja2 templating engine (requirements.txt)",
-              "PostgreSQL database (implied from ORM patterns)",
-              "lxml for XML processing (requirements.txt)",
-              "Babel for internationalization (requirements.txt)",
-              "gevent for async processing (requirements.txt)",
-              "cryptography for security features (requirements.txt)",
-              "JavaScript/TypeScript frontend (5730+ .js files, 74+ .ts files)"
+              "Meteor.js framework (apps/meteor/.meteor/)",
+              "Node.js runtime",
+              "TypeScript (5843 .ts files, package.json typescript ~5.9.3)",
+              "React 18.3.1 (apps/meteor/package.json)",
+              "MongoDB 6.16.0 (multiple package.json files)",
+              "Express.js (multiple services)",
+              "WebSockets (ws ~8.19.0)",
+              "NATS message broker (nats ^2.28.2)",
+              "Moleculer microservices framework (moleculer ^0.14.35)",
+              "AWS SDK v3 (S3 integration)",
+              "Google Cloud Storage",
+              "bcrypt for password hashing",
+              "Pino logging framework",
+              "Docker containerization"
             ],
             "integrations": [
-              "OAuth2 providers (Google, Facebook, etc.) via auth_oauth addon",
-              "WebAuthn compatible authenticators",
-              "SMTP servers for email notifications",
-              "GeoIP2 services for location data (requirements.txt)"
+              "AWS S3 for file storage (@aws-sdk packages)",
+              "Google Cloud Storage (@google-cloud/storage)",
+              "Apple Push Notifications (@parse/node-apn)",
+              "Firebase Cloud Messaging",
+              "WhatsApp Business API",
+              "SMS providers",
+              "Email services (SMTP)",
+              "WebRTC for video calls",
+              "LDAP/Active Directory",
+              "Jaeger distributed tracing (jaeger-client)",
+              "OpenTelemetry (@opentelemetry packages)",
+              "Bugsnag error tracking (@bugsnag/js)"
             ],
             "api_endpoints": [
               {
-                "method": "POST",
-                "path": "/auth_oauth/signin",
-                "summary": "OAuth2 authentication callback (addons/auth_oauth/controllers/main.py:145)"
-              },
-              {
-                "method": "POST",
-                "path": "/auth/passkey/start-auth",
-                "summary": "Start WebAuthn authentication (addons/auth_passkey/controllers/main.py:11)"
+                "method": "GET",
+                "path": "/api/info",
+                "summary": "Server information endpoint (apps/meteor/app/api/server/default/info.ts)"
               },
               {
                 "method": "GET",
-                "path": "/web/signup",
-                "summary": "User registration page (addons/auth_signup/controllers/main.py:36)"
+                "path": "/api/v1/openapi",
+                "summary": "OpenAPI documentation (apps/meteor/app/api/server/default/openApi.ts)"
               },
               {
-                "method": "POST",
-                "path": "/web/signup",
-                "summary": "Process user registration (addons/auth_signup/controllers/main.py:36)"
-              },
-              {
-                "method": "GET",
-                "path": "/web/reset_password",
-                "summary": "Password reset page (addons/auth_signup/controllers/main.py:75)"
-              },
-              {
-                "method": "GET",
-                "path": "/web/login",
-                "summary": "User login page (addons/auth_signup/controllers/main.py:21)"
+                "method": null,
+                "path": "Various REST API endpoints under /api/v1/ namespace (apps/meteor/app/api/server/)",
+                "summary": null
               }
             ],
             "pricing": {
@@ -880,119 +658,110 @@
             "evidence_tracking": {
               "confidence_level": "High",
               "technical_facts": [
-                "Provides OAuth2 authentication integration with external providers (addons/auth_oauth/controllers/main.py)",
-                "Implements WebAuthn/passkey authentication for passwordless login (addons/auth_passkey/controllers/main.py)",
-                "Handles user registration, password reset, and signup workflows (addons/auth_signup/controllers/main.py)",
-                "Manages business accounting operations including invoicing and financial reporting (addons/account/)",
-                "Processes HTTP requests through web controllers with session management (multiple controller files)",
-                "Supports multi-database operations with database filtering and selection",
-                "Provides REST API endpoints through JSON-RPC protocol",
-                "Implements modular addon system for extending functionality (46+ addon directories)"
+                "Real-time messaging and chat functionality with WebSocket support (apps/meteor/app/lib/server/methods/sendMessage.ts, WebSocket handlers)",
+                "Two-factor authentication with TOTP and email verification (apps/meteor/app/2fa/server/)",
+                "Omnichannel customer support with transcript generation (ee/apps/omnichannel-transcript/)",
+                "REST API with comprehensive endpoint coverage (apps/meteor/app/api/server/)",
+                "File upload and storage with S3 and Google Cloud integration (apps/meteor dependencies @aws-sdk, @google-cloud/storage)",
+                "Video conferencing integration with WebRTC (apps/meteor dependencies)",
+                "User presence tracking and status management (ee/apps/presence-service/)",
+                "Push notifications via FCM and APN (apps/meteor dependencies @parse/node-apn)",
+                "OAuth2 server functionality (apps/meteor dependency @node-oauth/oauth2-server)",
+                "PDF generation for transcripts and reports (dependencies @react-pdf/renderer)"
               ],
               "information_gaps": []
             },
             "architecture_patterns": [
-              "monolith",
-              "Concurrency: gevent-based async processing with greenlet coroutines"
+              "microservices",
+              "Concurrency: async/await with Node.js event loop, Meteor Fibers for legacy code, microservices communication via NATS"
             ],
             "auth_methods": [
-              "OAuth2 with external providers",
-              "WebAuthn/Passkey authentication",
-              "Traditional username/password",
-              "Session-based authentication",
-              "Token-based authentication"
+              "Two-Factor Authentication with TOTP (apps/meteor/app/2fa/server/)",
+              "Email verification codes (apps/meteor/app/2fa/server/code/EmailCheck.ts)",
+              "OAuth2 server (dependency @node-oauth/oauth2-server)",
+              "JWT tokens",
+              "Password-based authentication with bcrypt",
+              "LDAP integration",
+              "SAML authentication"
             ],
             "sdk_languages": [],
             "dependencies": [
-              "asn1crypto",
-              "Babel",
-              "cbor2",
-              "chardet",
-              "cryptography",
-              "docutils",
-              "geoip2",
-              "gevent",
-              "greenlet",
-              "idna",
-              "Jinja2",
-              "lxml",
-              "MarkupSafe",
-              "num2words",
-              "ofxparse",
-              "passlib",
-              "Pillow",
-              "polib",
-              "psutil",
-              "psycopg2",
-              "pydot",
-              "pypdf",
-              "PyYAML",
-              "qrcode",
-              "reportlab",
-              "requests",
-              "rjsmin",
-              "urllib3",
-              "vobject",
-              "Werkzeug",
-              "xlrd",
-              "XlsxWriter",
-              "xlwt",
-              "zeep",
-              "Infrastructure: PostgreSQL database",
-              "Infrastructure: SMTP server for email"
+              "Meteor framework",
+              "MongoDB 6.16.0",
+              "NATS ^2.28.2",
+              "moleculer ^0.14.35",
+              "express ^4.21.2",
+              "ws ~8.19.0",
+              "bcrypt ^5.1.1",
+              "pino 10.3.1",
+              "@aws-sdk/client-s3 ^3.862.0",
+              "@google-cloud/storage ^7.15.0",
+              "Infrastructure: MongoDB database",
+              "Infrastructure: NATS message broker",
+              "Infrastructure: Redis (for caching)",
+              "Infrastructure: S3-compatible storage",
+              "Infrastructure: SMTP server"
             ],
-            "deployment_options": []
+            "deployment_options": [
+              "Containerized (Docker)",
+              "CI/CD: GitHub Actions (multiple workflow files in .github/)"
+            ]
           },
           "extracted_data": {},
           "source": "local_repo",
           "source_confidence": "high",
-          "timestamp": "2026-03-21T14:53:17.114010"
+          "timestamp": "2026-03-21T15:14:18.708373"
         },
         "generalization": {
           "functional_dna": {
             "logic_archetype": "Stateful Orchestrator",
-            "logic_archetype_evidence": "Implements modular addon system for extending functionality (46+ addon directories), manages business accounting operations including invoicing and financial reporting, and processes HTTP requests through web controllers with session management",
-            "data_contract_strictness": "Highly Structured",
-            "data_contract_evidence": "Uses PostgreSQL database (implied from ORM patterns), manages business accounting operations with structured financial data, and implements JSON-RPC protocol for API endpoints",
-            "core_algorithmic_class": "CRUD Operations",
-            "core_algorithmic_evidence": "Manages business accounting operations including invoicing and financial reporting (addons/account/), handles user registration, password reset, and signup workflows, and supports multi-database operations with database filtering and selection",
-            "concurrency_requirements": "ACID Compliance Required",
-            "concurrency_evidence": "Uses PostgreSQL database for business accounting operations and financial reporting, requires data consistency for financial transactions and multi-database operations",
+            "logic_archetype_evidence": "Real-time messaging and chat functionality with WebSocket support (apps/meteor/app/lib/server/methods/sendMessage.ts, WebSocket handlers), User presence tracking and status management (ee/apps/presence-service/), microservices architecture with NATS message broker",
+            "data_contract_strictness": "Moderately Structured",
+            "data_contract_evidence": "MongoDB 6.16.0 (multiple package.json files), TypeScript (5843 .ts files, package.json typescript ~5.9.3), REST API with comprehensive endpoint coverage",
+            "core_algorithmic_class": "Distributed Consensus",
+            "core_algorithmic_evidence": "NATS message broker (nats ^2.28.2), Moleculer microservices framework (moleculer ^0.14.35), WebSocket support for real-time state synchronization across distributed services",
+            "concurrency_requirements": "Eventually Consistent",
+            "concurrency_evidence": "NATS message broker for async communication, WebSocket handlers for real-time messaging, microservices architecture with distributed state management",
             "repurposing_confidence": 8,
-            "repurposing_reasoning": "High confidence due to modular addon architecture (46+ addon directories) that allows extending functionality, comprehensive authentication systems (OAuth2, WebAuthn, traditional), and well-defined API endpoints. The ERP core can be adapted to various business domains by leveraging its orchestration patterns."
+            "repurposing_reasoning": "High confidence due to modular microservices architecture with clear separation of concerns. Core real-time messaging, presence tracking, and orchestration patterns are highly reusable across domains requiring collaborative features."
           },
           "evidence_claims": [
             {
-              "claim": "Implements modular addon system for extensibility",
-              "evidence": "Implements modular addon system for extending functionality (46+ addon directories)",
+              "claim": "Real-time messaging capabilities with WebSocket support",
+              "evidence": "Real-time messaging and chat functionality with WebSocket support (apps/meteor/app/lib/server/methods/sendMessage.ts, WebSocket handlers)",
               "confidence": "High"
             },
             {
-              "claim": "Supports multiple authentication methods",
-              "evidence": "Provides OAuth2 authentication integration with external providers (addons/auth_oauth/controllers/main.py), Implements WebAuthn/passkey authentication for passwordless login (addons/auth_passkey/controllers/main.py)",
+              "claim": "Microservices architecture with message broker",
+              "evidence": "NATS message broker (nats ^2.28.2), Moleculer microservices framework (moleculer ^0.14.35)",
               "confidence": "High"
             },
             {
-              "claim": "Uses Python with Werkzeug framework",
-              "evidence": "Python 3.10+ (requirements.txt, multiple .py files), Werkzeug web framework (import statements in controllers)",
+              "claim": "User presence and state management",
+              "evidence": "User presence tracking and status management (ee/apps/presence-service/)",
               "confidence": "High"
             },
             {
-              "claim": "Provides structured API endpoints",
-              "evidence": "POST /auth_oauth/signin OAuth2 authentication callback (addons/auth_oauth/controllers/main.py:145), GET /web/login User login page (addons/auth_signup/controllers/main.py:21)",
+              "claim": "OAuth2 authentication server",
+              "evidence": "OAuth2 server functionality (apps/meteor dependency @node-oauth/oauth2-server)",
+              "confidence": "High"
+            },
+            {
+              "claim": "Multi-cloud storage integration",
+              "evidence": "File upload and storage with S3 and Google Cloud integration (apps/meteor dependencies @aws-sdk, @google-cloud/storage)",
               "confidence": "High"
             }
           ],
           "market_reach": {
-            "primary_industry": "Enterprise Resource Planning",
+            "primary_industry": "Communication Software",
             "cross_industry_applications": [
-              "Manufacturing",
-              "Retail",
               "Healthcare",
               "Education",
-              "Non-profit",
-              "Professional Services",
-              "Government"
+              "Financial Services",
+              "Gaming",
+              "E-commerce",
+              "Remote Work",
+              "Customer Support"
             ],
             "utility_score": 9,
             "market_potential": "High"
@@ -1001,16 +770,17 @@
             "difficulty": "Medium",
             "estimated_hours": 120,
             "required_technologies": [
-              "Python 3.10+",
-              "PostgreSQL database",
-              "Werkzeug web framework",
-              "JavaScript/TypeScript frontend"
+              "Node.js",
+              "MongoDB",
+              "NATS",
+              "Docker",
+              "TypeScript"
             ],
             "complexity_factors": [
-              "Modular addon architecture requires understanding",
-              "Multi-database operations",
-              "Complex authentication system integration",
-              "Business domain knowledge needed"
+              "Microservices coordination",
+              "Real-time state synchronization",
+              "Multi-tenant architecture",
+              "WebSocket connection management"
             ],
             "risk_level": "Medium"
           },
@@ -1019,30 +789,401 @@
               "input": {
                 "format": "JSON",
                 "required_fields": [
-                  "method",
-                  "path",
-                  "authentication_token"
+                  "message",
+                  "channel_id",
+                  "user_id"
                 ]
               },
               "output": {
                 "format": "JSON"
               },
               "authentication": {
-                "type": "Multiple",
-                "method": "OAuth2, WebAuthn, Session-based, Token-based"
+                "type": "OAuth2",
+                "method": "Bearer token"
               }
             },
             "standardization_level": "High"
           },
           "information_gaps": [
-            "Specific database schema details",
-            "Performance benchmarks and scalability limits",
-            "Detailed API rate limiting policies",
-            "Specific business logic algorithms",
-            "Data migration patterns and procedures"
+            "Database schema details beyond MongoDB usage",
+            "Specific WebRTC implementation details",
+            "Rate limiting configuration and thresholds",
+            "Scaling metrics and performance benchmarks",
+            "Message queue depth and processing guarantees"
           ]
         },
-        "timestamp": "2026-03-21T14:53:31.323857"
+        "timestamp": "2026-03-21T15:14:31.702794"
+      },
+      "errors": []
+    },
+    {
+      "url": "https://github.com/mastodon/mastodon.git",
+      "repo_name": "mastodon",
+      "timestamp": "2026-03-21T15:15:41.724228",
+      "step1": {
+        "product_name": "mastodon",
+        "url": "https://github.com/mastodon/mastodon.git",
+        "analysis": {
+          "summary": "Mastodon is a federated social network server implementing ActivityPub protocol. It provides a Ruby on Rails web application with REST/Streaming APIs, OAuth2 authentication, media handling, and real-time features for decentralized social networking.",
+          "capabilities": [
+            "ActivityPub federation for decentralized social networking (app/controllers/activitypub/*.rb)",
+            "REST API endpoints for client applications (app/controllers/api/*.rb)",
+            "Real-time streaming API using WebSocket connections (streaming/index.js)",
+            "OAuth2 authentication and authorization (Gemfile: omniauth, devise)",
+            "Media attachment processing and storage (Gemfile: kt-paperclip, ruby-vips)",
+            "Full-text search using Elasticsearch integration (app/chewy/*.rb)",
+            "Background job processing with Sidekiq (Procfile: sidekiq worker)",
+            "Administrative interface for moderation and server management (app/controllers/admin/*.rb)",
+            "Multi-language internationalization support (package.json: @formatjs/intl-pluralrules)",
+            "Two-factor authentication support (Gemfile: devise-two-factor)"
+          ],
+          "use_cases": [],
+          "technical_stack": [
+            "Ruby on Rails 8.1.0 (Gemfile)",
+            "PostgreSQL 14 (docker-compose.yml, Gemfile: pg)",
+            "Redis (docker-compose.yml, streaming/package.json: ioredis)",
+            "Elasticsearch (docker-compose.yml, Gemfile: chewy)",
+            "React/TypeScript frontend (package.json: @vitejs/plugin-react, TypeScript)",
+            "Node.js streaming server (streaming/package.json: express, ws)",
+            "Sidekiq for background jobs (Gemfile, Procfile)",
+            "Puma web server (Gemfile)",
+            "AWS S3 for media storage (Gemfile: aws-sdk-s3)"
+          ],
+          "integrations": [
+            "ActivityPub protocol for federation",
+            "AWS S3 for media storage (Gemfile: aws-sdk-s3)",
+            "Elasticsearch for search functionality (Gemfile: chewy)",
+            "WebPush for notifications (Gemfile.lock: webpush)",
+            "SMTP for email delivery",
+            "Various OAuth providers (CAS, OpenID Connect)"
+          ],
+          "api_endpoints": [
+            {
+              "method": null,
+              "path": "ActivityPub endpoints for federation (app/controllers/activitypub/inboxes_controller.rb)",
+              "summary": null
+            },
+            {
+              "method": null,
+              "path": "REST API for client applications (app/controllers/api/v1/*.rb pattern)",
+              "summary": null
+            },
+            {
+              "method": null,
+              "path": "Streaming API for real-time updates (streaming server)",
+              "summary": null
+            },
+            {
+              "method": null,
+              "path": "Admin interface endpoints (app/controllers/admin/*.rb)",
+              "summary": null
+            },
+            {
+              "method": null,
+              "path": "OAuth2 authorization endpoints (devise/omniauth integration)",
+              "summary": null
+            }
+          ],
+          "pricing": {
+            "model": "open-source",
+            "free_tier": "true"
+          },
+          "target_audience": "Developers",
+          "category": "Open Source Software",
+          "deployment": "Self-hosted",
+          "underlying_algorithm": {
+            "problem_type": "",
+            "pattern": ""
+          },
+          "evidence_tracking": {
+            "confidence_level": "High",
+            "technical_facts": [
+              "ActivityPub federation for decentralized social networking (app/controllers/activitypub/*.rb)",
+              "REST API endpoints for client applications (app/controllers/api/*.rb)",
+              "Real-time streaming API using WebSocket connections (streaming/index.js)",
+              "OAuth2 authentication and authorization (Gemfile: omniauth, devise)",
+              "Media attachment processing and storage (Gemfile: kt-paperclip, ruby-vips)",
+              "Full-text search using Elasticsearch integration (app/chewy/*.rb)",
+              "Background job processing with Sidekiq (Procfile: sidekiq worker)",
+              "Administrative interface for moderation and server management (app/controllers/admin/*.rb)",
+              "Multi-language internationalization support (package.json: @formatjs/intl-pluralrules)",
+              "Two-factor authentication support (Gemfile: devise-two-factor)"
+            ],
+            "information_gaps": []
+          },
+          "architecture_patterns": [
+            "monolith",
+            "Concurrency: multi-threaded via Puma server, async job processing via Sidekiq, real-time streaming via WebSocket connections in Node.js"
+          ],
+          "auth_methods": [
+            "OAuth2 (Gemfile: omniauth)",
+            "Two-factor authentication (Gemfile: devise-two-factor)",
+            "LDAP authentication (Gemfile: net-ldap)",
+            "PAM authentication (Gemfile: devise_pam_authenticatable2)",
+            "OpenID Connect (Gemfile: omniauth_openid_connect)",
+            "CAS authentication (Gemfile: omniauth-cas)"
+          ],
+          "sdk_languages": [],
+          "dependencies": [
+            "rails (~> 8.1.0)",
+            "pg (~> 1.5)",
+            "redis",
+            "sidekiq",
+            "devise",
+            "omniauth",
+            "chewy",
+            "kt-paperclip",
+            "express (streaming)",
+            "ws (streaming)",
+            "ioredis (streaming)",
+            "Infrastructure: PostgreSQL 14",
+            "Infrastructure: Redis 7",
+            "Infrastructure: Elasticsearch 7.17",
+            "Infrastructure: S3-compatible storage"
+          ],
+          "deployment_options": [
+            "Containerized (Docker)",
+            "CI/CD: GitHub Actions (workflow files mentioned in README badges)"
+          ]
+        },
+        "extracted_data": {},
+        "source": "local_repo",
+        "source_confidence": "high",
+        "timestamp": "2026-03-21T15:16:52.435009"
+      },
+      "step2": {
+        "step1_data": {
+          "product_name": "mastodon",
+          "url": "https://github.com/mastodon/mastodon.git",
+          "analysis": {
+            "summary": "Mastodon is a federated social network server implementing ActivityPub protocol. It provides a Ruby on Rails web application with REST/Streaming APIs, OAuth2 authentication, media handling, and real-time features for decentralized social networking.",
+            "capabilities": [
+              "ActivityPub federation for decentralized social networking (app/controllers/activitypub/*.rb)",
+              "REST API endpoints for client applications (app/controllers/api/*.rb)",
+              "Real-time streaming API using WebSocket connections (streaming/index.js)",
+              "OAuth2 authentication and authorization (Gemfile: omniauth, devise)",
+              "Media attachment processing and storage (Gemfile: kt-paperclip, ruby-vips)",
+              "Full-text search using Elasticsearch integration (app/chewy/*.rb)",
+              "Background job processing with Sidekiq (Procfile: sidekiq worker)",
+              "Administrative interface for moderation and server management (app/controllers/admin/*.rb)",
+              "Multi-language internationalization support (package.json: @formatjs/intl-pluralrules)",
+              "Two-factor authentication support (Gemfile: devise-two-factor)"
+            ],
+            "use_cases": [],
+            "technical_stack": [
+              "Ruby on Rails 8.1.0 (Gemfile)",
+              "PostgreSQL 14 (docker-compose.yml, Gemfile: pg)",
+              "Redis (docker-compose.yml, streaming/package.json: ioredis)",
+              "Elasticsearch (docker-compose.yml, Gemfile: chewy)",
+              "React/TypeScript frontend (package.json: @vitejs/plugin-react, TypeScript)",
+              "Node.js streaming server (streaming/package.json: express, ws)",
+              "Sidekiq for background jobs (Gemfile, Procfile)",
+              "Puma web server (Gemfile)",
+              "AWS S3 for media storage (Gemfile: aws-sdk-s3)"
+            ],
+            "integrations": [
+              "ActivityPub protocol for federation",
+              "AWS S3 for media storage (Gemfile: aws-sdk-s3)",
+              "Elasticsearch for search functionality (Gemfile: chewy)",
+              "WebPush for notifications (Gemfile.lock: webpush)",
+              "SMTP for email delivery",
+              "Various OAuth providers (CAS, OpenID Connect)"
+            ],
+            "api_endpoints": [
+              {
+                "method": null,
+                "path": "ActivityPub endpoints for federation (app/controllers/activitypub/inboxes_controller.rb)",
+                "summary": null
+              },
+              {
+                "method": null,
+                "path": "REST API for client applications (app/controllers/api/v1/*.rb pattern)",
+                "summary": null
+              },
+              {
+                "method": null,
+                "path": "Streaming API for real-time updates (streaming server)",
+                "summary": null
+              },
+              {
+                "method": null,
+                "path": "Admin interface endpoints (app/controllers/admin/*.rb)",
+                "summary": null
+              },
+              {
+                "method": null,
+                "path": "OAuth2 authorization endpoints (devise/omniauth integration)",
+                "summary": null
+              }
+            ],
+            "pricing": {
+              "model": "open-source",
+              "free_tier": "true"
+            },
+            "target_audience": "Developers",
+            "category": "Open Source Software",
+            "deployment": "Self-hosted",
+            "underlying_algorithm": {
+              "problem_type": "",
+              "pattern": ""
+            },
+            "evidence_tracking": {
+              "confidence_level": "High",
+              "technical_facts": [
+                "ActivityPub federation for decentralized social networking (app/controllers/activitypub/*.rb)",
+                "REST API endpoints for client applications (app/controllers/api/*.rb)",
+                "Real-time streaming API using WebSocket connections (streaming/index.js)",
+                "OAuth2 authentication and authorization (Gemfile: omniauth, devise)",
+                "Media attachment processing and storage (Gemfile: kt-paperclip, ruby-vips)",
+                "Full-text search using Elasticsearch integration (app/chewy/*.rb)",
+                "Background job processing with Sidekiq (Procfile: sidekiq worker)",
+                "Administrative interface for moderation and server management (app/controllers/admin/*.rb)",
+                "Multi-language internationalization support (package.json: @formatjs/intl-pluralrules)",
+                "Two-factor authentication support (Gemfile: devise-two-factor)"
+              ],
+              "information_gaps": []
+            },
+            "architecture_patterns": [
+              "monolith",
+              "Concurrency: multi-threaded via Puma server, async job processing via Sidekiq, real-time streaming via WebSocket connections in Node.js"
+            ],
+            "auth_methods": [
+              "OAuth2 (Gemfile: omniauth)",
+              "Two-factor authentication (Gemfile: devise-two-factor)",
+              "LDAP authentication (Gemfile: net-ldap)",
+              "PAM authentication (Gemfile: devise_pam_authenticatable2)",
+              "OpenID Connect (Gemfile: omniauth_openid_connect)",
+              "CAS authentication (Gemfile: omniauth-cas)"
+            ],
+            "sdk_languages": [],
+            "dependencies": [
+              "rails (~> 8.1.0)",
+              "pg (~> 1.5)",
+              "redis",
+              "sidekiq",
+              "devise",
+              "omniauth",
+              "chewy",
+              "kt-paperclip",
+              "express (streaming)",
+              "ws (streaming)",
+              "ioredis (streaming)",
+              "Infrastructure: PostgreSQL 14",
+              "Infrastructure: Redis 7",
+              "Infrastructure: Elasticsearch 7.17",
+              "Infrastructure: S3-compatible storage"
+            ],
+            "deployment_options": [
+              "Containerized (Docker)",
+              "CI/CD: GitHub Actions (workflow files mentioned in README badges)"
+            ]
+          },
+          "extracted_data": {},
+          "source": "local_repo",
+          "source_confidence": "high",
+          "timestamp": "2026-03-21T15:16:52.435009"
+        },
+        "generalization": {
+          "functional_dna": {
+            "logic_archetype": "Stateful Orchestrator",
+            "logic_archetype_evidence": "ActivityPub federation for decentralized social networking (app/controllers/activitypub/*.rb), Background job processing with Sidekiq (Procfile: sidekiq worker), Administrative interface for moderation and server management (app/controllers/admin/*.rb) - manages complex workflows across multiple services and maintains state across federation",
+            "data_contract_strictness": "Highly Structured",
+            "data_contract_evidence": "PostgreSQL 14 (docker-compose.yml, Gemfile: pg) as primary database with Rails models, ActivityPub protocol implementation requiring structured JSON-LD format",
+            "core_algorithmic_class": "Graph Algorithms",
+            "core_algorithmic_evidence": "ActivityPub federation creates distributed social graph, Full-text search using Elasticsearch integration (app/chewy/*.rb) for graph traversal and relationship mapping",
+            "concurrency_requirements": "ACID Compliance Required",
+            "concurrency_evidence": "PostgreSQL 14 (docker-compose.yml, Gemfile: pg) as primary database, multi-threaded via Puma server, async job processing via Sidekiq for maintaining data consistency in federated network",
+            "repurposing_confidence": 8,
+            "repurposing_reasoning": "High reusability due to modular architecture with REST APIs, OAuth2 authentication, background job processing, and federation protocol. Core components (user management, content distribution, real-time streaming) are applicable to many social/collaborative platforms."
+          },
+          "evidence_claims": [
+            {
+              "claim": "Implements ActivityPub federation protocol",
+              "evidence": "ActivityPub federation for decentralized social networking (app/controllers/activitypub/*.rb)",
+              "confidence": "High"
+            },
+            {
+              "claim": "Provides REST API architecture",
+              "evidence": "REST API endpoints for client applications (app/controllers/api/*.rb)",
+              "confidence": "High"
+            },
+            {
+              "claim": "Supports real-time communication",
+              "evidence": "Real-time streaming API using WebSocket connections (streaming/index.js)",
+              "confidence": "High"
+            },
+            {
+              "claim": "Uses Ruby on Rails framework",
+              "evidence": "Ruby on Rails 8.1.0 (Gemfile)",
+              "confidence": "High"
+            },
+            {
+              "claim": "Implements comprehensive authentication",
+              "evidence": "OAuth2 authentication and authorization (Gemfile: omniauth, devise), Two-factor authentication support (Gemfile: devise-two-factor)",
+              "confidence": "High"
+            }
+          ],
+          "market_reach": {
+            "primary_industry": "Social Media/Communication",
+            "cross_industry_applications": [
+              "Enterprise Collaboration",
+              "Healthcare Communication",
+              "Education Platforms",
+              "Government Communications",
+              "Developer Communities",
+              "Media Broadcasting"
+            ],
+            "utility_score": 8,
+            "market_potential": "High"
+          },
+          "friction_report": {
+            "difficulty": "Medium",
+            "estimated_hours": 120,
+            "required_technologies": [
+              "Ruby on Rails expertise (Ruby on Rails 8.1.0 (Gemfile))",
+              "PostgreSQL administration (PostgreSQL 14 (docker-compose.yml, Gemfile: pg))",
+              "Redis configuration (Redis (docker-compose.yml, streaming/package.json: ioredis))",
+              "Elasticsearch setup (Elasticsearch (docker-compose.yml, Gemfile: chewy))",
+              "Node.js for streaming (Node.js streaming server (streaming/package.json: express, ws))"
+            ],
+            "complexity_factors": [
+              "Multi-service architecture",
+              "Federation protocol complexity",
+              "Real-time streaming requirements",
+              "Background job orchestration",
+              "Multi-database coordination"
+            ],
+            "risk_level": "Medium"
+          },
+          "interface_map": {
+            "adapter_schema": {
+              "input": {
+                "format": "JSON",
+                "required_fields": [
+                  "ActivityPub objects",
+                  "REST API payloads",
+                  "OAuth2 tokens"
+                ]
+              },
+              "output": {
+                "format": "JSON"
+              },
+              "authentication": {
+                "type": "OAuth2",
+                "method": "Bearer token, Two-factor authentication"
+              }
+            },
+            "standardization_level": "High"
+          },
+          "information_gaps": [
+            "Specific ActivityPub protocol version compatibility",
+            "Performance metrics and scaling limits",
+            "Database schema details",
+            "API rate limiting specifications",
+            "Federation security protocols"
+          ]
+        },
+        "timestamp": "2026-03-21T15:17:09.099436"
       },
       "errors": []
     }
