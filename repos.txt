@@ -1,4 +1,4 @@
-# Batch analysis targets
-https://github.com/arduino/Arduino.git
-https://github.com/Growstuff/growstuff.git
-https://github.com/axem-solutions/dem.git
+# Batch 2 analysis targets
+https://github.com/godotengine/godot.git
+https://github.com/home-assistant/core.git
+https://github.com/odoo/odoo.git

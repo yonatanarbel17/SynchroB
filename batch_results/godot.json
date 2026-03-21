@@ -1,0 +1,294 @@
+{
+  "url": "https://github.com/godotengine/godot.git",
+  "repo_name": "godot",
+  "timestamp": "2026-03-21T14:48:02.656899",
+  "step1": {
+    "product_name": "godot",
+    "url": "https://github.com/godotengine/godot.git",
+    "analysis": {
+      "summary": "Godot Engine is a cross-platform 2D and 3D game engine written primarily in C++ that provides a comprehensive game development framework with editor, runtime, and multi-platform export capabilities.",
+      "capabilities": [
+        "2D and 3D game rendering with various graphics APIs (core/config/engine.cpp, platform/*/display_server_*.cpp)",
+        "Cross-platform compilation and deployment to desktop, mobile, web and console platforms (platform/ directory structure)",
+        "Visual scripting system and GDScript language support (modules/gdscript/)",
+        "Physics simulation for both 2D and 3D environments (modules/physics_*/, servers/physics_*/)",
+        "Audio processing and playback with WASAPI, ALSA, and other audio backends (drivers/wasapi/, drivers/alsa/)",
+        "Resource management and asset pipeline (core/io/, editor/import/)",
+        "Scene tree management and node-based architecture (scene/ directory)",
+        "Extension system for native code integration (core/extension/gdextension.cpp)",
+        "Built-in editor with visual scene editing (editor/ directory)",
+        "Multi-language binding support including C#, Java, Kotlin (modules/mono/, platform/android/java/)"
+      ],
+      "use_cases": [],
+      "technical_stack": [
+        "C++ (primary language, 2377+ .cpp files)",
+        "Python (build system and tools, SConstruct, 126+ .py files)",
+        "SCons (build system, SConstruct file)",
+        "OpenGL/Vulkan (graphics rendering, drivers/vulkan/)",
+        "C# (Mono integration, modules/mono/, 301+ .cs files)",
+        "Java/Kotlin (Android platform, platform/android/java/, 190+ .java files, 50+ .kt files)",
+        "JavaScript (web platform, platform/web/, 26+ .js files)",
+        "CMake (Android native builds, platform/android/java/nativeSrcsConfigs/CMakeLists.txt)",
+        "Gradle (Android builds, multiple build.gradle files)",
+        "ESLint/JSDoc (web platform tooling, platform/web/package.json)"
+      ],
+      "integrations": [
+        "Android SDK (platform/android/)",
+        "iOS SDK (platform/ios/)",
+        "Windows APIs including WASAPI (drivers/wasapi/)",
+        "Linux ALSA audio (drivers/alsa/)",
+        "Vulkan graphics API (drivers/vulkan/)",
+        "OpenGL graphics (drivers/gl_context/)",
+        "Steam SDK integration support (modules/)",
+        "XR/VR platforms (modules/xr/)"
+      ],
+      "api_endpoints": [],
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      },
+      "target_audience": "Developers",
+      "category": "Open Source Software",
+      "deployment": "Self-hosted",
+      "underlying_algorithm": {
+        "problem_type": "",
+        "pattern": ""
+      },
+      "evidence_tracking": {
+        "confidence_level": "High",
+        "technical_facts": [
+          "2D and 3D game rendering with various graphics APIs (core/config/engine.cpp, platform/*/display_server_*.cpp)",
+          "Cross-platform compilation and deployment to desktop, mobile, web and console platforms (platform/ directory structure)",
+          "Visual scripting system and GDScript language support (modules/gdscript/)",
+          "Physics simulation for both 2D and 3D environments (modules/physics_*/, servers/physics_*/)",
+          "Audio processing and playback with WASAPI, ALSA, and other audio backends (drivers/wasapi/, drivers/alsa/)",
+          "Resource management and asset pipeline (core/io/, editor/import/)",
+          "Scene tree management and node-based architecture (scene/ directory)",
+          "Extension system for native code integration (core/extension/gdextension.cpp)",
+          "Built-in editor with visual scene editing (editor/ directory)",
+          "Multi-language binding support including C#, Java, Kotlin (modules/mono/, platform/android/java/)"
+        ],
+        "information_gaps": []
+      },
+      "architecture_patterns": [
+        "monolithic engine with modular components",
+        "Concurrency: multi-threaded with dedicated render thread, physics thread, and worker thread pool (core/templates/thread_work_pool.h)"
+      ],
+      "auth_methods": [],
+      "sdk_languages": [
+        "C++",
+        "C#",
+        "GDScript",
+        "Java",
+        "Kotlin",
+        "JavaScript"
+      ],
+      "dependencies": [
+        "Platform-specific system libraries",
+        "Graphics drivers",
+        "Audio system libraries",
+        "Infrastructure: No external databases or services required"
+      ],
+      "deployment_options": [
+        "CI/CD: GitHub Actions (inferred from project structure)"
+      ]
+    },
+    "extracted_data": {},
+    "source": "local_repo",
+    "source_confidence": "high",
+    "timestamp": "2026-03-21T14:48:44.375331"
+  },
+  "step2": {
+    "step1_data": {
+      "product_name": "godot",
+      "url": "https://github.com/godotengine/godot.git",
+      "analysis": {
+        "summary": "Godot Engine is a cross-platform 2D and 3D game engine written primarily in C++ that provides a comprehensive game development framework with editor, runtime, and multi-platform export capabilities.",
+        "capabilities": [
+          "2D and 3D game rendering with various graphics APIs (core/config/engine.cpp, platform/*/display_server_*.cpp)",
+          "Cross-platform compilation and deployment to desktop, mobile, web and console platforms (platform/ directory structure)",
+          "Visual scripting system and GDScript language support (modules/gdscript/)",
+          "Physics simulation for both 2D and 3D environments (modules/physics_*/, servers/physics_*/)",
+          "Audio processing and playback with WASAPI, ALSA, and other audio backends (drivers/wasapi/, drivers/alsa/)",
+          "Resource management and asset pipeline (core/io/, editor/import/)",
+          "Scene tree management and node-based architecture (scene/ directory)",
+          "Extension system for native code integration (core/extension/gdextension.cpp)",
+          "Built-in editor with visual scene editing (editor/ directory)",
+          "Multi-language binding support including C#, Java, Kotlin (modules/mono/, platform/android/java/)"
+        ],
+        "use_cases": [],
+        "technical_stack": [
+          "C++ (primary language, 2377+ .cpp files)",
+          "Python (build system and tools, SConstruct, 126+ .py files)",
+          "SCons (build system, SConstruct file)",
+          "OpenGL/Vulkan (graphics rendering, drivers/vulkan/)",
+          "C# (Mono integration, modules/mono/, 301+ .cs files)",
+          "Java/Kotlin (Android platform, platform/android/java/, 190+ .java files, 50+ .kt files)",
+          "JavaScript (web platform, platform/web/, 26+ .js files)",
+          "CMake (Android native builds, platform/android/java/nativeSrcsConfigs/CMakeLists.txt)",
+          "Gradle (Android builds, multiple build.gradle files)",
+          "ESLint/JSDoc (web platform tooling, platform/web/package.json)"
+        ],
+        "integrations": [
+          "Android SDK (platform/android/)",
+          "iOS SDK (platform/ios/)",
+          "Windows APIs including WASAPI (drivers/wasapi/)",
+          "Linux ALSA audio (drivers/alsa/)",
+          "Vulkan graphics API (drivers/vulkan/)",
+          "OpenGL graphics (drivers/gl_context/)",
+          "Steam SDK integration support (modules/)",
+          "XR/VR platforms (modules/xr/)"
+        ],
+        "api_endpoints": [],
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        },
+        "target_audience": "Developers",
+        "category": "Open Source Software",
+        "deployment": "Self-hosted",
+        "underlying_algorithm": {
+          "problem_type": "",
+          "pattern": ""
+        },
+        "evidence_tracking": {
+          "confidence_level": "High",
+          "technical_facts": [
+            "2D and 3D game rendering with various graphics APIs (core/config/engine.cpp, platform/*/display_server_*.cpp)",
+            "Cross-platform compilation and deployment to desktop, mobile, web and console platforms (platform/ directory structure)",
+            "Visual scripting system and GDScript language support (modules/gdscript/)",
+            "Physics simulation for both 2D and 3D environments (modules/physics_*/, servers/physics_*/)",
+            "Audio processing and playback with WASAPI, ALSA, and other audio backends (drivers/wasapi/, drivers/alsa/)",
+            "Resource management and asset pipeline (core/io/, editor/import/)",
+            "Scene tree management and node-based architecture (scene/ directory)",
+            "Extension system for native code integration (core/extension/gdextension.cpp)",
+            "Built-in editor with visual scene editing (editor/ directory)",
+            "Multi-language binding support including C#, Java, Kotlin (modules/mono/, platform/android/java/)"
+          ],
+          "information_gaps": []
+        },
+        "architecture_patterns": [
+          "monolithic engine with modular components",
+          "Concurrency: multi-threaded with dedicated render thread, physics thread, and worker thread pool (core/templates/thread_work_pool.h)"
+        ],
+        "auth_methods": [],
+        "sdk_languages": [
+          "C++",
+          "C#",
+          "GDScript",
+          "Java",
+          "Kotlin",
+          "JavaScript"
+        ],
+        "dependencies": [
+          "Platform-specific system libraries",
+          "Graphics drivers",
+          "Audio system libraries",
+          "Infrastructure: No external databases or services required"
+        ],
+        "deployment_options": [
+          "CI/CD: GitHub Actions (inferred from project structure)"
+        ]
+      },
+      "extracted_data": {},
+      "source": "local_repo",
+      "source_confidence": "high",
+      "timestamp": "2026-03-21T14:48:44.375331"
+    },
+    "generalization": {
+      "functional_dna": {
+        "logic_archetype": "Stateful Orchestrator",
+        "logic_archetype_evidence": "Scene tree management and node-based architecture (scene/ directory) - manages complex hierarchical state and coordinates multiple subsystems including rendering, physics, audio, and input",
+        "data_contract_strictness": "Highly Structured",
+        "data_contract_evidence": "Resource management and asset pipeline (core/io/, editor/import/) - requires specific file formats and structured scene definitions",
+        "core_algorithmic_class": "Graph Algorithms",
+        "core_algorithmic_evidence": "Scene tree management and node-based architecture (scene/ directory) - implements hierarchical graph traversal and manipulation for scene graphs",
+        "concurrency_requirements": "No Consistency Requirements",
+        "concurrency_evidence": "Concurrency: multi-threaded with dedicated render thread, physics thread, and worker thread pool (core/templates/thread_work_pool.h) - designed for real-time performance over consistency",
+        "repurposing_confidence": 7,
+        "repurposing_reasoning": "High modularity with platform/ directory structure and extension system suggests good separation of concerns, but game engine architecture is highly specialized for real-time rendering and simulation"
+      },
+      "evidence_claims": [
+        {
+          "claim": "Multi-platform deployment capability",
+          "evidence": "Cross-platform compilation and deployment to desktop, mobile, web and console platforms (platform/ directory structure)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Extensible architecture",
+          "evidence": "Extension system for native code integration (core/extension/gdextension.cpp)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Multi-threaded processing",
+          "evidence": "Concurrency: multi-threaded with dedicated render thread, physics thread, and worker thread pool (core/templates/thread_work_pool.h)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Multi-language support",
+          "evidence": "Multi-language binding support including C#, Java, Kotlin (modules/mono/, platform/android/java/)",
+          "confidence": "High"
+        }
+      ],
+      "market_reach": {
+        "primary_industry": "Gaming",
+        "cross_industry_applications": [
+          "Education",
+          "Training/Simulation",
+          "Data Visualization",
+          "Architecture/Design",
+          "Entertainment",
+          "Marketing"
+        ],
+        "utility_score": 8,
+        "market_potential": "High"
+      },
+      "friction_report": {
+        "difficulty": "High",
+        "estimated_hours": 200,
+        "required_technologies": [
+          "C++",
+          "Platform-specific system libraries",
+          "Graphics drivers",
+          "Audio system libraries"
+        ],
+        "complexity_factors": [
+          "Real-time rendering pipeline",
+          "Multi-platform deployment",
+          "Physics simulation",
+          "Complex build system with SCons"
+        ],
+        "risk_level": "High"
+      },
+      "interface_map": {
+        "adapter_schema": {
+          "input": {
+            "format": "Native API calls",
+            "required_fields": [
+              "scene_data",
+              "asset_references",
+              "configuration"
+            ]
+          },
+          "output": {
+            "format": "Platform-specific executables"
+          },
+          "authentication": {
+            "type": "None",
+            "method": "Open source"
+          }
+        },
+        "standardization_level": "Low"
+      },
+      "information_gaps": [
+        "Network architecture for multiplayer games",
+        "Memory management patterns",
+        "Specific rendering pipeline details",
+        "Performance benchmarks and resource requirements",
+        "Plugin/extension API specifications"
+      ]
+    },
+    "timestamp": "2026-03-21T14:48:57.348360"
+  },
+  "errors": []
+}

@@ -1,0 +1,351 @@
+{
+  "url": "https://github.com/home-assistant/core.git",
+  "repo_name": "core",
+  "timestamp": "2026-03-21T14:50:07.440041",
+  "step1": {
+    "product_name": "core",
+    "url": "https://github.com/home-assistant/core.git",
+    "analysis": {
+      "summary": "Home Assistant is an open-source home automation platform that provides local control and privacy for IoT devices. It processes device integrations, manages user authentication, serves a web UI, and orchestrates automation rules through a modular architecture supporting thousands of device types.",
+      "capabilities": [
+        "Manages user authentication and authorization with multiple MFA modules (homeassistant/auth/)",
+        "Processes device integrations through component system with 2000+ integrations (homeassistant/components/)",
+        "Serves REST API endpoints for device control and state management (homeassistant/components/api/)",
+        "Provides WebSocket interface for real-time updates (homeassistant/components/websocket_api/)",
+        "Executes automation rules and triggers based on device states and events",
+        "Manages configuration through YAML files and UI-based config flows",
+        "Handles media streaming through Go2RTC integration (homeassistant/components/go2rtc/)",
+        "Supports backup and restore functionality (homeassistant/backup_restore.py)",
+        "Processes voice commands and intents through conversation system"
+      ],
+      "use_cases": [],
+      "technical_stack": [
+        "Python 3.14+ (pyproject.toml)",
+        "asyncio for concurrency (homeassistant/__main__.py, core.py)",
+        "aiohttp 3.13.3 for HTTP server (requirements.txt)",
+        "SQLAlchemy 2.0.41 for database ORM (requirements.txt)",
+        "WebSocket support via aiohttp (requirements.txt)",
+        "Jinja2 3.1.6 for templating (requirements.txt)",
+        "PyJWT 2.10.1 for authentication tokens (requirements.txt)",
+        "YAML configuration support via PyYAML 6.0.3 (requirements.txt)",
+        "Go2RTC for media streaming (Dockerfile, homeassistant/components/go2rtc/)",
+        "Docker containerization (Dockerfile)"
+      ],
+      "integrations": [
+        "MQTT message broker support (homeassistant/brands/mqtt.json)",
+        "Cloud services via hass-nabucasa 2.0.0 (requirements.txt)",
+        "GitHub integration via aiogithubapi 26.0.0 (requirements.txt)",
+        "FFmpeg for media processing (ha-ffmpeg 3.2.2 in requirements.txt)",
+        "Bluetooth device support (home-assistant-bluetooth 1.13.1)",
+        "Various IoT device manufacturers (homeassistant/brands/ directory with 100+ brand files)"
+      ],
+      "api_endpoints": [
+        {
+          "method": null,
+          "path": "WebSocket /api/websocket \u2014 Real-time communication endpoint",
+          "summary": null
+        },
+        {
+          "method": null,
+          "path": "REST /api/* \u2014 Device control and state management APIs",
+          "summary": null
+        },
+        {
+          "method": "GET",
+          "path": "/api/frame.jpeg",
+          "summary": "Camera snapshot endpoint (homeassistant/components/go2rtc/server.py)"
+        },
+        {
+          "method": null,
+          "path": "Authentication endpoints for login/logout flows",
+          "summary": null
+        }
+      ],
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      },
+      "target_audience": "Developers",
+      "category": "Open Source Software",
+      "deployment": "Self-hosted",
+      "underlying_algorithm": {
+        "problem_type": "",
+        "pattern": ""
+      },
+      "evidence_tracking": {
+        "confidence_level": "High",
+        "technical_facts": [
+          "Manages user authentication and authorization with multiple MFA modules (homeassistant/auth/)",
+          "Processes device integrations through component system with 2000+ integrations (homeassistant/components/)",
+          "Serves REST API endpoints for device control and state management (homeassistant/components/api/)",
+          "Provides WebSocket interface for real-time updates (homeassistant/components/websocket_api/)",
+          "Executes automation rules and triggers based on device states and events",
+          "Manages configuration through YAML files and UI-based config flows",
+          "Handles media streaming through Go2RTC integration (homeassistant/components/go2rtc/)",
+          "Supports backup and restore functionality (homeassistant/backup_restore.py)",
+          "Processes voice commands and intents through conversation system"
+        ],
+        "information_gaps": []
+      },
+      "architecture_patterns": [
+        "monolith",
+        "Concurrency: async/await with asyncio event loop for handling concurrent device communications and API requests"
+      ],
+      "auth_methods": [
+        "JWT tokens (PyJWT in requirements.txt, homeassistant/auth/jwt_wrapper.py)",
+        "Local user/password authentication (homeassistant/auth/providers/homeassistant.py)",
+        "Trusted networks authentication (homeassistant/auth/providers/trusted_networks.py)",
+        "TOTP MFA support (homeassistant/auth/mfa_modules/totp.py)",
+        "Command line authentication (homeassistant/auth/providers/command_line.py)"
+      ],
+      "sdk_languages": [],
+      "dependencies": [
+        "aiohttp==3.13.3",
+        "SQLAlchemy==2.0.41",
+        "PyJWT==2.10.1",
+        "Jinja2==3.1.6",
+        "PyYAML==6.0.3",
+        "requests==2.32.5",
+        "cryptography==46.0.5",
+        "Pillow==12.1.1",
+        "hass-nabucasa==2.0.0",
+        "home-assistant-bluetooth==1.13.1",
+        "Infrastructure: Database (SQLite/PostgreSQL/MySQL)",
+        "Infrastructure: MQTT broker (optional)",
+        "Infrastructure: Docker runtime"
+      ],
+      "deployment_options": [
+        "Containerized (Docker)",
+        "CI/CD: GitHub Actions (inferred from CODEOWNERS and repository structure)"
+      ]
+    },
+    "extracted_data": {},
+    "source": "local_repo",
+    "source_confidence": "high",
+    "timestamp": "2026-03-21T14:50:50.593041"
+  },
+  "step2": {
+    "step1_data": {
+      "product_name": "core",
+      "url": "https://github.com/home-assistant/core.git",
+      "analysis": {
+        "summary": "Home Assistant is an open-source home automation platform that provides local control and privacy for IoT devices. It processes device integrations, manages user authentication, serves a web UI, and orchestrates automation rules through a modular architecture supporting thousands of device types.",
+        "capabilities": [
+          "Manages user authentication and authorization with multiple MFA modules (homeassistant/auth/)",
+          "Processes device integrations through component system with 2000+ integrations (homeassistant/components/)",
+          "Serves REST API endpoints for device control and state management (homeassistant/components/api/)",
+          "Provides WebSocket interface for real-time updates (homeassistant/components/websocket_api/)",
+          "Executes automation rules and triggers based on device states and events",
+          "Manages configuration through YAML files and UI-based config flows",
+          "Handles media streaming through Go2RTC integration (homeassistant/components/go2rtc/)",
+          "Supports backup and restore functionality (homeassistant/backup_restore.py)",
+          "Processes voice commands and intents through conversation system"
+        ],
+        "use_cases": [],
+        "technical_stack": [
+          "Python 3.14+ (pyproject.toml)",
+          "asyncio for concurrency (homeassistant/__main__.py, core.py)",
+          "aiohttp 3.13.3 for HTTP server (requirements.txt)",
+          "SQLAlchemy 2.0.41 for database ORM (requirements.txt)",
+          "WebSocket support via aiohttp (requirements.txt)",
+          "Jinja2 3.1.6 for templating (requirements.txt)",
+          "PyJWT 2.10.1 for authentication tokens (requirements.txt)",
+          "YAML configuration support via PyYAML 6.0.3 (requirements.txt)",
+          "Go2RTC for media streaming (Dockerfile, homeassistant/components/go2rtc/)",
+          "Docker containerization (Dockerfile)"
+        ],
+        "integrations": [
+          "MQTT message broker support (homeassistant/brands/mqtt.json)",
+          "Cloud services via hass-nabucasa 2.0.0 (requirements.txt)",
+          "GitHub integration via aiogithubapi 26.0.0 (requirements.txt)",
+          "FFmpeg for media processing (ha-ffmpeg 3.2.2 in requirements.txt)",
+          "Bluetooth device support (home-assistant-bluetooth 1.13.1)",
+          "Various IoT device manufacturers (homeassistant/brands/ directory with 100+ brand files)"
+        ],
+        "api_endpoints": [
+          {
+            "method": null,
+            "path": "WebSocket /api/websocket \u2014 Real-time communication endpoint",
+            "summary": null
+          },
+          {
+            "method": null,
+            "path": "REST /api/* \u2014 Device control and state management APIs",
+            "summary": null
+          },
+          {
+            "method": "GET",
+            "path": "/api/frame.jpeg",
+            "summary": "Camera snapshot endpoint (homeassistant/components/go2rtc/server.py)"
+          },
+          {
+            "method": null,
+            "path": "Authentication endpoints for login/logout flows",
+            "summary": null
+          }
+        ],
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        },
+        "target_audience": "Developers",
+        "category": "Open Source Software",
+        "deployment": "Self-hosted",
+        "underlying_algorithm": {
+          "problem_type": "",
+          "pattern": ""
+        },
+        "evidence_tracking": {
+          "confidence_level": "High",
+          "technical_facts": [
+            "Manages user authentication and authorization with multiple MFA modules (homeassistant/auth/)",
+            "Processes device integrations through component system with 2000+ integrations (homeassistant/components/)",
+            "Serves REST API endpoints for device control and state management (homeassistant/components/api/)",
+            "Provides WebSocket interface for real-time updates (homeassistant/components/websocket_api/)",
+            "Executes automation rules and triggers based on device states and events",
+            "Manages configuration through YAML files and UI-based config flows",
+            "Handles media streaming through Go2RTC integration (homeassistant/components/go2rtc/)",
+            "Supports backup and restore functionality (homeassistant/backup_restore.py)",
+            "Processes voice commands and intents through conversation system"
+          ],
+          "information_gaps": []
+        },
+        "architecture_patterns": [
+          "monolith",
+          "Concurrency: async/await with asyncio event loop for handling concurrent device communications and API requests"
+        ],
+        "auth_methods": [
+          "JWT tokens (PyJWT in requirements.txt, homeassistant/auth/jwt_wrapper.py)",
+          "Local user/password authentication (homeassistant/auth/providers/homeassistant.py)",
+          "Trusted networks authentication (homeassistant/auth/providers/trusted_networks.py)",
+          "TOTP MFA support (homeassistant/auth/mfa_modules/totp.py)",
+          "Command line authentication (homeassistant/auth/providers/command_line.py)"
+        ],
+        "sdk_languages": [],
+        "dependencies": [
+          "aiohttp==3.13.3",
+          "SQLAlchemy==2.0.41",
+          "PyJWT==2.10.1",
+          "Jinja2==3.1.6",
+          "PyYAML==6.0.3",
+          "requests==2.32.5",
+          "cryptography==46.0.5",
+          "Pillow==12.1.1",
+          "hass-nabucasa==2.0.0",
+          "home-assistant-bluetooth==1.13.1",
+          "Infrastructure: Database (SQLite/PostgreSQL/MySQL)",
+          "Infrastructure: MQTT broker (optional)",
+          "Infrastructure: Docker runtime"
+        ],
+        "deployment_options": [
+          "Containerized (Docker)",
+          "CI/CD: GitHub Actions (inferred from CODEOWNERS and repository structure)"
+        ]
+      },
+      "extracted_data": {},
+      "source": "local_repo",
+      "source_confidence": "high",
+      "timestamp": "2026-03-21T14:50:50.593041"
+    },
+    "generalization": {
+      "functional_dna": {
+        "logic_archetype": "Stateful Orchestrator",
+        "logic_archetype_evidence": "Executes automation rules and triggers based on device states and events, manages configuration through YAML files and UI-based config flows, processes device integrations through component system with 2000+ integrations",
+        "data_contract_strictness": "Moderately Structured",
+        "data_contract_evidence": "YAML configuration support via PyYAML 6.0.3 (requirements.txt), manages configuration through YAML files and UI-based config flows, SQLAlchemy 2.0.41 for database ORM (requirements.txt)",
+        "core_algorithmic_class": "CRUD Operations",
+        "core_algorithmic_evidence": "SQLAlchemy 2.0.41 for database ORM (requirements.txt), serves REST API endpoints for device control and state management (homeassistant/components/api/), supports backup and restore functionality (homeassistant/backup_restore.py)",
+        "concurrency_requirements": "Eventually Consistent",
+        "concurrency_evidence": "asyncio for concurrency (homeassistant/__main__.py, core.py), provides WebSocket interface for real-time updates (homeassistant/components/websocket_api/), aiohttp 3.13.3 for HTTP server (requirements.txt)",
+        "repurposing_confidence": 8,
+        "repurposing_reasoning": "High repurposing potential due to modular component system with 2000+ integrations, well-defined API structure, and event-driven orchestration patterns. The stateful orchestrator pattern is applicable to many domains requiring coordination of distributed systems."
+      },
+      "evidence_claims": [
+        {
+          "claim": "Uses Python 3.14+ as primary runtime",
+          "evidence": "Python 3.14+ (pyproject.toml)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Implements async concurrency model",
+          "evidence": "asyncio for concurrency (homeassistant/__main__.py, core.py)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Supports JWT authentication",
+          "evidence": "PyJWT 2.10.1 for authentication tokens (requirements.txt)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Uses SQLAlchemy ORM for database operations",
+          "evidence": "SQLAlchemy 2.0.41 for database ORM (requirements.txt)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Provides REST and WebSocket APIs",
+          "evidence": "Serves REST API endpoints for device control and state management (homeassistant/components/api/), provides WebSocket interface for real-time updates (homeassistant/components/websocket_api/)",
+          "confidence": "High"
+        }
+      ],
+      "market_reach": {
+        "primary_industry": "Home Automation",
+        "cross_industry_applications": [
+          "Industrial IoT",
+          "Building Management",
+          "Smart Cities",
+          "Healthcare Monitoring",
+          "Agricultural Automation"
+        ],
+        "utility_score": 8,
+        "market_potential": "High"
+      },
+      "friction_report": {
+        "difficulty": "Medium",
+        "estimated_hours": 120,
+        "required_technologies": [
+          "Python 3.14+",
+          "asyncio",
+          "aiohttp",
+          "SQLAlchemy",
+          "Docker"
+        ],
+        "complexity_factors": [
+          "2000+ device integrations",
+          "Component system architecture",
+          "Real-time event processing",
+          "Multi-protocol support"
+        ],
+        "risk_level": "Medium"
+      },
+      "interface_map": {
+        "adapter_schema": {
+          "input": {
+            "format": "JSON",
+            "required_fields": [
+              "entity_id",
+              "service",
+              "service_data"
+            ]
+          },
+          "output": {
+            "format": "JSON"
+          },
+          "authentication": {
+            "type": "JWT",
+            "method": "Bearer token"
+          }
+        },
+        "standardization_level": "High"
+      },
+      "information_gaps": [
+        "Specific database schema structure",
+        "Performance metrics and scaling limits",
+        "Hardware requirements and resource consumption",
+        "Integration testing framework details",
+        "Deployment architecture patterns beyond Docker"
+      ]
+    },
+    "timestamp": "2026-03-21T14:51:03.888918"
+  },
+  "errors": []
+}

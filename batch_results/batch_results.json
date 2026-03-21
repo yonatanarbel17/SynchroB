@@ -1,43 +1,52 @@
 {
-  "batch_timestamp": "2026-03-21T14:27:45.557097",
+  "batch_timestamp": "2026-03-21T14:53:31.329173",
   "total_repos": 3,
   "successful": 3,
   "failed": 0,
   "results": [
     {
-      "url": "https://github.com/arduino/Arduino.git",
-      "repo_name": "Arduino",
-      "timestamp": "2026-03-21T14:22:34.653210",
+      "url": "https://github.com/godotengine/godot.git",
+      "repo_name": "godot",
+      "timestamp": "2026-03-21T14:48:02.656899",
       "step1": {
-        "product_name": "Arduino",
-        "url": "https://github.com/arduino/Arduino.git",
+        "product_name": "godot",
+        "url": "https://github.com/godotengine/godot.git",
         "analysis": {
-          "summary": "Arduino IDE 1.x is a Java-based integrated development environment for programming Arduino microcontrollers. It provides code editing, compilation, and board management capabilities for embedded hardware development.",
+          "summary": "Godot Engine is a cross-platform 2D and 3D game engine written primarily in C++ that provides a comprehensive game development framework with editor, runtime, and multi-platform export capabilities.",
           "capabilities": [
-            "Code editing with syntax highlighting for Arduino sketches (app/src/processing/app/Editor.java)",
-            "Sketch compilation and uploading to Arduino boards (app/src/processing/app/Sketch.java)",
-            "Board and library management through contribution system (app/src/cc/arduino/contributions/)",
-            "Serial monitor for debugging and communication (app/src/processing/app/SerialMonitor.java)",
-            "Multi-platform GUI application using Java Swing (app/src/processing/app/Base.java)",
-            "Library and core package installation from online repositories (app/src/cc/arduino/contributions/libraries/)",
-            "Source code navigation with go-to-line functionality (app/src/cc/arduino/view/GoToLineNumber.java)"
+            "2D and 3D game rendering with various graphics APIs (core/config/engine.cpp, platform/*/display_server_*.cpp)",
+            "Cross-platform compilation and deployment to desktop, mobile, web and console platforms (platform/ directory structure)",
+            "Visual scripting system and GDScript language support (modules/gdscript/)",
+            "Physics simulation for both 2D and 3D environments (modules/physics_*/, servers/physics_*/)",
+            "Audio processing and playback with WASAPI, ALSA, and other audio backends (drivers/wasapi/, drivers/alsa/)",
+            "Resource management and asset pipeline (core/io/, editor/import/)",
+            "Scene tree management and node-based architecture (scene/ directory)",
+            "Extension system for native code integration (core/extension/gdextension.cpp)",
+            "Built-in editor with visual scene editing (editor/ directory)",
+            "Multi-language binding support including C#, Java, Kotlin (modules/mono/, platform/android/java/)"
           ],
           "use_cases": [],
           "technical_stack": [
-            "Java (primary language - 276 .java files)",
-            "Apache Ant build system (app/build.xml)",
-            "RSyntaxTextArea for code editing (app/lib/rsyntaxtextarea-3.0.3-SNAPSHOT.jar)",
-            "Apache Batik for SVG rendering (app/lib/batik-*.jar)",
-            "Apache Commons libraries for utilities (app/lib/commons-*.jar)",
-            "Jackson for JSON processing (app/lib/jackson-*.jar)",
-            "JSSC for serial communication (app/lib/jssc-2.8.0-arduino4.jar)",
-            "BouncyCastle for cryptography (app/lib/bcpg-jdk15on-152.jar, app/lib/bcprov-jdk15on-152.jar)"
+            "C++ (primary language, 2377+ .cpp files)",
+            "Python (build system and tools, SConstruct, 126+ .py files)",
+            "SCons (build system, SConstruct file)",
+            "OpenGL/Vulkan (graphics rendering, drivers/vulkan/)",
+            "C# (Mono integration, modules/mono/, 301+ .cs files)",
+            "Java/Kotlin (Android platform, platform/android/java/, 190+ .java files, 50+ .kt files)",
+            "JavaScript (web platform, platform/web/, 26+ .js files)",
+            "CMake (Android native builds, platform/android/java/nativeSrcsConfigs/CMakeLists.txt)",
+            "Gradle (Android builds, multiple build.gradle files)",
+            "ESLint/JSDoc (web platform tooling, platform/web/package.json)"
           ],
           "integrations": [
-            "Arduino hardware boards via serial communication (JSSC library)",
-            "Online package repositories for libraries and cores",
-            "Apple macOS integration (app/lib/apple.jar, app/lib/jtouchbar-1.0.0.jar)",
-            "Network discovery services via mDNS (app/lib/jmdns-3.5.5.jar)"
+            "Android SDK (platform/android/)",
+            "iOS SDK (platform/ios/)",
+            "Windows APIs including WASAPI (drivers/wasapi/)",
+            "Linux ALSA audio (drivers/alsa/)",
+            "Vulkan graphics API (drivers/vulkan/)",
+            "OpenGL graphics (drivers/gl_context/)",
+            "Steam SDK integration support (modules/)",
+            "XR/VR platforms (modules/xr/)"
           ],
           "api_endpoints": [],
           "pricing": {
@@ -54,76 +63,87 @@
           "evidence_tracking": {
             "confidence_level": "High",
             "technical_facts": [
-              "Code editing with syntax highlighting for Arduino sketches (app/src/processing/app/Editor.java)",
-              "Sketch compilation and uploading to Arduino boards (app/src/processing/app/Sketch.java)",
-              "Board and library management through contribution system (app/src/cc/arduino/contributions/)",
-              "Serial monitor for debugging and communication (app/src/processing/app/SerialMonitor.java)",
-              "Multi-platform GUI application using Java Swing (app/src/processing/app/Base.java)",
-              "Library and core package installation from online repositories (app/src/cc/arduino/contributions/libraries/)",
-              "Source code navigation with go-to-line functionality (app/src/cc/arduino/view/GoToLineNumber.java)"
+              "2D and 3D game rendering with various graphics APIs (core/config/engine.cpp, platform/*/display_server_*.cpp)",
+              "Cross-platform compilation and deployment to desktop, mobile, web and console platforms (platform/ directory structure)",
+              "Visual scripting system and GDScript language support (modules/gdscript/)",
+              "Physics simulation for both 2D and 3D environments (modules/physics_*/, servers/physics_*/)",
+              "Audio processing and playback with WASAPI, ALSA, and other audio backends (drivers/wasapi/, drivers/alsa/)",
+              "Resource management and asset pipeline (core/io/, editor/import/)",
+              "Scene tree management and node-based architecture (scene/ directory)",
+              "Extension system for native code integration (core/extension/gdextension.cpp)",
+              "Built-in editor with visual scene editing (editor/ directory)",
+              "Multi-language binding support including C#, Java, Kotlin (modules/mono/, platform/android/java/)"
             ],
             "information_gaps": []
           },
           "architecture_patterns": [
-            "desktop application",
-            "Concurrency: multi-threaded with Swing EDT for UI operations and background threads for compilation/upload tasks"
+            "monolithic engine with modular components",
+            "Concurrency: multi-threaded with dedicated render thread, physics thread, and worker thread pool (core/templates/thread_work_pool.h)"
           ],
           "auth_methods": [],
           "sdk_languages": [
-            "Java"
+            "C++",
+            "C#",
+            "GDScript",
+            "Java",
+            "Kotlin",
+            "JavaScript"
           ],
           "dependencies": [
-            "RSyntaxTextArea 3.0.3-SNAPSHOT",
-            "Apache Batik 1.8",
-            "Apache Commons (codec, compress, exec, httpclient, io, lang3, logging, net)",
-            "Jackson 2.9.5",
-            "JSSC 2.8.0-arduino4",
-            "jMDNS 3.5.5",
-            "JSch 0.1.50",
-            "BouncyCastle 1.52",
-            "Java Semver 0.8.0",
-            "SLF4J 1.7.22",
-            "Infrastructure: Java Runtime Environment",
-            "Infrastructure: Serial communication drivers"
+            "Platform-specific system libraries",
+            "Graphics drivers",
+            "Audio system libraries",
+            "Infrastructure: No external databases or services required"
           ],
-          "deployment_options": []
+          "deployment_options": [
+            "CI/CD: GitHub Actions (inferred from project structure)"
+          ]
         },
         "extracted_data": {},
         "source": "local_repo",
         "source_confidence": "high",
-        "timestamp": "2026-03-21T14:23:50.782645"
+        "timestamp": "2026-03-21T14:48:44.375331"
       },
       "step2": {
         "step1_data": {
-          "product_name": "Arduino",
-          "url": "https://github.com/arduino/Arduino.git",
+          "product_name": "godot",
+          "url": "https://github.com/godotengine/godot.git",
           "analysis": {
-            "summary": "Arduino IDE 1.x is a Java-based integrated development environment for programming Arduino microcontrollers. It provides code editing, compilation, and board management capabilities for embedded hardware development.",
+            "summary": "Godot Engine is a cross-platform 2D and 3D game engine written primarily in C++ that provides a comprehensive game development framework with editor, runtime, and multi-platform export capabilities.",
             "capabilities": [
-              "Code editing with syntax highlighting for Arduino sketches (app/src/processing/app/Editor.java)",
-              "Sketch compilation and uploading to Arduino boards (app/src/processing/app/Sketch.java)",
-              "Board and library management through contribution system (app/src/cc/arduino/contributions/)",
-              "Serial monitor for debugging and communication (app/src/processing/app/SerialMonitor.java)",
-              "Multi-platform GUI application using Java Swing (app/src/processing/app/Base.java)",
-              "Library and core package installation from online repositories (app/src/cc/arduino/contributions/libraries/)",
-              "Source code navigation with go-to-line functionality (app/src/cc/arduino/view/GoToLineNumber.java)"
+              "2D and 3D game rendering with various graphics APIs (core/config/engine.cpp, platform/*/display_server_*.cpp)",
+              "Cross-platform compilation and deployment to desktop, mobile, web and console platforms (platform/ directory structure)",
+              "Visual scripting system and GDScript language support (modules/gdscript/)",
+              "Physics simulation for both 2D and 3D environments (modules/physics_*/, servers/physics_*/)",
+              "Audio processing and playback with WASAPI, ALSA, and other audio backends (drivers/wasapi/, drivers/alsa/)",
+              "Resource management and asset pipeline (core/io/, editor/import/)",
+              "Scene tree management and node-based architecture (scene/ directory)",
+              "Extension system for native code integration (core/extension/gdextension.cpp)",
+              "Built-in editor with visual scene editing (editor/ directory)",
+              "Multi-language binding support including C#, Java, Kotlin (modules/mono/, platform/android/java/)"
             ],
             "use_cases": [],
             "technical_stack": [
-              "Java (primary language - 276 .java files)",
-              "Apache Ant build system (app/build.xml)",
-              "RSyntaxTextArea for code editing (app/lib/rsyntaxtextarea-3.0.3-SNAPSHOT.jar)",
-              "Apache Batik for SVG rendering (app/lib/batik-*.jar)",
-              "Apache Commons libraries for utilities (app/lib/commons-*.jar)",
-              "Jackson for JSON processing (app/lib/jackson-*.jar)",
-              "JSSC for serial communication (app/lib/jssc-2.8.0-arduino4.jar)",
-              "BouncyCastle for cryptography (app/lib/bcpg-jdk15on-152.jar, app/lib/bcprov-jdk15on-152.jar)"
+              "C++ (primary language, 2377+ .cpp files)",
+              "Python (build system and tools, SConstruct, 126+ .py files)",
+              "SCons (build system, SConstruct file)",
+              "OpenGL/Vulkan (graphics rendering, drivers/vulkan/)",
+              "C# (Mono integration, modules/mono/, 301+ .cs files)",
+              "Java/Kotlin (Android platform, platform/android/java/, 190+ .java files, 50+ .kt files)",
+              "JavaScript (web platform, platform/web/, 26+ .js files)",
+              "CMake (Android native builds, platform/android/java/nativeSrcsConfigs/CMakeLists.txt)",
+              "Gradle (Android builds, multiple build.gradle files)",
+              "ESLint/JSDoc (web platform tooling, platform/web/package.json)"
             ],
             "integrations": [
-              "Arduino hardware boards via serial communication (JSSC library)",
-              "Online package repositories for libraries and cores",
-              "Apple macOS integration (app/lib/apple.jar, app/lib/jtouchbar-1.0.0.jar)",
-              "Network discovery services via mDNS (app/lib/jmdns-3.5.5.jar)"
+              "Android SDK (platform/android/)",
+              "iOS SDK (platform/ios/)",
+              "Windows APIs including WASAPI (drivers/wasapi/)",
+              "Linux ALSA audio (drivers/alsa/)",
+              "Vulkan graphics API (drivers/vulkan/)",
+              "OpenGL graphics (drivers/gl_context/)",
+              "Steam SDK integration support (modules/)",
+              "XR/VR platforms (modules/xr/)"
             ],
             "api_endpoints": [],
             "pricing": {
@@ -140,203 +160,205 @@
             "evidence_tracking": {
               "confidence_level": "High",
               "technical_facts": [
-                "Code editing with syntax highlighting for Arduino sketches (app/src/processing/app/Editor.java)",
-                "Sketch compilation and uploading to Arduino boards (app/src/processing/app/Sketch.java)",
-                "Board and library management through contribution system (app/src/cc/arduino/contributions/)",
-                "Serial monitor for debugging and communication (app/src/processing/app/SerialMonitor.java)",
-                "Multi-platform GUI application using Java Swing (app/src/processing/app/Base.java)",
-                "Library and core package installation from online repositories (app/src/cc/arduino/contributions/libraries/)",
-                "Source code navigation with go-to-line functionality (app/src/cc/arduino/view/GoToLineNumber.java)"
+                "2D and 3D game rendering with various graphics APIs (core/config/engine.cpp, platform/*/display_server_*.cpp)",
+                "Cross-platform compilation and deployment to desktop, mobile, web and console platforms (platform/ directory structure)",
+                "Visual scripting system and GDScript language support (modules/gdscript/)",
+                "Physics simulation for both 2D and 3D environments (modules/physics_*/, servers/physics_*/)",
+                "Audio processing and playback with WASAPI, ALSA, and other audio backends (drivers/wasapi/, drivers/alsa/)",
+                "Resource management and asset pipeline (core/io/, editor/import/)",
+                "Scene tree management and node-based architecture (scene/ directory)",
+                "Extension system for native code integration (core/extension/gdextension.cpp)",
+                "Built-in editor with visual scene editing (editor/ directory)",
+                "Multi-language binding support including C#, Java, Kotlin (modules/mono/, platform/android/java/)"
               ],
               "information_gaps": []
             },
             "architecture_patterns": [
-              "desktop application",
-              "Concurrency: multi-threaded with Swing EDT for UI operations and background threads for compilation/upload tasks"
+              "monolithic engine with modular components",
+              "Concurrency: multi-threaded with dedicated render thread, physics thread, and worker thread pool (core/templates/thread_work_pool.h)"
             ],
             "auth_methods": [],
             "sdk_languages": [
-              "Java"
+              "C++",
+              "C#",
+              "GDScript",
+              "Java",
+              "Kotlin",
+              "JavaScript"
             ],
             "dependencies": [
-              "RSyntaxTextArea 3.0.3-SNAPSHOT",
-              "Apache Batik 1.8",
-              "Apache Commons (codec, compress, exec, httpclient, io, lang3, logging, net)",
-              "Jackson 2.9.5",
-              "JSSC 2.8.0-arduino4",
-              "jMDNS 3.5.5",
-              "JSch 0.1.50",
-              "BouncyCastle 1.52",
-              "Java Semver 0.8.0",
-              "SLF4J 1.7.22",
-              "Infrastructure: Java Runtime Environment",
-              "Infrastructure: Serial communication drivers"
+              "Platform-specific system libraries",
+              "Graphics drivers",
+              "Audio system libraries",
+              "Infrastructure: No external databases or services required"
             ],
-            "deployment_options": []
+            "deployment_options": [
+              "CI/CD: GitHub Actions (inferred from project structure)"
+            ]
           },
           "extracted_data": {},
           "source": "local_repo",
           "source_confidence": "high",
-          "timestamp": "2026-03-21T14:23:50.782645"
+          "timestamp": "2026-03-21T14:48:44.375331"
         },
         "generalization": {
           "functional_dna": {
             "logic_archetype": "Stateful Orchestrator",
-            "logic_archetype_evidence": "Multi-platform GUI application using Java Swing (app/src/processing/app/Base.java) orchestrates code editing, compilation, board management, and serial communication workflows with persistent state management",
-            "data_contract_strictness": "Moderately Structured",
-            "data_contract_evidence": "Arduino sketches have defined syntax, board configurations use structured formats, library metadata follows JSON schema (Jackson 2.9.5), but allows flexible sketch content",
-            "core_algorithmic_class": "CRUD Operations",
-            "core_algorithmic_evidence": "Code editing with syntax highlighting (app/src/processing/app/Editor.java), sketch compilation (app/src/processing/app/Sketch.java), library management (app/src/cc/arduino/contributions/libraries/), basic file operations without complex algorithms",
+            "logic_archetype_evidence": "Scene tree management and node-based architecture (scene/ directory) - manages complex hierarchical state and coordinates multiple subsystems including rendering, physics, audio, and input",
+            "data_contract_strictness": "Highly Structured",
+            "data_contract_evidence": "Resource management and asset pipeline (core/io/, editor/import/) - requires specific file formats and structured scene definitions",
+            "core_algorithmic_class": "Graph Algorithms",
+            "core_algorithmic_evidence": "Scene tree management and node-based architecture (scene/ directory) - implements hierarchical graph traversal and manipulation for scene graphs",
             "concurrency_requirements": "No Consistency Requirements",
-            "concurrency_evidence": "Multi-threaded with Swing EDT for UI operations and background threads for compilation/upload tasks - typical desktop application concurrency without strict consistency needs",
+            "concurrency_evidence": "Concurrency: multi-threaded with dedicated render thread, physics thread, and worker thread pool (core/templates/thread_work_pool.h) - designed for real-time performance over consistency",
             "repurposing_confidence": 7,
-            "repurposing_reasoning": "High reusability due to generic IDE components (syntax highlighting, file management, project structure), serial communication abstraction, and plugin architecture. Domain-specific elements limited to Arduino compilation toolchain."
+            "repurposing_reasoning": "High modularity with platform/ directory structure and extension system suggests good separation of concerns, but game engine architecture is highly specialized for real-time rendering and simulation"
           },
           "evidence_claims": [
             {
-              "claim": "Java-based desktop application with Swing GUI",
-              "evidence": "Multi-platform GUI application using Java Swing (app/src/processing/app/Base.java)",
+              "claim": "Multi-platform deployment capability",
+              "evidence": "Cross-platform compilation and deployment to desktop, mobile, web and console platforms (platform/ directory structure)",
               "confidence": "High"
             },
             {
-              "claim": "Extensible syntax highlighting system",
-              "evidence": "RSyntaxTextArea for code editing (app/lib/rsyntaxtextarea-3.0.3-SNAPSHOT.jar)",
+              "claim": "Extensible architecture",
+              "evidence": "Extension system for native code integration (core/extension/gdextension.cpp)",
               "confidence": "High"
             },
             {
-              "claim": "Plugin-based architecture for contributions",
-              "evidence": "Board and library management through contribution system (app/src/cc/arduino/contributions/)",
+              "claim": "Multi-threaded processing",
+              "evidence": "Concurrency: multi-threaded with dedicated render thread, physics thread, and worker thread pool (core/templates/thread_work_pool.h)",
               "confidence": "High"
             },
             {
-              "claim": "Serial communication abstraction",
-              "evidence": "JSSC for serial communication (app/lib/jssc-2.8.0-arduino4.jar)",
+              "claim": "Multi-language support",
+              "evidence": "Multi-language binding support including C#, Java, Kotlin (modules/mono/, platform/android/java/)",
               "confidence": "High"
             }
           ],
           "market_reach": {
-            "primary_industry": "Embedded Systems Development",
+            "primary_industry": "Gaming",
             "cross_industry_applications": [
-              "Education Technology",
-              "IoT Development",
-              "Maker/DIY Electronics",
-              "Research and Development",
-              "Prototyping Tools"
+              "Education",
+              "Training/Simulation",
+              "Data Visualization",
+              "Architecture/Design",
+              "Entertainment",
+              "Marketing"
             ],
             "utility_score": 8,
             "market_potential": "High"
           },
           "friction_report": {
-            "difficulty": "Medium",
-            "estimated_hours": 120,
+            "difficulty": "High",
+            "estimated_hours": 200,
             "required_technologies": [
-              "Java Swing (app/src/processing/app/Base.java)",
-              "RSyntaxTextArea (app/lib/rsyntaxtextarea-3.0.3-SNAPSHOT.jar)",
-              "Apache Ant build system (app/build.xml)",
-              "JSSC serial library (app/lib/jssc-2.8.0-arduino4.jar)"
+              "C++",
+              "Platform-specific system libraries",
+              "Graphics drivers",
+              "Audio system libraries"
             ],
             "complexity_factors": [
-              "Legacy Java Swing architecture",
-              "Hardware-specific serial communication",
-              "Build toolchain integration",
-              "Multi-platform compatibility requirements"
+              "Real-time rendering pipeline",
+              "Multi-platform deployment",
+              "Physics simulation",
+              "Complex build system with SCons"
             ],
-            "risk_level": "Medium"
+            "risk_level": "High"
           },
           "interface_map": {
             "adapter_schema": {
               "input": {
-                "format": "File System",
+                "format": "Native API calls",
                 "required_fields": [
-                  "sketch_files",
-                  "library_definitions",
-                  "board_configurations"
+                  "scene_data",
+                  "asset_references",
+                  "configuration"
                 ]
               },
               "output": {
-                "format": "Serial Protocol"
+                "format": "Platform-specific executables"
               },
               "authentication": {
                 "type": "None",
-                "method": "Open Source"
+                "method": "Open source"
               }
             },
-            "standardization_level": "Medium"
+            "standardization_level": "Low"
           },
           "information_gaps": [
-            "API documentation for extension points",
-            "Database schema for project persistence",
-            "Network protocol specifications for board discovery",
-            "Build system configuration details beyond Ant"
+            "Network architecture for multiplayer games",
+            "Memory management patterns",
+            "Specific rendering pipeline details",
+            "Performance benchmarks and resource requirements",
+            "Plugin/extension API specifications"
           ]
         },
-        "timestamp": "2026-03-21T14:24:06.157845"
+        "timestamp": "2026-03-21T14:48:57.348360"
       },
       "errors": []
     },
     {
-      "url": "https://github.com/Growstuff/growstuff.git",
-      "repo_name": "growstuff",
-      "timestamp": "2026-03-21T14:25:16.239996",
+      "url": "https://github.com/home-assistant/core.git",
+      "repo_name": "core",
+      "timestamp": "2026-03-21T14:50:07.440041",
       "step1": {
-        "product_name": "growstuff",
-        "url": "https://github.com/Growstuff/growstuff.git",
+        "product_name": "core",
+        "url": "https://github.com/home-assistant/core.git",
         "analysis": {
-          "summary": "A Ruby on Rails web application for food gardeners to track planting, growing, and harvesting activities with crowdsourced data aggregation and open data API access.",
+          "summary": "Home Assistant is an open-source home automation platform that provides local control and privacy for IoT devices. It processes device integrations, manages user authentication, serves a web UI, and orchestrates automation rules through a modular architecture supporting thousands of device types.",
           "capabilities": [
-            "Tracks gardening activities including plantings, harvests, and garden management (app/controllers/activities_controller.rb, app/controllers/plantings_controller.rb, app/controllers/harvests_controller.rb)",
-            "Manages crop database with approval workflow and Wikipedia integration (app/models/crop.rb, app/controllers/crops_controller.rb)",
-            "Provides photo management with Flickr integration (app/controllers/photos_controller.rb, flickraw gem)",
-            "Implements member authentication and authorization with role-based permissions (app/controllers/application_controller.rb, cancancan gem)",
-            "Offers REST API for accessing gardening data (config/routes.rb API routes, jsonapi-resources gem)",
-            "Supports full-text search functionality via Elasticsearch (elasticsearch configuration in docker-compose.yml)",
-            "Generates CSV exports of gardening data (app/controllers/data_controller.rb)",
-            "Manages garden locations and mapping features (app/controllers/gardens_controller.rb)",
-            "Implements seed trading and sharing system (app/controllers/seeds_controller.rb)"
+            "Manages user authentication and authorization with multiple MFA modules (homeassistant/auth/)",
+            "Processes device integrations through component system with 2000+ integrations (homeassistant/components/)",
+            "Serves REST API endpoints for device control and state management (homeassistant/components/api/)",
+            "Provides WebSocket interface for real-time updates (homeassistant/components/websocket_api/)",
+            "Executes automation rules and triggers based on device states and events",
+            "Manages configuration through YAML files and UI-based config flows",
+            "Handles media streaming through Go2RTC integration (homeassistant/components/go2rtc/)",
+            "Supports backup and restore functionality (homeassistant/backup_restore.py)",
+            "Processes voice commands and intents through conversation system"
           ],
           "use_cases": [],
           "technical_stack": [
-            "Ruby on Rails 7.2.0 (Gemfile)",
-            "PostgreSQL 17 (docker-compose.yml)",
-            "Elasticsearch 7.4.0 (docker-compose.yml)",
-            "Bootstrap 5.0+ CSS framework (Gemfile)",
-            "jQuery and jQuery UI (Gemfile)",
-            "Flickr API integration via flickraw (Gemfile)",
-            "JSONAPI specification compliance (jsonapi-resources gem)",
-            "Swagger/OpenAPI documentation (rswag gems)",
-            "HAML templating (haml gem)",
-            "SASS/SCSS styling (sassc-rails gem)"
+            "Python 3.14+ (pyproject.toml)",
+            "asyncio for concurrency (homeassistant/__main__.py, core.py)",
+            "aiohttp 3.13.3 for HTTP server (requirements.txt)",
+            "SQLAlchemy 2.0.41 for database ORM (requirements.txt)",
+            "WebSocket support via aiohttp (requirements.txt)",
+            "Jinja2 3.1.6 for templating (requirements.txt)",
+            "PyJWT 2.10.1 for authentication tokens (requirements.txt)",
+            "YAML configuration support via PyYAML 6.0.3 (requirements.txt)",
+            "Go2RTC for media streaming (Dockerfile, homeassistant/components/go2rtc/)",
+            "Docker containerization (Dockerfile)"
           ],
           "integrations": [
-            "Flickr API for photo management (flickraw gem)",
-            "Wikipedia for crop information (en_wikipedia_url in API spec)",
-            "Elasticsearch for search functionality (docker-compose.yml configuration)"
+            "MQTT message broker support (homeassistant/brands/mqtt.json)",
+            "Cloud services via hass-nabucasa 2.0.0 (requirements.txt)",
+            "GitHub integration via aiogithubapi 26.0.0 (requirements.txt)",
+            "FFmpeg for media processing (ha-ffmpeg 3.2.2 in requirements.txt)",
+            "Bluetooth device support (home-assistant-bluetooth 1.13.1)",
+            "Various IoT device manufacturers (homeassistant/brands/ directory with 100+ brand files)"
           ],
           "api_endpoints": [
             {
-              "method": "GET",
-              "path": "/api/v1/crops",
-              "summary": "List crops with filtering and pagination (swagger/v1/swagger.json)"
+              "method": null,
+              "path": "WebSocket /api/websocket \u2014 Real-time communication endpoint",
+              "summary": null
+            },
+            {
+              "method": null,
+              "path": "REST /api/* \u2014 Device control and state management APIs",
+              "summary": null
             },
             {
               "method": "GET",
-              "path": "/api/v1/plantings",
-              "summary": "List plantings (inferred from API structure)"
+              "path": "/api/frame.jpeg",
+              "summary": "Camera snapshot endpoint (homeassistant/components/go2rtc/server.py)"
             },
             {
-              "method": "GET",
-              "path": "/api/v1/harvests",
-              "summary": "List harvests (inferred from API structure)"
-            },
-            {
-              "method": "GET",
-              "path": "/api/v1/seeds",
-              "summary": "List seeds (inferred from API structure)"
-            },
-            {
-              "method": "GET",
-              "path": "/api/v1/photos",
-              "summary": "List photos (inferred from API structure)"
+              "method": null,
+              "path": "Authentication endpoints for login/logout flows",
+              "summary": null
             }
           ],
           "pricing": {
@@ -353,112 +375,113 @@
           "evidence_tracking": {
             "confidence_level": "High",
             "technical_facts": [
-              "Tracks gardening activities including plantings, harvests, and garden management (app/controllers/activities_controller.rb, app/controllers/plantings_controller.rb, app/controllers/harvests_controller.rb)",
-              "Manages crop database with approval workflow and Wikipedia integration (app/models/crop.rb, app/controllers/crops_controller.rb)",
-              "Provides photo management with Flickr integration (app/controllers/photos_controller.rb, flickraw gem)",
-              "Implements member authentication and authorization with role-based permissions (app/controllers/application_controller.rb, cancancan gem)",
-              "Offers REST API for accessing gardening data (config/routes.rb API routes, jsonapi-resources gem)",
-              "Supports full-text search functionality via Elasticsearch (elasticsearch configuration in docker-compose.yml)",
-              "Generates CSV exports of gardening data (app/controllers/data_controller.rb)",
-              "Manages garden locations and mapping features (app/controllers/gardens_controller.rb)",
-              "Implements seed trading and sharing system (app/controllers/seeds_controller.rb)"
+              "Manages user authentication and authorization with multiple MFA modules (homeassistant/auth/)",
+              "Processes device integrations through component system with 2000+ integrations (homeassistant/components/)",
+              "Serves REST API endpoints for device control and state management (homeassistant/components/api/)",
+              "Provides WebSocket interface for real-time updates (homeassistant/components/websocket_api/)",
+              "Executes automation rules and triggers based on device states and events",
+              "Manages configuration through YAML files and UI-based config flows",
+              "Handles media streaming through Go2RTC integration (homeassistant/components/go2rtc/)",
+              "Supports backup and restore functionality (homeassistant/backup_restore.py)",
+              "Processes voice commands and intents through conversation system"
             ],
             "information_gaps": []
           },
           "architecture_patterns": [
             "monolith",
-            "Concurrency: sync with Puma web server (config/puma.rb referenced in Procfile)"
+            "Concurrency: async/await with asyncio event loop for handling concurrent device communications and API requests"
           ],
           "auth_methods": [
-            "Session-based authentication",
-            "Role-based authorization via CanCanCan"
+            "JWT tokens (PyJWT in requirements.txt, homeassistant/auth/jwt_wrapper.py)",
+            "Local user/password authentication (homeassistant/auth/providers/homeassistant.py)",
+            "Trusted networks authentication (homeassistant/auth/providers/trusted_networks.py)",
+            "TOTP MFA support (homeassistant/auth/mfa_modules/totp.py)",
+            "Command line authentication (homeassistant/auth/providers/command_line.py)"
           ],
           "sdk_languages": [],
           "dependencies": [
-            "rails ~> 7.2.0",
-            "pg",
-            "elasticsearch",
-            "flickraw",
-            "jsonapi-resources",
-            "cancancan",
-            "haml",
-            "bootstrap",
-            "jquery-rails",
-            "active_median",
-            "Infrastructure: PostgreSQL",
-            "Infrastructure: Elasticsearch",
-            "Infrastructure: Flickr API"
+            "aiohttp==3.13.3",
+            "SQLAlchemy==2.0.41",
+            "PyJWT==2.10.1",
+            "Jinja2==3.1.6",
+            "PyYAML==6.0.3",
+            "requests==2.32.5",
+            "cryptography==46.0.5",
+            "Pillow==12.1.1",
+            "hass-nabucasa==2.0.0",
+            "home-assistant-bluetooth==1.13.1",
+            "Infrastructure: Database (SQLite/PostgreSQL/MySQL)",
+            "Infrastructure: MQTT broker (optional)",
+            "Infrastructure: Docker runtime"
           ],
           "deployment_options": [
             "Containerized (Docker)",
-            "CI/CD: GitHub Actions"
+            "CI/CD: GitHub Actions (inferred from CODEOWNERS and repository structure)"
           ]
         },
         "extracted_data": {},
         "source": "local_repo",
         "source_confidence": "high",
-        "timestamp": "2026-03-21T14:25:44.011484"
+        "timestamp": "2026-03-21T14:50:50.593041"
       },
       "step2": {
         "step1_data": {
-          "product_name": "growstuff",
-          "url": "https://github.com/Growstuff/growstuff.git",
+          "product_name": "core",
+          "url": "https://github.com/home-assistant/core.git",
           "analysis": {
-            "summary": "A Ruby on Rails web application for food gardeners to track planting, growing, and harvesting activities with crowdsourced data aggregation and open data API access.",
+            "summary": "Home Assistant is an open-source home automation platform that provides local control and privacy for IoT devices. It processes device integrations, manages user authentication, serves a web UI, and orchestrates automation rules through a modular architecture supporting thousands of device types.",
             "capabilities": [
-              "Tracks gardening activities including plantings, harvests, and garden management (app/controllers/activities_controller.rb, app/controllers/plantings_controller.rb, app/controllers/harvests_controller.rb)",
-              "Manages crop database with approval workflow and Wikipedia integration (app/models/crop.rb, app/controllers/crops_controller.rb)",
-              "Provides photo management with Flickr integration (app/controllers/photos_controller.rb, flickraw gem)",
-              "Implements member authentication and authorization with role-based permissions (app/controllers/application_controller.rb, cancancan gem)",
-              "Offers REST API for accessing gardening data (config/routes.rb API routes, jsonapi-resources gem)",
-              "Supports full-text search functionality via Elasticsearch (elasticsearch configuration in docker-compose.yml)",
-              "Generates CSV exports of gardening data (app/controllers/data_controller.rb)",
-              "Manages garden locations and mapping features (app/controllers/gardens_controller.rb)",
-              "Implements seed trading and sharing system (app/controllers/seeds_controller.rb)"
+              "Manages user authentication and authorization with multiple MFA modules (homeassistant/auth/)",
+              "Processes device integrations through component system with 2000+ integrations (homeassistant/components/)",
+              "Serves REST API endpoints for device control and state management (homeassistant/components/api/)",
+              "Provides WebSocket interface for real-time updates (homeassistant/components/websocket_api/)",
+              "Executes automation rules and triggers based on device states and events",
+              "Manages configuration through YAML files and UI-based config flows",
+              "Handles media streaming through Go2RTC integration (homeassistant/components/go2rtc/)",
+              "Supports backup and restore functionality (homeassistant/backup_restore.py)",
+              "Processes voice commands and intents through conversation system"
             ],
             "use_cases": [],
             "technical_stack": [
-              "Ruby on Rails 7.2.0 (Gemfile)",
-              "PostgreSQL 17 (docker-compose.yml)",
-              "Elasticsearch 7.4.0 (docker-compose.yml)",
-              "Bootstrap 5.0+ CSS framework (Gemfile)",
-              "jQuery and jQuery UI (Gemfile)",
-              "Flickr API integration via flickraw (Gemfile)",
-              "JSONAPI specification compliance (jsonapi-resources gem)",
-              "Swagger/OpenAPI documentation (rswag gems)",
-              "HAML templating (haml gem)",
-              "SASS/SCSS styling (sassc-rails gem)"
+              "Python 3.14+ (pyproject.toml)",
+              "asyncio for concurrency (homeassistant/__main__.py, core.py)",
+              "aiohttp 3.13.3 for HTTP server (requirements.txt)",
+              "SQLAlchemy 2.0.41 for database ORM (requirements.txt)",
+              "WebSocket support via aiohttp (requirements.txt)",
+              "Jinja2 3.1.6 for templating (requirements.txt)",
+              "PyJWT 2.10.1 for authentication tokens (requirements.txt)",
+              "YAML configuration support via PyYAML 6.0.3 (requirements.txt)",
+              "Go2RTC for media streaming (Dockerfile, homeassistant/components/go2rtc/)",
+              "Docker containerization (Dockerfile)"
             ],
             "integrations": [
-              "Flickr API for photo management (flickraw gem)",
-              "Wikipedia for crop information (en_wikipedia_url in API spec)",
-              "Elasticsearch for search functionality (docker-compose.yml configuration)"
+              "MQTT message broker support (homeassistant/brands/mqtt.json)",
+              "Cloud services via hass-nabucasa 2.0.0 (requirements.txt)",
+              "GitHub integration via aiogithubapi 26.0.0 (requirements.txt)",
+              "FFmpeg for media processing (ha-ffmpeg 3.2.2 in requirements.txt)",
+              "Bluetooth device support (home-assistant-bluetooth 1.13.1)",
+              "Various IoT device manufacturers (homeassistant/brands/ directory with 100+ brand files)"
             ],
             "api_endpoints": [
               {
-                "method": "GET",
-                "path": "/api/v1/crops",
-                "summary": "List crops with filtering and pagination (swagger/v1/swagger.json)"
+                "method": null,
+                "path": "WebSocket /api/websocket \u2014 Real-time communication endpoint",
+                "summary": null
+              },
+              {
+                "method": null,
+                "path": "REST /api/* \u2014 Device control and state management APIs",
+                "summary": null
               },
               {
                 "method": "GET",
-                "path": "/api/v1/plantings",
-                "summary": "List plantings (inferred from API structure)"
+                "path": "/api/frame.jpeg",
+                "summary": "Camera snapshot endpoint (homeassistant/components/go2rtc/server.py)"
               },
               {
-                "method": "GET",
-                "path": "/api/v1/harvests",
-                "summary": "List harvests (inferred from API structure)"
-              },
-              {
-                "method": "GET",
-                "path": "/api/v1/seeds",
-                "summary": "List seeds (inferred from API structure)"
-              },
-              {
-                "method": "GET",
-                "path": "/api/v1/photos",
-                "summary": "List photos (inferred from API structure)"
+                "method": null,
+                "path": "Authentication endpoints for login/logout flows",
+                "summary": null
               }
             ],
             "pricing": {
@@ -475,100 +498,103 @@
             "evidence_tracking": {
               "confidence_level": "High",
               "technical_facts": [
-                "Tracks gardening activities including plantings, harvests, and garden management (app/controllers/activities_controller.rb, app/controllers/plantings_controller.rb, app/controllers/harvests_controller.rb)",
-                "Manages crop database with approval workflow and Wikipedia integration (app/models/crop.rb, app/controllers/crops_controller.rb)",
-                "Provides photo management with Flickr integration (app/controllers/photos_controller.rb, flickraw gem)",
-                "Implements member authentication and authorization with role-based permissions (app/controllers/application_controller.rb, cancancan gem)",
-                "Offers REST API for accessing gardening data (config/routes.rb API routes, jsonapi-resources gem)",
-                "Supports full-text search functionality via Elasticsearch (elasticsearch configuration in docker-compose.yml)",
-                "Generates CSV exports of gardening data (app/controllers/data_controller.rb)",
-                "Manages garden locations and mapping features (app/controllers/gardens_controller.rb)",
-                "Implements seed trading and sharing system (app/controllers/seeds_controller.rb)"
+                "Manages user authentication and authorization with multiple MFA modules (homeassistant/auth/)",
+                "Processes device integrations through component system with 2000+ integrations (homeassistant/components/)",
+                "Serves REST API endpoints for device control and state management (homeassistant/components/api/)",
+                "Provides WebSocket interface for real-time updates (homeassistant/components/websocket_api/)",
+                "Executes automation rules and triggers based on device states and events",
+                "Manages configuration through YAML files and UI-based config flows",
+                "Handles media streaming through Go2RTC integration (homeassistant/components/go2rtc/)",
+                "Supports backup and restore functionality (homeassistant/backup_restore.py)",
+                "Processes voice commands and intents through conversation system"
               ],
               "information_gaps": []
             },
             "architecture_patterns": [
               "monolith",
-              "Concurrency: sync with Puma web server (config/puma.rb referenced in Procfile)"
+              "Concurrency: async/await with asyncio event loop for handling concurrent device communications and API requests"
             ],
             "auth_methods": [
-              "Session-based authentication",
-              "Role-based authorization via CanCanCan"
+              "JWT tokens (PyJWT in requirements.txt, homeassistant/auth/jwt_wrapper.py)",
+              "Local user/password authentication (homeassistant/auth/providers/homeassistant.py)",
+              "Trusted networks authentication (homeassistant/auth/providers/trusted_networks.py)",
+              "TOTP MFA support (homeassistant/auth/mfa_modules/totp.py)",
+              "Command line authentication (homeassistant/auth/providers/command_line.py)"
             ],
             "sdk_languages": [],
             "dependencies": [
-              "rails ~> 7.2.0",
-              "pg",
-              "elasticsearch",
-              "flickraw",
-              "jsonapi-resources",
-              "cancancan",
-              "haml",
-              "bootstrap",
-              "jquery-rails",
-              "active_median",
-              "Infrastructure: PostgreSQL",
-              "Infrastructure: Elasticsearch",
-              "Infrastructure: Flickr API"
+              "aiohttp==3.13.3",
+              "SQLAlchemy==2.0.41",
+              "PyJWT==2.10.1",
+              "Jinja2==3.1.6",
+              "PyYAML==6.0.3",
+              "requests==2.32.5",
+              "cryptography==46.0.5",
+              "Pillow==12.1.1",
+              "hass-nabucasa==2.0.0",
+              "home-assistant-bluetooth==1.13.1",
+              "Infrastructure: Database (SQLite/PostgreSQL/MySQL)",
+              "Infrastructure: MQTT broker (optional)",
+              "Infrastructure: Docker runtime"
             ],
             "deployment_options": [
               "Containerized (Docker)",
-              "CI/CD: GitHub Actions"
+              "CI/CD: GitHub Actions (inferred from CODEOWNERS and repository structure)"
             ]
           },
           "extracted_data": {},
           "source": "local_repo",
           "source_confidence": "high",
-          "timestamp": "2026-03-21T14:25:44.011484"
+          "timestamp": "2026-03-21T14:50:50.593041"
         },
         "generalization": {
           "functional_dna": {
-            "logic_archetype": "Data Aggregator",
-            "logic_archetype_evidence": "Tracks gardening activities including plantings, harvests, and garden management (app/controllers/activities_controller.rb, app/controllers/plantings_controller.rb, app/controllers/harvests_controller.rb) + Generates CSV exports of gardening data (app/controllers/data_controller.rb) + crowdsourced data aggregation from summary",
-            "data_contract_strictness": "Highly Structured",
-            "data_contract_evidence": "JSONAPI specification compliance (jsonapi-resources gem) + PostgreSQL 17 (docker-compose.yml) + Swagger/OpenAPI documentation (rswag gems)",
+            "logic_archetype": "Stateful Orchestrator",
+            "logic_archetype_evidence": "Executes automation rules and triggers based on device states and events, manages configuration through YAML files and UI-based config flows, processes device integrations through component system with 2000+ integrations",
+            "data_contract_strictness": "Moderately Structured",
+            "data_contract_evidence": "YAML configuration support via PyYAML 6.0.3 (requirements.txt), manages configuration through YAML files and UI-based config flows, SQLAlchemy 2.0.41 for database ORM (requirements.txt)",
             "core_algorithmic_class": "CRUD Operations",
-            "core_algorithmic_evidence": "Rails MVC pattern with controllers for activities, plantings, harvests, crops, gardens, seeds (app/controllers/) + PostgreSQL database operations + REST API endpoints",
-            "concurrency_requirements": "ACID Compliance Required",
-            "concurrency_evidence": "PostgreSQL 17 (docker-compose.yml) as primary database + Rails ActiveRecord ORM patterns",
+            "core_algorithmic_evidence": "SQLAlchemy 2.0.41 for database ORM (requirements.txt), serves REST API endpoints for device control and state management (homeassistant/components/api/), supports backup and restore functionality (homeassistant/backup_restore.py)",
+            "concurrency_requirements": "Eventually Consistent",
+            "concurrency_evidence": "asyncio for concurrency (homeassistant/__main__.py, core.py), provides WebSocket interface for real-time updates (homeassistant/components/websocket_api/), aiohttp 3.13.3 for HTTP server (requirements.txt)",
             "repurposing_confidence": 8,
-            "repurposing_reasoning": "High reusability due to generic data aggregation patterns, CRUD operations, REST API structure, and standard Rails architecture. Domain-specific elements (gardening) are primarily in data models and UI, not core logic."
+            "repurposing_reasoning": "High repurposing potential due to modular component system with 2000+ integrations, well-defined API structure, and event-driven orchestration patterns. The stateful orchestrator pattern is applicable to many domains requiring coordination of distributed systems."
           },
           "evidence_claims": [
             {
-              "claim": "Implements REST API with JSONAPI compliance",
-              "evidence": "config/routes.rb API routes, jsonapi-resources gem",
+              "claim": "Uses Python 3.14+ as primary runtime",
+              "evidence": "Python 3.14+ (pyproject.toml)",
               "confidence": "High"
             },
             {
-              "claim": "Uses PostgreSQL for data persistence",
-              "evidence": "PostgreSQL 17 (docker-compose.yml)",
+              "claim": "Implements async concurrency model",
+              "evidence": "asyncio for concurrency (homeassistant/__main__.py, core.py)",
               "confidence": "High"
             },
             {
-              "claim": "Supports full-text search via Elasticsearch",
-              "evidence": "elasticsearch configuration in docker-compose.yml",
+              "claim": "Supports JWT authentication",
+              "evidence": "PyJWT 2.10.1 for authentication tokens (requirements.txt)",
               "confidence": "High"
             },
             {
-              "claim": "Implements role-based authorization",
-              "evidence": "cancancan gem + app/controllers/application_controller.rb",
+              "claim": "Uses SQLAlchemy ORM for database operations",
+              "evidence": "SQLAlchemy 2.0.41 for database ORM (requirements.txt)",
               "confidence": "High"
             },
             {
-              "claim": "Provides data export functionality",
-              "evidence": "app/controllers/data_controller.rb",
+              "claim": "Provides REST and WebSocket APIs",
+              "evidence": "Serves REST API endpoints for device control and state management (homeassistant/components/api/), provides WebSocket interface for real-time updates (homeassistant/components/websocket_api/)",
               "confidence": "High"
             }
           ],
           "market_reach": {
-            "primary_industry": "Agriculture/Gardening",
+            "primary_industry": "Home Automation",
             "cross_industry_applications": [
-              "Healthcare (patient tracking)",
-              "Education (learning progress)",
-              "Manufacturing (production tracking)",
-              "Research (data collection)",
-              "Inventory Management"
+              "Industrial IoT",
+              "Building Management",
+              "Smart Cities",
+              "Healthcare Monitoring",
+              "Agricultural Automation"
             ],
             "utility_score": 8,
             "market_potential": "High"
@@ -577,15 +603,17 @@
             "difficulty": "Medium",
             "estimated_hours": 120,
             "required_technologies": [
-              "Ruby on Rails 7.2.0 (Gemfile)",
-              "PostgreSQL 17 (docker-compose.yml)",
-              "Elasticsearch 7.4.0 (docker-compose.yml)"
+              "Python 3.14+",
+              "asyncio",
+              "aiohttp",
+              "SQLAlchemy",
+              "Docker"
             ],
             "complexity_factors": [
-              "Domain model adaptation",
-              "UI/UX redesign",
-              "API endpoint customization",
-              "Search index reconfiguration"
+              "2000+ device integrations",
+              "Component system architecture",
+              "Real-time event processing",
+              "Multi-protocol support"
             ],
             "risk_level": "Medium"
           },
@@ -594,71 +622,100 @@
               "input": {
                 "format": "JSON",
                 "required_fields": [
-                  "JSONAPI compliant structure based on jsonapi-resources gem"
+                  "entity_id",
+                  "service",
+                  "service_data"
                 ]
               },
               "output": {
                 "format": "JSON"
               },
               "authentication": {
-                "type": "Session-based authentication",
-                "method": "Role-based authorization via CanCanCan"
+                "type": "JWT",
+                "method": "Bearer token"
               }
             },
             "standardization_level": "High"
           },
           "information_gaps": [
-            "Business logic complexity details",
-            "Performance benchmarks",
-            "Scaling requirements",
-            "Integration complexity with external APIs",
-            "Database schema details"
+            "Specific database schema structure",
+            "Performance metrics and scaling limits",
+            "Hardware requirements and resource consumption",
+            "Integration testing framework details",
+            "Deployment architecture patterns beyond Docker"
           ]
         },
-        "timestamp": "2026-03-21T14:25:58.292540"
+        "timestamp": "2026-03-21T14:51:03.888918"
       },
       "errors": []
     },
     {
-      "url": "https://github.com/axem-solutions/dem.git",
-      "repo_name": "dem",
-      "timestamp": "2026-03-21T14:27:08.373698",
+      "url": "https://github.com/odoo/odoo.git",
+      "repo_name": "odoo",
+      "timestamp": "2026-03-21T14:52:13.929548",
       "step1": {
-        "product_name": "dem",
-        "url": "https://github.com/axem-solutions/dem.git",
+        "product_name": "odoo",
+        "url": "https://github.com/odoo/odoo.git",
         "analysis": {
-          "summary": "DEM (Development Environment Manager) is a CLI tool that creates and manages containerized development environments for embedded software development, where each tool runs in its own isolated container while allowing users to work on their host system.",
+          "summary": "Odoo is a comprehensive open-source enterprise resource planning (ERP) system that provides a suite of integrated business applications including CRM, eCommerce, accounting, inventory management, and project management through a modular addon architecture.",
           "capabilities": [
-            "Creates and manages containerized development environments with isolated tools (dem/core/dev_env.py)",
-            "Installs development environments from remote catalogs (dem/core/commands/install_cmd.py)",
-            "Manages development environment configurations and tool assignments (dem/core/commands/assign_cmd.py, dem/core/commands/modify_cmd.py)",
-            "Executes tasks within containerized development environments (dem/core/commands/run_cmd.py)",
-            "Manages container registries and hosts for tool distribution (dem/core/registry.py, dem/core/hosts.py)",
-            "Exports and imports development environment configurations (dem/core/commands/export_cmd.py, dem/core/commands/import_cmd.py)",
-            "Provides TUI interface for development environment management (dem/cli/tui/)",
-            "Serves REST API for programmatic access to development environment operations (dem/api/main.py)"
+            "Provides OAuth2 authentication integration with external providers (addons/auth_oauth/controllers/main.py)",
+            "Implements WebAuthn/passkey authentication for passwordless login (addons/auth_passkey/controllers/main.py)",
+            "Handles user registration, password reset, and signup workflows (addons/auth_signup/controllers/main.py)",
+            "Manages business accounting operations including invoicing and financial reporting (addons/account/)",
+            "Processes HTTP requests through web controllers with session management (multiple controller files)",
+            "Supports multi-database operations with database filtering and selection",
+            "Provides REST API endpoints through JSON-RPC protocol",
+            "Implements modular addon system for extending functionality (46+ addon directories)"
           ],
           "use_cases": [],
           "technical_stack": [
-            "Python 3.x (pyproject.toml)",
-            "FastAPI (dem/api/main.py imports)",
-            "Typer CLI framework (dem/cli/main.py)",
-            "Docker container engine (docker.errors imports in __main__.py)",
-            "Rich console library (dem/cli/console.py)",
-            "Textual TUI framework (dem/cli/tui/ directory structure)",
-            "Pydantic data validation (dem/api/main.py)",
-            "Poetry packaging (pyproject.toml)"
+            "Python 3.10+ (requirements.txt, multiple .py files)",
+            "Werkzeug web framework (import statements in controllers)",
+            "Jinja2 templating engine (requirements.txt)",
+            "PostgreSQL database (implied from ORM patterns)",
+            "lxml for XML processing (requirements.txt)",
+            "Babel for internationalization (requirements.txt)",
+            "gevent for async processing (requirements.txt)",
+            "cryptography for security features (requirements.txt)",
+            "JavaScript/TypeScript frontend (5730+ .js files, 74+ .ts files)"
           ],
           "integrations": [
-            "Docker container runtime for tool isolation (docker.errors handling in dem/__main__.py)",
-            "Container registries for tool image distribution (dem/core/registry.py)",
-            "Remote catalogs for development environment templates (dem/core/dev_env_catalog.py)"
+            "OAuth2 providers (Google, Facebook, etc.) via auth_oauth addon",
+            "WebAuthn compatible authenticators",
+            "SMTP servers for email notifications",
+            "GeoIP2 services for location data (requirements.txt)"
           ],
           "api_endpoints": [
             {
               "method": "POST",
-              "path": "/run",
-              "summary": "Execute a task in a development environment (dem/api/main.py:43)"
+              "path": "/auth_oauth/signin",
+              "summary": "OAuth2 authentication callback (addons/auth_oauth/controllers/main.py:145)"
+            },
+            {
+              "method": "POST",
+              "path": "/auth/passkey/start-auth",
+              "summary": "Start WebAuthn authentication (addons/auth_passkey/controllers/main.py:11)"
+            },
+            {
+              "method": "GET",
+              "path": "/web/signup",
+              "summary": "User registration page (addons/auth_signup/controllers/main.py:36)"
+            },
+            {
+              "method": "POST",
+              "path": "/web/signup",
+              "summary": "Process user registration (addons/auth_signup/controllers/main.py:36)"
+            },
+            {
+              "method": "GET",
+              "path": "/web/reset_password",
+              "summary": "Password reset page (addons/auth_signup/controllers/main.py:75)"
+            },
+            {
+              "method": "GET",
+              "path": "/web/login",
+              "summary": "User login page (addons/auth_signup/controllers/main.py:21)"
             }
           ],
           "pricing": {
@@ -675,76 +732,138 @@
           "evidence_tracking": {
             "confidence_level": "High",
             "technical_facts": [
-              "Creates and manages containerized development environments with isolated tools (dem/core/dev_env.py)",
-              "Installs development environments from remote catalogs (dem/core/commands/install_cmd.py)",
-              "Manages development environment configurations and tool assignments (dem/core/commands/assign_cmd.py, dem/core/commands/modify_cmd.py)",
-              "Executes tasks within containerized development environments (dem/core/commands/run_cmd.py)",
-              "Manages container registries and hosts for tool distribution (dem/core/registry.py, dem/core/hosts.py)",
-              "Exports and imports development environment configurations (dem/core/commands/export_cmd.py, dem/core/commands/import_cmd.py)",
-              "Provides TUI interface for development environment management (dem/cli/tui/)",
-              "Serves REST API for programmatic access to development environment operations (dem/api/main.py)"
+              "Provides OAuth2 authentication integration with external providers (addons/auth_oauth/controllers/main.py)",
+              "Implements WebAuthn/passkey authentication for passwordless login (addons/auth_passkey/controllers/main.py)",
+              "Handles user registration, password reset, and signup workflows (addons/auth_signup/controllers/main.py)",
+              "Manages business accounting operations including invoicing and financial reporting (addons/account/)",
+              "Processes HTTP requests through web controllers with session management (multiple controller files)",
+              "Supports multi-database operations with database filtering and selection",
+              "Provides REST API endpoints through JSON-RPC protocol",
+              "Implements modular addon system for extending functionality (46+ addon directories)"
             ],
             "information_gaps": []
           },
           "architecture_patterns": [
-            "CLI tool with embedded API server",
-            "Concurrency: sync with FastAPI async capabilities for API server"
+            "monolith",
+            "Concurrency: gevent-based async processing with greenlet coroutines"
           ],
-          "auth_methods": [],
+          "auth_methods": [
+            "OAuth2 with external providers",
+            "WebAuthn/Passkey authentication",
+            "Traditional username/password",
+            "Session-based authentication",
+            "Token-based authentication"
+          ],
           "sdk_languages": [],
           "dependencies": [
-            "fastapi",
-            "typer",
-            "pydantic",
-            "rich",
-            "textual",
-            "docker",
-            "Infrastructure: Docker container runtime"
+            "asn1crypto",
+            "Babel",
+            "cbor2",
+            "chardet",
+            "cryptography",
+            "docutils",
+            "geoip2",
+            "gevent",
+            "greenlet",
+            "idna",
+            "Jinja2",
+            "lxml",
+            "MarkupSafe",
+            "num2words",
+            "ofxparse",
+            "passlib",
+            "Pillow",
+            "polib",
+            "psutil",
+            "psycopg2",
+            "pydot",
+            "pypdf",
+            "PyYAML",
+            "qrcode",
+            "reportlab",
+            "requests",
+            "rjsmin",
+            "urllib3",
+            "vobject",
+            "Werkzeug",
+            "xlrd",
+            "XlsxWriter",
+            "xlwt",
+            "zeep",
+            "Infrastructure: PostgreSQL database",
+            "Infrastructure: SMTP server for email"
           ],
           "deployment_options": []
         },
         "extracted_data": {},
         "source": "local_repo",
         "source_confidence": "high",
-        "timestamp": "2026-03-21T14:27:31.586810"
+        "timestamp": "2026-03-21T14:53:17.114010"
       },
       "step2": {
         "step1_data": {
-          "product_name": "dem",
-          "url": "https://github.com/axem-solutions/dem.git",
+          "product_name": "odoo",
+          "url": "https://github.com/odoo/odoo.git",
           "analysis": {
-            "summary": "DEM (Development Environment Manager) is a CLI tool that creates and manages containerized development environments for embedded software development, where each tool runs in its own isolated container while allowing users to work on their host system.",
+            "summary": "Odoo is a comprehensive open-source enterprise resource planning (ERP) system that provides a suite of integrated business applications including CRM, eCommerce, accounting, inventory management, and project management through a modular addon architecture.",
             "capabilities": [
-              "Creates and manages containerized development environments with isolated tools (dem/core/dev_env.py)",
-              "Installs development environments from remote catalogs (dem/core/commands/install_cmd.py)",
-              "Manages development environment configurations and tool assignments (dem/core/commands/assign_cmd.py, dem/core/commands/modify_cmd.py)",
-              "Executes tasks within containerized development environments (dem/core/commands/run_cmd.py)",
-              "Manages container registries and hosts for tool distribution (dem/core/registry.py, dem/core/hosts.py)",
-              "Exports and imports development environment configurations (dem/core/commands/export_cmd.py, dem/core/commands/import_cmd.py)",
-              "Provides TUI interface for development environment management (dem/cli/tui/)",
-              "Serves REST API for programmatic access to development environment operations (dem/api/main.py)"
+              "Provides OAuth2 authentication integration with external providers (addons/auth_oauth/controllers/main.py)",
+              "Implements WebAuthn/passkey authentication for passwordless login (addons/auth_passkey/controllers/main.py)",
+              "Handles user registration, password reset, and signup workflows (addons/auth_signup/controllers/main.py)",
+              "Manages business accounting operations including invoicing and financial reporting (addons/account/)",
+              "Processes HTTP requests through web controllers with session management (multiple controller files)",
+              "Supports multi-database operations with database filtering and selection",
+              "Provides REST API endpoints through JSON-RPC protocol",
+              "Implements modular addon system for extending functionality (46+ addon directories)"
             ],
             "use_cases": [],
             "technical_stack": [
-              "Python 3.x (pyproject.toml)",
-              "FastAPI (dem/api/main.py imports)",
-              "Typer CLI framework (dem/cli/main.py)",
-              "Docker container engine (docker.errors imports in __main__.py)",
-              "Rich console library (dem/cli/console.py)",
-              "Textual TUI framework (dem/cli/tui/ directory structure)",
-              "Pydantic data validation (dem/api/main.py)",
-              "Poetry packaging (pyproject.toml)"
+              "Python 3.10+ (requirements.txt, multiple .py files)",
+              "Werkzeug web framework (import statements in controllers)",
+              "Jinja2 templating engine (requirements.txt)",
+              "PostgreSQL database (implied from ORM patterns)",
+              "lxml for XML processing (requirements.txt)",
+              "Babel for internationalization (requirements.txt)",
+              "gevent for async processing (requirements.txt)",
+              "cryptography for security features (requirements.txt)",
+              "JavaScript/TypeScript frontend (5730+ .js files, 74+ .ts files)"
             ],
             "integrations": [
-              "Docker container runtime for tool isolation (docker.errors handling in dem/__main__.py)",
-              "Container registries for tool image distribution (dem/core/registry.py)",
-              "Remote catalogs for development environment templates (dem/core/dev_env_catalog.py)"
+              "OAuth2 providers (Google, Facebook, etc.) via auth_oauth addon",
+              "WebAuthn compatible authenticators",
+              "SMTP servers for email notifications",
+              "GeoIP2 services for location data (requirements.txt)"
             ],
             "api_endpoints": [
               {
                 "method": "POST",
-                "path": "/run",
-                "summary": "Execute a task in a development environment (dem/api/main.py:43)"
+                "path": "/auth_oauth/signin",
+                "summary": "OAuth2 authentication callback (addons/auth_oauth/controllers/main.py:145)"
+              },
+              {
+                "method": "POST",
+                "path": "/auth/passkey/start-auth",
+                "summary": "Start WebAuthn authentication (addons/auth_passkey/controllers/main.py:11)"
+              },
+              {
+                "method": "GET",
+                "path": "/web/signup",
+                "summary": "User registration page (addons/auth_signup/controllers/main.py:36)"
+              },
+              {
+                "method": "POST",
+                "path": "/web/signup",
+                "summary": "Process user registration (addons/auth_signup/controllers/main.py:36)"
+              },
+              {
+                "method": "GET",
+                "path": "/web/reset_password",
+                "summary": "Password reset page (addons/auth_signup/controllers/main.py:75)"
+              },
+              {
+                "method": "GET",
+                "path": "/web/login",
+                "summary": "User login page (addons/auth_signup/controllers/main.py:21)"
               }
             ],
             "pricing": {
@@ -761,95 +880,137 @@
             "evidence_tracking": {
               "confidence_level": "High",
               "technical_facts": [
-                "Creates and manages containerized development environments with isolated tools (dem/core/dev_env.py)",
-                "Installs development environments from remote catalogs (dem/core/commands/install_cmd.py)",
-                "Manages development environment configurations and tool assignments (dem/core/commands/assign_cmd.py, dem/core/commands/modify_cmd.py)",
-                "Executes tasks within containerized development environments (dem/core/commands/run_cmd.py)",
-                "Manages container registries and hosts for tool distribution (dem/core/registry.py, dem/core/hosts.py)",
-                "Exports and imports development environment configurations (dem/core/commands/export_cmd.py, dem/core/commands/import_cmd.py)",
-                "Provides TUI interface for development environment management (dem/cli/tui/)",
-                "Serves REST API for programmatic access to development environment operations (dem/api/main.py)"
+                "Provides OAuth2 authentication integration with external providers (addons/auth_oauth/controllers/main.py)",
+                "Implements WebAuthn/passkey authentication for passwordless login (addons/auth_passkey/controllers/main.py)",
+                "Handles user registration, password reset, and signup workflows (addons/auth_signup/controllers/main.py)",
+                "Manages business accounting operations including invoicing and financial reporting (addons/account/)",
+                "Processes HTTP requests through web controllers with session management (multiple controller files)",
+                "Supports multi-database operations with database filtering and selection",
+                "Provides REST API endpoints through JSON-RPC protocol",
+                "Implements modular addon system for extending functionality (46+ addon directories)"
               ],
               "information_gaps": []
             },
             "architecture_patterns": [
-              "CLI tool with embedded API server",
-              "Concurrency: sync with FastAPI async capabilities for API server"
+              "monolith",
+              "Concurrency: gevent-based async processing with greenlet coroutines"
             ],
-            "auth_methods": [],
+            "auth_methods": [
+              "OAuth2 with external providers",
+              "WebAuthn/Passkey authentication",
+              "Traditional username/password",
+              "Session-based authentication",
+              "Token-based authentication"
+            ],
             "sdk_languages": [],
             "dependencies": [
-              "fastapi",
-              "typer",
-              "pydantic",
-              "rich",
-              "textual",
-              "docker",
-              "Infrastructure: Docker container runtime"
+              "asn1crypto",
+              "Babel",
+              "cbor2",
+              "chardet",
+              "cryptography",
+              "docutils",
+              "geoip2",
+              "gevent",
+              "greenlet",
+              "idna",
+              "Jinja2",
+              "lxml",
+              "MarkupSafe",
+              "num2words",
+              "ofxparse",
+              "passlib",
+              "Pillow",
+              "polib",
+              "psutil",
+              "psycopg2",
+              "pydot",
+              "pypdf",
+              "PyYAML",
+              "qrcode",
+              "reportlab",
+              "requests",
+              "rjsmin",
+              "urllib3",
+              "vobject",
+              "Werkzeug",
+              "xlrd",
+              "XlsxWriter",
+              "xlwt",
+              "zeep",
+              "Infrastructure: PostgreSQL database",
+              "Infrastructure: SMTP server for email"
             ],
             "deployment_options": []
           },
           "extracted_data": {},
           "source": "local_repo",
           "source_confidence": "high",
-          "timestamp": "2026-03-21T14:27:31.586810"
+          "timestamp": "2026-03-21T14:53:17.114010"
         },
         "generalization": {
           "functional_dna": {
             "logic_archetype": "Stateful Orchestrator",
-            "logic_archetype_evidence": "Creates and manages containerized development environments with isolated tools (dem/core/dev_env.py), Manages development environment configurations and tool assignments (dem/core/commands/assign_cmd.py, dem/core/commands/modify_cmd.py), Manages container registries and hosts for tool distribution (dem/core/registry.py, dem/core/hosts.py)",
-            "data_contract_strictness": "Moderately Structured",
-            "data_contract_evidence": "Pydantic data validation (dem/api/main.py), FastAPI (dem/api/main.py imports) with structured endpoints, configuration management through CLI commands",
+            "logic_archetype_evidence": "Implements modular addon system for extending functionality (46+ addon directories), manages business accounting operations including invoicing and financial reporting, and processes HTTP requests through web controllers with session management",
+            "data_contract_strictness": "Highly Structured",
+            "data_contract_evidence": "Uses PostgreSQL database (implied from ORM patterns), manages business accounting operations with structured financial data, and implements JSON-RPC protocol for API endpoints",
             "core_algorithmic_class": "CRUD Operations",
-            "core_algorithmic_evidence": "Installs development environments from remote catalogs (dem/core/commands/install_cmd.py), Exports and imports development environment configurations (dem/core/commands/export_cmd.py, dem/core/commands/import_cmd.py), configuration management operations",
-            "concurrency_requirements": "No Consistency Requirements",
-            "concurrency_evidence": "CLI tool with embedded API server, sync with FastAPI async capabilities for API server, no evidence of distributed state or transaction requirements",
+            "core_algorithmic_evidence": "Manages business accounting operations including invoicing and financial reporting (addons/account/), handles user registration, password reset, and signup workflows, and supports multi-database operations with database filtering and selection",
+            "concurrency_requirements": "ACID Compliance Required",
+            "concurrency_evidence": "Uses PostgreSQL database for business accounting operations and financial reporting, requires data consistency for financial transactions and multi-database operations",
             "repurposing_confidence": 8,
-            "repurposing_reasoning": "High confidence due to generic orchestration pattern - container lifecycle management, configuration handling, and CLI/API interface patterns are broadly applicable to many domains requiring resource orchestration"
+            "repurposing_reasoning": "High confidence due to modular addon architecture (46+ addon directories) that allows extending functionality, comprehensive authentication systems (OAuth2, WebAuthn, traditional), and well-defined API endpoints. The ERP core can be adapted to various business domains by leveraging its orchestration patterns."
           },
           "evidence_claims": [
             {
-              "claim": "System manages containerized environments with state persistence",
-              "evidence": "Creates and manages containerized development environments with isolated tools (dem/core/dev_env.py), Manages development environment configurations and tool assignments (dem/core/commands/assign_cmd.py, dem/core/commands/modify_cmd.py)",
+              "claim": "Implements modular addon system for extensibility",
+              "evidence": "Implements modular addon system for extending functionality (46+ addon directories)",
               "confidence": "High"
             },
             {
-              "claim": "Supports both CLI and REST API interfaces",
-              "evidence": "Typer CLI framework (dem/cli/main.py), Serves REST API for programmatic access to development environment operations (dem/api/main.py)",
+              "claim": "Supports multiple authentication methods",
+              "evidence": "Provides OAuth2 authentication integration with external providers (addons/auth_oauth/controllers/main.py), Implements WebAuthn/passkey authentication for passwordless login (addons/auth_passkey/controllers/main.py)",
               "confidence": "High"
             },
             {
-              "claim": "Uses Docker for container orchestration",
-              "evidence": "Docker container engine (docker.errors imports in __main__.py), Docker container runtime for tool isolation (docker.errors handling in dem/__main__.py)",
+              "claim": "Uses Python with Werkzeug framework",
+              "evidence": "Python 3.10+ (requirements.txt, multiple .py files), Werkzeug web framework (import statements in controllers)",
+              "confidence": "High"
+            },
+            {
+              "claim": "Provides structured API endpoints",
+              "evidence": "POST /auth_oauth/signin OAuth2 authentication callback (addons/auth_oauth/controllers/main.py:145), GET /web/login User login page (addons/auth_signup/controllers/main.py:21)",
               "confidence": "High"
             }
           ],
           "market_reach": {
-            "primary_industry": "Software Development Tools",
+            "primary_industry": "Enterprise Resource Planning",
             "cross_industry_applications": [
-              "Infrastructure Management",
-              "Cloud Computing",
-              "DevOps",
-              "System Administration",
-              "Container Orchestration"
+              "Manufacturing",
+              "Retail",
+              "Healthcare",
+              "Education",
+              "Non-profit",
+              "Professional Services",
+              "Government"
             ],
-            "utility_score": 8,
+            "utility_score": 9,
             "market_potential": "High"
           },
           "friction_report": {
             "difficulty": "Medium",
-            "estimated_hours": 40,
+            "estimated_hours": 120,
             "required_technologies": [
-              "Docker (docker.errors imports)",
-              "Python 3.x (pyproject.toml)",
-              "FastAPI (dem/api/main.py)",
-              "Container runtime infrastructure"
+              "Python 3.10+",
+              "PostgreSQL database",
+              "Werkzeug web framework",
+              "JavaScript/TypeScript frontend"
             ],
             "complexity_factors": [
-              "Container orchestration logic",
-              "Multi-interface design (CLI/TUI/API)",
-              "Registry and host management",
-              "Configuration state management"
+              "Modular addon architecture requires understanding",
+              "Multi-database operations",
+              "Complex authentication system integration",
+              "Business domain knowledge needed"
             ],
             "risk_level": "Medium"
           },
@@ -858,29 +1019,30 @@
               "input": {
                 "format": "JSON",
                 "required_fields": [
-                  "task",
-                  "environment_config"
+                  "method",
+                  "path",
+                  "authentication_token"
                 ]
               },
               "output": {
                 "format": "JSON"
               },
               "authentication": {
-                "type": "Unknown",
-                "method": "No evidence in Step 1"
+                "type": "Multiple",
+                "method": "OAuth2, WebAuthn, Session-based, Token-based"
               }
             },
             "standardization_level": "High"
           },
           "information_gaps": [
-            "Authentication mechanisms for API",
-            "Database or persistence layer details",
-            "Specific container orchestration algorithms",
-            "Error handling and recovery mechanisms",
-            "Performance and scaling characteristics"
+            "Specific database schema details",
+            "Performance benchmarks and scalability limits",
+            "Detailed API rate limiting policies",
+            "Specific business logic algorithms",
+            "Data migration patterns and procedures"
           ]
         },
-        "timestamp": "2026-03-21T14:27:45.549107"
+        "timestamp": "2026-03-21T14:53:31.323857"
       },
       "errors": []
     }

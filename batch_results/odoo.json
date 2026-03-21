@@ -1,0 +1,397 @@
+{
+  "url": "https://github.com/odoo/odoo.git",
+  "repo_name": "odoo",
+  "timestamp": "2026-03-21T14:52:13.929548",
+  "step1": {
+    "product_name": "odoo",
+    "url": "https://github.com/odoo/odoo.git",
+    "analysis": {
+      "summary": "Odoo is a comprehensive open-source enterprise resource planning (ERP) system that provides a suite of integrated business applications including CRM, eCommerce, accounting, inventory management, and project management through a modular addon architecture.",
+      "capabilities": [
+        "Provides OAuth2 authentication integration with external providers (addons/auth_oauth/controllers/main.py)",
+        "Implements WebAuthn/passkey authentication for passwordless login (addons/auth_passkey/controllers/main.py)",
+        "Handles user registration, password reset, and signup workflows (addons/auth_signup/controllers/main.py)",
+        "Manages business accounting operations including invoicing and financial reporting (addons/account/)",
+        "Processes HTTP requests through web controllers with session management (multiple controller files)",
+        "Supports multi-database operations with database filtering and selection",
+        "Provides REST API endpoints through JSON-RPC protocol",
+        "Implements modular addon system for extending functionality (46+ addon directories)"
+      ],
+      "use_cases": [],
+      "technical_stack": [
+        "Python 3.10+ (requirements.txt, multiple .py files)",
+        "Werkzeug web framework (import statements in controllers)",
+        "Jinja2 templating engine (requirements.txt)",
+        "PostgreSQL database (implied from ORM patterns)",
+        "lxml for XML processing (requirements.txt)",
+        "Babel for internationalization (requirements.txt)",
+        "gevent for async processing (requirements.txt)",
+        "cryptography for security features (requirements.txt)",
+        "JavaScript/TypeScript frontend (5730+ .js files, 74+ .ts files)"
+      ],
+      "integrations": [
+        "OAuth2 providers (Google, Facebook, etc.) via auth_oauth addon",
+        "WebAuthn compatible authenticators",
+        "SMTP servers for email notifications",
+        "GeoIP2 services for location data (requirements.txt)"
+      ],
+      "api_endpoints": [
+        {
+          "method": "POST",
+          "path": "/auth_oauth/signin",
+          "summary": "OAuth2 authentication callback (addons/auth_oauth/controllers/main.py:145)"
+        },
+        {
+          "method": "POST",
+          "path": "/auth/passkey/start-auth",
+          "summary": "Start WebAuthn authentication (addons/auth_passkey/controllers/main.py:11)"
+        },
+        {
+          "method": "GET",
+          "path": "/web/signup",
+          "summary": "User registration page (addons/auth_signup/controllers/main.py:36)"
+        },
+        {
+          "method": "POST",
+          "path": "/web/signup",
+          "summary": "Process user registration (addons/auth_signup/controllers/main.py:36)"
+        },
+        {
+          "method": "GET",
+          "path": "/web/reset_password",
+          "summary": "Password reset page (addons/auth_signup/controllers/main.py:75)"
+        },
+        {
+          "method": "GET",
+          "path": "/web/login",
+          "summary": "User login page (addons/auth_signup/controllers/main.py:21)"
+        }
+      ],
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      },
+      "target_audience": "Developers",
+      "category": "Open Source Software",
+      "deployment": "Self-hosted",
+      "underlying_algorithm": {
+        "problem_type": "",
+        "pattern": ""
+      },
+      "evidence_tracking": {
+        "confidence_level": "High",
+        "technical_facts": [
+          "Provides OAuth2 authentication integration with external providers (addons/auth_oauth/controllers/main.py)",
+          "Implements WebAuthn/passkey authentication for passwordless login (addons/auth_passkey/controllers/main.py)",
+          "Handles user registration, password reset, and signup workflows (addons/auth_signup/controllers/main.py)",
+          "Manages business accounting operations including invoicing and financial reporting (addons/account/)",
+          "Processes HTTP requests through web controllers with session management (multiple controller files)",
+          "Supports multi-database operations with database filtering and selection",
+          "Provides REST API endpoints through JSON-RPC protocol",
+          "Implements modular addon system for extending functionality (46+ addon directories)"
+        ],
+        "information_gaps": []
+      },
+      "architecture_patterns": [
+        "monolith",
+        "Concurrency: gevent-based async processing with greenlet coroutines"
+      ],
+      "auth_methods": [
+        "OAuth2 with external providers",
+        "WebAuthn/Passkey authentication",
+        "Traditional username/password",
+        "Session-based authentication",
+        "Token-based authentication"
+      ],
+      "sdk_languages": [],
+      "dependencies": [
+        "asn1crypto",
+        "Babel",
+        "cbor2",
+        "chardet",
+        "cryptography",
+        "docutils",
+        "geoip2",
+        "gevent",
+        "greenlet",
+        "idna",
+        "Jinja2",
+        "lxml",
+        "MarkupSafe",
+        "num2words",
+        "ofxparse",
+        "passlib",
+        "Pillow",
+        "polib",
+        "psutil",
+        "psycopg2",
+        "pydot",
+        "pypdf",
+        "PyYAML",
+        "qrcode",
+        "reportlab",
+        "requests",
+        "rjsmin",
+        "urllib3",
+        "vobject",
+        "Werkzeug",
+        "xlrd",
+        "XlsxWriter",
+        "xlwt",
+        "zeep",
+        "Infrastructure: PostgreSQL database",
+        "Infrastructure: SMTP server for email"
+      ],
+      "deployment_options": []
+    },
+    "extracted_data": {},
+    "source": "local_repo",
+    "source_confidence": "high",
+    "timestamp": "2026-03-21T14:53:17.114010"
+  },
+  "step2": {
+    "step1_data": {
+      "product_name": "odoo",
+      "url": "https://github.com/odoo/odoo.git",
+      "analysis": {
+        "summary": "Odoo is a comprehensive open-source enterprise resource planning (ERP) system that provides a suite of integrated business applications including CRM, eCommerce, accounting, inventory management, and project management through a modular addon architecture.",
+        "capabilities": [
+          "Provides OAuth2 authentication integration with external providers (addons/auth_oauth/controllers/main.py)",
+          "Implements WebAuthn/passkey authentication for passwordless login (addons/auth_passkey/controllers/main.py)",
+          "Handles user registration, password reset, and signup workflows (addons/auth_signup/controllers/main.py)",
+          "Manages business accounting operations including invoicing and financial reporting (addons/account/)",
+          "Processes HTTP requests through web controllers with session management (multiple controller files)",
+          "Supports multi-database operations with database filtering and selection",
+          "Provides REST API endpoints through JSON-RPC protocol",
+          "Implements modular addon system for extending functionality (46+ addon directories)"
+        ],
+        "use_cases": [],
+        "technical_stack": [
+          "Python 3.10+ (requirements.txt, multiple .py files)",
+          "Werkzeug web framework (import statements in controllers)",
+          "Jinja2 templating engine (requirements.txt)",
+          "PostgreSQL database (implied from ORM patterns)",
+          "lxml for XML processing (requirements.txt)",
+          "Babel for internationalization (requirements.txt)",
+          "gevent for async processing (requirements.txt)",
+          "cryptography for security features (requirements.txt)",
+          "JavaScript/TypeScript frontend (5730+ .js files, 74+ .ts files)"
+        ],
+        "integrations": [
+          "OAuth2 providers (Google, Facebook, etc.) via auth_oauth addon",
+          "WebAuthn compatible authenticators",
+          "SMTP servers for email notifications",
+          "GeoIP2 services for location data (requirements.txt)"
+        ],
+        "api_endpoints": [
+          {
+            "method": "POST",
+            "path": "/auth_oauth/signin",
+            "summary": "OAuth2 authentication callback (addons/auth_oauth/controllers/main.py:145)"
+          },
+          {
+            "method": "POST",
+            "path": "/auth/passkey/start-auth",
+            "summary": "Start WebAuthn authentication (addons/auth_passkey/controllers/main.py:11)"
+          },
+          {
+            "method": "GET",
+            "path": "/web/signup",
+            "summary": "User registration page (addons/auth_signup/controllers/main.py:36)"
+          },
+          {
+            "method": "POST",
+            "path": "/web/signup",
+            "summary": "Process user registration (addons/auth_signup/controllers/main.py:36)"
+          },
+          {
+            "method": "GET",
+            "path": "/web/reset_password",
+            "summary": "Password reset page (addons/auth_signup/controllers/main.py:75)"
+          },
+          {
+            "method": "GET",
+            "path": "/web/login",
+            "summary": "User login page (addons/auth_signup/controllers/main.py:21)"
+          }
+        ],
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        },
+        "target_audience": "Developers",
+        "category": "Open Source Software",
+        "deployment": "Self-hosted",
+        "underlying_algorithm": {
+          "problem_type": "",
+          "pattern": ""
+        },
+        "evidence_tracking": {
+          "confidence_level": "High",
+          "technical_facts": [
+            "Provides OAuth2 authentication integration with external providers (addons/auth_oauth/controllers/main.py)",
+            "Implements WebAuthn/passkey authentication for passwordless login (addons/auth_passkey/controllers/main.py)",
+            "Handles user registration, password reset, and signup workflows (addons/auth_signup/controllers/main.py)",
+            "Manages business accounting operations including invoicing and financial reporting (addons/account/)",
+            "Processes HTTP requests through web controllers with session management (multiple controller files)",
+            "Supports multi-database operations with database filtering and selection",
+            "Provides REST API endpoints through JSON-RPC protocol",
+            "Implements modular addon system for extending functionality (46+ addon directories)"
+          ],
+          "information_gaps": []
+        },
+        "architecture_patterns": [
+          "monolith",
+          "Concurrency: gevent-based async processing with greenlet coroutines"
+        ],
+        "auth_methods": [
+          "OAuth2 with external providers",
+          "WebAuthn/Passkey authentication",
+          "Traditional username/password",
+          "Session-based authentication",
+          "Token-based authentication"
+        ],
+        "sdk_languages": [],
+        "dependencies": [
+          "asn1crypto",
+          "Babel",
+          "cbor2",
+          "chardet",
+          "cryptography",
+          "docutils",
+          "geoip2",
+          "gevent",
+          "greenlet",
+          "idna",
+          "Jinja2",
+          "lxml",
+          "MarkupSafe",
+          "num2words",
+          "ofxparse",
+          "passlib",
+          "Pillow",
+          "polib",
+          "psutil",
+          "psycopg2",
+          "pydot",
+          "pypdf",
+          "PyYAML",
+          "qrcode",
+          "reportlab",
+          "requests",
+          "rjsmin",
+          "urllib3",
+          "vobject",
+          "Werkzeug",
+          "xlrd",
+          "XlsxWriter",
+          "xlwt",
+          "zeep",
+          "Infrastructure: PostgreSQL database",
+          "Infrastructure: SMTP server for email"
+        ],
+        "deployment_options": []
+      },
+      "extracted_data": {},
+      "source": "local_repo",
+      "source_confidence": "high",
+      "timestamp": "2026-03-21T14:53:17.114010"
+    },
+    "generalization": {
+      "functional_dna": {
+        "logic_archetype": "Stateful Orchestrator",
+        "logic_archetype_evidence": "Implements modular addon system for extending functionality (46+ addon directories), manages business accounting operations including invoicing and financial reporting, and processes HTTP requests through web controllers with session management",
+        "data_contract_strictness": "Highly Structured",
+        "data_contract_evidence": "Uses PostgreSQL database (implied from ORM patterns), manages business accounting operations with structured financial data, and implements JSON-RPC protocol for API endpoints",
+        "core_algorithmic_class": "CRUD Operations",
+        "core_algorithmic_evidence": "Manages business accounting operations including invoicing and financial reporting (addons/account/), handles user registration, password reset, and signup workflows, and supports multi-database operations with database filtering and selection",
+        "concurrency_requirements": "ACID Compliance Required",
+        "concurrency_evidence": "Uses PostgreSQL database for business accounting operations and financial reporting, requires data consistency for financial transactions and multi-database operations",
+        "repurposing_confidence": 8,
+        "repurposing_reasoning": "High confidence due to modular addon architecture (46+ addon directories) that allows extending functionality, comprehensive authentication systems (OAuth2, WebAuthn, traditional), and well-defined API endpoints. The ERP core can be adapted to various business domains by leveraging its orchestration patterns."
+      },
+      "evidence_claims": [
+        {
+          "claim": "Implements modular addon system for extensibility",
+          "evidence": "Implements modular addon system for extending functionality (46+ addon directories)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Supports multiple authentication methods",
+          "evidence": "Provides OAuth2 authentication integration with external providers (addons/auth_oauth/controllers/main.py), Implements WebAuthn/passkey authentication for passwordless login (addons/auth_passkey/controllers/main.py)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Uses Python with Werkzeug framework",
+          "evidence": "Python 3.10+ (requirements.txt, multiple .py files), Werkzeug web framework (import statements in controllers)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Provides structured API endpoints",
+          "evidence": "POST /auth_oauth/signin OAuth2 authentication callback (addons/auth_oauth/controllers/main.py:145), GET /web/login User login page (addons/auth_signup/controllers/main.py:21)",
+          "confidence": "High"
+        }
+      ],
+      "market_reach": {
+        "primary_industry": "Enterprise Resource Planning",
+        "cross_industry_applications": [
+          "Manufacturing",
+          "Retail",
+          "Healthcare",
+          "Education",
+          "Non-profit",
+          "Professional Services",
+          "Government"
+        ],
+        "utility_score": 9,
+        "market_potential": "High"
+      },
+      "friction_report": {
+        "difficulty": "Medium",
+        "estimated_hours": 120,
+        "required_technologies": [
+          "Python 3.10+",
+          "PostgreSQL database",
+          "Werkzeug web framework",
+          "JavaScript/TypeScript frontend"
+        ],
+        "complexity_factors": [
+          "Modular addon architecture requires understanding",
+          "Multi-database operations",
+          "Complex authentication system integration",
+          "Business domain knowledge needed"
+        ],
+        "risk_level": "Medium"
+      },
+      "interface_map": {
+        "adapter_schema": {
+          "input": {
+            "format": "JSON",
+            "required_fields": [
+              "method",
+              "path",
+              "authentication_token"
+            ]
+          },
+          "output": {
+            "format": "JSON"
+          },
+          "authentication": {
+            "type": "Multiple",
+            "method": "OAuth2, WebAuthn, Session-based, Token-based"
+          }
+        },
+        "standardization_level": "High"
+      },
+      "information_gaps": [
+        "Specific database schema details",
+        "Performance benchmarks and scalability limits",
+        "Detailed API rate limiting policies",
+        "Specific business logic algorithms",
+        "Data migration patterns and procedures"
+      ]
+    },
+    "timestamp": "2026-03-21T14:53:31.323857"
+  },
+  "errors": []
+}
