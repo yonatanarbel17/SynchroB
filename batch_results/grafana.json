@@ -1,429 +1,631 @@
 {
   "url": "https://github.com/grafana/grafana.git",
   "repo_name": "grafana",
-  "timestamp": "2026-03-21T15:09:50.133609",
+  "timestamp": "2026-03-25T15:26:13.979260",
   "step1": {
     "product_name": "grafana",
     "url": "https://github.com/grafana/grafana.git",
     "analysis": {
-      "summary": "Grafana is a comprehensive observability platform that processes metrics and logs from multiple data sources, renders interactive dashboards with real-time visualizations, and manages alerting workflows for monitoring and incident response.",
+      "summary": "Grafana is an open-source monitoring and observability platform that provides data visualization, dashboards, alerting, and multi-datasource query capabilities. The system implements a microservice-oriented monorepo architecture with a Go backend providing REST APIs and a TypeScript/React frontend for visualization rendering. It features a comprehensive plugin system for datasources and panels, real-time alerting with notification routing, and supports querying across heterogeneous data sources including Prometheus, InfluxDB, Elasticsearch, and SQL databases.",
       "capabilities": [
-        "Renders interactive data visualizations and dashboards from multiple data sources (public/app/core/services/backend_srv.ts)",
-        "Processes and queries metrics from Prometheus, InfluxDB, Elasticsearch and other data sources (pkg/tsdb/)",
-        "Manages alerting rules evaluation and notification delivery to external systems (pkg/services/ngalert/)",
-        "Provides user authentication and authorization with RBAC (pkg/services/auth/)",
-        "Executes real-time log streaming and search capabilities (public/app/features/logs/)",
-        "Manages dashboard provisioning and configuration as code (pkg/services/provisioning/)",
-        "Processes plugin installations and manages plugin lifecycle (pkg/plugins/)",
-        "Handles data source configuration and health monitoring (pkg/services/datasources/)",
-        "Manages team-based access control and organizational units (pkg/services/team/, pkg/services/org/)"
+        "Renders interactive dashboards with customizable panels and visualizations (public/app/features/dashboard/)",
+        "Provides REST API endpoints for dashboard management, data source configuration, and user authentication (pkg/api/)",
+        "Implements pluggable data source architecture supporting Prometheus, InfluxDB, CloudWatch, and 150+ integrations (pkg/plugins/)",
+        "Executes real-time alerting rules with configurable notification channels and routing trees (pkg/services/alerting/)",
+        "Processes time-series queries with template variable substitution and query transformations (pkg/tsdb/)",
+        "Manages multi-tenant organizations with role-based access control and team permissions (pkg/services/user/, pkg/services/org/)",
+        "Stores dashboard definitions, user preferences, and alert configurations in SQL databases (pkg/services/sqlstore/)",
+        "Handles OAuth2, LDAP, SAML, and API key authentication with configurable providers (pkg/services/auth/)",
+        "Provides live data streaming and real-time dashboard updates via WebSocket connections (pkg/services/live/)",
+        "Implements annotation system for marking events and incidents on time-series graphs (pkg/services/annotations/)",
+        "Supports dashboard templating with dynamic variable resolution and cascading filters (pkg/services/dashboards/)",
+        "Executes background jobs for alert evaluation, cleanup tasks, and data source health checks (pkg/services/scheduler/)",
+        "Provides plugin development SDK with TypeScript APIs for custom visualizations and data sources (packages/grafana-data/)",
+        "Implements search functionality across dashboards, data sources, and alerts with full-text indexing (pkg/services/search/)",
+        "Manages dashboard versioning with diff comparison and rollback capabilities (pkg/services/dashboards/database/)",
+        "Provides unified alerting system with rule evaluation, notification policies, and silence management (pkg/services/ngalert/)",
+        "Implements data source proxy for secure credential management and CORS handling (pkg/api/datasource_proxy.go)",
+        "Supports dashboard provisioning via configuration files and GitOps workflows (pkg/services/provisioning/)",
+        "Provides metrics collection and performance monitoring with Prometheus integration (pkg/infra/metrics/)",
+        "Implements plugin signature verification and security validation for third-party extensions (pkg/plugins/plugincontext/)",
+        "Manages library panels for reusable visualization components across dashboards (pkg/services/librarypanels/)",
+        "Provides correlation analysis between different data sources and metric relationships (apps/correlations/)",
+        "Implements folder-based dashboard organization with hierarchical permissions (pkg/services/folder/)",
+        "Supports dashboard sharing with public URLs and embed capabilities (pkg/api/short_url.go)",
+        "Provides query history and favorites for improved user experience (pkg/services/query/)"
       ],
-      "use_cases": [],
+      "use_cases": [
+        "DevOps teams use it to monitor application performance, infrastructure health, and set up alerting for system anomalies",
+        "Site reliability engineers use it to create operational dashboards for incident response and capacity planning",
+        "Data engineers use it to visualize data pipeline metrics and monitor ETL job performance across multiple data sources",
+        "Business analysts use it to create executive dashboards combining business metrics from databases, APIs, and cloud services",
+        "Security teams use it to monitor security events, analyze logs, and track compliance metrics in centralized dashboards"
+      ],
+      "category": "Monitoring and Observability Platform",
+      "target_audience": "DevOps engineers, Site reliability engineers, System administrators, Data engineers, Security analysts",
       "technical_stack": [
-        "Go (primary backend language, go.mod files throughout)",
-        "TypeScript/React (frontend, package.json files in public/)",
-        "SQLite (default database, pkg/services/sqlstore/)",
-        "PostgreSQL (supported database, docker/blocks/postgres/)",
-        "MySQL (supported database, pkg/services/sqlstore/migrations/)",
-        "Redis (caching layer, pkg/infra/remotecache/)",
-        "Prometheus (metrics collection, pkg/tsdb/prometheus/)",
-        "Grafana UI component library (@grafana/ui in package.json)",
-        "Wire (dependency injection, wire.go files)",
-        "Testify (Go testing, go.mod dependencies)"
-      ],
-      "integrations": [
-        "Prometheus (pkg/tsdb/prometheus/)",
-        "InfluxDB (pkg/tsdb/influxdb/)",
-        "Elasticsearch (pkg/tsdb/elasticsearch/)",
-        "MySQL (pkg/services/sqlstore/)",
-        "PostgreSQL (pkg/services/sqlstore/)",
-        "LDAP (pkg/services/ldap/)",
-        "Slack (pkg/services/notifications/)",
-        "PagerDuty (pkg/services/notifications/)",
-        "Webhook notifications (pkg/services/notifications/)"
+        "Go 1.25.8 (go.mod, backend services)",
+        "TypeScript/JavaScript with React 18 (package.json, frontend)",
+        "Node.js 24 (Dockerfile, build system)",
+        "SQLite/PostgreSQL/MySQL (pkg/services/sqlstore/)",
+        "Redis for caching and session storage (referenced in configurations)",
+        "Prometheus client libraries (devenv/docker/blocks/prometheus_*/go.mod)",
+        "Yarn 4.x package manager (.yarnrc.yml)",
+        "Alpine Linux 3.23.3 (Dockerfile base image)",
+        "Docker and Docker Compose (devenv/docker/)",
+        "Nginx for reverse proxy (devenv configurations)",
+        "Wire dependency injection framework (Makefile WIRE_TAGS)",
+        "CUE for schema validation and configuration (cue.mod/)",
+        "Playwright for end-to-end testing (e2e-playwright/)",
+        "Jest for unit testing (package.json test scripts)",
+        "ESLint and Prettier for code formatting (eslint.config.js)"
       ],
       "api_endpoints": [
-        {
-          "method": "GET",
-          "path": "/api/health",
-          "summary": "Health check endpoint (pkg/api/health.go)"
-        },
-        {
-          "method": "POST",
-          "path": "/api/login",
-          "summary": "User authentication (pkg/api/login.go)"
-        },
-        {
-          "method": "GET",
-          "path": "/api/dashboards/home",
-          "summary": "Home dashboard retrieval (pkg/api/dashboard.go)"
-        },
-        {
-          "method": "POST",
-          "path": "/api/dashboards/db",
-          "summary": "Dashboard creation/update (pkg/api/dashboard.go)"
-        },
-        {
-          "method": "GET",
-          "path": "/api/datasources",
-          "summary": "Data source listing (pkg/api/datasource.go)"
-        },
-        {
-          "method": "POST",
-          "path": "/api/datasources",
-          "summary": "Data source creation (pkg/api/datasource.go)"
-        },
-        {
-          "method": "POST",
-          "path": "/api/tsdb/query",
-          "summary": "Time series data querying (pkg/api/metrics.go)"
-        },
-        {
-          "method": "GET",
-          "path": "/api/alerts",
-          "summary": "Alert rule retrieval (pkg/api/alerting.go)"
-        },
-        {
-          "method": "POST",
-          "path": "/api/alerts",
-          "summary": "Alert rule creation (pkg/api/alerting.go)"
-        },
-        {
-          "method": "GET",
-          "path": "/api/user",
-          "summary": "Current user info (pkg/api/user.go)"
-        },
-        {
-          "method": "GET",
-          "path": "/api/org/users",
-          "summary": "Organization user management (pkg/api/org.go)"
-        }
+        "GET /api/dashboards/home \u2014 Get home dashboard (pkg/api/dashboard.go)",
+        "POST /api/dashboards/db \u2014 Save dashboard (pkg/api/dashboard.go)",
+        "GET /api/dashboards/uid/:uid \u2014 Get dashboard by UID (pkg/api/dashboard.go)",
+        "POST /api/datasources \u2014 Create data source (pkg/api/datasource.go)",
+        "GET /api/datasources \u2014 List data sources (pkg/api/datasource.go)",
+        "POST /api/datasources/proxy/:id/* \u2014 Proxy data source requests (pkg/api/datasource_proxy.go)",
+        "POST /api/alerts \u2014 Create alert rule (pkg/api/alert_notification.go)",
+        "GET /api/search \u2014 Search dashboards and folders (pkg/api/search.go)",
+        "POST /api/login \u2014 User authentication (pkg/api/login.go)",
+        "GET /api/user \u2014 Get current user info (pkg/api/user.go)",
+        "POST /api/orgs \u2014 Create organization (pkg/api/org.go)",
+        "GET /api/annotations \u2014 Get annotations (pkg/api/annotations.go)",
+        "POST /api/annotations \u2014 Create annotation (pkg/api/annotations.go)",
+        "GET /api/plugins \u2014 List installed plugins (pkg/api/pluginproxy.go)",
+        "POST /api/queries \u2014 Execute data source query (pkg/api/query.go)",
+        "GET /api/live/ws \u2014 WebSocket for live updates (pkg/services/live/)",
+        "POST /api/admin/provisioning/reload \u2014 Reload provisioning (pkg/api/admin.go)",
+        "GET /api/health \u2014 Health check endpoint (pkg/api/health.go)"
       ],
+      "sdk_languages": [
+        "TypeScript (packages/grafana-data/, packages/grafana-ui/)",
+        "Go (plugin development SDK and backend data sources)",
+        "Python (data source plugins support)"
+      ],
+      "auth_methods": [
+        "OAuth2 with configurable providers including Google, GitHub, GitLab (pkg/services/auth/)",
+        "LDAP and Active Directory integration (pkg/services/ldap/)",
+        "SAML authentication support (pkg/services/auth/)",
+        "API key authentication for service accounts (pkg/services/apikey/)",
+        "Basic username/password authentication (pkg/services/auth/)",
+        "JWT token-based authentication (pkg/services/auth/jwt/)",
+        "Role-based access control with organization and team permissions (pkg/services/accesscontrol/)"
+      ],
+      "integrations": [
+        "Prometheus for metrics collection via prometheus client libraries (devenv/docker/blocks/prometheus_*/go.mod)",
+        "PostgreSQL, MySQL, SQLite databases via GORM ORM (pkg/services/sqlstore/)",
+        "Redis for caching and session management (configuration references)",
+        "LDAP directories for user authentication (pkg/services/ldap/)",
+        "SMTP servers for email notifications (pkg/services/notifications/)",
+        "Elasticsearch for log data and search (data source plugins)",
+        "InfluxDB for time-series data storage (data source plugins)",
+        "AWS CloudWatch, Azure Monitor, Google Cloud Monitoring (cloud integrations)",
+        "Slack, PagerDuty, Webhook notifications for alerting (pkg/services/alerting/)",
+        "Kubernetes API for container monitoring (data source plugins)"
+      ],
+      "architecture": {
+        "pattern": "monolith with microservice apps - single deployable unit with modular internal services",
+        "components": [
+          "Backend API server (pkg/api/) - REST endpoints and business logic",
+          "Frontend React application (public/app/) - dashboard rendering and user interface",
+          "Plugin system (pkg/plugins/) - extensible data sources and visualizations",
+          "Alerting engine (pkg/services/alerting/) - rule evaluation and notification routing",
+          "Authentication service (pkg/services/auth/) - multi-provider auth handling",
+          "Data source proxy (pkg/api/datasource_proxy.go) - secure credential management",
+          "Live streaming service (pkg/services/live/) - real-time WebSocket updates",
+          "Background scheduler (pkg/services/scheduler/) - periodic job execution",
+          "Search indexing service (pkg/services/search/) - full-text search capabilities"
+        ],
+        "entry_points": [
+          "pkg/main.go - primary server entry point",
+          "pkg/cmd/grafana-server/main.go - server command",
+          "pkg/cmd/grafana-cli/main.go - CLI tool entry point",
+          "public/app/index.ts - frontend application bootstrap"
+        ],
+        "data_flow": "HTTP requests hit the Go backend API, which authenticates users, validates permissions, and routes requests to appropriate services. Dashboard queries are proxied to configured data sources with credential injection. Results are transformed and cached before being sent to the React frontend for visualization rendering. Real-time updates flow through WebSocket connections managed by the live service.",
+        "persistence": "Primary data stored in SQL databases (PostgreSQL/MySQL/SQLite) via SQLAlchemy-like ORM, with Redis used for session management and caching. Plugin configurations and dashboard definitions persisted as JSON in database tables.",
+        "concurrency_model": "Go goroutines for concurrent request handling with context-based cancellation. Background services use worker pools for alert evaluation and scheduled tasks. Frontend uses React concurrent features for UI updates.",
+        "communication_patterns": "HTTP REST APIs between frontend and backend, WebSocket for live updates, HTTP proxy for data source queries, internal Go interfaces for service communication",
+        "plugin_extension_model": "Plugin architecture supports data source and panel plugins via TypeScript/Go SDKs. Plugins loaded dynamically with signature verification and sandboxed execution environment."
+      },
+      "data_model": {
+        "primary_entities": [
+          "Dashboard - JSON document with panels, queries, and layout configuration",
+          "DataSource - Connection configuration for external data systems",
+          "User - Authentication and authorization entity with org/team membership",
+          "Organization - Multi-tenant isolation boundary",
+          "Alert Rule - Query-based conditions with notification routing",
+          "Panel - Individual visualization component within dashboards",
+          "Annotation - Time-based markers and events on dashboards",
+          "Folder - Hierarchical organization for dashboards with permissions"
+        ],
+        "storage_backends": [
+          "SQL databases (PostgreSQL, MySQL, SQLite) for primary data storage",
+          "Redis for session storage and caching",
+          "File system for plugin assets and static files"
+        ],
+        "schema_patterns": "Relational database with JSON columns for flexible configuration storage. Dashboard definitions stored as JSON documents with relational metadata for search and permissions.",
+        "migration_strategy": "SQL migrations managed via custom migration system in pkg/services/sqlstore/migrations/"
+      },
+      "algorithms": {
+        "problem_type": "Real-time data visualization and monitoring with multi-source query federation and alert evaluation",
+        "core_patterns": [
+          "Plugin architecture for extensible data sources and visualizations",
+          "Proxy pattern for secure data source access with credential injection",
+          "Observer pattern for real-time dashboard updates via WebSocket",
+          "Strategy pattern for multiple authentication providers",
+          "Factory pattern for plugin instantiation and management",
+          "Repository pattern for data access abstraction"
+        ],
+        "complexity_indicators": "Large monorepo with 20,000+ files, complex plugin system, multi-tenant architecture, real-time streaming capabilities",
+        "key_algorithms": [
+          "Query result caching and invalidation strategies (pkg/services/query/)",
+          "Alert rule evaluation with configurable intervals (pkg/services/ngalert/)",
+          "Template variable resolution and query transformation (pkg/services/dashboards/)",
+          "Plugin signature verification and security validation (pkg/plugins/)",
+          "Time-series data aggregation and downsampling (frontend query processing)"
+        ],
+        "evidence": "pkg/services/alerting/ contains rule evaluation logic, pkg/plugins/ implements plugin loading and validation, pkg/services/live/ manages WebSocket connections for real-time updates"
+      },
+      "security_model": {
+        "authentication": "Multi-provider authentication supporting OAuth2, LDAP, SAML, and API keys with configurable session management",
+        "authorization": "Role-based access control with organization-level isolation, team-based permissions, and resource-specific access controls",
+        "data_protection": "API key storage with hashing, credential proxy for secure data source access, configurable TLS for transport security",
+        "security_headers": "Configurable CORS policies, CSP headers, and rate limiting for API endpoints",
+        "vulnerability_handling": "Plugin signature verification, dependency scanning in CI/CD, security policy documentation (SECURITY.md)"
+      },
+      "dependencies": {
+        "runtime": [
+          "@grafana/data ^11.5.0 (package.json)",
+          "@grafana/ui ^11.5.0 (package.json)",
+          "react ^18.3.1 (package.json)",
+          "lodash ^4.17.21 (package.json)",
+          "rxjs ^7.8.1 (package.json)",
+          "moment ^2.30.1 (package.json)",
+          "d3 ^7.9.0 (package.json)"
+        ],
+        "dev": [
+          "@types/react ^18.3.17 (package.json)",
+          "typescript ^5.7.2 (package.json)",
+          "jest ^29.7.0 (package.json)",
+          "@testing-library/react ^16.1.0 (package.json)",
+          "playwright ^1.49.1 (package.json)",
+          "eslint ^9.17.0 (package.json)"
+        ],
+        "infrastructure": [
+          "PostgreSQL, MySQL, or SQLite database",
+          "Redis for caching and session storage",
+          "SMTP server for email notifications",
+          "Reverse proxy (Nginx) for production deployment"
+        ]
+      },
+      "deployment": {
+        "containerized": true,
+        "container_orchestration": "Docker Compose for development (devenv/docker/), Kubernetes production deployment support",
+        "ci_cd": "GitHub Actions for CI/CD pipeline with automated testing and releases (.github/workflows/)",
+        "environment_config": "Environment variables, configuration files (conf/defaults.ini), and feature flags for runtime configuration",
+        "scaling_model": "Horizontal scaling supported through stateless design with shared database and Redis backend"
+      },
+      "code_quality_signals": {
+        "has_tests": true,
+        "test_framework": "Jest for unit tests, Playwright for E2E tests, Go testing framework",
+        "test_count_estimate": "3133 test files found across the repository",
+        "has_linting": true,
+        "has_type_hints": true,
+        "documentation_quality": "well-documented with extensive README, contributing guidelines, and API documentation",
+        "code_style": "ESLint, Prettier for JavaScript/TypeScript, gofmt for Go code formatting"
+      },
+      "project_health": {
+        "license": "AGPL-3.0-only with Apache-2.0 exceptions for some components",
+        "total_commits": "1 in current clone (limited sample)",
+        "top_contributors": "Active development with multiple contributors",
+        "recent_activity": "Recent commits show active feature development including permissions improvements and frontend enhancements",
+        "community_signals": "Comprehensive governance with CODE_OF_CONDUCT.md, CONTRIBUTING.md, issue templates, security policy (SECURITY.md)"
+      },
+      "evidence_tracking": {
+        "files_analyzed": [
+          "go.mod files across apps/* directories",
+          "package.json in root and packages/*",
+          "pkg/api/ directory structure",
+          "pkg/services/ directory structure",
+          "public/app/ frontend structure",
+          "Dockerfile and deployment configurations",
+          "devenv/docker/ development setup",
+          "README.md and contributing documentation"
+        ],
+        "confidence_level": "High",
+        "information_gaps": [
+          "Exact database schema details - only migration file paths available",
+          "Complete list of supported data source plugins - would need full plugin directory analysis",
+          "Production performance characteristics - no load testing results visible"
+        ]
+      },
       "pricing": {
         "model": "open-source",
         "free_tier": "true"
-      },
-      "target_audience": "Developers",
-      "category": "Open Source Software",
-      "deployment": "Self-hosted",
-      "underlying_algorithm": {
-        "problem_type": "",
-        "pattern": ""
-      },
-      "evidence_tracking": {
-        "confidence_level": "High",
-        "technical_facts": [
-          "Renders interactive data visualizations and dashboards from multiple data sources (public/app/core/services/backend_srv.ts)",
-          "Processes and queries metrics from Prometheus, InfluxDB, Elasticsearch and other data sources (pkg/tsdb/)",
-          "Manages alerting rules evaluation and notification delivery to external systems (pkg/services/ngalert/)",
-          "Provides user authentication and authorization with RBAC (pkg/services/auth/)",
-          "Executes real-time log streaming and search capabilities (public/app/features/logs/)",
-          "Manages dashboard provisioning and configuration as code (pkg/services/provisioning/)",
-          "Processes plugin installations and manages plugin lifecycle (pkg/plugins/)",
-          "Handles data source configuration and health monitoring (pkg/services/datasources/)",
-          "Manages team-based access control and organizational units (pkg/services/team/, pkg/services/org/)"
-        ],
-        "information_gaps": []
-      },
-      "architecture_patterns": [
-        "monolith",
-        "Concurrency: Go goroutines with HTTP server handling concurrent requests, background services for alerting evaluation and provisioning"
-      ],
-      "auth_methods": [
-        "Basic authentication",
-        "OAuth2",
-        "LDAP",
-        "SAML",
-        "JWT tokens",
-        "API keys",
-        "Anonymous access"
-      ],
-      "sdk_languages": [
-        "Go",
-        "JavaScript/TypeScript",
-        "Python"
-      ],
-      "dependencies": [
-        "github.com/gin-gonic/gin",
-        "github.com/go-sql-driver/mysql",
-        "github.com/lib/pq",
-        "github.com/mattn/go-sqlite3",
-        "github.com/prometheus/client_golang",
-        "github.com/grafana/grafana-plugin-sdk-go",
-        "xorm.io/xorm",
-        "Infrastructure: SQL database (SQLite/PostgreSQL/MySQL)",
-        "Infrastructure: Redis (optional caching)",
-        "Infrastructure: SMTP server (alerting)",
-        "Infrastructure: External data sources (Prometheus, InfluxDB, etc.)"
-      ],
-      "deployment_options": [
-        "Containerized (Docker)",
-        "CI/CD: GitHub Actions"
-      ]
+      }
     },
     "extracted_data": {},
     "source": "local_repo",
     "source_confidence": "high",
-    "timestamp": "2026-03-21T15:11:09.478091"
+    "timestamp": "2026-03-25T15:27:46.357715"
   },
   "step2": {
     "step1_data": {
       "product_name": "grafana",
       "url": "https://github.com/grafana/grafana.git",
       "analysis": {
-        "summary": "Grafana is a comprehensive observability platform that processes metrics and logs from multiple data sources, renders interactive dashboards with real-time visualizations, and manages alerting workflows for monitoring and incident response.",
+        "summary": "Grafana is an open-source monitoring and observability platform that provides data visualization, dashboards, alerting, and multi-datasource query capabilities. The system implements a microservice-oriented monorepo architecture with a Go backend providing REST APIs and a TypeScript/React frontend for visualization rendering. It features a comprehensive plugin system for datasources and panels, real-time alerting with notification routing, and supports querying across heterogeneous data sources including Prometheus, InfluxDB, Elasticsearch, and SQL databases.",
         "capabilities": [
-          "Renders interactive data visualizations and dashboards from multiple data sources (public/app/core/services/backend_srv.ts)",
-          "Processes and queries metrics from Prometheus, InfluxDB, Elasticsearch and other data sources (pkg/tsdb/)",
-          "Manages alerting rules evaluation and notification delivery to external systems (pkg/services/ngalert/)",
-          "Provides user authentication and authorization with RBAC (pkg/services/auth/)",
-          "Executes real-time log streaming and search capabilities (public/app/features/logs/)",
-          "Manages dashboard provisioning and configuration as code (pkg/services/provisioning/)",
-          "Processes plugin installations and manages plugin lifecycle (pkg/plugins/)",
-          "Handles data source configuration and health monitoring (pkg/services/datasources/)",
-          "Manages team-based access control and organizational units (pkg/services/team/, pkg/services/org/)"
+          "Renders interactive dashboards with customizable panels and visualizations (public/app/features/dashboard/)",
+          "Provides REST API endpoints for dashboard management, data source configuration, and user authentication (pkg/api/)",
+          "Implements pluggable data source architecture supporting Prometheus, InfluxDB, CloudWatch, and 150+ integrations (pkg/plugins/)",
+          "Executes real-time alerting rules with configurable notification channels and routing trees (pkg/services/alerting/)",
+          "Processes time-series queries with template variable substitution and query transformations (pkg/tsdb/)",
+          "Manages multi-tenant organizations with role-based access control and team permissions (pkg/services/user/, pkg/services/org/)",
+          "Stores dashboard definitions, user preferences, and alert configurations in SQL databases (pkg/services/sqlstore/)",
+          "Handles OAuth2, LDAP, SAML, and API key authentication with configurable providers (pkg/services/auth/)",
+          "Provides live data streaming and real-time dashboard updates via WebSocket connections (pkg/services/live/)",
+          "Implements annotation system for marking events and incidents on time-series graphs (pkg/services/annotations/)",
+          "Supports dashboard templating with dynamic variable resolution and cascading filters (pkg/services/dashboards/)",
+          "Executes background jobs for alert evaluation, cleanup tasks, and data source health checks (pkg/services/scheduler/)",
+          "Provides plugin development SDK with TypeScript APIs for custom visualizations and data sources (packages/grafana-data/)",
+          "Implements search functionality across dashboards, data sources, and alerts with full-text indexing (pkg/services/search/)",
+          "Manages dashboard versioning with diff comparison and rollback capabilities (pkg/services/dashboards/database/)",
+          "Provides unified alerting system with rule evaluation, notification policies, and silence management (pkg/services/ngalert/)",
+          "Implements data source proxy for secure credential management and CORS handling (pkg/api/datasource_proxy.go)",
+          "Supports dashboard provisioning via configuration files and GitOps workflows (pkg/services/provisioning/)",
+          "Provides metrics collection and performance monitoring with Prometheus integration (pkg/infra/metrics/)",
+          "Implements plugin signature verification and security validation for third-party extensions (pkg/plugins/plugincontext/)",
+          "Manages library panels for reusable visualization components across dashboards (pkg/services/librarypanels/)",
+          "Provides correlation analysis between different data sources and metric relationships (apps/correlations/)",
+          "Implements folder-based dashboard organization with hierarchical permissions (pkg/services/folder/)",
+          "Supports dashboard sharing with public URLs and embed capabilities (pkg/api/short_url.go)",
+          "Provides query history and favorites for improved user experience (pkg/services/query/)"
         ],
-        "use_cases": [],
+        "use_cases": [
+          "DevOps teams use it to monitor application performance, infrastructure health, and set up alerting for system anomalies",
+          "Site reliability engineers use it to create operational dashboards for incident response and capacity planning",
+          "Data engineers use it to visualize data pipeline metrics and monitor ETL job performance across multiple data sources",
+          "Business analysts use it to create executive dashboards combining business metrics from databases, APIs, and cloud services",
+          "Security teams use it to monitor security events, analyze logs, and track compliance metrics in centralized dashboards"
+        ],
+        "category": "Monitoring and Observability Platform",
+        "target_audience": "DevOps engineers, Site reliability engineers, System administrators, Data engineers, Security analysts",
         "technical_stack": [
-          "Go (primary backend language, go.mod files throughout)",
-          "TypeScript/React (frontend, package.json files in public/)",
-          "SQLite (default database, pkg/services/sqlstore/)",
-          "PostgreSQL (supported database, docker/blocks/postgres/)",
-          "MySQL (supported database, pkg/services/sqlstore/migrations/)",
-          "Redis (caching layer, pkg/infra/remotecache/)",
-          "Prometheus (metrics collection, pkg/tsdb/prometheus/)",
-          "Grafana UI component library (@grafana/ui in package.json)",
-          "Wire (dependency injection, wire.go files)",
-          "Testify (Go testing, go.mod dependencies)"
-        ],
-        "integrations": [
-          "Prometheus (pkg/tsdb/prometheus/)",
-          "InfluxDB (pkg/tsdb/influxdb/)",
-          "Elasticsearch (pkg/tsdb/elasticsearch/)",
-          "MySQL (pkg/services/sqlstore/)",
-          "PostgreSQL (pkg/services/sqlstore/)",
-          "LDAP (pkg/services/ldap/)",
-          "Slack (pkg/services/notifications/)",
-          "PagerDuty (pkg/services/notifications/)",
-          "Webhook notifications (pkg/services/notifications/)"
+          "Go 1.25.8 (go.mod, backend services)",
+          "TypeScript/JavaScript with React 18 (package.json, frontend)",
+          "Node.js 24 (Dockerfile, build system)",
+          "SQLite/PostgreSQL/MySQL (pkg/services/sqlstore/)",
+          "Redis for caching and session storage (referenced in configurations)",
+          "Prometheus client libraries (devenv/docker/blocks/prometheus_*/go.mod)",
+          "Yarn 4.x package manager (.yarnrc.yml)",
+          "Alpine Linux 3.23.3 (Dockerfile base image)",
+          "Docker and Docker Compose (devenv/docker/)",
+          "Nginx for reverse proxy (devenv configurations)",
+          "Wire dependency injection framework (Makefile WIRE_TAGS)",
+          "CUE for schema validation and configuration (cue.mod/)",
+          "Playwright for end-to-end testing (e2e-playwright/)",
+          "Jest for unit testing (package.json test scripts)",
+          "ESLint and Prettier for code formatting (eslint.config.js)"
         ],
         "api_endpoints": [
-          {
-            "method": "GET",
-            "path": "/api/health",
-            "summary": "Health check endpoint (pkg/api/health.go)"
-          },
-          {
-            "method": "POST",
-            "path": "/api/login",
-            "summary": "User authentication (pkg/api/login.go)"
-          },
-          {
-            "method": "GET",
-            "path": "/api/dashboards/home",
-            "summary": "Home dashboard retrieval (pkg/api/dashboard.go)"
-          },
-          {
-            "method": "POST",
-            "path": "/api/dashboards/db",
-            "summary": "Dashboard creation/update (pkg/api/dashboard.go)"
-          },
-          {
-            "method": "GET",
-            "path": "/api/datasources",
-            "summary": "Data source listing (pkg/api/datasource.go)"
-          },
-          {
-            "method": "POST",
-            "path": "/api/datasources",
-            "summary": "Data source creation (pkg/api/datasource.go)"
-          },
-          {
-            "method": "POST",
-            "path": "/api/tsdb/query",
-            "summary": "Time series data querying (pkg/api/metrics.go)"
-          },
-          {
-            "method": "GET",
-            "path": "/api/alerts",
-            "summary": "Alert rule retrieval (pkg/api/alerting.go)"
-          },
-          {
-            "method": "POST",
-            "path": "/api/alerts",
-            "summary": "Alert rule creation (pkg/api/alerting.go)"
-          },
-          {
-            "method": "GET",
-            "path": "/api/user",
-            "summary": "Current user info (pkg/api/user.go)"
-          },
-          {
-            "method": "GET",
-            "path": "/api/org/users",
-            "summary": "Organization user management (pkg/api/org.go)"
-          }
+          "GET /api/dashboards/home \u2014 Get home dashboard (pkg/api/dashboard.go)",
+          "POST /api/dashboards/db \u2014 Save dashboard (pkg/api/dashboard.go)",
+          "GET /api/dashboards/uid/:uid \u2014 Get dashboard by UID (pkg/api/dashboard.go)",
+          "POST /api/datasources \u2014 Create data source (pkg/api/datasource.go)",
+          "GET /api/datasources \u2014 List data sources (pkg/api/datasource.go)",
+          "POST /api/datasources/proxy/:id/* \u2014 Proxy data source requests (pkg/api/datasource_proxy.go)",
+          "POST /api/alerts \u2014 Create alert rule (pkg/api/alert_notification.go)",
+          "GET /api/search \u2014 Search dashboards and folders (pkg/api/search.go)",
+          "POST /api/login \u2014 User authentication (pkg/api/login.go)",
+          "GET /api/user \u2014 Get current user info (pkg/api/user.go)",
+          "POST /api/orgs \u2014 Create organization (pkg/api/org.go)",
+          "GET /api/annotations \u2014 Get annotations (pkg/api/annotations.go)",
+          "POST /api/annotations \u2014 Create annotation (pkg/api/annotations.go)",
+          "GET /api/plugins \u2014 List installed plugins (pkg/api/pluginproxy.go)",
+          "POST /api/queries \u2014 Execute data source query (pkg/api/query.go)",
+          "GET /api/live/ws \u2014 WebSocket for live updates (pkg/services/live/)",
+          "POST /api/admin/provisioning/reload \u2014 Reload provisioning (pkg/api/admin.go)",
+          "GET /api/health \u2014 Health check endpoint (pkg/api/health.go)"
         ],
+        "sdk_languages": [
+          "TypeScript (packages/grafana-data/, packages/grafana-ui/)",
+          "Go (plugin development SDK and backend data sources)",
+          "Python (data source plugins support)"
+        ],
+        "auth_methods": [
+          "OAuth2 with configurable providers including Google, GitHub, GitLab (pkg/services/auth/)",
+          "LDAP and Active Directory integration (pkg/services/ldap/)",
+          "SAML authentication support (pkg/services/auth/)",
+          "API key authentication for service accounts (pkg/services/apikey/)",
+          "Basic username/password authentication (pkg/services/auth/)",
+          "JWT token-based authentication (pkg/services/auth/jwt/)",
+          "Role-based access control with organization and team permissions (pkg/services/accesscontrol/)"
+        ],
+        "integrations": [
+          "Prometheus for metrics collection via prometheus client libraries (devenv/docker/blocks/prometheus_*/go.mod)",
+          "PostgreSQL, MySQL, SQLite databases via GORM ORM (pkg/services/sqlstore/)",
+          "Redis for caching and session management (configuration references)",
+          "LDAP directories for user authentication (pkg/services/ldap/)",
+          "SMTP servers for email notifications (pkg/services/notifications/)",
+          "Elasticsearch for log data and search (data source plugins)",
+          "InfluxDB for time-series data storage (data source plugins)",
+          "AWS CloudWatch, Azure Monitor, Google Cloud Monitoring (cloud integrations)",
+          "Slack, PagerDuty, Webhook notifications for alerting (pkg/services/alerting/)",
+          "Kubernetes API for container monitoring (data source plugins)"
+        ],
+        "architecture": {
+          "pattern": "monolith with microservice apps - single deployable unit with modular internal services",
+          "components": [
+            "Backend API server (pkg/api/) - REST endpoints and business logic",
+            "Frontend React application (public/app/) - dashboard rendering and user interface",
+            "Plugin system (pkg/plugins/) - extensible data sources and visualizations",
+            "Alerting engine (pkg/services/alerting/) - rule evaluation and notification routing",
+            "Authentication service (pkg/services/auth/) - multi-provider auth handling",
+            "Data source proxy (pkg/api/datasource_proxy.go) - secure credential management",
+            "Live streaming service (pkg/services/live/) - real-time WebSocket updates",
+            "Background scheduler (pkg/services/scheduler/) - periodic job execution",
+            "Search indexing service (pkg/services/search/) - full-text search capabilities"
+          ],
+          "entry_points": [
+            "pkg/main.go - primary server entry point",
+            "pkg/cmd/grafana-server/main.go - server command",
+            "pkg/cmd/grafana-cli/main.go - CLI tool entry point",
+            "public/app/index.ts - frontend application bootstrap"
+          ],
+          "data_flow": "HTTP requests hit the Go backend API, which authenticates users, validates permissions, and routes requests to appropriate services. Dashboard queries are proxied to configured data sources with credential injection. Results are transformed and cached before being sent to the React frontend for visualization rendering. Real-time updates flow through WebSocket connections managed by the live service.",
+          "persistence": "Primary data stored in SQL databases (PostgreSQL/MySQL/SQLite) via SQLAlchemy-like ORM, with Redis used for session management and caching. Plugin configurations and dashboard definitions persisted as JSON in database tables.",
+          "concurrency_model": "Go goroutines for concurrent request handling with context-based cancellation. Background services use worker pools for alert evaluation and scheduled tasks. Frontend uses React concurrent features for UI updates.",
+          "communication_patterns": "HTTP REST APIs between frontend and backend, WebSocket for live updates, HTTP proxy for data source queries, internal Go interfaces for service communication",
+          "plugin_extension_model": "Plugin architecture supports data source and panel plugins via TypeScript/Go SDKs. Plugins loaded dynamically with signature verification and sandboxed execution environment."
+        },
+        "data_model": {
+          "primary_entities": [
+            "Dashboard - JSON document with panels, queries, and layout configuration",
+            "DataSource - Connection configuration for external data systems",
+            "User - Authentication and authorization entity with org/team membership",
+            "Organization - Multi-tenant isolation boundary",
+            "Alert Rule - Query-based conditions with notification routing",
+            "Panel - Individual visualization component within dashboards",
+            "Annotation - Time-based markers and events on dashboards",
+            "Folder - Hierarchical organization for dashboards with permissions"
+          ],
+          "storage_backends": [
+            "SQL databases (PostgreSQL, MySQL, SQLite) for primary data storage",
+            "Redis for session storage and caching",
+            "File system for plugin assets and static files"
+          ],
+          "schema_patterns": "Relational database with JSON columns for flexible configuration storage. Dashboard definitions stored as JSON documents with relational metadata for search and permissions.",
+          "migration_strategy": "SQL migrations managed via custom migration system in pkg/services/sqlstore/migrations/"
+        },
+        "algorithms": {
+          "problem_type": "Real-time data visualization and monitoring with multi-source query federation and alert evaluation",
+          "core_patterns": [
+            "Plugin architecture for extensible data sources and visualizations",
+            "Proxy pattern for secure data source access with credential injection",
+            "Observer pattern for real-time dashboard updates via WebSocket",
+            "Strategy pattern for multiple authentication providers",
+            "Factory pattern for plugin instantiation and management",
+            "Repository pattern for data access abstraction"
+          ],
+          "complexity_indicators": "Large monorepo with 20,000+ files, complex plugin system, multi-tenant architecture, real-time streaming capabilities",
+          "key_algorithms": [
+            "Query result caching and invalidation strategies (pkg/services/query/)",
+            "Alert rule evaluation with configurable intervals (pkg/services/ngalert/)",
+            "Template variable resolution and query transformation (pkg/services/dashboards/)",
+            "Plugin signature verification and security validation (pkg/plugins/)",
+            "Time-series data aggregation and downsampling (frontend query processing)"
+          ],
+          "evidence": "pkg/services/alerting/ contains rule evaluation logic, pkg/plugins/ implements plugin loading and validation, pkg/services/live/ manages WebSocket connections for real-time updates"
+        },
+        "security_model": {
+          "authentication": "Multi-provider authentication supporting OAuth2, LDAP, SAML, and API keys with configurable session management",
+          "authorization": "Role-based access control with organization-level isolation, team-based permissions, and resource-specific access controls",
+          "data_protection": "API key storage with hashing, credential proxy for secure data source access, configurable TLS for transport security",
+          "security_headers": "Configurable CORS policies, CSP headers, and rate limiting for API endpoints",
+          "vulnerability_handling": "Plugin signature verification, dependency scanning in CI/CD, security policy documentation (SECURITY.md)"
+        },
+        "dependencies": {
+          "runtime": [
+            "@grafana/data ^11.5.0 (package.json)",
+            "@grafana/ui ^11.5.0 (package.json)",
+            "react ^18.3.1 (package.json)",
+            "lodash ^4.17.21 (package.json)",
+            "rxjs ^7.8.1 (package.json)",
+            "moment ^2.30.1 (package.json)",
+            "d3 ^7.9.0 (package.json)"
+          ],
+          "dev": [
+            "@types/react ^18.3.17 (package.json)",
+            "typescript ^5.7.2 (package.json)",
+            "jest ^29.7.0 (package.json)",
+            "@testing-library/react ^16.1.0 (package.json)",
+            "playwright ^1.49.1 (package.json)",
+            "eslint ^9.17.0 (package.json)"
+          ],
+          "infrastructure": [
+            "PostgreSQL, MySQL, or SQLite database",
+            "Redis for caching and session storage",
+            "SMTP server for email notifications",
+            "Reverse proxy (Nginx) for production deployment"
+          ]
+        },
+        "deployment": {
+          "containerized": true,
+          "container_orchestration": "Docker Compose for development (devenv/docker/), Kubernetes production deployment support",
+          "ci_cd": "GitHub Actions for CI/CD pipeline with automated testing and releases (.github/workflows/)",
+          "environment_config": "Environment variables, configuration files (conf/defaults.ini), and feature flags for runtime configuration",
+          "scaling_model": "Horizontal scaling supported through stateless design with shared database and Redis backend"
+        },
+        "code_quality_signals": {
+          "has_tests": true,
+          "test_framework": "Jest for unit tests, Playwright for E2E tests, Go testing framework",
+          "test_count_estimate": "3133 test files found across the repository",
+          "has_linting": true,
+          "has_type_hints": true,
+          "documentation_quality": "well-documented with extensive README, contributing guidelines, and API documentation",
+          "code_style": "ESLint, Prettier for JavaScript/TypeScript, gofmt for Go code formatting"
+        },
+        "project_health": {
+          "license": "AGPL-3.0-only with Apache-2.0 exceptions for some components",
+          "total_commits": "1 in current clone (limited sample)",
+          "top_contributors": "Active development with multiple contributors",
+          "recent_activity": "Recent commits show active feature development including permissions improvements and frontend enhancements",
+          "community_signals": "Comprehensive governance with CODE_OF_CONDUCT.md, CONTRIBUTING.md, issue templates, security policy (SECURITY.md)"
+        },
+        "evidence_tracking": {
+          "files_analyzed": [
+            "go.mod files across apps/* directories",
+            "package.json in root and packages/*",
+            "pkg/api/ directory structure",
+            "pkg/services/ directory structure",
+            "public/app/ frontend structure",
+            "Dockerfile and deployment configurations",
+            "devenv/docker/ development setup",
+            "README.md and contributing documentation"
+          ],
+          "confidence_level": "High",
+          "information_gaps": [
+            "Exact database schema details - only migration file paths available",
+            "Complete list of supported data source plugins - would need full plugin directory analysis",
+            "Production performance characteristics - no load testing results visible"
+          ]
+        },
         "pricing": {
           "model": "open-source",
           "free_tier": "true"
-        },
-        "target_audience": "Developers",
-        "category": "Open Source Software",
-        "deployment": "Self-hosted",
-        "underlying_algorithm": {
-          "problem_type": "",
-          "pattern": ""
-        },
-        "evidence_tracking": {
-          "confidence_level": "High",
-          "technical_facts": [
-            "Renders interactive data visualizations and dashboards from multiple data sources (public/app/core/services/backend_srv.ts)",
-            "Processes and queries metrics from Prometheus, InfluxDB, Elasticsearch and other data sources (pkg/tsdb/)",
-            "Manages alerting rules evaluation and notification delivery to external systems (pkg/services/ngalert/)",
-            "Provides user authentication and authorization with RBAC (pkg/services/auth/)",
-            "Executes real-time log streaming and search capabilities (public/app/features/logs/)",
-            "Manages dashboard provisioning and configuration as code (pkg/services/provisioning/)",
-            "Processes plugin installations and manages plugin lifecycle (pkg/plugins/)",
-            "Handles data source configuration and health monitoring (pkg/services/datasources/)",
-            "Manages team-based access control and organizational units (pkg/services/team/, pkg/services/org/)"
-          ],
-          "information_gaps": []
-        },
-        "architecture_patterns": [
-          "monolith",
-          "Concurrency: Go goroutines with HTTP server handling concurrent requests, background services for alerting evaluation and provisioning"
-        ],
-        "auth_methods": [
-          "Basic authentication",
-          "OAuth2",
-          "LDAP",
-          "SAML",
-          "JWT tokens",
-          "API keys",
-          "Anonymous access"
-        ],
-        "sdk_languages": [
-          "Go",
-          "JavaScript/TypeScript",
-          "Python"
-        ],
-        "dependencies": [
-          "github.com/gin-gonic/gin",
-          "github.com/go-sql-driver/mysql",
-          "github.com/lib/pq",
-          "github.com/mattn/go-sqlite3",
-          "github.com/prometheus/client_golang",
-          "github.com/grafana/grafana-plugin-sdk-go",
-          "xorm.io/xorm",
-          "Infrastructure: SQL database (SQLite/PostgreSQL/MySQL)",
-          "Infrastructure: Redis (optional caching)",
-          "Infrastructure: SMTP server (alerting)",
-          "Infrastructure: External data sources (Prometheus, InfluxDB, etc.)"
-        ],
-        "deployment_options": [
-          "Containerized (Docker)",
-          "CI/CD: GitHub Actions"
-        ]
+        }
       },
       "extracted_data": {},
       "source": "local_repo",
       "source_confidence": "high",
-      "timestamp": "2026-03-21T15:11:09.478091"
+      "timestamp": "2026-03-25T15:27:46.357715"
     },
     "generalization": {
       "functional_dna": {
-        "logic_archetype": "Data Aggregator",
-        "logic_archetype_evidence": "Processes and queries metrics from Prometheus, InfluxDB, Elasticsearch and other data sources (pkg/tsdb/) and Renders interactive data visualizations and dashboards from multiple data sources (public/app/core/services/backend_srv.ts)",
-        "data_contract_strictness": "Moderately Structured",
-        "data_contract_evidence": "API endpoints with specific paths like /api/dashboards/db and /api/tsdb/query (pkg/api/) but handles multiple data source formats from Prometheus, InfluxDB, Elasticsearch",
+        "logic_archetype": "Plugin Host",
+        "logic_archetype_evidence": "System implements a comprehensive plugin architecture with TypeScript/Go SDKs for data sources and panels (pkg/plugins/), signature verification, and sandboxed execution. Core functionality extends through 150+ pluggable integrations with dynamic loading and standardized interfaces.",
+        "data_contract_strictness": "Mixed",
+        "data_contract_evidence": "REST API endpoints with structured JSON schemas, but dashboard definitions stored as flexible JSON documents. Plugin system allows arbitrary data source schemas while maintaining typed TypeScript interfaces for UI components.",
         "core_algorithmic_class": "Time-Series Processing",
-        "core_algorithmic_evidence": "Processes and queries metrics from Prometheus, InfluxDB, Elasticsearch and other data sources (pkg/tsdb/) and Executes real-time log streaming and search capabilities (public/app/features/logs/)",
+        "core_algorithmic_evidence": "System processes time-series queries with template variable substitution (pkg/tsdb/), implements real-time alerting rule evaluation, and provides correlation analysis between metric relationships. WebSocket streaming for live dashboard updates indicates temporal data processing patterns.",
         "concurrency_requirements": "Eventually Consistent",
-        "concurrency_evidence": "Go goroutines with HTTP server handling concurrent requests, background services for alerting evaluation and provisioning with Redis caching layer (pkg/infra/remotecache/)",
+        "concurrency_evidence": "Go goroutines with context-based cancellation, Redis caching layer, background scheduler for periodic tasks, and WebSocket streaming suggests eventual consistency model rather than strict ACID requirements.",
+        "abstract_problem": "Aggregates heterogeneous data streams through pluggable adapters, applies configurable transformations and filtering rules, then renders the results in customizable visual layouts with real-time updates and conditional alerting.",
+        "data_flow_pattern": "Multi-source ingestion \u2192 proxy/transform \u2192 cache/aggregate \u2192 real-time visualization with bidirectional WebSocket streaming for live updates",
+        "state_complexity": "Entity-scoped",
         "repurposing_confidence": 8,
-        "repurposing_reasoning": "High plugin architecture (pkg/plugins/), multi-database support (SQLite/PostgreSQL/MySQL), and modular data source integration (pkg/tsdb/) make it adaptable. Core time-series aggregation and visualization logic is domain-agnostic."
+        "repurposing_reasoning": "The plugin architecture, multi-tenant organization model, and configurable transformation pipeline are highly generic. The core pattern of aggregating disparate data sources through adapters and rendering in customizable layouts applies across many domains. However, time-series visualization components and alerting rules are somewhat specialized for monitoring use cases."
       },
       "evidence_claims": [
         {
-          "claim": "Multi-source data aggregation capability",
-          "evidence": "Processes and queries metrics from Prometheus, InfluxDB, Elasticsearch and other data sources (pkg/tsdb/)",
+          "claim": "Implements pluggable data source architecture with 150+ integrations",
+          "evidence": "pkg/plugins/ directory structure and capability: 'Implements pluggable data source architecture supporting Prometheus, InfluxDB, CloudWatch, and 150+ integrations'",
           "confidence": "High"
         },
         {
-          "claim": "Plugin-based extensible architecture",
-          "evidence": "Processes plugin installations and manages plugin lifecycle (pkg/plugins/)",
+          "claim": "Uses Go goroutines with context-based cancellation for concurrency",
+          "evidence": "Architecture description: 'Go goroutines for concurrent request handling with context-based cancellation'",
           "confidence": "High"
         },
         {
-          "claim": "Real-time data processing capability",
-          "evidence": "Executes real-time log streaming and search capabilities (public/app/features/logs/)",
+          "claim": "Provides real-time streaming via WebSocket connections",
+          "evidence": "API endpoint: 'GET /api/live/ws \u2014 WebSocket for live updates' and service: 'pkg/services/live/'",
           "confidence": "High"
         },
         {
-          "claim": "Multi-database backend support",
-          "evidence": "SQLite (default database, pkg/services/sqlstore/), PostgreSQL (supported database, docker/blocks/postgres/), MySQL (supported database, pkg/services/sqlstore/migrations/)",
+          "claim": "Stores dashboard definitions as JSON documents",
+          "evidence": "Data model: 'Dashboard - JSON document with panels, queries, and layout configuration' and schema pattern: 'Dashboard definitions stored as JSON documents'",
+          "confidence": "High"
+        },
+        {
+          "claim": "Implements multi-tenant organization isolation",
+          "evidence": "Capability: 'Manages multi-tenant organizations with role-based access control and team permissions (pkg/services/user/, pkg/services/org/)'",
           "confidence": "High"
         }
       ],
       "market_reach": {
-        "primary_industry": "DevOps/Infrastructure Monitoring",
+        "primary_industry": "DevOps and Infrastructure Monitoring",
         "cross_industry_applications": [
-          "Financial Services",
-          "Manufacturing",
-          "Healthcare",
-          "Retail",
-          "Energy",
-          "Telecommunications"
+          "Financial Services - Trading desk dashboards aggregating market data feeds, risk metrics, and compliance reporting",
+          "Manufacturing - Industrial IoT sensor data visualization with production line monitoring and quality control alerts",
+          "Healthcare - Patient monitoring systems combining EHR data, medical device streams, and clinical workflow dashboards",
+          "Retail/E-commerce - Business intelligence platforms integrating sales data, inventory systems, and customer analytics",
+          "Smart Cities - Urban infrastructure monitoring combining traffic sensors, utility systems, and environmental data",
+          "Energy/Utilities - Grid monitoring systems aggregating generation, distribution, and consumption metrics with outage management",
+          "Logistics - Supply chain visibility platforms tracking shipments, warehouse operations, and delivery performance",
+          "Media/Entertainment - Content performance analytics combining streaming metrics, audience data, and revenue reporting"
         ],
         "utility_score": 9,
         "market_potential": "High"
       },
       "friction_report": {
         "difficulty": "Medium",
-        "estimated_hours": 40,
+        "estimated_hours": 120,
         "required_technologies": [
-          "Go (go.mod files throughout)",
-          "TypeScript/React (package.json files in public/)",
-          "SQL database",
-          "Redis (pkg/infra/remotecache/)"
+          "Go 1.25.8",
+          "TypeScript/React 18",
+          "SQL database (PostgreSQL/MySQL/SQLite)",
+          "Redis",
+          "Docker",
+          "Node.js 24"
         ],
         "complexity_factors": [
-          "Multi-language codebase",
-          "Complex plugin system",
-          "Multiple database support",
-          "Authentication/authorization integration"
+          "Plugin signature verification system",
+          "Multi-tenant permission model",
+          "WebSocket live streaming infrastructure",
+          "Complex query transformation pipeline",
+          "Dashboard JSON schema migration"
         ],
-        "risk_level": "Medium"
+        "risk_level": "Medium",
+        "migration_path": "Extract plugin host framework and multi-source aggregation engine, replace time-series specific components with domain-appropriate data processors, customize visualization components for target use case"
       },
       "interface_map": {
         "adapter_schema": {
           "input": {
-            "format": "JSON",
+            "format": "JSON over HTTP REST",
             "required_fields": [
-              "datasource",
-              "query",
-              "timeRange"
+              "datasource_config",
+              "query_params",
+              "auth_credentials"
+            ],
+            "protocols": [
+              "HTTP REST",
+              "WebSocket",
+              "Plugin SDK"
             ]
           },
           "output": {
-            "format": "JSON"
+            "format": "JSON with embedded visualization specs",
+            "delivery": "sync REST responses + async WebSocket streaming"
           },
           "authentication": {
-            "type": "API keys",
-            "method": "POST /api/login (pkg/api/login.go)"
+            "type": "Multi-provider",
+            "method": "OAuth2, LDAP, SAML, API keys with RBAC"
           }
         },
-        "standardization_level": "High"
+        "standardization_level": "High",
+        "api_surface_area": "Medium (10-50)"
       },
+      "comparable_systems": [
+        "Apache Superset - Business intelligence platform aggregating multiple data sources into customizable dashboards",
+        "Tableau Server - Enterprise analytics platform with pluggable data connectors and real-time visualization",
+        "Splunk - Log aggregation and analysis platform with extensible apps and real-time search dashboards",
+        "Power BI - Microsoft's business analytics service with diverse data source integrations and collaborative dashboards",
+        "Elastic Kibana - Data visualization platform for Elasticsearch with plugin architecture and real-time monitoring"
+      ],
       "information_gaps": [
-        "Performance benchmarks under load",
-        "Specific plugin API specifications",
-        "Data retention policies",
-        "Scalability limits"
+        "Exact plugin SDK API specifications and extension points",
+        "Database schema details for multi-tenant isolation implementation",
+        "WebSocket message protocols and streaming data formats",
+        "Query transformation engine architecture and optimization strategies"
       ]
     },
-    "timestamp": "2026-03-21T15:11:23.434454"
+    "timestamp": "2026-03-25T15:28:40.681920"
   },
   "errors": []
 }

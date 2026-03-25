@@ -1,346 +1,609 @@
 {
   "url": "https://github.com/appsmithorg/appsmith.git",
   "repo_name": "appsmith",
-  "timestamp": "2026-03-25T12:30:27.309254",
+  "timestamp": "2026-03-25T18:33:28.404057",
   "step1": {
     "product_name": "appsmith",
     "url": "https://github.com/appsmithorg/appsmith.git",
     "analysis": {
-      "summary": "Appsmith is a full-stack low-code platform that enables users to build custom internal applications like dashboards and admin panels through a visual interface with drag-and-drop widgets, database connections, and API integrations.",
+      "summary": "Appsmith is a low-code application platform for building custom internal applications like dashboards, admin panels, and CRUD apps. It provides a visual drag-and-drop interface with pre-built widgets, connects to databases and APIs, and supports both JavaScript and SQL for custom logic. The platform consists of a React-based client application with a Java Spring Boot backend, supporting multi-tenancy, authentication, and deployment options.",
       "capabilities": [
-        "Provides a visual application builder with drag-and-drop UI widgets and components (app/client/src/widgets/)",
-        "Connects to multiple data sources including databases, REST APIs, and cloud services (app/server/appsmith-server/src/main/java/com/appsmith/server/datasources/)",
-        "Executes JavaScript code and queries within the application context (app/client/src/workers/)",
-        "Manages user authentication and authorization with multiple providers (app/server/appsmith-server/src/main/java/com/appsmith/server/authentication/)",
-        "Deploys applications with containerized infrastructure (Dockerfile, docker-compose.yml)",
-        "Provides real-time collaboration features for multi-user application development (app/client/src/sagas/)",
-        "Supports custom theming and branding through design system components (app/client/packages/design-system/)"
+        "Processes visual widget drag-and-drop operations with layout systems (app/client/src/layoutSystems/)",
+        "Executes JavaScript code evaluation and binding in a sandboxed environment (app/client/src/workers/Evaluation/)",
+        "Manages database connections and query execution through datasource plugins (app/server/appsmith-plugins/)",
+        "Renders custom applications using React widgets and responsive layouts (app/client/src/widgets/)",
+        "Handles user authentication via OAuth2, SAML, and form-based login (app/server/appsmith-server/src/main/java/com/appsmith/server/authentication/)",
+        "Provides real-time collaboration features for multi-user editing (app/client/src/sagas/CollaborationSagas.ts)",
+        "Implements Git integration for version control and deployment workflows (app/client/src/git/)",
+        "Supports custom JavaScript object creation and execution (app/client/src/entities/JSCollection/)",
+        "Manages application themes and styling with CSS-in-JS (app/client/src/constants/DefaultTheme.tsx)",
+        "Processes API and database query configuration and execution (app/client/src/api/)",
+        "Implements application import/export functionality for backup and migration (app/client/src/pages/Applications/ImportExportApplicationModal.tsx)",
+        "Provides admin settings management for instance configuration (app/client/src/pages/AdminSettings/)",
+        "Handles widget property configuration through property panels (app/client/src/pages/Editor/PropertyPane/)",
+        "Implements auto-layout and manual layout positioning systems (app/client/src/layoutSystems/autolayout/)",
+        "Processes dynamic height calculations for responsive widgets (app/client/src/utils/dynamicHeightUtils.ts)",
+        "Manages application routing and page navigation (app/client/src/constants/routes.ts)",
+        "Implements debugger functionality for runtime error tracking (app/client/src/components/editorComponents/Debugger/)",
+        "Provides template marketplace integration for pre-built applications (app/client/src/pages/Templates/)",
+        "Handles multi-environment deployment configurations (app/client/src/constants/AnalyticsConstants.tsx)",
+        "Implements widget state management and data binding (app/client/src/reducers/entityReducers/)",
+        "Processes AST parsing for JavaScript code analysis and transformation (app/client/packages/ast/)",
+        "Manages workspace and application permissions with RBAC (app/client/src/constants/orgConstants.ts)",
+        "Implements mobile-responsive design system components (app/client/packages/design-system/)",
+        "Provides analytics and telemetry collection (app/client/src/utils/AppsmithUtils.tsx)",
+        "Handles browser storage management for application state (app/client/src/utils/storage.tsx)"
       ],
-      "use_cases": [],
+      "use_cases": [
+        "Internal application developers build custom dashboards and admin panels by connecting to existing databases",
+        "Business analysts create data visualization applications without writing complex code",
+        "DevOps teams build monitoring and alerting dashboards connected to metrics APIs",
+        "Customer success teams create CRM interfaces and customer 360 views",
+        "IT teams build internal automation tools and service management applications",
+        "Data teams create ETL monitoring dashboards and data pipeline management tools"
+      ],
+      "category": "Low-Code Application Platform",
+      "target_audience": "Frontend developers, full-stack developers, business analysts, DevOps engineers, IT administrators, and citizen developers",
       "technical_stack": [
-        "React (TypeScript frontend - app/client/package.json)",
-        "Spring Boot (Java backend - app/server/appsmith-server/pom.xml)",
-        "MongoDB (database - docker-compose.yml)",
-        "Redis (caching - docker-compose.yml)",
-        "Nginx (reverse proxy - deploy/docker/fs/)",
-        "Docker (containerization - Dockerfile)",
-        "Node.js (build tooling - app/client/package.json)",
-        "Webpack (bundling - app/client/config/webpack.config.js)",
-        "Cypress (E2E testing - app/client/cypress/)"
-      ],
-      "integrations": [
-        "PostgreSQL, MySQL, MongoDB database connections",
-        "REST API and GraphQL endpoints",
-        "Google Sheets integration (app/client/cypress/e2e/GSheet/)",
-        "AWS S3 for file storage (@aws-sdk/client-s3 in package.json)",
-        "Redis for caching and session management",
-        "SMTP for email notifications",
-        "Google Maps API (@googlemaps/react-wrapper in package.json)"
+        "React 18.2.0 (app/client/package.json)",
+        "TypeScript 5.5.4 (app/client/package.json)",
+        "Redux Toolkit 2.4.0 with Redux Saga (app/client/package.json)",
+        "Java 25 (Dockerfile)",
+        "Spring Boot (server dependency manifests)",
+        "MongoDB (app/client/cypress/e2e/Regression/Apps/MongoDBShoppingCart_spec.ts)",
+        "PostgreSQL (app/client/cypress/e2e/Regression/ClientSide/Binding/JSObject_Postgress_Table_spec.js)",
+        "Node.js 20.13.1 (app/client/cypress/Dockerfile)",
+        "Yarn 3.5.1 (app/client/.yarn/releases/)",
+        "Docker (Dockerfile, docker-compose configurations)",
+        "Cypress 13.13.0 for testing (app/client/cypress/Dockerfile)",
+        "AWS SDK 3.622.0 (app/client/package.json)",
+        "Sentry 7.120.3 for error monitoring (app/client/package.json)",
+        "Blueprint.js 3.43.0 for UI components (app/client/package.json)",
+        "Acorn 8.14.0 for JavaScript AST parsing (app/client/packages/ast/package.json)"
       ],
       "api_endpoints": [
-        {
-          "method": "GET",
-          "path": "/api/v1/applications",
-          "summary": "List applications (app/server/appsmith-server/src/main/java/com/appsmith/server/controllers/ApplicationController.java)"
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/datasources",
-          "summary": "Create datasource connection (app/server/appsmith-server/src/main/java/com/appsmith/server/controllers/DatasourceController.java)"
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/actions",
-          "summary": "Execute database queries or API calls (app/server/appsmith-server/src/main/java/com/appsmith/server/controllers/ActionController.java)"
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/pages",
-          "summary": "Retrieve application pages (app/server/appsmith-server/src/main/java/com/appsmith/server/controllers/PageController.java)"
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/users/login",
-          "summary": "User authentication (app/server/appsmith-server/src/main/java/com/appsmith/server/controllers/UserController.java)"
-        }
+        "Widgets API endpoints for CRUD operations (inferred from widget management code)",
+        "Authentication endpoints for OAuth2 and SAML (app/server authentication modules)",
+        "Datasource connection endpoints (datasource plugin architecture)",
+        "Application import/export endpoints (ImportExportApplicationModal.tsx)",
+        "Git integration endpoints for version control (git module references)",
+        "Admin settings configuration endpoints (AdminSettings pages)",
+        "Template marketplace endpoints (Templates pages)",
+        "Workspace and organization management endpoints (workspace constants)"
       ],
+      "sdk_languages": [],
+      "auth_methods": [
+        "OAuth2 with Google and GitHub (.env.example)",
+        "SAML authentication (server authentication modules)",
+        "Form-based login/signup (.env.example)",
+        "JWT token authentication (authentication service references)",
+        "API key authentication for integrations"
+      ],
+      "integrations": [
+        "PostgreSQL via datasource plugins (test files reference)",
+        "MongoDB via datasource plugins (test files reference)",
+        "AWS S3 via AWS SDK 3.622.0 (app/client/package.json)",
+        "Google OAuth2 (.env.example)",
+        "GitHub OAuth2 (.env.example)",
+        "Sentry for error monitoring (app/client/package.json)",
+        "Segment for analytics (app/client/package.json, .env.example)",
+        "Google reCAPTCHA (.env.example)",
+        "Intercom for customer support (.env.example)",
+        "SMTP email services (.env.example)",
+        "Google Maps API (app/client/package.json @googlemaps packages)",
+        "OpenTelemetry for observability (app/client/package.json)",
+        "SmartLook for session recording (.env.example)"
+      ],
+      "architecture": {
+        "pattern": "monorepo with separate client and server applications",
+        "components": [
+          "React frontend client application with widget-based UI builder",
+          "Java Spring Boot backend server for API and business logic",
+          "JavaScript evaluation engine for runtime code execution",
+          "Widget system with drag-and-drop layout management",
+          "Datasource plugin architecture for database connectivity",
+          "Authentication service supporting multiple providers",
+          "Git integration service for version control",
+          "Template marketplace for pre-built applications",
+          "Admin panel for instance configuration and user management"
+        ],
+        "entry_points": [
+          "app/client/src/index.tsx - React application entry point",
+          "app/server main Java application classes"
+        ],
+        "data_flow": "User interactions in React frontend trigger Redux actions, which communicate with Java backend APIs. The backend processes requests, executes database queries through datasource plugins, and returns data to frontend. JavaScript code evaluation happens in web workers for sandboxed execution. Widget state changes flow through Redux store and trigger re-renders.",
+        "persistence": "MongoDB for application metadata, user data, and configurations. PostgreSQL and other databases connected via datasource plugins. Browser localStorage for client-side state persistence.",
+        "concurrency_model": "async/await patterns in React with Redux Saga for side effects, Web Workers for JavaScript evaluation, Java Spring Boot async processing on backend",
+        "communication_patterns": "HTTP REST APIs between client and server, WebSocket connections for real-time collaboration features, Plugin-based architecture for datasource connectivity",
+        "plugin_extension_model": "Datasource plugin system with standardized interfaces for database connectivity, Widget plugin architecture for custom UI components, Theme system for customizable styling"
+      },
+      "data_model": {
+        "primary_entities": [
+          "Applications - container for pages and widgets",
+          "Pages - individual screens within applications",
+          "Widgets - UI components with properties and data bindings",
+          "Datasources - database and API connections",
+          "Actions - queries and API calls",
+          "Users - authentication and authorization",
+          "Organizations/Workspaces - multi-tenancy structure",
+          "Themes - styling and branding configurations"
+        ],
+        "storage_backends": [
+          "MongoDB for application metadata",
+          "PostgreSQL for business data",
+          "Browser localStorage for client state",
+          "File system for templates and assets"
+        ],
+        "schema_patterns": "Document-based storage in MongoDB for application configurations, Relational patterns for user and organization data, JSON schema validation for widget properties and datasource configurations",
+        "migration_strategy": "216+ DSL migration files for widget and application schema evolution (app/client/packages/dsl/src/migrate/migrations/)"
+      },
+      "algorithms": {
+        "problem_type": "Visual application building with data binding, layout management, and code evaluation",
+        "core_patterns": [
+          "Observer pattern for reactive data binding",
+          "Plugin architecture for extensible datasource connectivity",
+          "Command pattern for undo/redo functionality",
+          "Factory pattern for widget creation",
+          "Visitor pattern for AST traversal and code analysis"
+        ],
+        "complexity_indicators": "AST parsing and JavaScript evaluation, Real-time collaborative editing, Dynamic layout calculations, Complex state management with Redux",
+        "key_algorithms": [
+          "Acorn-based JavaScript AST parsing and transformation",
+          "Dynamic height calculation algorithms for responsive widgets",
+          "Conflict resolution for collaborative editing",
+          "Layout constraint solving for auto-layout system"
+        ],
+        "evidence": "app/client/packages/ast/src/index.ts for AST processing, app/client/src/utils/dynamicHeightUtils.ts for layout algorithms, app/client/src/layoutSystems/ for layout management"
+      },
+      "security_model": {
+        "authentication": "Multi-provider OAuth2, SAML, form-based login with JWT tokens",
+        "authorization": "Role-based access control (RBAC) for workspaces and applications with granular permissions",
+        "data_protection": "Environment variable encryption, secure datasource credential storage, HTTPS enforcement",
+        "security_headers": "Content Security Policy, CORS configuration, rate limiting for API endpoints",
+        "vulnerability_handling": "SECURITY.md file present, Sentry integration for error monitoring, dependency vulnerability scanning"
+      },
+      "dependencies": {
+        "runtime": [
+          "@reduxjs/toolkit: 2.4.0",
+          "react: 18.2.0",
+          "@blueprintjs/core: 3.43.0",
+          "@aws-sdk/client-s3: 3.622.0",
+          "acorn: 8.14.0",
+          "@sentry/react: 7.120.3",
+          "lodash: 4.17.21",
+          "typescript: 5.5.4"
+        ],
+        "dev": [
+          "cypress: 13.13.0",
+          "@types/lodash: 4.14.120",
+          "eslint configuration",
+          "prettier",
+          "husky git hooks"
+        ],
+        "infrastructure": [
+          "MongoDB database",
+          "PostgreSQL database",
+          "Redis for caching",
+          "AWS S3 for file storage",
+          "SMTP email service",
+          "Docker containers"
+        ]
+      },
+      "deployment": {
+        "containerized": true,
+        "container_orchestration": "Docker Compose and Kubernetes support with Helm charts",
+        "ci_cd": "GitHub Actions workflows for testing and deployment",
+        "environment_config": "Environment variables for configuration, .env files for local development, configurable via admin panel",
+        "scaling_model": "Horizontal scaling supported through containerization, cloud deployment on AWS, Heroku, DigitalOcean"
+      },
+      "code_quality_signals": {
+        "has_tests": true,
+        "test_framework": "Cypress for E2E testing, Jest for unit tests",
+        "test_count_estimate": "1000+ Cypress E2E test files",
+        "has_linting": true,
+        "has_type_hints": true,
+        "documentation_quality": "well-documented with comprehensive README and contribution guidelines",
+        "code_style": "ESLint, Prettier, Husky pre-commit hooks for code formatting"
+      },
+      "project_health": {
+        "license": "Apache-2.0",
+        "total_commits": "High activity project with frequent commits",
+        "top_contributors": "Multiple active contributors from Appsmith organization",
+        "recent_activity": "Active development with recent commits showing feature additions, bug fixes, and UI improvements",
+        "community_signals": "CODE_OF_CONDUCT.md, SECURITY.md, comprehensive CONTRIBUTING.md, issue and PR templates"
+      },
+      "evidence_tracking": {
+        "files_analyzed": [
+          "app/client/package.json",
+          "app/client/packages/ast/package.json",
+          "Dockerfile",
+          ".env.example",
+          "app/client/src/index.tsx",
+          "app/client/packages/ast/src/index.ts",
+          "migration files in app/client/packages/dsl/src/migrate/",
+          "CONTRIBUTING.md",
+          "README.md",
+          "cypress test directory structure",
+          "app/client/src/ source code structure"
+        ],
+        "confidence_level": "High",
+        "information_gaps": [
+          "Specific Java backend API endpoints require server code analysis",
+          "Database schema details need server-side model examination",
+          "Exact plugin interface specifications need plugin code review"
+        ]
+      },
       "pricing": {
         "model": "open-source",
         "free_tier": "true"
-      },
-      "target_audience": "Developers",
-      "category": "Open Source Software",
-      "deployment": "Self-hosted",
-      "underlying_algorithm": {
-        "problem_type": "",
-        "pattern": ""
-      },
-      "evidence_tracking": {
-        "confidence_level": "High",
-        "technical_facts": [
-          "Provides a visual application builder with drag-and-drop UI widgets and components (app/client/src/widgets/)",
-          "Connects to multiple data sources including databases, REST APIs, and cloud services (app/server/appsmith-server/src/main/java/com/appsmith/server/datasources/)",
-          "Executes JavaScript code and queries within the application context (app/client/src/workers/)",
-          "Manages user authentication and authorization with multiple providers (app/server/appsmith-server/src/main/java/com/appsmith/server/authentication/)",
-          "Deploys applications with containerized infrastructure (Dockerfile, docker-compose.yml)",
-          "Provides real-time collaboration features for multi-user application development (app/client/src/sagas/)",
-          "Supports custom theming and branding through design system components (app/client/packages/design-system/)"
-        ],
-        "information_gaps": []
-      },
-      "architecture_patterns": [
-        "microservices",
-        "Concurrency: async - React frontend with Redux-Saga for side effects, Spring WebFlux reactive backend with non-blocking I/O"
-      ],
-      "auth_methods": [
-        "OAuth2 (Google, GitHub, OIDC providers)",
-        "SAML",
-        "LDAP",
-        "Form-based authentication",
-        "JWT tokens"
-      ],
-      "sdk_languages": [],
-      "dependencies": [
-        "React, Redux, TypeScript (frontend)",
-        "Spring Boot, Spring WebFlux, Spring Security (backend)",
-        "MongoDB driver, Redis client",
-        "@aws-sdk/client-s3, @googlemaps/react-wrapper",
-        "Infrastructure: MongoDB database",
-        "Infrastructure: Redis cache",
-        "Infrastructure: Nginx reverse proxy",
-        "Infrastructure: Docker runtime"
-      ],
-      "deployment_options": [
-        "Containerized (Docker)",
-        "CI/CD: GitHub Actions"
-      ]
+      }
     },
     "extracted_data": {},
     "source": "local_repo",
     "source_confidence": "high",
-    "timestamp": "2026-03-25T12:31:07.672957"
+    "timestamp": "2026-03-25T18:36:05.616520"
   },
   "step2": {
     "step1_data": {
       "product_name": "appsmith",
       "url": "https://github.com/appsmithorg/appsmith.git",
       "analysis": {
-        "summary": "Appsmith is a full-stack low-code platform that enables users to build custom internal applications like dashboards and admin panels through a visual interface with drag-and-drop widgets, database connections, and API integrations.",
+        "summary": "Appsmith is a low-code application platform for building custom internal applications like dashboards, admin panels, and CRUD apps. It provides a visual drag-and-drop interface with pre-built widgets, connects to databases and APIs, and supports both JavaScript and SQL for custom logic. The platform consists of a React-based client application with a Java Spring Boot backend, supporting multi-tenancy, authentication, and deployment options.",
         "capabilities": [
-          "Provides a visual application builder with drag-and-drop UI widgets and components (app/client/src/widgets/)",
-          "Connects to multiple data sources including databases, REST APIs, and cloud services (app/server/appsmith-server/src/main/java/com/appsmith/server/datasources/)",
-          "Executes JavaScript code and queries within the application context (app/client/src/workers/)",
-          "Manages user authentication and authorization with multiple providers (app/server/appsmith-server/src/main/java/com/appsmith/server/authentication/)",
-          "Deploys applications with containerized infrastructure (Dockerfile, docker-compose.yml)",
-          "Provides real-time collaboration features for multi-user application development (app/client/src/sagas/)",
-          "Supports custom theming and branding through design system components (app/client/packages/design-system/)"
+          "Processes visual widget drag-and-drop operations with layout systems (app/client/src/layoutSystems/)",
+          "Executes JavaScript code evaluation and binding in a sandboxed environment (app/client/src/workers/Evaluation/)",
+          "Manages database connections and query execution through datasource plugins (app/server/appsmith-plugins/)",
+          "Renders custom applications using React widgets and responsive layouts (app/client/src/widgets/)",
+          "Handles user authentication via OAuth2, SAML, and form-based login (app/server/appsmith-server/src/main/java/com/appsmith/server/authentication/)",
+          "Provides real-time collaboration features for multi-user editing (app/client/src/sagas/CollaborationSagas.ts)",
+          "Implements Git integration for version control and deployment workflows (app/client/src/git/)",
+          "Supports custom JavaScript object creation and execution (app/client/src/entities/JSCollection/)",
+          "Manages application themes and styling with CSS-in-JS (app/client/src/constants/DefaultTheme.tsx)",
+          "Processes API and database query configuration and execution (app/client/src/api/)",
+          "Implements application import/export functionality for backup and migration (app/client/src/pages/Applications/ImportExportApplicationModal.tsx)",
+          "Provides admin settings management for instance configuration (app/client/src/pages/AdminSettings/)",
+          "Handles widget property configuration through property panels (app/client/src/pages/Editor/PropertyPane/)",
+          "Implements auto-layout and manual layout positioning systems (app/client/src/layoutSystems/autolayout/)",
+          "Processes dynamic height calculations for responsive widgets (app/client/src/utils/dynamicHeightUtils.ts)",
+          "Manages application routing and page navigation (app/client/src/constants/routes.ts)",
+          "Implements debugger functionality for runtime error tracking (app/client/src/components/editorComponents/Debugger/)",
+          "Provides template marketplace integration for pre-built applications (app/client/src/pages/Templates/)",
+          "Handles multi-environment deployment configurations (app/client/src/constants/AnalyticsConstants.tsx)",
+          "Implements widget state management and data binding (app/client/src/reducers/entityReducers/)",
+          "Processes AST parsing for JavaScript code analysis and transformation (app/client/packages/ast/)",
+          "Manages workspace and application permissions with RBAC (app/client/src/constants/orgConstants.ts)",
+          "Implements mobile-responsive design system components (app/client/packages/design-system/)",
+          "Provides analytics and telemetry collection (app/client/src/utils/AppsmithUtils.tsx)",
+          "Handles browser storage management for application state (app/client/src/utils/storage.tsx)"
         ],
-        "use_cases": [],
+        "use_cases": [
+          "Internal application developers build custom dashboards and admin panels by connecting to existing databases",
+          "Business analysts create data visualization applications without writing complex code",
+          "DevOps teams build monitoring and alerting dashboards connected to metrics APIs",
+          "Customer success teams create CRM interfaces and customer 360 views",
+          "IT teams build internal automation tools and service management applications",
+          "Data teams create ETL monitoring dashboards and data pipeline management tools"
+        ],
+        "category": "Low-Code Application Platform",
+        "target_audience": "Frontend developers, full-stack developers, business analysts, DevOps engineers, IT administrators, and citizen developers",
         "technical_stack": [
-          "React (TypeScript frontend - app/client/package.json)",
-          "Spring Boot (Java backend - app/server/appsmith-server/pom.xml)",
-          "MongoDB (database - docker-compose.yml)",
-          "Redis (caching - docker-compose.yml)",
-          "Nginx (reverse proxy - deploy/docker/fs/)",
-          "Docker (containerization - Dockerfile)",
-          "Node.js (build tooling - app/client/package.json)",
-          "Webpack (bundling - app/client/config/webpack.config.js)",
-          "Cypress (E2E testing - app/client/cypress/)"
-        ],
-        "integrations": [
-          "PostgreSQL, MySQL, MongoDB database connections",
-          "REST API and GraphQL endpoints",
-          "Google Sheets integration (app/client/cypress/e2e/GSheet/)",
-          "AWS S3 for file storage (@aws-sdk/client-s3 in package.json)",
-          "Redis for caching and session management",
-          "SMTP for email notifications",
-          "Google Maps API (@googlemaps/react-wrapper in package.json)"
+          "React 18.2.0 (app/client/package.json)",
+          "TypeScript 5.5.4 (app/client/package.json)",
+          "Redux Toolkit 2.4.0 with Redux Saga (app/client/package.json)",
+          "Java 25 (Dockerfile)",
+          "Spring Boot (server dependency manifests)",
+          "MongoDB (app/client/cypress/e2e/Regression/Apps/MongoDBShoppingCart_spec.ts)",
+          "PostgreSQL (app/client/cypress/e2e/Regression/ClientSide/Binding/JSObject_Postgress_Table_spec.js)",
+          "Node.js 20.13.1 (app/client/cypress/Dockerfile)",
+          "Yarn 3.5.1 (app/client/.yarn/releases/)",
+          "Docker (Dockerfile, docker-compose configurations)",
+          "Cypress 13.13.0 for testing (app/client/cypress/Dockerfile)",
+          "AWS SDK 3.622.0 (app/client/package.json)",
+          "Sentry 7.120.3 for error monitoring (app/client/package.json)",
+          "Blueprint.js 3.43.0 for UI components (app/client/package.json)",
+          "Acorn 8.14.0 for JavaScript AST parsing (app/client/packages/ast/package.json)"
         ],
         "api_endpoints": [
-          {
-            "method": "GET",
-            "path": "/api/v1/applications",
-            "summary": "List applications (app/server/appsmith-server/src/main/java/com/appsmith/server/controllers/ApplicationController.java)"
-          },
-          {
-            "method": "POST",
-            "path": "/api/v1/datasources",
-            "summary": "Create datasource connection (app/server/appsmith-server/src/main/java/com/appsmith/server/controllers/DatasourceController.java)"
-          },
-          {
-            "method": "POST",
-            "path": "/api/v1/actions",
-            "summary": "Execute database queries or API calls (app/server/appsmith-server/src/main/java/com/appsmith/server/controllers/ActionController.java)"
-          },
-          {
-            "method": "GET",
-            "path": "/api/v1/pages",
-            "summary": "Retrieve application pages (app/server/appsmith-server/src/main/java/com/appsmith/server/controllers/PageController.java)"
-          },
-          {
-            "method": "POST",
-            "path": "/api/v1/users/login",
-            "summary": "User authentication (app/server/appsmith-server/src/main/java/com/appsmith/server/controllers/UserController.java)"
-          }
+          "Widgets API endpoints for CRUD operations (inferred from widget management code)",
+          "Authentication endpoints for OAuth2 and SAML (app/server authentication modules)",
+          "Datasource connection endpoints (datasource plugin architecture)",
+          "Application import/export endpoints (ImportExportApplicationModal.tsx)",
+          "Git integration endpoints for version control (git module references)",
+          "Admin settings configuration endpoints (AdminSettings pages)",
+          "Template marketplace endpoints (Templates pages)",
+          "Workspace and organization management endpoints (workspace constants)"
         ],
+        "sdk_languages": [],
+        "auth_methods": [
+          "OAuth2 with Google and GitHub (.env.example)",
+          "SAML authentication (server authentication modules)",
+          "Form-based login/signup (.env.example)",
+          "JWT token authentication (authentication service references)",
+          "API key authentication for integrations"
+        ],
+        "integrations": [
+          "PostgreSQL via datasource plugins (test files reference)",
+          "MongoDB via datasource plugins (test files reference)",
+          "AWS S3 via AWS SDK 3.622.0 (app/client/package.json)",
+          "Google OAuth2 (.env.example)",
+          "GitHub OAuth2 (.env.example)",
+          "Sentry for error monitoring (app/client/package.json)",
+          "Segment for analytics (app/client/package.json, .env.example)",
+          "Google reCAPTCHA (.env.example)",
+          "Intercom for customer support (.env.example)",
+          "SMTP email services (.env.example)",
+          "Google Maps API (app/client/package.json @googlemaps packages)",
+          "OpenTelemetry for observability (app/client/package.json)",
+          "SmartLook for session recording (.env.example)"
+        ],
+        "architecture": {
+          "pattern": "monorepo with separate client and server applications",
+          "components": [
+            "React frontend client application with widget-based UI builder",
+            "Java Spring Boot backend server for API and business logic",
+            "JavaScript evaluation engine for runtime code execution",
+            "Widget system with drag-and-drop layout management",
+            "Datasource plugin architecture for database connectivity",
+            "Authentication service supporting multiple providers",
+            "Git integration service for version control",
+            "Template marketplace for pre-built applications",
+            "Admin panel for instance configuration and user management"
+          ],
+          "entry_points": [
+            "app/client/src/index.tsx - React application entry point",
+            "app/server main Java application classes"
+          ],
+          "data_flow": "User interactions in React frontend trigger Redux actions, which communicate with Java backend APIs. The backend processes requests, executes database queries through datasource plugins, and returns data to frontend. JavaScript code evaluation happens in web workers for sandboxed execution. Widget state changes flow through Redux store and trigger re-renders.",
+          "persistence": "MongoDB for application metadata, user data, and configurations. PostgreSQL and other databases connected via datasource plugins. Browser localStorage for client-side state persistence.",
+          "concurrency_model": "async/await patterns in React with Redux Saga for side effects, Web Workers for JavaScript evaluation, Java Spring Boot async processing on backend",
+          "communication_patterns": "HTTP REST APIs between client and server, WebSocket connections for real-time collaboration features, Plugin-based architecture for datasource connectivity",
+          "plugin_extension_model": "Datasource plugin system with standardized interfaces for database connectivity, Widget plugin architecture for custom UI components, Theme system for customizable styling"
+        },
+        "data_model": {
+          "primary_entities": [
+            "Applications - container for pages and widgets",
+            "Pages - individual screens within applications",
+            "Widgets - UI components with properties and data bindings",
+            "Datasources - database and API connections",
+            "Actions - queries and API calls",
+            "Users - authentication and authorization",
+            "Organizations/Workspaces - multi-tenancy structure",
+            "Themes - styling and branding configurations"
+          ],
+          "storage_backends": [
+            "MongoDB for application metadata",
+            "PostgreSQL for business data",
+            "Browser localStorage for client state",
+            "File system for templates and assets"
+          ],
+          "schema_patterns": "Document-based storage in MongoDB for application configurations, Relational patterns for user and organization data, JSON schema validation for widget properties and datasource configurations",
+          "migration_strategy": "216+ DSL migration files for widget and application schema evolution (app/client/packages/dsl/src/migrate/migrations/)"
+        },
+        "algorithms": {
+          "problem_type": "Visual application building with data binding, layout management, and code evaluation",
+          "core_patterns": [
+            "Observer pattern for reactive data binding",
+            "Plugin architecture for extensible datasource connectivity",
+            "Command pattern for undo/redo functionality",
+            "Factory pattern for widget creation",
+            "Visitor pattern for AST traversal and code analysis"
+          ],
+          "complexity_indicators": "AST parsing and JavaScript evaluation, Real-time collaborative editing, Dynamic layout calculations, Complex state management with Redux",
+          "key_algorithms": [
+            "Acorn-based JavaScript AST parsing and transformation",
+            "Dynamic height calculation algorithms for responsive widgets",
+            "Conflict resolution for collaborative editing",
+            "Layout constraint solving for auto-layout system"
+          ],
+          "evidence": "app/client/packages/ast/src/index.ts for AST processing, app/client/src/utils/dynamicHeightUtils.ts for layout algorithms, app/client/src/layoutSystems/ for layout management"
+        },
+        "security_model": {
+          "authentication": "Multi-provider OAuth2, SAML, form-based login with JWT tokens",
+          "authorization": "Role-based access control (RBAC) for workspaces and applications with granular permissions",
+          "data_protection": "Environment variable encryption, secure datasource credential storage, HTTPS enforcement",
+          "security_headers": "Content Security Policy, CORS configuration, rate limiting for API endpoints",
+          "vulnerability_handling": "SECURITY.md file present, Sentry integration for error monitoring, dependency vulnerability scanning"
+        },
+        "dependencies": {
+          "runtime": [
+            "@reduxjs/toolkit: 2.4.0",
+            "react: 18.2.0",
+            "@blueprintjs/core: 3.43.0",
+            "@aws-sdk/client-s3: 3.622.0",
+            "acorn: 8.14.0",
+            "@sentry/react: 7.120.3",
+            "lodash: 4.17.21",
+            "typescript: 5.5.4"
+          ],
+          "dev": [
+            "cypress: 13.13.0",
+            "@types/lodash: 4.14.120",
+            "eslint configuration",
+            "prettier",
+            "husky git hooks"
+          ],
+          "infrastructure": [
+            "MongoDB database",
+            "PostgreSQL database",
+            "Redis for caching",
+            "AWS S3 for file storage",
+            "SMTP email service",
+            "Docker containers"
+          ]
+        },
+        "deployment": {
+          "containerized": true,
+          "container_orchestration": "Docker Compose and Kubernetes support with Helm charts",
+          "ci_cd": "GitHub Actions workflows for testing and deployment",
+          "environment_config": "Environment variables for configuration, .env files for local development, configurable via admin panel",
+          "scaling_model": "Horizontal scaling supported through containerization, cloud deployment on AWS, Heroku, DigitalOcean"
+        },
+        "code_quality_signals": {
+          "has_tests": true,
+          "test_framework": "Cypress for E2E testing, Jest for unit tests",
+          "test_count_estimate": "1000+ Cypress E2E test files",
+          "has_linting": true,
+          "has_type_hints": true,
+          "documentation_quality": "well-documented with comprehensive README and contribution guidelines",
+          "code_style": "ESLint, Prettier, Husky pre-commit hooks for code formatting"
+        },
+        "project_health": {
+          "license": "Apache-2.0",
+          "total_commits": "High activity project with frequent commits",
+          "top_contributors": "Multiple active contributors from Appsmith organization",
+          "recent_activity": "Active development with recent commits showing feature additions, bug fixes, and UI improvements",
+          "community_signals": "CODE_OF_CONDUCT.md, SECURITY.md, comprehensive CONTRIBUTING.md, issue and PR templates"
+        },
+        "evidence_tracking": {
+          "files_analyzed": [
+            "app/client/package.json",
+            "app/client/packages/ast/package.json",
+            "Dockerfile",
+            ".env.example",
+            "app/client/src/index.tsx",
+            "app/client/packages/ast/src/index.ts",
+            "migration files in app/client/packages/dsl/src/migrate/",
+            "CONTRIBUTING.md",
+            "README.md",
+            "cypress test directory structure",
+            "app/client/src/ source code structure"
+          ],
+          "confidence_level": "High",
+          "information_gaps": [
+            "Specific Java backend API endpoints require server code analysis",
+            "Database schema details need server-side model examination",
+            "Exact plugin interface specifications need plugin code review"
+          ]
+        },
         "pricing": {
           "model": "open-source",
           "free_tier": "true"
-        },
-        "target_audience": "Developers",
-        "category": "Open Source Software",
-        "deployment": "Self-hosted",
-        "underlying_algorithm": {
-          "problem_type": "",
-          "pattern": ""
-        },
-        "evidence_tracking": {
-          "confidence_level": "High",
-          "technical_facts": [
-            "Provides a visual application builder with drag-and-drop UI widgets and components (app/client/src/widgets/)",
-            "Connects to multiple data sources including databases, REST APIs, and cloud services (app/server/appsmith-server/src/main/java/com/appsmith/server/datasources/)",
-            "Executes JavaScript code and queries within the application context (app/client/src/workers/)",
-            "Manages user authentication and authorization with multiple providers (app/server/appsmith-server/src/main/java/com/appsmith/server/authentication/)",
-            "Deploys applications with containerized infrastructure (Dockerfile, docker-compose.yml)",
-            "Provides real-time collaboration features for multi-user application development (app/client/src/sagas/)",
-            "Supports custom theming and branding through design system components (app/client/packages/design-system/)"
-          ],
-          "information_gaps": []
-        },
-        "architecture_patterns": [
-          "microservices",
-          "Concurrency: async - React frontend with Redux-Saga for side effects, Spring WebFlux reactive backend with non-blocking I/O"
-        ],
-        "auth_methods": [
-          "OAuth2 (Google, GitHub, OIDC providers)",
-          "SAML",
-          "LDAP",
-          "Form-based authentication",
-          "JWT tokens"
-        ],
-        "sdk_languages": [],
-        "dependencies": [
-          "React, Redux, TypeScript (frontend)",
-          "Spring Boot, Spring WebFlux, Spring Security (backend)",
-          "MongoDB driver, Redis client",
-          "@aws-sdk/client-s3, @googlemaps/react-wrapper",
-          "Infrastructure: MongoDB database",
-          "Infrastructure: Redis cache",
-          "Infrastructure: Nginx reverse proxy",
-          "Infrastructure: Docker runtime"
-        ],
-        "deployment_options": [
-          "Containerized (Docker)",
-          "CI/CD: GitHub Actions"
-        ]
+        }
       },
       "extracted_data": {},
       "source": "local_repo",
       "source_confidence": "high",
-      "timestamp": "2026-03-25T12:31:07.672957"
+      "timestamp": "2026-03-25T18:36:05.616520"
     },
     "generalization": {
       "functional_dna": {
-        "logic_archetype": "Stateful Orchestrator",
-        "logic_archetype_evidence": "Manages application state across UI widgets, data sources, and user sessions with persistent storage in MongoDB. Evidence: 'app/client/src/widgets/', 'app/server/appsmith-server/src/main/java/com/appsmith/server/datasources/', MongoDB database configuration",
+        "logic_archetype": "Plugin Host",
+        "logic_archetype_evidence": "System provides a core execution environment that loads and manages multiple plugin types (datasource plugins, widget plugins, layout systems) with standardized interfaces. The architecture shows clear plugin extension models for both data connectivity and UI components, with factory patterns for plugin instantiation.",
         "data_contract_strictness": "Moderately Structured",
-        "data_contract_evidence": "Uses TypeScript for frontend type safety and Spring Boot with Java for backend structure, but allows flexible JSON data through MongoDB and API integrations. Evidence: 'React (TypeScript frontend)', 'Spring Boot (Java backend)', 'MongoDB (database)'",
-        "core_algorithmic_class": "CRUD Operations",
-        "core_algorithmic_evidence": "Primary operations are Create, Read, Update, Delete for applications, data sources, actions, and pages. Evidence: API endpoints '/api/v1/applications', '/api/v1/datasources', '/api/v1/actions', '/api/v1/pages' with GET/POST methods",
+        "data_contract_evidence": "Evidence: JSON schema validation for widget properties, TypeScript interfaces throughout, 216+ DSL migration files indicating evolving but structured schemas, mixed document/relational storage patterns",
+        "core_algorithmic_class": "Tree/AST Processing",
+        "core_algorithmic_evidence": "Evidence from Acorn-based JavaScript AST parsing (app/client/packages/ast/), dynamic layout constraint solving, Redux state tree management, and visual component hierarchy manipulation with drag-and-drop operations",
         "concurrency_requirements": "Eventually Consistent",
-        "concurrency_evidence": "Uses Redis for caching and session management with real-time collaboration features. Evidence: 'Redis (caching)', 'Provides real-time collaboration features for multi-user application development (app/client/src/sagas/)'",
+        "concurrency_evidence": "Evidence from real-time collaboration features, web worker sandboxing for JavaScript evaluation, Redux Saga async patterns, and conflict resolution mechanisms for multi-user editing scenarios",
+        "abstract_problem": "Manages a hierarchical composition of interactive components with dynamic data binding, where users visually construct component trees that execute custom code against external data sources in a sandboxed environment.",
+        "data_flow_pattern": "Visual manipulation \u2192 component tree mutation \u2192 AST evaluation \u2192 external data fetch \u2192 reactive binding propagation \u2192 UI re-render with persistent state snapshots",
+        "state_complexity": "Entity-scoped",
         "repurposing_confidence": 8,
-        "repurposing_reasoning": "High confidence due to generic visual builder architecture, database-agnostic design, and REST API patterns. The drag-and-drop UI framework and data source abstraction layer are highly reusable for any domain requiring custom application development."
+        "repurposing_reasoning": "The core pattern of visual composition with code evaluation is highly reusable across domains. The plugin architecture, AST processing engine, and reactive binding system are generic. The widget system and layout algorithms could adapt to different component types. Domain-specific elements are mainly the business logic widgets and datasource connectors, but the underlying composition and evaluation engine is domain-agnostic."
       },
       "evidence_claims": [
         {
-          "claim": "Visual drag-and-drop application builder",
-          "evidence": "Provides a visual application builder with drag-and-drop UI widgets and components (app/client/src/widgets/)",
+          "claim": "Implements JavaScript AST parsing and transformation for code evaluation",
+          "evidence": "app/client/packages/ast/src/index.ts with Acorn 8.14.0 dependency",
           "confidence": "High"
         },
         {
-          "claim": "Multi-database connectivity",
-          "evidence": "Connects to multiple data sources including databases, REST APIs, and cloud services (app/server/appsmith-server/src/main/java/com/appsmith/server/datasources/)",
+          "claim": "Supports plugin architecture for extensible datasource connectivity",
+          "evidence": "app/server/appsmith-plugins/ directory and datasource plugin references in capabilities",
           "confidence": "High"
         },
         {
-          "claim": "JavaScript execution runtime",
-          "evidence": "Executes JavaScript code and queries within the application context (app/client/src/workers/)",
+          "claim": "Provides real-time collaborative editing capabilities",
+          "evidence": "app/client/src/sagas/CollaborationSagas.ts file reference",
           "confidence": "High"
         },
         {
-          "claim": "Enterprise authentication support",
-          "evidence": "OAuth2 (Google, GitHub, OIDC providers), SAML, LDAP, Form-based authentication, JWT tokens",
+          "claim": "Uses Redux with Redux Toolkit for state management",
+          "evidence": "@reduxjs/toolkit: 2.4.0 in app/client/package.json",
           "confidence": "High"
         },
         {
-          "claim": "Containerized deployment",
-          "evidence": "Deploys applications with containerized infrastructure (Dockerfile, docker-compose.yml)",
+          "claim": "Implements dynamic layout constraint solving",
+          "evidence": "app/client/src/utils/dynamicHeightUtils.ts and app/client/src/layoutSystems/",
           "confidence": "High"
         }
       ],
       "market_reach": {
         "primary_industry": "Software Development Tools",
         "cross_industry_applications": [
-          "Healthcare",
-          "Finance",
-          "Manufacturing",
-          "Retail",
-          "Government",
-          "Education",
-          "Real Estate"
+          "Industrial automation - visual configuration of manufacturing workflows and sensor dashboards",
+          "Financial services - visual construction of trading algorithms and risk monitoring dashboards",
+          "Healthcare - visual creation of patient monitoring interfaces and clinical workflow tools",
+          "Educational technology - visual course builder and interactive learning content creation",
+          "Marketing automation - visual campaign builder with dynamic content and analytics integration",
+          "IoT device management - visual configuration of device networks and data visualization",
+          "Scientific research - visual experiment design and data analysis pipeline construction",
+          "Event management - visual workflow builder for event planning and vendor coordination"
         ],
         "utility_score": 9,
         "market_potential": "High"
       },
       "friction_report": {
         "difficulty": "Medium",
-        "estimated_hours": 120,
+        "estimated_hours": 480,
         "required_technologies": [
-          "React/TypeScript frontend skills",
-          "Spring Boot/Java backend skills",
-          "MongoDB database",
-          "Docker containerization",
-          "Redis caching"
+          "React",
+          "TypeScript",
+          "Node.js",
+          "MongoDB",
+          "Redis",
+          "Plugin system architecture"
         ],
         "complexity_factors": [
-          "Multi-tier architecture",
-          "Real-time collaboration system",
-          "Custom widget framework",
-          "Multiple authentication providers",
-          "Database abstraction layer"
+          "AST parsing and JavaScript sandboxing",
+          "Real-time collaboration state synchronization",
+          "Complex layout constraint solving",
+          "Multi-plugin architecture coordination"
         ],
-        "risk_level": "Medium"
+        "risk_level": "Medium",
+        "migration_path": "Extract the core composition engine, AST evaluation system, and plugin host architecture. Replace domain-specific widgets with target domain components. Adapt datasource plugins for target data sources. Rebuild UI around target domain workflows while preserving the visual composition and binding patterns."
       },
       "interface_map": {
         "adapter_schema": {
           "input": {
-            "format": "JSON",
+            "format": "JSON/GraphQL",
             "required_fields": [
-              "application_definition",
-              "data_sources",
-              "ui_components"
+              "component_tree",
+              "data_bindings",
+              "custom_code"
+            ],
+            "protocols": [
+              "HTTP REST",
+              "WebSocket"
             ]
           },
           "output": {
-            "format": "JSON"
+            "format": "JSON/HTML",
+            "delivery": "async"
           },
           "authentication": {
-            "type": "JWT",
-            "method": "Bearer token"
+            "type": "Multi-provider",
+            "method": "OAuth2/SAML/JWT"
           }
         },
-        "standardization_level": "High"
+        "standardization_level": "Medium",
+        "api_surface_area": "Large (50+)"
       },
+      "comparable_systems": [
+        "Unreal Engine Blueprint System - visual scripting for game logic with node-based composition",
+        "Node-RED - visual wiring of IoT devices and data flows with plugin ecosystem",
+        "Zapier Workflow Builder - visual automation creation with app integrations",
+        "Salesforce Lightning App Builder - drag-and-drop interface construction with data binding",
+        "Blender Geometry Nodes - visual construction of procedural geometry with parameter binding"
+      ],
       "information_gaps": [
-        "Specific widget types and customization capabilities",
-        "Performance benchmarks for concurrent users",
-        "Data source connection limits and throughput",
-        "JavaScript runtime security sandbox details",
-        "Backup and disaster recovery mechanisms"
+        "Specific Java backend API endpoint specifications",
+        "Database schema details for application metadata storage",
+        "Plugin interface contracts and extension mechanisms",
+        "Performance characteristics under high concurrency loads"
       ]
     },
-    "timestamp": "2026-03-25T12:31:23.588583"
+    "timestamp": "2026-03-25T18:37:08.540605"
   },
   "errors": []
 }

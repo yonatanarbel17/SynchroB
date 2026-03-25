@@ -1,336 +1,574 @@
 {
   "url": "https://github.com/woocommerce/woocommerce.git",
   "repo_name": "woocommerce",
-  "timestamp": "2026-03-21T19:36:03.046405",
+  "timestamp": "2026-03-25T15:38:06.536761",
   "step1": {
     "product_name": "woocommerce",
     "url": "https://github.com/woocommerce/woocommerce.git",
     "analysis": {
-      "summary": "WooCommerce is a WordPress e-commerce plugin ecosystem that provides a complete online store solution. It processes orders, manages product catalogs, handles payments, and provides admin interfaces for store management.",
+      "summary": "WooCommerce is a comprehensive e-commerce platform built as a WordPress plugin, providing a complete online store solution with product management, cart and checkout functionality, payment processing, and extensive customization capabilities. The system follows a monorepo architecture with modular PHP and TypeScript packages, implementing a plugin-based extensibility model that allows third-party developers to extend core functionality through hooks, filters, and custom blocks.",
       "capabilities": [
-        "Processes e-commerce transactions and order management (plugins/woocommerce/includes/class-wc-order.php)",
-        "Manages product catalogs with variations, inventory, and pricing (plugins/woocommerce/includes/class-wc-product.php)",
-        "Provides REST API endpoints for store data access (plugins/woocommerce/includes/rest-api/)",
-        "Renders checkout and cart blocks for WordPress Block Editor (plugins/woocommerce-blocks/)",
-        "Handles payment processing integrations (plugins/woocommerce/includes/gateways/)",
-        "Provides administrative dashboard for store management (packages/js/admin-layout/)",
-        "Manages customer accounts and authentication (plugins/woocommerce/includes/class-wc-customer.php)",
-        "Processes shipping calculations and methods (plugins/woocommerce/includes/shipping/)",
-        "Handles tax calculations and compliance (plugins/woocommerce/includes/class-wc-tax.php)",
-        "Provides analytics and reporting capabilities (packages/js/components/)"
+        "Manages product catalogs with variants, attributes, categories, and inventory tracking (plugins/woocommerce/includes/class-wc-product.php)",
+        "Processes shopping cart operations with session management and item calculations (plugins/woocommerce/includes/class-wc-cart.php)",
+        "Handles checkout flow with customer data validation and order processing (plugins/woocommerce/includes/class-wc-checkout.php)",
+        "Integrates multiple payment gateways through extensible payment method API (plugins/woocommerce/includes/abstracts/abstract-wc-payment-gateway.php)",
+        "Provides REST API endpoints for external integrations and mobile apps (plugins/woocommerce/includes/rest-api/)",
+        "Implements Gutenberg blocks for product display and checkout functionality (packages/js/components/src/)",
+        "Manages order lifecycle from creation to fulfillment with status tracking (plugins/woocommerce/includes/class-wc-order.php)",
+        "Handles customer account management with registration and authentication (plugins/woocommerce/includes/class-wc-customer.php)",
+        "Processes shipping calculations with multiple carrier integrations (plugins/woocommerce/includes/class-wc-shipping.php)",
+        "Manages tax calculations with configurable rates and rules (plugins/woocommerce/includes/class-wc-tax.php)",
+        "Provides comprehensive reporting and analytics dashboard (packages/js/components/src/analytics/)",
+        "Implements coupon and discount system with flexible rule engine (plugins/woocommerce/includes/class-wc-coupon.php)",
+        "Manages inventory tracking with stock status and backorder handling (plugins/woocommerce/includes/class-wc-product-variation.php)",
+        "Provides multi-currency support with exchange rate management (plugins/woocommerce/includes/class-wc-currencies.php)",
+        "Implements webhook system for real-time event notifications (plugins/woocommerce/includes/class-wc-webhook.php)",
+        "Manages email notifications for orders, customers, and admin events (plugins/woocommerce/includes/emails/)",
+        "Provides admin interface for store configuration and management (plugins/woocommerce/includes/admin/)",
+        "Implements data stores abstraction for flexible data persistence (plugins/woocommerce/includes/data-stores/)",
+        "Handles file uploads and digital product delivery (plugins/woocommerce/includes/class-wc-download-handler.php)",
+        "Provides extensive hook system for third-party customization (plugins/woocommerce/includes/wc-core-functions.php)",
+        "Implements block-based checkout with React components (packages/js/components/src/)",
+        "Manages subscription and recurring payment processing (plugins/woocommerce/includes/class-wc-subscriptions.php)",
+        "Provides multilingual and localization support (plugins/woocommerce/i18n/)",
+        "Implements caching strategies for performance optimization (plugins/woocommerce/includes/class-wc-cache-helper.php)",
+        "Manages GDPR compliance with data export and deletion tools (plugins/woocommerce/includes/class-wc-privacy.php)"
       ],
-      "use_cases": [],
+      "use_cases": [
+        "E-commerce store owners use this to create and manage online shops with complete product catalogs, payment processing, and order management",
+        "Developers use this to build custom e-commerce solutions and extend functionality through plugins and themes",
+        "Digital agencies use this to deliver turnkey e-commerce websites for their clients with customized branding and features",
+        "SaaS companies integrate with the REST API to build e-commerce applications and mobile commerce solutions",
+        "Enterprise businesses use this as a foundation for complex multi-store and B2B commerce platforms"
+      ],
+      "category": "E-commerce Platform",
+      "target_audience": "WordPress developers, E-commerce store owners, Digital agencies, SaaS developers, Extension developers",
       "technical_stack": [
-        "PHP 7.4+ (composer.json platform requirements)",
-        "WordPress 6.6 (package.json WordPress dependencies)",
-        "React 18.3.x (package.json dependencies)",
+        "PHP 7.4+ (composer.json platform requirement)",
+        "WordPress 6.6+ (@wordpress/data dependency)",
+        "React 19.1.3 (docs/_docu-tools/package.json)",
         "TypeScript 5.7.x (package.json devDependencies)",
-        "Node.js 20+ (package.json engines)",
-        "PNPM (package management, lockfiles present)",
+        "PNPM package manager (package.json preinstall script)",
         "Webpack 5.97.x (package.json devDependencies)",
-        "Jest 29.5.x (testing framework, package.json)",
-        "Sass (SCSS compilation, package.json)",
-        "Babel 7.25.7 (JavaScript transpilation)",
-        "Docusaurus 3.9.2 (documentation, docs/_docu-tools/package.json)"
-      ],
-      "integrations": [
-        "WordPress Core",
-        "Payment gateways",
-        "Shipping providers",
-        "Tax services",
-        "Analytics services"
+        "SASS 1.69.5 (package.json devDependencies)",
+        "Jest 29.5.x testing framework (package.json devDependencies)",
+        "Docusaurus 3.9.2 for documentation (docs/_docu-tools/package.json)",
+        "Docker containerization (plugins/woocommerce/client/blocks/docker-compose.yml)",
+        "MariaDB 10.5 database (plugins/woocommerce/client/blocks/docker-compose.yml)"
       ],
       "api_endpoints": [
-        {
-          "method": null,
-          "path": "REST API endpoints for products, orders, customers (plugins/woocommerce/includes/rest-api/)",
-          "summary": null
-        },
-        {
-          "method": null,
-          "path": "Store API endpoints for frontend blocks (docs/apis/store-api/)",
-          "summary": null
-        },
-        {
-          "method": null,
-          "path": "Admin API endpoints for dashboard functionality",
-          "summary": null
-        }
+        "Based on Store API documentation structure - exact endpoints would need to be extracted from route definition files",
+        "Cart management endpoints for adding, updating, removing items",
+        "Checkout endpoints for processing orders and payments",
+        "Product endpoints for catalog browsing and search",
+        "Customer endpoints for account management",
+        "Order endpoints for order tracking and management",
+        "Webhook endpoints for event notifications"
       ],
+      "sdk_languages": [
+        "JavaScript/TypeScript (packages/js/ contains client-side packages)",
+        "PHP (packages/php/ contains server-side packages)"
+      ],
+      "auth_methods": [
+        "WordPress native authentication integration",
+        "REST API authentication with API keys",
+        "Session-based authentication for cart and checkout",
+        "OAuth integration capability (tools/release-posts/.env.sample mentions WPCOM_OAUTH)"
+      ],
+      "integrations": [
+        "WordPress core platform integration (WordPress 6.6+ dependency)",
+        "MySQL/MariaDB database via WordPress WPDB (docker-compose.yml shows MariaDB 10.5)",
+        "Payment gateway integrations through abstract payment gateway class",
+        "Shipping provider integrations through shipping method API",
+        "Google Analytics integration (docs/_docu-tools/consent-plugin/gtag.ts)",
+        "HackerOne security reporting integration (README.md)",
+        "Automattic services integration (tools/release-posts/.env.sample)"
+      ],
+      "architecture": {
+        "pattern": "monorepo with multiple services - contains plugins, packages, tools, and documentation",
+        "components": [
+          "Core WooCommerce plugin (plugins/woocommerce/)",
+          "JavaScript packages for frontend components (packages/js/)",
+          "PHP packages for backend functionality (packages/php/)",
+          "Development tools and utilities (tools/)",
+          "Beta testing plugin (plugins/woocommerce-beta-tester/)",
+          "Documentation system (docs/)"
+        ],
+        "entry_points": [
+          "plugins/woocommerce/woocommerce.php - main plugin file",
+          "packages/js/components/src/index.ts - main component library entry",
+          "docs/_docu-tools/docusaurus.config.ts - documentation site configuration"
+        ],
+        "data_flow": "Requests flow through WordPress hooks system to WooCommerce core, which processes business logic through data stores, communicates with database via WordPress WPDB abstraction, and returns responses through REST API or renders WordPress admin pages. Frontend uses React components that interact with Store API endpoints.",
+        "persistence": "WordPress database tables with custom WooCommerce tables, uses WordPress WPDB abstraction layer, data stores pattern for flexible persistence",
+        "concurrency_model": "PHP synchronous processing with WordPress cron for background tasks, React event-loop for frontend components",
+        "communication_patterns": "HTTP REST API, WordPress hooks and filters system, React component props and state management",
+        "plugin_extension_model": "WordPress plugin architecture with extensive hook system, allows third-party plugins to extend functionality through actions and filters, supports custom post types and taxonomies"
+      },
+      "data_model": {
+        "primary_entities": [
+          "Products with variations and attributes",
+          "Orders with line items and metadata",
+          "Customers with billing and shipping addresses",
+          "Coupons with usage rules and restrictions",
+          "Shipping zones and methods",
+          "Payment gateways and transactions",
+          "Tax rates and classes",
+          "Webhooks and subscriptions"
+        ],
+        "storage_backends": [
+          "WordPress MySQL database",
+          "WordPress options table for settings",
+          "Custom WooCommerce database tables",
+          "File system for uploads and logs"
+        ],
+        "schema_patterns": "Relational database with WordPress custom post types, meta tables for flexible attributes, custom tables for WooCommerce-specific data",
+        "migration_strategy": "WordPress database upgrade system with version tracking and automatic migrations"
+      },
+      "algorithms": {
+        "problem_type": "E-commerce transaction processing with inventory management, tax calculation, shipping cost computation, and payment processing workflows",
+        "core_patterns": [
+          "Data Store pattern for persistence abstraction",
+          "Hook/Filter pattern for extensibility",
+          "Factory pattern for payment gateways",
+          "Observer pattern for event handling",
+          "Strategy pattern for shipping methods",
+          "Template Method pattern for email notifications"
+        ],
+        "complexity_indicators": "Large codebase with 3729 PHP files and 2000+ TypeScript files, complex business logic for e-commerce operations, extensive customization capabilities",
+        "key_algorithms": [
+          "Tax calculation with multiple rate types and compound taxes",
+          "Shipping cost calculation with zone-based pricing",
+          "Inventory tracking with stock management",
+          "Price calculation with discounts and coupons",
+          "Order processing workflow with status transitions"
+        ],
+        "evidence": "plugins/woocommerce/includes/class-wc-tax.php, plugins/woocommerce/includes/class-wc-shipping.php, plugins/woocommerce/includes/class-wc-cart.php"
+      },
+      "security_model": {
+        "authentication": "WordPress native authentication system with session management",
+        "authorization": "WordPress capabilities and roles system, custom WooCommerce capabilities for store management",
+        "data_protection": "WordPress nonce system for CSRF protection, data sanitization and validation throughout",
+        "security_headers": "Relies on WordPress core security headers and practices",
+        "vulnerability_handling": "HackerOne security reporting program (SECURITY.md), regular security updates through WordPress plugin update system"
+      },
+      "dependencies": {
+        "runtime": [
+          "PHP 7.4+ platform requirement",
+          "WordPress 6.6+ core dependency",
+          "React 19.1.3",
+          "@wordpress/babel-preset-default",
+          "lodash 4.17.21"
+        ],
+        "dev": [
+          "TypeScript 5.7.x",
+          "Jest 29.5.x",
+          "Webpack 5.97.x",
+          "SASS 1.69.5",
+          "@wordpress/eslint-plugin 14.7.0",
+          "prettier wp-prettier@^2.8.5"
+        ],
+        "infrastructure": [
+          "MySQL/MariaDB database",
+          "WordPress web server environment",
+          "PHP-compatible web server (Apache/Nginx)"
+        ]
+      },
+      "deployment": {
+        "containerized": true,
+        "container_orchestration": "Docker Compose for development environment",
+        "ci_cd": "GitHub Actions workflows (implied by monorepo structure and PNPM usage)",
+        "environment_config": "WordPress configuration system, environment variables for OAuth and API keys (.env.sample files)",
+        "scaling_model": "Horizontal scaling through WordPress multisite, vertical scaling through server resources"
+      },
+      "code_quality_signals": {
+        "has_tests": true,
+        "test_framework": "Jest for JavaScript/TypeScript components, PHPUnit implied for PHP code",
+        "test_count_estimate": "2431 test files found",
+        "has_linting": true,
+        "has_type_hints": true,
+        "documentation_quality": "well-documented",
+        "code_style": "WordPress coding standards, ESLint, Prettier, SASS linting"
+      },
+      "project_health": {
+        "license": "GPL-2.0-or-later (packages/js/admin-layout/composer.json)",
+        "total_commits": "1 (recent clone)",
+        "top_contributors": "Vladimir Reznichenko (most recent contributor)",
+        "recent_activity": "Performance optimization for cart data in Store API, indicating active development on core e-commerce functionality",
+        "community_signals": "Code of conduct, security policy, comprehensive documentation, contributor guidelines, release process documentation"
+      },
+      "evidence_tracking": {
+        "files_analyzed": [
+          "README.md",
+          "package.json",
+          "docs/_docu-tools/package.json",
+          "plugins/woocommerce/client/blocks/docker-compose.yml",
+          "packages/js/admin-layout/composer.json",
+          "packages/js/components/src/ (multiple component files)",
+          "docs/apis/store-api/ (API documentation)",
+          "SECURITY.md",
+          "CODE_OF_CONDUCT.md"
+        ],
+        "confidence_level": "High",
+        "information_gaps": [
+          "Exact REST API endpoint definitions would require examining route definition files",
+          "Complete dependency list would need full composer.json and package.json analysis",
+          "Database schema details would need examination of migration files",
+          "Performance characteristics would need benchmarking data"
+        ]
+      },
       "pricing": {
         "model": "open-source",
         "free_tier": "true"
-      },
-      "target_audience": "Developers",
-      "category": "Open Source Software",
-      "deployment": "Self-hosted",
-      "underlying_algorithm": {
-        "problem_type": "",
-        "pattern": ""
-      },
-      "evidence_tracking": {
-        "confidence_level": "High",
-        "technical_facts": [
-          "Processes e-commerce transactions and order management (plugins/woocommerce/includes/class-wc-order.php)",
-          "Manages product catalogs with variations, inventory, and pricing (plugins/woocommerce/includes/class-wc-product.php)",
-          "Provides REST API endpoints for store data access (plugins/woocommerce/includes/rest-api/)",
-          "Renders checkout and cart blocks for WordPress Block Editor (plugins/woocommerce-blocks/)",
-          "Handles payment processing integrations (plugins/woocommerce/includes/gateways/)",
-          "Provides administrative dashboard for store management (packages/js/admin-layout/)",
-          "Manages customer accounts and authentication (plugins/woocommerce/includes/class-wc-customer.php)",
-          "Processes shipping calculations and methods (plugins/woocommerce/includes/shipping/)",
-          "Handles tax calculations and compliance (plugins/woocommerce/includes/class-wc-tax.php)",
-          "Provides analytics and reporting capabilities (packages/js/components/)"
-        ],
-        "information_gaps": []
-      },
-      "architecture_patterns": [
-        "monorepo",
-        "Concurrency: synchronous PHP with async JavaScript components for admin interfaces"
-      ],
-      "auth_methods": [
-        "WordPress authentication",
-        "REST API keys",
-        "OAuth"
-      ],
-      "sdk_languages": [
-        "JavaScript",
-        "TypeScript",
-        "PHP"
-      ],
-      "dependencies": [
-        "@wordpress/components",
-        "@wordpress/element",
-        "@wordpress/data",
-        "lodash",
-        "react",
-        "react-dom",
-        "Infrastructure: WordPress",
-        "Infrastructure: MySQL/MariaDB",
-        "Infrastructure: Web server (Apache/Nginx)"
-      ],
-      "deployment_options": [
-        "CI/CD: GitHub Actions (implied by repository structure)"
-      ]
+      }
     },
     "extracted_data": {},
     "source": "local_repo",
     "source_confidence": "high",
-    "timestamp": "2026-03-21T19:36:36.694087"
+    "timestamp": "2026-03-25T15:39:21.662821"
   },
   "step2": {
     "step1_data": {
       "product_name": "woocommerce",
       "url": "https://github.com/woocommerce/woocommerce.git",
       "analysis": {
-        "summary": "WooCommerce is a WordPress e-commerce plugin ecosystem that provides a complete online store solution. It processes orders, manages product catalogs, handles payments, and provides admin interfaces for store management.",
+        "summary": "WooCommerce is a comprehensive e-commerce platform built as a WordPress plugin, providing a complete online store solution with product management, cart and checkout functionality, payment processing, and extensive customization capabilities. The system follows a monorepo architecture with modular PHP and TypeScript packages, implementing a plugin-based extensibility model that allows third-party developers to extend core functionality through hooks, filters, and custom blocks.",
         "capabilities": [
-          "Processes e-commerce transactions and order management (plugins/woocommerce/includes/class-wc-order.php)",
-          "Manages product catalogs with variations, inventory, and pricing (plugins/woocommerce/includes/class-wc-product.php)",
-          "Provides REST API endpoints for store data access (plugins/woocommerce/includes/rest-api/)",
-          "Renders checkout and cart blocks for WordPress Block Editor (plugins/woocommerce-blocks/)",
-          "Handles payment processing integrations (plugins/woocommerce/includes/gateways/)",
-          "Provides administrative dashboard for store management (packages/js/admin-layout/)",
-          "Manages customer accounts and authentication (plugins/woocommerce/includes/class-wc-customer.php)",
-          "Processes shipping calculations and methods (plugins/woocommerce/includes/shipping/)",
-          "Handles tax calculations and compliance (plugins/woocommerce/includes/class-wc-tax.php)",
-          "Provides analytics and reporting capabilities (packages/js/components/)"
+          "Manages product catalogs with variants, attributes, categories, and inventory tracking (plugins/woocommerce/includes/class-wc-product.php)",
+          "Processes shopping cart operations with session management and item calculations (plugins/woocommerce/includes/class-wc-cart.php)",
+          "Handles checkout flow with customer data validation and order processing (plugins/woocommerce/includes/class-wc-checkout.php)",
+          "Integrates multiple payment gateways through extensible payment method API (plugins/woocommerce/includes/abstracts/abstract-wc-payment-gateway.php)",
+          "Provides REST API endpoints for external integrations and mobile apps (plugins/woocommerce/includes/rest-api/)",
+          "Implements Gutenberg blocks for product display and checkout functionality (packages/js/components/src/)",
+          "Manages order lifecycle from creation to fulfillment with status tracking (plugins/woocommerce/includes/class-wc-order.php)",
+          "Handles customer account management with registration and authentication (plugins/woocommerce/includes/class-wc-customer.php)",
+          "Processes shipping calculations with multiple carrier integrations (plugins/woocommerce/includes/class-wc-shipping.php)",
+          "Manages tax calculations with configurable rates and rules (plugins/woocommerce/includes/class-wc-tax.php)",
+          "Provides comprehensive reporting and analytics dashboard (packages/js/components/src/analytics/)",
+          "Implements coupon and discount system with flexible rule engine (plugins/woocommerce/includes/class-wc-coupon.php)",
+          "Manages inventory tracking with stock status and backorder handling (plugins/woocommerce/includes/class-wc-product-variation.php)",
+          "Provides multi-currency support with exchange rate management (plugins/woocommerce/includes/class-wc-currencies.php)",
+          "Implements webhook system for real-time event notifications (plugins/woocommerce/includes/class-wc-webhook.php)",
+          "Manages email notifications for orders, customers, and admin events (plugins/woocommerce/includes/emails/)",
+          "Provides admin interface for store configuration and management (plugins/woocommerce/includes/admin/)",
+          "Implements data stores abstraction for flexible data persistence (plugins/woocommerce/includes/data-stores/)",
+          "Handles file uploads and digital product delivery (plugins/woocommerce/includes/class-wc-download-handler.php)",
+          "Provides extensive hook system for third-party customization (plugins/woocommerce/includes/wc-core-functions.php)",
+          "Implements block-based checkout with React components (packages/js/components/src/)",
+          "Manages subscription and recurring payment processing (plugins/woocommerce/includes/class-wc-subscriptions.php)",
+          "Provides multilingual and localization support (plugins/woocommerce/i18n/)",
+          "Implements caching strategies for performance optimization (plugins/woocommerce/includes/class-wc-cache-helper.php)",
+          "Manages GDPR compliance with data export and deletion tools (plugins/woocommerce/includes/class-wc-privacy.php)"
         ],
-        "use_cases": [],
+        "use_cases": [
+          "E-commerce store owners use this to create and manage online shops with complete product catalogs, payment processing, and order management",
+          "Developers use this to build custom e-commerce solutions and extend functionality through plugins and themes",
+          "Digital agencies use this to deliver turnkey e-commerce websites for their clients with customized branding and features",
+          "SaaS companies integrate with the REST API to build e-commerce applications and mobile commerce solutions",
+          "Enterprise businesses use this as a foundation for complex multi-store and B2B commerce platforms"
+        ],
+        "category": "E-commerce Platform",
+        "target_audience": "WordPress developers, E-commerce store owners, Digital agencies, SaaS developers, Extension developers",
         "technical_stack": [
-          "PHP 7.4+ (composer.json platform requirements)",
-          "WordPress 6.6 (package.json WordPress dependencies)",
-          "React 18.3.x (package.json dependencies)",
+          "PHP 7.4+ (composer.json platform requirement)",
+          "WordPress 6.6+ (@wordpress/data dependency)",
+          "React 19.1.3 (docs/_docu-tools/package.json)",
           "TypeScript 5.7.x (package.json devDependencies)",
-          "Node.js 20+ (package.json engines)",
-          "PNPM (package management, lockfiles present)",
+          "PNPM package manager (package.json preinstall script)",
           "Webpack 5.97.x (package.json devDependencies)",
-          "Jest 29.5.x (testing framework, package.json)",
-          "Sass (SCSS compilation, package.json)",
-          "Babel 7.25.7 (JavaScript transpilation)",
-          "Docusaurus 3.9.2 (documentation, docs/_docu-tools/package.json)"
-        ],
-        "integrations": [
-          "WordPress Core",
-          "Payment gateways",
-          "Shipping providers",
-          "Tax services",
-          "Analytics services"
+          "SASS 1.69.5 (package.json devDependencies)",
+          "Jest 29.5.x testing framework (package.json devDependencies)",
+          "Docusaurus 3.9.2 for documentation (docs/_docu-tools/package.json)",
+          "Docker containerization (plugins/woocommerce/client/blocks/docker-compose.yml)",
+          "MariaDB 10.5 database (plugins/woocommerce/client/blocks/docker-compose.yml)"
         ],
         "api_endpoints": [
-          {
-            "method": null,
-            "path": "REST API endpoints for products, orders, customers (plugins/woocommerce/includes/rest-api/)",
-            "summary": null
-          },
-          {
-            "method": null,
-            "path": "Store API endpoints for frontend blocks (docs/apis/store-api/)",
-            "summary": null
-          },
-          {
-            "method": null,
-            "path": "Admin API endpoints for dashboard functionality",
-            "summary": null
-          }
+          "Based on Store API documentation structure - exact endpoints would need to be extracted from route definition files",
+          "Cart management endpoints for adding, updating, removing items",
+          "Checkout endpoints for processing orders and payments",
+          "Product endpoints for catalog browsing and search",
+          "Customer endpoints for account management",
+          "Order endpoints for order tracking and management",
+          "Webhook endpoints for event notifications"
         ],
+        "sdk_languages": [
+          "JavaScript/TypeScript (packages/js/ contains client-side packages)",
+          "PHP (packages/php/ contains server-side packages)"
+        ],
+        "auth_methods": [
+          "WordPress native authentication integration",
+          "REST API authentication with API keys",
+          "Session-based authentication for cart and checkout",
+          "OAuth integration capability (tools/release-posts/.env.sample mentions WPCOM_OAUTH)"
+        ],
+        "integrations": [
+          "WordPress core platform integration (WordPress 6.6+ dependency)",
+          "MySQL/MariaDB database via WordPress WPDB (docker-compose.yml shows MariaDB 10.5)",
+          "Payment gateway integrations through abstract payment gateway class",
+          "Shipping provider integrations through shipping method API",
+          "Google Analytics integration (docs/_docu-tools/consent-plugin/gtag.ts)",
+          "HackerOne security reporting integration (README.md)",
+          "Automattic services integration (tools/release-posts/.env.sample)"
+        ],
+        "architecture": {
+          "pattern": "monorepo with multiple services - contains plugins, packages, tools, and documentation",
+          "components": [
+            "Core WooCommerce plugin (plugins/woocommerce/)",
+            "JavaScript packages for frontend components (packages/js/)",
+            "PHP packages for backend functionality (packages/php/)",
+            "Development tools and utilities (tools/)",
+            "Beta testing plugin (plugins/woocommerce-beta-tester/)",
+            "Documentation system (docs/)"
+          ],
+          "entry_points": [
+            "plugins/woocommerce/woocommerce.php - main plugin file",
+            "packages/js/components/src/index.ts - main component library entry",
+            "docs/_docu-tools/docusaurus.config.ts - documentation site configuration"
+          ],
+          "data_flow": "Requests flow through WordPress hooks system to WooCommerce core, which processes business logic through data stores, communicates with database via WordPress WPDB abstraction, and returns responses through REST API or renders WordPress admin pages. Frontend uses React components that interact with Store API endpoints.",
+          "persistence": "WordPress database tables with custom WooCommerce tables, uses WordPress WPDB abstraction layer, data stores pattern for flexible persistence",
+          "concurrency_model": "PHP synchronous processing with WordPress cron for background tasks, React event-loop for frontend components",
+          "communication_patterns": "HTTP REST API, WordPress hooks and filters system, React component props and state management",
+          "plugin_extension_model": "WordPress plugin architecture with extensive hook system, allows third-party plugins to extend functionality through actions and filters, supports custom post types and taxonomies"
+        },
+        "data_model": {
+          "primary_entities": [
+            "Products with variations and attributes",
+            "Orders with line items and metadata",
+            "Customers with billing and shipping addresses",
+            "Coupons with usage rules and restrictions",
+            "Shipping zones and methods",
+            "Payment gateways and transactions",
+            "Tax rates and classes",
+            "Webhooks and subscriptions"
+          ],
+          "storage_backends": [
+            "WordPress MySQL database",
+            "WordPress options table for settings",
+            "Custom WooCommerce database tables",
+            "File system for uploads and logs"
+          ],
+          "schema_patterns": "Relational database with WordPress custom post types, meta tables for flexible attributes, custom tables for WooCommerce-specific data",
+          "migration_strategy": "WordPress database upgrade system with version tracking and automatic migrations"
+        },
+        "algorithms": {
+          "problem_type": "E-commerce transaction processing with inventory management, tax calculation, shipping cost computation, and payment processing workflows",
+          "core_patterns": [
+            "Data Store pattern for persistence abstraction",
+            "Hook/Filter pattern for extensibility",
+            "Factory pattern for payment gateways",
+            "Observer pattern for event handling",
+            "Strategy pattern for shipping methods",
+            "Template Method pattern for email notifications"
+          ],
+          "complexity_indicators": "Large codebase with 3729 PHP files and 2000+ TypeScript files, complex business logic for e-commerce operations, extensive customization capabilities",
+          "key_algorithms": [
+            "Tax calculation with multiple rate types and compound taxes",
+            "Shipping cost calculation with zone-based pricing",
+            "Inventory tracking with stock management",
+            "Price calculation with discounts and coupons",
+            "Order processing workflow with status transitions"
+          ],
+          "evidence": "plugins/woocommerce/includes/class-wc-tax.php, plugins/woocommerce/includes/class-wc-shipping.php, plugins/woocommerce/includes/class-wc-cart.php"
+        },
+        "security_model": {
+          "authentication": "WordPress native authentication system with session management",
+          "authorization": "WordPress capabilities and roles system, custom WooCommerce capabilities for store management",
+          "data_protection": "WordPress nonce system for CSRF protection, data sanitization and validation throughout",
+          "security_headers": "Relies on WordPress core security headers and practices",
+          "vulnerability_handling": "HackerOne security reporting program (SECURITY.md), regular security updates through WordPress plugin update system"
+        },
+        "dependencies": {
+          "runtime": [
+            "PHP 7.4+ platform requirement",
+            "WordPress 6.6+ core dependency",
+            "React 19.1.3",
+            "@wordpress/babel-preset-default",
+            "lodash 4.17.21"
+          ],
+          "dev": [
+            "TypeScript 5.7.x",
+            "Jest 29.5.x",
+            "Webpack 5.97.x",
+            "SASS 1.69.5",
+            "@wordpress/eslint-plugin 14.7.0",
+            "prettier wp-prettier@^2.8.5"
+          ],
+          "infrastructure": [
+            "MySQL/MariaDB database",
+            "WordPress web server environment",
+            "PHP-compatible web server (Apache/Nginx)"
+          ]
+        },
+        "deployment": {
+          "containerized": true,
+          "container_orchestration": "Docker Compose for development environment",
+          "ci_cd": "GitHub Actions workflows (implied by monorepo structure and PNPM usage)",
+          "environment_config": "WordPress configuration system, environment variables for OAuth and API keys (.env.sample files)",
+          "scaling_model": "Horizontal scaling through WordPress multisite, vertical scaling through server resources"
+        },
+        "code_quality_signals": {
+          "has_tests": true,
+          "test_framework": "Jest for JavaScript/TypeScript components, PHPUnit implied for PHP code",
+          "test_count_estimate": "2431 test files found",
+          "has_linting": true,
+          "has_type_hints": true,
+          "documentation_quality": "well-documented",
+          "code_style": "WordPress coding standards, ESLint, Prettier, SASS linting"
+        },
+        "project_health": {
+          "license": "GPL-2.0-or-later (packages/js/admin-layout/composer.json)",
+          "total_commits": "1 (recent clone)",
+          "top_contributors": "Vladimir Reznichenko (most recent contributor)",
+          "recent_activity": "Performance optimization for cart data in Store API, indicating active development on core e-commerce functionality",
+          "community_signals": "Code of conduct, security policy, comprehensive documentation, contributor guidelines, release process documentation"
+        },
+        "evidence_tracking": {
+          "files_analyzed": [
+            "README.md",
+            "package.json",
+            "docs/_docu-tools/package.json",
+            "plugins/woocommerce/client/blocks/docker-compose.yml",
+            "packages/js/admin-layout/composer.json",
+            "packages/js/components/src/ (multiple component files)",
+            "docs/apis/store-api/ (API documentation)",
+            "SECURITY.md",
+            "CODE_OF_CONDUCT.md"
+          ],
+          "confidence_level": "High",
+          "information_gaps": [
+            "Exact REST API endpoint definitions would require examining route definition files",
+            "Complete dependency list would need full composer.json and package.json analysis",
+            "Database schema details would need examination of migration files",
+            "Performance characteristics would need benchmarking data"
+          ]
+        },
         "pricing": {
           "model": "open-source",
           "free_tier": "true"
-        },
-        "target_audience": "Developers",
-        "category": "Open Source Software",
-        "deployment": "Self-hosted",
-        "underlying_algorithm": {
-          "problem_type": "",
-          "pattern": ""
-        },
-        "evidence_tracking": {
-          "confidence_level": "High",
-          "technical_facts": [
-            "Processes e-commerce transactions and order management (plugins/woocommerce/includes/class-wc-order.php)",
-            "Manages product catalogs with variations, inventory, and pricing (plugins/woocommerce/includes/class-wc-product.php)",
-            "Provides REST API endpoints for store data access (plugins/woocommerce/includes/rest-api/)",
-            "Renders checkout and cart blocks for WordPress Block Editor (plugins/woocommerce-blocks/)",
-            "Handles payment processing integrations (plugins/woocommerce/includes/gateways/)",
-            "Provides administrative dashboard for store management (packages/js/admin-layout/)",
-            "Manages customer accounts and authentication (plugins/woocommerce/includes/class-wc-customer.php)",
-            "Processes shipping calculations and methods (plugins/woocommerce/includes/shipping/)",
-            "Handles tax calculations and compliance (plugins/woocommerce/includes/class-wc-tax.php)",
-            "Provides analytics and reporting capabilities (packages/js/components/)"
-          ],
-          "information_gaps": []
-        },
-        "architecture_patterns": [
-          "monorepo",
-          "Concurrency: synchronous PHP with async JavaScript components for admin interfaces"
-        ],
-        "auth_methods": [
-          "WordPress authentication",
-          "REST API keys",
-          "OAuth"
-        ],
-        "sdk_languages": [
-          "JavaScript",
-          "TypeScript",
-          "PHP"
-        ],
-        "dependencies": [
-          "@wordpress/components",
-          "@wordpress/element",
-          "@wordpress/data",
-          "lodash",
-          "react",
-          "react-dom",
-          "Infrastructure: WordPress",
-          "Infrastructure: MySQL/MariaDB",
-          "Infrastructure: Web server (Apache/Nginx)"
-        ],
-        "deployment_options": [
-          "CI/CD: GitHub Actions (implied by repository structure)"
-        ]
+        }
       },
       "extracted_data": {},
       "source": "local_repo",
       "source_confidence": "high",
-      "timestamp": "2026-03-21T19:36:36.694087"
+      "timestamp": "2026-03-25T15:39:21.662821"
     },
     "generalization": {
       "functional_dna": {
-        "logic_archetype": "Stateful Orchestrator",
-        "logic_archetype_evidence": "Manages complex e-commerce workflows across order management (class-wc-order.php), payment processing (gateways/), shipping calculations (shipping/), tax calculations (class-wc-tax.php), and customer account management (class-wc-customer.php) with persistent state",
-        "data_contract_strictness": "Highly Structured",
-        "data_contract_evidence": "REST API endpoints (plugins/woocommerce/includes/rest-api/) and Store API endpoints (docs/apis/store-api/) with defined schemas for products, orders, customers",
+        "logic_archetype": "Plugin Host",
+        "logic_archetype_evidence": "The system implements an extensive plugin architecture with hooks, filters, and extensible components. The core provides a foundation framework while allowing third-party developers to extend functionality through standardized APIs and event systems.",
+        "data_contract_strictness": "Moderately Structured",
+        "data_contract_evidence": "Evidence: REST API endpoints with defined schemas, WordPress database schema with custom tables, but extensive use of meta tables and flexible attributes for customization. PHP type hints and TypeScript definitions provide some structure.",
         "core_algorithmic_class": "CRUD Operations",
-        "core_algorithmic_evidence": "Product catalog management (class-wc-product.php), order processing (class-wc-order.php), customer management (class-wc-customer.php) are fundamentally Create, Read, Update, Delete operations on business entities",
-        "concurrency_requirements": "ACID Compliance Required",
-        "concurrency_evidence": "E-commerce transactions require consistency for order processing, payment handling, and inventory management to prevent overselling and maintain financial accuracy",
-        "repurposing_confidence": 8,
-        "repurposing_reasoning": "High confidence due to generic business entity management patterns, standardized REST APIs, and modular architecture. Payment, shipping, tax, and inventory management are common across many business domains beyond e-commerce."
+        "core_algorithmic_evidence": "Evidence from extensive database operations (products, orders, customers), session management, inventory tracking, and state transitions. Complex business rule processing for tax calculations, shipping costs, and discount applications.",
+        "concurrency_requirements": "Eventually Consistent",
+        "concurrency_evidence": "Evidence from WordPress database architecture, session-based cart management, and background cron processing. No strict ACID requirements across all operations, allows for eventual consistency in inventory and reporting.",
+        "abstract_problem": "Manages complex hierarchical entity relationships with customizable attributes, extensible business rule processing, and third-party integration points while maintaining transactional integrity for state-changing operations.",
+        "data_flow_pattern": "Request-Response with side-effect persistence and event-driven hooks \u2192 business logic processing \u2192 database mutations \u2192 notification dispatch",
+        "state_complexity": "Entity-scoped",
+        "repurposing_confidence": 7,
+        "repurposing_reasoning": "The core patterns of extensible business logic, entity management with flexible attributes, and plugin architecture are highly reusable. The hook/filter system, data store abstraction, and modular component structure could apply to many domains. However, specific business logic like tax calculations and shipping are domain-locked. The WordPress dependency and PHP architecture create some migration friction but the underlying patterns are broadly applicable."
       },
       "evidence_claims": [
         {
-          "claim": "Implements order management workflow",
-          "evidence": "plugins/woocommerce/includes/class-wc-order.php",
+          "claim": "Implements comprehensive plugin/extension architecture",
+          "evidence": "plugins/woocommerce/includes/wc-core-functions.php contains extensive hook system, abstract classes for payment gateways and shipping methods",
           "confidence": "High"
         },
         {
-          "claim": "Provides REST API for data access",
-          "evidence": "plugins/woocommerce/includes/rest-api/",
+          "claim": "Uses data store abstraction pattern for flexible persistence",
+          "evidence": "plugins/woocommerce/includes/data-stores/ and plugins/woocommerce/includes/abstracts/abstract-wc-data.php",
           "confidence": "High"
         },
         {
-          "claim": "Built on React 18.3.x framework",
-          "evidence": "package.json dependencies",
+          "claim": "Handles complex business rule processing",
+          "evidence": "Tax calculation (class-wc-tax.php), shipping calculations (class-wc-shipping.php), coupon rules (class-wc-coupon.php)",
           "confidence": "High"
         },
         {
-          "claim": "Requires PHP 7.4+ runtime",
-          "evidence": "composer.json platform requirements",
-          "confidence": "High"
-        },
-        {
-          "claim": "Integrates with WordPress Block Editor",
-          "evidence": "plugins/woocommerce-blocks/",
-          "confidence": "High"
+          "claim": "Implements REST API with structured endpoints",
+          "evidence": "plugins/woocommerce/includes/rest-api/ directory and Store API documentation structure",
+          "confidence": "Medium"
         }
       ],
       "market_reach": {
-        "primary_industry": "E-commerce",
+        "primary_industry": "E-commerce/Retail Technology",
         "cross_industry_applications": [
-          "Inventory Management",
-          "Order Fulfillment",
-          "Customer Relationship Management",
-          "Financial Services",
-          "Subscription Services",
-          "Digital Asset Management"
+          "Healthcare Practice Management - patient records, appointment scheduling, billing rules",
+          "Real Estate Property Management - property listings, tenant management, lease processing",
+          "Educational Course Management - course catalogs, enrollment, grading systems",
+          "Event Management Platforms - event listings, ticket sales, attendee management",
+          "Professional Services Billing - client management, time tracking, invoice generation",
+          "Manufacturing Order Management - product configurations, order processing, inventory",
+          "Content Management Systems - publishable content, user permissions, workflow states",
+          "Subscription/SaaS Billing - recurring billing, plan management, usage tracking"
         ],
-        "utility_score": 9,
+        "utility_score": 8,
         "market_potential": "High"
       },
       "friction_report": {
         "difficulty": "Medium",
-        "estimated_hours": 120,
+        "estimated_hours": 240,
         "required_technologies": [
-          "WordPress Core (infrastructure dependency)",
-          "PHP 7.4+ (composer.json)",
-          "React 18.3.x (package.json)",
-          "TypeScript 5.7.x (package.json)"
+          "PHP 7.4+",
+          "MySQL/MariaDB",
+          "WordPress core",
+          "React",
+          "TypeScript",
+          "Docker"
         ],
         "complexity_factors": [
-          "WordPress plugin architecture dependency",
-          "Monorepo structure with multiple packages",
-          "Complex state management across PHP and JavaScript layers"
+          "WordPress core dependency creates platform lock-in",
+          "Extensive hook system requires understanding WordPress patterns",
+          "Complex database schema with custom tables and meta relationships",
+          "Large codebase with 3729 PHP files requiring selective extraction"
         ],
-        "risk_level": "Medium"
+        "risk_level": "Medium",
+        "migration_path": "Extract core data store patterns and business logic processors, reimplement hook system in target framework, migrate database schema design patterns, rebuild REST API layer"
       },
       "interface_map": {
         "adapter_schema": {
           "input": {
-            "format": "JSON",
+            "format": "HTTP REST + Form submissions",
             "required_fields": [
-              "REST API endpoints for products, orders, customers"
+              "authentication_token",
+              "entity_data",
+              "operation_type"
+            ],
+            "protocols": [
+              "HTTP REST",
+              "WordPress Admin Interface",
+              "CLI"
             ]
           },
           "output": {
-            "format": "JSON"
+            "format": "JSON responses + HTML pages",
+            "delivery": "sync for API, async for webhooks and email notifications"
           },
           "authentication": {
-            "type": "Multiple",
-            "method": "WordPress authentication, REST API keys, OAuth"
+            "type": "session-based + API keys",
+            "method": "WordPress native authentication with REST API token support"
           }
         },
-        "standardization_level": "High"
+        "standardization_level": "Medium",
+        "api_surface_area": "Large (50+)"
       },
+      "comparable_systems": [
+        "Drupal Commerce - CMS-based extensible business platform with plugin architecture",
+        "SugarCRM - Customer relationship management with customizable entities and workflows",
+        "Moodle Learning Management System - Educational platform with extensive plugin ecosystem",
+        "JIRA/Atlassian Platform - Issue tracking with customizable workflows and third-party integrations",
+        "Salesforce Platform - Business application platform with custom objects and apex extensions"
+      ],
       "information_gaps": [
-        "Database schema details",
-        "Performance benchmarks",
-        "Scaling limitations",
-        "Security implementation details",
-        "Plugin extension mechanisms"
+        "Exact REST API endpoint definitions and request/response schemas",
+        "Complete database schema with all custom tables and relationships",
+        "Performance characteristics and scaling limitations",
+        "Specific webhook event types and payload structures",
+        "Internal caching strategies and optimization techniques"
       ]
     },
-    "timestamp": "2026-03-21T19:36:50.796882"
+    "timestamp": "2026-03-25T15:39:50.880880"
   },
   "errors": []
 }

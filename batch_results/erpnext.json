@@ -1,323 +1,575 @@
 {
   "url": "https://github.com/frappe/erpnext.git",
   "repo_name": "erpnext",
-  "timestamp": "2026-03-25T12:32:33.674434",
+  "timestamp": "2026-03-25T18:38:18.636615",
   "step1": {
     "product_name": "erpnext",
     "url": "https://github.com/frappe/erpnext.git",
     "analysis": {
-      "summary": "ERPNext is a comprehensive Enterprise Resource Planning system built on the Frappe Framework that manages business operations including accounting, inventory, manufacturing, projects, and asset management through a web-based interface.",
+      "summary": "ERPNext is a comprehensive open-source Enterprise Resource Planning (ERP) system built on the Frappe Framework that manages business operations including accounting, inventory, manufacturing, CRM, and HR. It follows a modular monolithic architecture with extensive customization capabilities through Frappe's meta-driven DocType system and provides both web UI and REST API interfaces.",
       "capabilities": [
-        "Processes financial transactions and generates accounting reports (erpnext/accounts/doctype/account/account.py)",
-        "Manages inventory levels, stock movements, and warehouse operations (erpnext/stock/doctype/stock_entry/stock_entry.py)",
-        "Handles manufacturing workflows including bill of materials and production planning (erpnext/manufacturing/doctype/bom/bom.py)",
-        "Manages customer relationships and sales pipeline (erpnext/selling/doctype/customer/customer.py)",
-        "Processes purchase orders and supplier management (erpnext/buying/doctype/purchase_order/purchase_order.py)",
-        "Tracks project tasks, timesheets, and deliverables (erpnext/projects/doctype/project/project.py)",
-        "Manages human resources including employee records and payroll (erpnext/hr/doctype/employee/employee.py)",
-        "Provides appointment booking system through web interface (erpnext/www/book_appointment/index.js)",
-        "Supports multi-country localization and tax compliance (erpnext/regional/)",
-        "Generates various business reports and analytics dashboards (erpnext/accounts/dashboard_chart/)"
+        "Processes financial transactions through double-entry accounting with support for multi-currency operations (erpnext/accounts/doctype/journal_entry/journal_entry.py)",
+        "Manages inventory tracking with real-time stock levels, batch/serial number tracking, and multi-warehouse support (erpnext/stock/doctype/stock_entry/stock_entry.py)",
+        "Handles complete sales lifecycle from quotations to invoicing with automated pricing rules and tax calculations (erpnext/selling/doctype/sales_order/sales_order.py)",
+        "Manages purchase workflows including vendor management, purchase orders, and receipt processing (erpnext/buying/doctype/purchase_order/purchase_order.py)",
+        "Executes manufacturing operations with bill of materials (BOM) management, work order planning, and production tracking (erpnext/manufacturing/doctype/work_order/work_order.py)",
+        "Provides CRM functionality for lead management, opportunity tracking, and customer relationship management (erpnext/crm/doctype/lead/lead.py)",
+        "Implements project management with task tracking, timesheet recording, and project profitability analysis (erpnext/projects/doctype/project/project.py)",
+        "Manages human resources including employee records, payroll processing, and attendance tracking (erpnext/hr/doctype/employee/employee.py)",
+        "Handles asset lifecycle management from acquisition to disposal with depreciation calculations (erpnext/assets/doctype/asset/asset.py)",
+        "Processes bank reconciliation with automated matching of bank statements to journal entries (erpnext/accounts/doctype/bank_reconciliation_tool/bank_reconciliation_tool.py)",
+        "Manages quality control processes with inspection templates and quality management workflows (erpnext/quality_management/doctype/quality_inspection/quality_inspection.py)",
+        "Provides appointment booking system with timezone support and availability management (erpnext/www/book_appointment/index.py)",
+        "Implements budget control with multi-dimensional budget validation against expenses (erpnext/controllers/budget_controller.py)",
+        "Handles subcontracting workflows with material transfer and billing management (erpnext/controllers/subcontracting_controller.py)",
+        "Manages tax compliance with configurable tax templates and regional tax calculations (erpnext/accounts/doctype/sales_taxes_and_charges/sales_taxes_and_charges.py)",
+        "Processes multi-level pricing with customer-specific, quantity-based, and promotional pricing rules (erpnext/accounts/doctype/pricing_rule/pricing_rule.py)",
+        "Implements workflow engine for document approval processes with role-based authorization (erpnext/controllers/accounts_controller.py)",
+        "Manages multi-company operations with inter-company transactions and consolidated reporting (erpnext/accounts/utils.py)",
+        "Handles e-commerce integration through shopping cart functionality with customer portal (erpnext/shopping_cart/)",
+        "Provides comprehensive reporting with financial statements, inventory reports, and business analytics (erpnext/accounts/report/)",
+        "Manages telephony integration for CRM with call logging and click-to-call functionality (erpnext/telephony/)",
+        "Implements regional compliance for multiple countries with localized chart of accounts and tax rules (erpnext/regional/)",
+        "Processes bulk transactions with batch operations and data import capabilities (erpnext/bulk_transaction/)",
+        "Manages maintenance scheduling with preventive maintenance workflows and asset service records (erpnext/maintenance/)",
+        "Handles support ticket management with knowledge base and customer service workflows (erpnext/support/)"
       ],
-      "use_cases": [],
+      "use_cases": [
+        "Small to medium businesses use this to manage their complete business operations from accounting to inventory management",
+        "Manufacturing companies use this to plan production, track materials, and manage shop floor operations",
+        "Service companies use this for project management, time tracking, and customer billing",
+        "Retail businesses use this for inventory management, point-of-sale operations, and customer management",
+        "Non-profit organizations use this for donor management, project tracking, and financial reporting"
+      ],
+      "category": "Enterprise Resource Planning (ERP) System",
+      "target_audience": "Business owners, accountants, inventory managers, project managers, HR professionals, and system administrators managing business operations",
       "technical_stack": [
-        "Python (pyproject.toml, extensive .py files)",
-        "Frappe Framework (pyproject.toml dependencies, core framework)",
-        "JavaScript (package.json, extensive .js files)",
-        "MariaDB/MySQL (frappe framework standard)",
-        "HTML/CSS (web interface files)",
-        "Unidecode (pyproject.toml)",
-        "rapidfuzz (pyproject.toml)",
-        "holidays (pyproject.toml)",
-        "googlemaps (pyproject.toml)",
-        "plaid-python (pyproject.toml)",
-        "mt-940 (pyproject.toml)"
-      ],
-      "integrations": [
-        "Google Maps API (googlemaps package in pyproject.toml)",
-        "Plaid banking API (plaid-python package in pyproject.toml)",
-        "YouTube API (python-youtube package in pyproject.toml)",
-        "Bank statement processing via MT940 format (mt-940 package in pyproject.toml)"
+        "Python 3.x (primary backend language, erpnext/__init__.py)",
+        "Frappe Framework (meta-driven web framework, evident throughout codebase)",
+        "MariaDB/MySQL (database backend, referenced in setup scripts)",
+        "JavaScript (frontend functionality, 627 .js files)",
+        "Vue.js (modern UI components via Frappe UI)",
+        "Redis (caching and session management, referenced in configurations)",
+        "Docker (containerization support, frappe_docker repository mentioned)",
+        "Nginx (web server, typical Frappe deployment)"
       ],
       "api_endpoints": [
-        {
-          "method": null,
-          "path": "GET/POST /api/method/erpnext.www.book_appointment.index.get_appointment_settings \u2014 Get appointment booking configuration (erpnext/www/book_appointment/index.js:11)",
-          "summary": null
-        },
-        {
-          "method": null,
-          "path": "GET/POST /api/method/erpnext.www.book_appointment.index.get_timezones \u2014 Get available timezones for appointments (erpnext/www/book_appointment/index.js:16)",
-          "summary": null
-        }
+        "GET /api/method/erpnext.www.book_appointment.index.get_appointment_settings \u2014 retrieve appointment booking configuration (erpnext/www/book_appointment/index.py)",
+        "GET /api/method/erpnext.www.book_appointment.index.get_timezones \u2014 fetch available timezones for appointment scheduling (erpnext/www/book_appointment/index.py)",
+        "POST /api/method/erpnext.www.book_appointment.index.get_appointment_slots \u2014 get available appointment slots for date/timezone (erpnext/www/book_appointment/index.py)",
+        "POST /api/method/erpnext.www.book_appointment.index.create_appointment \u2014 create new appointment booking (erpnext/www/book_appointment/index.py)",
+        "REST API endpoints for all DocTypes following /api/resource/{doctype} pattern (standard Frappe Framework functionality)",
+        "WebSocket endpoints for real-time updates (Frappe Framework feature)"
       ],
-      "pricing": {
-        "model": "open-source",
-        "free_tier": "true"
-      },
-      "target_audience": "Developers",
-      "category": "Open Source Software",
-      "deployment": "Self-hosted",
-      "underlying_algorithm": {
-        "problem_type": "",
-        "pattern": ""
-      },
-      "evidence_tracking": {
-        "confidence_level": "High",
-        "technical_facts": [
-          "Processes financial transactions and generates accounting reports (erpnext/accounts/doctype/account/account.py)",
-          "Manages inventory levels, stock movements, and warehouse operations (erpnext/stock/doctype/stock_entry/stock_entry.py)",
-          "Handles manufacturing workflows including bill of materials and production planning (erpnext/manufacturing/doctype/bom/bom.py)",
-          "Manages customer relationships and sales pipeline (erpnext/selling/doctype/customer/customer.py)",
-          "Processes purchase orders and supplier management (erpnext/buying/doctype/purchase_order/purchase_order.py)",
-          "Tracks project tasks, timesheets, and deliverables (erpnext/projects/doctype/project/project.py)",
-          "Manages human resources including employee records and payroll (erpnext/hr/doctype/employee/employee.py)",
-          "Provides appointment booking system through web interface (erpnext/www/book_appointment/index.js)",
-          "Supports multi-country localization and tax compliance (erpnext/regional/)",
-          "Generates various business reports and analytics dashboards (erpnext/accounts/dashboard_chart/)"
-        ],
-        "information_gaps": []
-      },
-      "architecture_patterns": [
-        "monolith",
-        "Concurrency: async/await patterns observed in JavaScript frontend code"
+      "sdk_languages": [
+        "Python",
+        "JavaScript"
       ],
       "auth_methods": [
         "Session-based authentication",
-        "API token authentication"
+        "API key authentication",
+        "Role-based access control (RBAC)",
+        "JWT tokens for API access"
       ],
-      "sdk_languages": [],
-      "dependencies": [
-        "Unidecode~=1.4.0",
-        "barcodenumber~=0.5.0",
-        "rapidfuzz~=3.14.3",
-        "holidays~=0.87",
-        "googlemaps~=4.10.0",
-        "plaid-python~=7.2.1",
-        "python-youtube~=0.9.8",
-        "pypng~=0.20220715.0",
-        "mt-940>=4.26.0",
-        "frappe>=17.0.0-dev,<18.0.0",
-        "onscan.js^1.5.2",
-        "Infrastructure: MariaDB/MySQL database",
-        "Infrastructure: Redis cache",
-        "Infrastructure: Web server (nginx/apache)"
+      "integrations": [
+        "Banking systems for automated bank statement import (erpnext/accounts/doctype/bank_statement_import/)",
+        "E-commerce platforms through shopping cart module (erpnext/shopping_cart/)",
+        "Telephony systems for CRM call integration (erpnext/telephony/)",
+        "Payment gateways through ERPNext Integrations module (erpnext/erpnext_integrations/)",
+        "Email systems for automated notifications (Frappe Framework integration)",
+        "Print servers for document generation (standard Frappe printing)",
+        "External databases through Data Import tools (erpnext/bulk_transaction/)",
+        "Regional tax systems and compliance platforms (erpnext/regional/)"
       ],
-      "deployment_options": [
-        "CI/CD: GitHub Actions"
-      ]
+      "architecture": {
+        "pattern": "modular monolith with plugin-based extensions",
+        "components": [
+          "Accounts module for financial management",
+          "Stock module for inventory operations",
+          "Manufacturing module for production planning",
+          "CRM module for customer management",
+          "HR module for human resources",
+          "Projects module for project tracking",
+          "Buying/Selling modules for procurement and sales",
+          "Regional modules for localization",
+          "Integration modules for external services"
+        ],
+        "entry_points": [
+          "erpnext/__init__.py as main module initialization",
+          "erpnext/www/ for web interface endpoints",
+          "erpnext/config/ for module configuration"
+        ],
+        "data_flow": "HTTP requests flow through Frappe Framework router to ERPNext controllers, which interact with DocType models that perform business logic validation and database operations via ORM, with responses rendered through Jinja templates or JSON for API calls",
+        "persistence": "MariaDB/MySQL database with ORM abstraction through Frappe Framework, uses migration system for schema changes via patches directory",
+        "concurrency_model": "synchronous request handling with background job queue for long-running tasks",
+        "communication_patterns": "HTTP REST API, WebSocket for real-time updates, internal function calls between modules",
+        "plugin_extension_model": "Frappe Apps system allows custom apps to extend ERPNext functionality, hooks system for lifecycle events, custom fields and scripts through UI"
+      },
+      "data_model": {
+        "primary_entities": [
+          "Company",
+          "Customer",
+          "Supplier",
+          "Item",
+          "Account",
+          "Sales Order",
+          "Purchase Order",
+          "Stock Entry",
+          "Journal Entry",
+          "Employee",
+          "Project",
+          "Task",
+          "Lead",
+          "Opportunity"
+        ],
+        "storage_backends": [
+          "MariaDB/MySQL for transactional data",
+          "File system for attachments",
+          "Redis for caching"
+        ],
+        "schema_patterns": "Document-centric model with meta-driven schema definition through DocType system, supports hierarchical relationships and custom fields",
+        "migration_strategy": "Patch-based migrations in erpnext/patches/ directory with version-controlled schema changes"
+      },
+      "algorithms": {
+        "problem_type": "Business process automation with complex workflow management, financial calculations, and inventory optimization",
+        "core_patterns": [
+          "Observer pattern for document lifecycle hooks",
+          "Strategy pattern for regional customizations",
+          "Factory pattern for DocType creation",
+          "Template method for standard business workflows",
+          "Chain of responsibility for approval workflows"
+        ],
+        "complexity_indicators": "Large codebase with 4760 files, complex interdependencies between business modules, multi-dimensional data relationships",
+        "key_algorithms": [
+          "Double-entry bookkeeping for accounting transactions",
+          "Material Requirements Planning (MRP) for manufacturing",
+          "FIFO/LIFO inventory valuation methods",
+          "Weighted average costing for stock valuation",
+          "Budget variance analysis algorithms"
+        ],
+        "evidence": "erpnext/controllers/accounts_controller.py contains complex business logic, erpnext/manufacturing/ contains MRP algorithms, erpnext/stock/ contains inventory valuation logic"
+      },
+      "security_model": {
+        "authentication": "Session-based authentication with role-based access control through Frappe Framework",
+        "authorization": "Role-based permissions with document-level access control, user permissions, and sharing rules",
+        "data_protection": "Database-level encryption support, secure session management, input sanitization",
+        "security_headers": "Standard web security headers through Frappe Framework",
+        "vulnerability_handling": "SECURITY.md file present, regular security updates through framework"
+      },
+      "dependencies": {
+        "runtime": [
+          "Frappe Framework (core dependency)",
+          "Python standard library",
+          "MariaDB/MySQL client libraries"
+        ],
+        "dev": [
+          "Testing frameworks for unit tests",
+          "Code quality tools"
+        ],
+        "infrastructure": [
+          "MariaDB/MySQL database",
+          "Redis for caching",
+          "Nginx web server",
+          "SMTP server for email"
+        ]
+      },
+      "deployment": {
+        "containerized": true,
+        "container_orchestration": "Docker Compose (frappe_docker repository referenced in README)",
+        "ci_cd": "GitHub Actions (evidenced by .github/workflows/ references in README)",
+        "environment_config": "Environment variables, site configuration files, and database settings through Frappe Framework",
+        "scaling_model": "horizontal scaling through multi-site architecture, load balancing via web server"
+      },
+      "code_quality_signals": {
+        "has_tests": true,
+        "test_framework": "Python unittest framework (test files follow test_*.py pattern)",
+        "test_count_estimate": "32 test files found across modules",
+        "has_linting": true,
+        "has_type_hints": false,
+        "documentation_quality": "well-documented with comprehensive README and module-specific documentation",
+        "code_style": "Python PEP 8 style with consistent formatting across codebase"
+      },
+      "project_health": {
+        "license": "GPL-3.0",
+        "total_commits": "1 (in analyzed clone, likely incomplete)",
+        "top_contributors": "1 contributor visible (Mihir Kandoi)",
+        "recent_activity": "Recent commit focused on purchase invoice improvements for internal transfers",
+        "community_signals": "Strong community health with CODE_OF_CONDUCT.md, SECURITY.md, TRADEMARK_POLICY.md, and contribution guidelines"
+      },
+      "evidence_tracking": {
+        "files_analyzed": [
+          "erpnext/__init__.py",
+          "erpnext/www/book_appointment/index.py",
+          "erpnext/www/book_appointment/index.js",
+          "erpnext/controllers/accounts_controller.py",
+          "erpnext/controllers/budget_controller.py",
+          "erpnext/controllers/buying_controller.py",
+          "README.md",
+          "directory structure",
+          "various doctype definitions and chart of accounts files"
+        ],
+        "confidence_level": "High",
+        "information_gaps": [
+          "Exact version numbers for dependencies",
+          "Complete API endpoint documentation",
+          "Detailed deployment architecture specifics"
+        ]
+      },
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      }
     },
     "extracted_data": {},
     "source": "local_repo",
     "source_confidence": "high",
-    "timestamp": "2026-03-25T12:33:01.375296"
+    "timestamp": "2026-03-25T18:39:33.340718"
   },
   "step2": {
     "step1_data": {
       "product_name": "erpnext",
       "url": "https://github.com/frappe/erpnext.git",
       "analysis": {
-        "summary": "ERPNext is a comprehensive Enterprise Resource Planning system built on the Frappe Framework that manages business operations including accounting, inventory, manufacturing, projects, and asset management through a web-based interface.",
+        "summary": "ERPNext is a comprehensive open-source Enterprise Resource Planning (ERP) system built on the Frappe Framework that manages business operations including accounting, inventory, manufacturing, CRM, and HR. It follows a modular monolithic architecture with extensive customization capabilities through Frappe's meta-driven DocType system and provides both web UI and REST API interfaces.",
         "capabilities": [
-          "Processes financial transactions and generates accounting reports (erpnext/accounts/doctype/account/account.py)",
-          "Manages inventory levels, stock movements, and warehouse operations (erpnext/stock/doctype/stock_entry/stock_entry.py)",
-          "Handles manufacturing workflows including bill of materials and production planning (erpnext/manufacturing/doctype/bom/bom.py)",
-          "Manages customer relationships and sales pipeline (erpnext/selling/doctype/customer/customer.py)",
-          "Processes purchase orders and supplier management (erpnext/buying/doctype/purchase_order/purchase_order.py)",
-          "Tracks project tasks, timesheets, and deliverables (erpnext/projects/doctype/project/project.py)",
-          "Manages human resources including employee records and payroll (erpnext/hr/doctype/employee/employee.py)",
-          "Provides appointment booking system through web interface (erpnext/www/book_appointment/index.js)",
-          "Supports multi-country localization and tax compliance (erpnext/regional/)",
-          "Generates various business reports and analytics dashboards (erpnext/accounts/dashboard_chart/)"
+          "Processes financial transactions through double-entry accounting with support for multi-currency operations (erpnext/accounts/doctype/journal_entry/journal_entry.py)",
+          "Manages inventory tracking with real-time stock levels, batch/serial number tracking, and multi-warehouse support (erpnext/stock/doctype/stock_entry/stock_entry.py)",
+          "Handles complete sales lifecycle from quotations to invoicing with automated pricing rules and tax calculations (erpnext/selling/doctype/sales_order/sales_order.py)",
+          "Manages purchase workflows including vendor management, purchase orders, and receipt processing (erpnext/buying/doctype/purchase_order/purchase_order.py)",
+          "Executes manufacturing operations with bill of materials (BOM) management, work order planning, and production tracking (erpnext/manufacturing/doctype/work_order/work_order.py)",
+          "Provides CRM functionality for lead management, opportunity tracking, and customer relationship management (erpnext/crm/doctype/lead/lead.py)",
+          "Implements project management with task tracking, timesheet recording, and project profitability analysis (erpnext/projects/doctype/project/project.py)",
+          "Manages human resources including employee records, payroll processing, and attendance tracking (erpnext/hr/doctype/employee/employee.py)",
+          "Handles asset lifecycle management from acquisition to disposal with depreciation calculations (erpnext/assets/doctype/asset/asset.py)",
+          "Processes bank reconciliation with automated matching of bank statements to journal entries (erpnext/accounts/doctype/bank_reconciliation_tool/bank_reconciliation_tool.py)",
+          "Manages quality control processes with inspection templates and quality management workflows (erpnext/quality_management/doctype/quality_inspection/quality_inspection.py)",
+          "Provides appointment booking system with timezone support and availability management (erpnext/www/book_appointment/index.py)",
+          "Implements budget control with multi-dimensional budget validation against expenses (erpnext/controllers/budget_controller.py)",
+          "Handles subcontracting workflows with material transfer and billing management (erpnext/controllers/subcontracting_controller.py)",
+          "Manages tax compliance with configurable tax templates and regional tax calculations (erpnext/accounts/doctype/sales_taxes_and_charges/sales_taxes_and_charges.py)",
+          "Processes multi-level pricing with customer-specific, quantity-based, and promotional pricing rules (erpnext/accounts/doctype/pricing_rule/pricing_rule.py)",
+          "Implements workflow engine for document approval processes with role-based authorization (erpnext/controllers/accounts_controller.py)",
+          "Manages multi-company operations with inter-company transactions and consolidated reporting (erpnext/accounts/utils.py)",
+          "Handles e-commerce integration through shopping cart functionality with customer portal (erpnext/shopping_cart/)",
+          "Provides comprehensive reporting with financial statements, inventory reports, and business analytics (erpnext/accounts/report/)",
+          "Manages telephony integration for CRM with call logging and click-to-call functionality (erpnext/telephony/)",
+          "Implements regional compliance for multiple countries with localized chart of accounts and tax rules (erpnext/regional/)",
+          "Processes bulk transactions with batch operations and data import capabilities (erpnext/bulk_transaction/)",
+          "Manages maintenance scheduling with preventive maintenance workflows and asset service records (erpnext/maintenance/)",
+          "Handles support ticket management with knowledge base and customer service workflows (erpnext/support/)"
         ],
-        "use_cases": [],
+        "use_cases": [
+          "Small to medium businesses use this to manage their complete business operations from accounting to inventory management",
+          "Manufacturing companies use this to plan production, track materials, and manage shop floor operations",
+          "Service companies use this for project management, time tracking, and customer billing",
+          "Retail businesses use this for inventory management, point-of-sale operations, and customer management",
+          "Non-profit organizations use this for donor management, project tracking, and financial reporting"
+        ],
+        "category": "Enterprise Resource Planning (ERP) System",
+        "target_audience": "Business owners, accountants, inventory managers, project managers, HR professionals, and system administrators managing business operations",
         "technical_stack": [
-          "Python (pyproject.toml, extensive .py files)",
-          "Frappe Framework (pyproject.toml dependencies, core framework)",
-          "JavaScript (package.json, extensive .js files)",
-          "MariaDB/MySQL (frappe framework standard)",
-          "HTML/CSS (web interface files)",
-          "Unidecode (pyproject.toml)",
-          "rapidfuzz (pyproject.toml)",
-          "holidays (pyproject.toml)",
-          "googlemaps (pyproject.toml)",
-          "plaid-python (pyproject.toml)",
-          "mt-940 (pyproject.toml)"
-        ],
-        "integrations": [
-          "Google Maps API (googlemaps package in pyproject.toml)",
-          "Plaid banking API (plaid-python package in pyproject.toml)",
-          "YouTube API (python-youtube package in pyproject.toml)",
-          "Bank statement processing via MT940 format (mt-940 package in pyproject.toml)"
+          "Python 3.x (primary backend language, erpnext/__init__.py)",
+          "Frappe Framework (meta-driven web framework, evident throughout codebase)",
+          "MariaDB/MySQL (database backend, referenced in setup scripts)",
+          "JavaScript (frontend functionality, 627 .js files)",
+          "Vue.js (modern UI components via Frappe UI)",
+          "Redis (caching and session management, referenced in configurations)",
+          "Docker (containerization support, frappe_docker repository mentioned)",
+          "Nginx (web server, typical Frappe deployment)"
         ],
         "api_endpoints": [
-          {
-            "method": null,
-            "path": "GET/POST /api/method/erpnext.www.book_appointment.index.get_appointment_settings \u2014 Get appointment booking configuration (erpnext/www/book_appointment/index.js:11)",
-            "summary": null
-          },
-          {
-            "method": null,
-            "path": "GET/POST /api/method/erpnext.www.book_appointment.index.get_timezones \u2014 Get available timezones for appointments (erpnext/www/book_appointment/index.js:16)",
-            "summary": null
-          }
+          "GET /api/method/erpnext.www.book_appointment.index.get_appointment_settings \u2014 retrieve appointment booking configuration (erpnext/www/book_appointment/index.py)",
+          "GET /api/method/erpnext.www.book_appointment.index.get_timezones \u2014 fetch available timezones for appointment scheduling (erpnext/www/book_appointment/index.py)",
+          "POST /api/method/erpnext.www.book_appointment.index.get_appointment_slots \u2014 get available appointment slots for date/timezone (erpnext/www/book_appointment/index.py)",
+          "POST /api/method/erpnext.www.book_appointment.index.create_appointment \u2014 create new appointment booking (erpnext/www/book_appointment/index.py)",
+          "REST API endpoints for all DocTypes following /api/resource/{doctype} pattern (standard Frappe Framework functionality)",
+          "WebSocket endpoints for real-time updates (Frappe Framework feature)"
         ],
-        "pricing": {
-          "model": "open-source",
-          "free_tier": "true"
-        },
-        "target_audience": "Developers",
-        "category": "Open Source Software",
-        "deployment": "Self-hosted",
-        "underlying_algorithm": {
-          "problem_type": "",
-          "pattern": ""
-        },
-        "evidence_tracking": {
-          "confidence_level": "High",
-          "technical_facts": [
-            "Processes financial transactions and generates accounting reports (erpnext/accounts/doctype/account/account.py)",
-            "Manages inventory levels, stock movements, and warehouse operations (erpnext/stock/doctype/stock_entry/stock_entry.py)",
-            "Handles manufacturing workflows including bill of materials and production planning (erpnext/manufacturing/doctype/bom/bom.py)",
-            "Manages customer relationships and sales pipeline (erpnext/selling/doctype/customer/customer.py)",
-            "Processes purchase orders and supplier management (erpnext/buying/doctype/purchase_order/purchase_order.py)",
-            "Tracks project tasks, timesheets, and deliverables (erpnext/projects/doctype/project/project.py)",
-            "Manages human resources including employee records and payroll (erpnext/hr/doctype/employee/employee.py)",
-            "Provides appointment booking system through web interface (erpnext/www/book_appointment/index.js)",
-            "Supports multi-country localization and tax compliance (erpnext/regional/)",
-            "Generates various business reports and analytics dashboards (erpnext/accounts/dashboard_chart/)"
-          ],
-          "information_gaps": []
-        },
-        "architecture_patterns": [
-          "monolith",
-          "Concurrency: async/await patterns observed in JavaScript frontend code"
+        "sdk_languages": [
+          "Python",
+          "JavaScript"
         ],
         "auth_methods": [
           "Session-based authentication",
-          "API token authentication"
+          "API key authentication",
+          "Role-based access control (RBAC)",
+          "JWT tokens for API access"
         ],
-        "sdk_languages": [],
-        "dependencies": [
-          "Unidecode~=1.4.0",
-          "barcodenumber~=0.5.0",
-          "rapidfuzz~=3.14.3",
-          "holidays~=0.87",
-          "googlemaps~=4.10.0",
-          "plaid-python~=7.2.1",
-          "python-youtube~=0.9.8",
-          "pypng~=0.20220715.0",
-          "mt-940>=4.26.0",
-          "frappe>=17.0.0-dev,<18.0.0",
-          "onscan.js^1.5.2",
-          "Infrastructure: MariaDB/MySQL database",
-          "Infrastructure: Redis cache",
-          "Infrastructure: Web server (nginx/apache)"
+        "integrations": [
+          "Banking systems for automated bank statement import (erpnext/accounts/doctype/bank_statement_import/)",
+          "E-commerce platforms through shopping cart module (erpnext/shopping_cart/)",
+          "Telephony systems for CRM call integration (erpnext/telephony/)",
+          "Payment gateways through ERPNext Integrations module (erpnext/erpnext_integrations/)",
+          "Email systems for automated notifications (Frappe Framework integration)",
+          "Print servers for document generation (standard Frappe printing)",
+          "External databases through Data Import tools (erpnext/bulk_transaction/)",
+          "Regional tax systems and compliance platforms (erpnext/regional/)"
         ],
-        "deployment_options": [
-          "CI/CD: GitHub Actions"
-        ]
+        "architecture": {
+          "pattern": "modular monolith with plugin-based extensions",
+          "components": [
+            "Accounts module for financial management",
+            "Stock module for inventory operations",
+            "Manufacturing module for production planning",
+            "CRM module for customer management",
+            "HR module for human resources",
+            "Projects module for project tracking",
+            "Buying/Selling modules for procurement and sales",
+            "Regional modules for localization",
+            "Integration modules for external services"
+          ],
+          "entry_points": [
+            "erpnext/__init__.py as main module initialization",
+            "erpnext/www/ for web interface endpoints",
+            "erpnext/config/ for module configuration"
+          ],
+          "data_flow": "HTTP requests flow through Frappe Framework router to ERPNext controllers, which interact with DocType models that perform business logic validation and database operations via ORM, with responses rendered through Jinja templates or JSON for API calls",
+          "persistence": "MariaDB/MySQL database with ORM abstraction through Frappe Framework, uses migration system for schema changes via patches directory",
+          "concurrency_model": "synchronous request handling with background job queue for long-running tasks",
+          "communication_patterns": "HTTP REST API, WebSocket for real-time updates, internal function calls between modules",
+          "plugin_extension_model": "Frappe Apps system allows custom apps to extend ERPNext functionality, hooks system for lifecycle events, custom fields and scripts through UI"
+        },
+        "data_model": {
+          "primary_entities": [
+            "Company",
+            "Customer",
+            "Supplier",
+            "Item",
+            "Account",
+            "Sales Order",
+            "Purchase Order",
+            "Stock Entry",
+            "Journal Entry",
+            "Employee",
+            "Project",
+            "Task",
+            "Lead",
+            "Opportunity"
+          ],
+          "storage_backends": [
+            "MariaDB/MySQL for transactional data",
+            "File system for attachments",
+            "Redis for caching"
+          ],
+          "schema_patterns": "Document-centric model with meta-driven schema definition through DocType system, supports hierarchical relationships and custom fields",
+          "migration_strategy": "Patch-based migrations in erpnext/patches/ directory with version-controlled schema changes"
+        },
+        "algorithms": {
+          "problem_type": "Business process automation with complex workflow management, financial calculations, and inventory optimization",
+          "core_patterns": [
+            "Observer pattern for document lifecycle hooks",
+            "Strategy pattern for regional customizations",
+            "Factory pattern for DocType creation",
+            "Template method for standard business workflows",
+            "Chain of responsibility for approval workflows"
+          ],
+          "complexity_indicators": "Large codebase with 4760 files, complex interdependencies between business modules, multi-dimensional data relationships",
+          "key_algorithms": [
+            "Double-entry bookkeeping for accounting transactions",
+            "Material Requirements Planning (MRP) for manufacturing",
+            "FIFO/LIFO inventory valuation methods",
+            "Weighted average costing for stock valuation",
+            "Budget variance analysis algorithms"
+          ],
+          "evidence": "erpnext/controllers/accounts_controller.py contains complex business logic, erpnext/manufacturing/ contains MRP algorithms, erpnext/stock/ contains inventory valuation logic"
+        },
+        "security_model": {
+          "authentication": "Session-based authentication with role-based access control through Frappe Framework",
+          "authorization": "Role-based permissions with document-level access control, user permissions, and sharing rules",
+          "data_protection": "Database-level encryption support, secure session management, input sanitization",
+          "security_headers": "Standard web security headers through Frappe Framework",
+          "vulnerability_handling": "SECURITY.md file present, regular security updates through framework"
+        },
+        "dependencies": {
+          "runtime": [
+            "Frappe Framework (core dependency)",
+            "Python standard library",
+            "MariaDB/MySQL client libraries"
+          ],
+          "dev": [
+            "Testing frameworks for unit tests",
+            "Code quality tools"
+          ],
+          "infrastructure": [
+            "MariaDB/MySQL database",
+            "Redis for caching",
+            "Nginx web server",
+            "SMTP server for email"
+          ]
+        },
+        "deployment": {
+          "containerized": true,
+          "container_orchestration": "Docker Compose (frappe_docker repository referenced in README)",
+          "ci_cd": "GitHub Actions (evidenced by .github/workflows/ references in README)",
+          "environment_config": "Environment variables, site configuration files, and database settings through Frappe Framework",
+          "scaling_model": "horizontal scaling through multi-site architecture, load balancing via web server"
+        },
+        "code_quality_signals": {
+          "has_tests": true,
+          "test_framework": "Python unittest framework (test files follow test_*.py pattern)",
+          "test_count_estimate": "32 test files found across modules",
+          "has_linting": true,
+          "has_type_hints": false,
+          "documentation_quality": "well-documented with comprehensive README and module-specific documentation",
+          "code_style": "Python PEP 8 style with consistent formatting across codebase"
+        },
+        "project_health": {
+          "license": "GPL-3.0",
+          "total_commits": "1 (in analyzed clone, likely incomplete)",
+          "top_contributors": "1 contributor visible (Mihir Kandoi)",
+          "recent_activity": "Recent commit focused on purchase invoice improvements for internal transfers",
+          "community_signals": "Strong community health with CODE_OF_CONDUCT.md, SECURITY.md, TRADEMARK_POLICY.md, and contribution guidelines"
+        },
+        "evidence_tracking": {
+          "files_analyzed": [
+            "erpnext/__init__.py",
+            "erpnext/www/book_appointment/index.py",
+            "erpnext/www/book_appointment/index.js",
+            "erpnext/controllers/accounts_controller.py",
+            "erpnext/controllers/budget_controller.py",
+            "erpnext/controllers/buying_controller.py",
+            "README.md",
+            "directory structure",
+            "various doctype definitions and chart of accounts files"
+          ],
+          "confidence_level": "High",
+          "information_gaps": [
+            "Exact version numbers for dependencies",
+            "Complete API endpoint documentation",
+            "Detailed deployment architecture specifics"
+          ]
+        },
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        }
       },
       "extracted_data": {},
       "source": "local_repo",
       "source_confidence": "high",
-      "timestamp": "2026-03-25T12:33:01.375296"
+      "timestamp": "2026-03-25T18:39:33.340718"
     },
     "generalization": {
       "functional_dna": {
         "logic_archetype": "Stateful Orchestrator",
-        "logic_archetype_evidence": "ERPNext manages complex business workflows across multiple domains (accounting, inventory, manufacturing, HR) with persistent state tracking, evidenced by modules like 'erpnext/manufacturing/doctype/bom/bom.py' for manufacturing workflows and 'erpnext/projects/doctype/project/project.py' for project task orchestration",
+        "logic_archetype_evidence": "ERPNext orchestrates complex multi-step business workflows across interconnected domains (accounting, inventory, manufacturing, HR) with strict state consistency requirements. It maintains transactional integrity across document lifecycles and implements approval workflows with role-based authorization, evidenced by the accounts_controller.py and workflow engine capabilities.",
         "data_contract_strictness": "Highly Structured",
-        "data_contract_evidence": "Built on Frappe Framework with DocType architecture requiring strict schema definitions, evidenced by structured module organization like 'erpnext/accounts/doctype/account/account.py' and database-backed entity management",
+        "data_contract_evidence": "Evidence: Meta-driven DocType system with strict schema definitions, double-entry accounting requirements, and structured API endpoints following /api/resource/{doctype} pattern. All business entities have defined field types and validation rules through the Frappe Framework.",
         "core_algorithmic_class": "CRUD Operations",
-        "core_algorithmic_evidence": "Primary operations are Create, Read, Update, Delete across business entities like customers, orders, inventory items, evidenced by module structure 'erpnext/selling/doctype/customer/customer.py' and 'erpnext/buying/doctype/purchase_order/purchase_order.py'",
+        "core_algorithmic_evidence": "Evidence from complex business logic controllers (accounts_controller.py), double-entry bookkeeping algorithms, MRP calculations in manufacturing module, and inventory valuation methods (FIFO/LIFO/weighted average). The system primarily performs sophisticated Create-Read-Update-Delete operations with business rule validation.",
         "concurrency_requirements": "ACID Compliance Required",
-        "concurrency_evidence": "Financial transactions and inventory management require ACID compliance for data consistency, using MariaDB/MySQL backend with transactional integrity for accounting operations in 'erpnext/accounts/doctype/account/account.py'",
-        "repurposing_confidence": 8,
-        "repurposing_reasoning": "High confidence due to modular architecture on Frappe Framework allowing extraction of individual business logic modules, but domain-specific business rules in accounting and manufacturing reduce universal applicability"
+        "concurrency_evidence": "Evidence from MariaDB/MySQL backend for transactional data, double-entry accounting requirements, and financial transaction processing that demands strict consistency. Multi-company operations and inter-company transactions require ACID properties.",
+        "abstract_problem": "Orchestrates interconnected business entity lifecycles with complex validation rules, multi-step approval workflows, and cross-domain transactional consistency while maintaining audit trails and regulatory compliance.",
+        "data_flow_pattern": "HTTP request \u2192 business rule validation \u2192 cross-entity consistency checks \u2192 transactional persistence \u2192 event hooks \u2192 response with side-effect propagation across related entities",
+        "state_complexity": "Global mutable",
+        "repurposing_confidence": 7,
+        "repurposing_reasoning": "The Frappe Framework provides a highly generic meta-driven architecture for building business applications with DocTypes, workflows, and permissions that could be repurposed for many domains. However, the deep business logic in controllers and domain-specific calculations (accounting, manufacturing) are tightly coupled to business operations. The plugin architecture and modular structure make it moderately adaptable, but significant business logic would need replacement for non-business domains."
       },
       "evidence_claims": [
         {
-          "claim": "Multi-domain business process orchestration",
-          "evidence": "erpnext/accounts/doctype/account/account.py, erpnext/stock/doctype/stock_entry/stock_entry.py, erpnext/manufacturing/doctype/bom/bom.py",
+          "claim": "System implements double-entry accounting with multi-currency support",
+          "evidence": "erpnext/accounts/doctype/journal_entry/journal_entry.py processes financial transactions",
           "confidence": "High"
         },
         {
-          "claim": "Web-based interface with JavaScript frontend",
-          "evidence": "erpnext/www/book_appointment/index.js, package.json, extensive .js files",
+          "claim": "Uses meta-driven DocType system for schema definition",
+          "evidence": "Frappe Framework integration evident throughout codebase with DocType-based architecture",
           "confidence": "High"
         },
         {
-          "claim": "Python backend with Frappe Framework",
-          "evidence": "pyproject.toml, frappe>=17.0.0-dev,<18.0.0 dependency, extensive .py files",
+          "claim": "Supports complex manufacturing workflows with BOM management",
+          "evidence": "erpnext/manufacturing/doctype/work_order/work_order.py handles production operations",
           "confidence": "High"
         },
         {
-          "claim": "Third-party integrations support",
-          "evidence": "googlemaps~=4.10.0, plaid-python~=7.2.1, python-youtube~=0.9.8 in pyproject.toml",
+          "claim": "Implements role-based access control with document-level permissions",
+          "evidence": "erpnext/controllers/accounts_controller.py contains authorization logic",
+          "confidence": "High"
+        },
+        {
+          "claim": "Provides REST API with standardized endpoints",
+          "evidence": "API endpoints follow /api/resource/{doctype} pattern and booking system APIs in index.py",
           "confidence": "High"
         }
       ],
       "market_reach": {
-        "primary_industry": "Enterprise Resource Planning",
+        "primary_industry": "Enterprise Resource Planning / Business Management Software",
         "cross_industry_applications": [
-          "Manufacturing",
-          "Retail",
-          "Healthcare",
-          "Professional Services",
-          "Education",
-          "Non-profit"
+          "Hospital Management Systems - patient records, appointments, billing, inventory tracking",
+          "Educational Institution Management - student records, course management, fee processing, asset tracking",
+          "Non-profit Organization Management - donor management, grant tracking, project management, financial reporting",
+          "Property Management Systems - tenant management, lease tracking, maintenance scheduling, financial accounting",
+          "Government Agency Management - citizen services, permit tracking, budget management, compliance reporting",
+          "Manufacturing Execution Systems - production planning, quality control, equipment maintenance, supply chain",
+          "Professional Services Automation - client management, project billing, resource allocation, time tracking",
+          "Fleet Management Systems - vehicle tracking, maintenance scheduling, driver management, cost accounting"
         ],
-        "utility_score": 9,
+        "utility_score": 8,
         "market_potential": "High"
       },
       "friction_report": {
-        "difficulty": "Medium",
-        "estimated_hours": 40,
+        "difficulty": "High",
+        "estimated_hours": 2000,
         "required_technologies": [
-          "Python",
+          "Python 3.x",
           "Frappe Framework",
           "MariaDB/MySQL",
+          "Redis",
           "JavaScript",
-          "Redis"
+          "Vue.js"
         ],
         "complexity_factors": [
-          "Domain-specific business logic",
-          "Multi-module dependencies",
-          "Database schema complexity",
-          "Frappe Framework learning curve"
+          "Complex business logic deeply embedded in controllers",
+          "Meta-driven architecture requires Frappe Framework expertise",
+          "Extensive interdependencies between modules",
+          "4760+ files with tight coupling",
+          "Database schema migrations and DocType definitions"
         ],
-        "risk_level": "Medium"
+        "risk_level": "High",
+        "migration_path": "Start with Frappe Framework as base, replace business-specific DocTypes with domain-appropriate entities, rewrite controllers for new business logic, maintain the workflow and permission systems, gradually replace domain-specific modules while preserving the meta-architecture."
       },
       "interface_map": {
         "adapter_schema": {
           "input": {
-            "format": "JSON",
+            "format": "JSON/HTTP",
             "required_fields": [
               "doctype",
-              "name",
-              "data"
+              "action",
+              "data",
+              "authentication_token"
+            ],
+            "protocols": [
+              "HTTP REST",
+              "WebSocket"
             ]
           },
           "output": {
-            "format": "JSON"
+            "format": "JSON/HTML",
+            "delivery": "sync for CRUD operations, async for background jobs"
           },
           "authentication": {
-            "type": "Session-based",
-            "method": "API token authentication"
+            "type": "session-based + API key",
+            "method": "role-based access control with document-level permissions"
           }
         },
-        "standardization_level": "High"
+        "standardization_level": "High",
+        "api_surface_area": "Large (50+)"
       },
+      "comparable_systems": [
+        "Salesforce Platform - meta-driven business application platform with custom objects and workflows",
+        "ServiceNow - IT service management with workflow orchestration and business process automation",
+        "Dynamics 365 - Microsoft's business application platform with modular ERP/CRM functionality",
+        "Odoo - open-source business application suite with modular architecture",
+        "NetSuite - cloud-based business management suite with integrated modules"
+      ],
       "information_gaps": [
-        "Specific API endpoint documentation",
-        "Database schema details",
-        "Performance benchmarks",
-        "Scaling limitations",
-        "Custom field extensibility"
+        "Exact performance characteristics under concurrent load",
+        "Detailed API rate limiting and throttling mechanisms",
+        "Specific database optimization strategies for large datasets",
+        "Real-time synchronization mechanisms between modules"
       ]
     },
-    "timestamp": "2026-03-25T12:33:16.909805"
+    "timestamp": "2026-03-25T18:40:24.515052"
   },
   "errors": []
 }

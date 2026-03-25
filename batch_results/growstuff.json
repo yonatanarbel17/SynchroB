@@ -1,298 +1,541 @@
 {
   "url": "https://github.com/Growstuff/growstuff.git",
   "repo_name": "growstuff",
-  "timestamp": "2026-03-21T14:25:16.239996",
+  "timestamp": "2026-03-25T15:09:35.132170",
   "step1": {
     "product_name": "growstuff",
     "url": "https://github.com/Growstuff/growstuff.git",
     "analysis": {
-      "summary": "A Ruby on Rails web application for food gardeners to track planting, growing, and harvesting activities with crowdsourced data aggregation and open data API access.",
+      "summary": "Growstuff is a Ruby on Rails web application for food gardeners that crowdsources planting, growing, and harvesting data to create an open dataset. It implements a monolithic architecture with member-driven content, garden management, crop tracking, and photo sharing capabilities. The system integrates with external APIs like Flickr and provides both web UI and JSON API endpoints for accessing agricultural data.",
       "capabilities": [
-        "Tracks gardening activities including plantings, harvests, and garden management (app/controllers/activities_controller.rb, app/controllers/plantings_controller.rb, app/controllers/harvests_controller.rb)",
-        "Manages crop database with approval workflow and Wikipedia integration (app/models/crop.rb, app/controllers/crops_controller.rb)",
-        "Provides photo management with Flickr integration (app/controllers/photos_controller.rb, flickraw gem)",
-        "Implements member authentication and authorization with role-based permissions (app/controllers/application_controller.rb, cancancan gem)",
-        "Offers REST API for accessing gardening data (config/routes.rb API routes, jsonapi-resources gem)",
-        "Supports full-text search functionality via Elasticsearch (elasticsearch configuration in docker-compose.yml)",
-        "Generates CSV exports of gardening data (app/controllers/data_controller.rb)",
-        "Manages garden locations and mapping features (app/controllers/gardens_controller.rb)",
-        "Implements seed trading and sharing system (app/controllers/seeds_controller.rb)"
+        "Manages member authentication and profiles with Devise gem (app/models/member.rb, config/initializers/devise.rb)",
+        "Tracks crop plantings with planting dates, garden locations, and status tracking (app/models/planting.rb, app/controllers/plantings_controller.rb)",
+        "Records harvest data with quantities, plant parts, and harvest dates (app/models/harvest.rb, app/controllers/harvests_controller.rb)",
+        "Manages garden spaces with location data, types, and member collaboration (app/models/garden.rb, app/controllers/gardens_controller.rb)",
+        "Maintains comprehensive crop database with scientific names, companions, and growing metadata (app/models/crop.rb, app/controllers/crops_controller.rb)",
+        "Processes seed tracking with variety information and trading capabilities (app/models/seed.rb, app/controllers/seeds_controller.rb)",
+        "Handles photo uploads and associations with crops, plantings, and harvests (app/models/photo.rb, app/controllers/photos_controller.rb)",
+        "Implements activity planning and tracking with due dates and garden assignments (app/models/activity.rb, app/controllers/activities_controller.rb)",
+        "Provides JSON:API v1 endpoints for crops, gardens, plantings, harvests, seeds, and activities (app/controllers/api/v1/*, swagger/v1/swagger.json)",
+        "Manages forum discussions and posts with commenting system (app/models/post.rb, app/controllers/posts_controller.rb)",
+        "Handles member-to-member messaging with Mailboxer gem integration (app/controllers/conversations_controller.rb)",
+        "Implements role-based authorization with CanCanCan for admin functions (app/models/ability.rb, app/controllers/admin/)",
+        "Tracks crop companions and planting relationships (app/models/crop_companion.rb, app/controllers/admin/crop_companions_controller.rb)",
+        "Integrates with Flickr API for photo management using FlickRaw gem (app/models/concerns/member_flickr.rb, Gemfile)",
+        "Provides data export in CSV format with CSVShaper gem (app/views/activities/index.csv.shaper)",
+        "Implements timeline visualization for garden plantings (app/controllers/charts/gardens_controller.rb)",
+        "Manages scientific naming and taxonomic data integration (app/models/scientific_name.rb)",
+        "Handles OAuth authentication for external service connections (app/controllers/authentications_controller.rb)",
+        "Implements search functionality across crops, plantings, and activities (app/models/concerns/search_*.rb)",
+        "Manages notification system for member communications (app/models/notification.rb)",
+        "Provides location-based features with latitude/longitude coordinates (app/models/member.rb location fields)",
+        "Implements harvest prediction algorithms based on median values (app/models/concerns/predict_harvest.rb, active_median gem)",
+        "Manages alternate crop names in multiple languages (app/models/alternate_name.rb)",
+        "Handles garden collaboration and sharing between members (app/models/garden_collaborator.rb)",
+        "Provides administrative interfaces for crop wrangling and member management (app/controllers/admin/crops_controller.rb)"
       ],
-      "use_cases": [],
+      "use_cases": [
+        "Home gardeners use this to track their plantings, harvests, and garden activities throughout growing seasons",
+        "Urban farmers use this to manage multiple garden spaces and collaborate with other growers",
+        "Agricultural researchers access the crowdsourced data via API to study crop performance and growing patterns",
+        "Seed savers use this to catalog their seed collections and coordinate seed trades with other members",
+        "Garden communities use this to share knowledge, photos, and experiences about food production"
+      ],
+      "category": "Agricultural Data Management Platform",
+      "target_audience": "Home gardeners, urban farmers, agricultural researchers, seed savers, and gardening communities",
       "technical_stack": [
         "Ruby on Rails 7.2.0 (Gemfile)",
-        "PostgreSQL 17 (docker-compose.yml)",
-        "Elasticsearch 7.4.0 (docker-compose.yml)",
-        "Bootstrap 5.0+ CSS framework (Gemfile)",
+        "PostgreSQL 17 (.devcontainer/docker-compose.yml)",
+        "Elasticsearch 7.4.0 (.devcontainer/docker-compose.yml)",
+        "Bootstrap 5+ (Gemfile)",
         "jQuery and jQuery UI (Gemfile)",
-        "Flickr API integration via flickraw (Gemfile)",
-        "JSONAPI specification compliance (jsonapi-resources gem)",
-        "Swagger/OpenAPI documentation (rswag gems)",
-        "HAML templating (haml gem)",
-        "SASS/SCSS styling (sassc-rails gem)"
-      ],
-      "integrations": [
-        "Flickr API for photo management (flickraw gem)",
-        "Wikipedia for crop information (en_wikipedia_url in API spec)",
-        "Elasticsearch for search functionality (docker-compose.yml configuration)"
+        "Leaflet for mapping (Gemfile)",
+        "SASS/SCSS for stylesheets (Gemfile)",
+        "CoffeeScript for JavaScript (Gemfile)",
+        "Haml templating engine (Gemfile)",
+        "Unicorn HTTP server (Gemfile)",
+        "Devise for authentication (Gemfile)",
+        "CanCanCan for authorization (Gemfile)",
+        "Mailboxer for messaging (inferred from conversations_controller.rb)",
+        "PaperTrail for versioning (app/controllers/admin/versions_controller.rb)",
+        "FlickRaw for Flickr integration (Gemfile)",
+        "JSONAPI::Resources for API (Gemfile)"
       ],
       "api_endpoints": [
-        {
-          "method": "GET",
-          "path": "/api/v1/crops",
-          "summary": "List crops with filtering and pagination (swagger/v1/swagger.json)"
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/plantings",
-          "summary": "List plantings (inferred from API structure)"
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/harvests",
-          "summary": "List harvests (inferred from API structure)"
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/seeds",
-          "summary": "List seeds (inferred from API structure)"
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/photos",
-          "summary": "List photos (inferred from API structure)"
-        }
+        "GET /api/v1/crops \u2014 List crops with pagination and filtering (swagger/v1/swagger.json)",
+        "GET /api/v1/gardens \u2014 List gardens (app/controllers/api/v1/gardens_controller.rb)",
+        "GET /api/v1/plantings \u2014 List plantings (app/controllers/api/v1/plantings_controller.rb)",
+        "GET /api/v1/harvests \u2014 List harvests (app/controllers/api/v1/harvests_controller.rb)",
+        "GET /api/v1/seeds \u2014 List seeds (app/controllers/api/v1/seeds_controller.rb)",
+        "GET /api/v1/activities \u2014 List activities (app/controllers/api/v1/activities_controller.rb)",
+        "GET /api/v1/members \u2014 List members (app/controllers/api/v1/members_controller.rb)",
+        "GET /api/v1/photos \u2014 List photos (app/controllers/api/v1/photos_controller.rb)",
+        "GET /charts/crops/:crop_slug/sunniness \u2014 Crop sunniness chart data (app/controllers/charts/crops_controller.rb)",
+        "GET /charts/gardens/:garden_slug/timeline \u2014 Garden timeline chart data (app/controllers/charts/gardens_controller.rb)"
       ],
+      "sdk_languages": [],
+      "auth_methods": [
+        "Devise-based email/password authentication (app/models/member.rb, config/initializers/devise.rb)",
+        "OAuth integration for external services (app/controllers/authentications_controller.rb)",
+        "API token authentication for JSON API (app/controllers/api/v1/base_controller.rb)",
+        "Role-based authorization with CanCanCan (app/models/ability.rb)"
+      ],
+      "integrations": [
+        "Flickr API for photo management via FlickRaw gem (Gemfile, app/models/concerns/member_flickr.rb)",
+        "PostgreSQL database via ActiveRecord (Gemfile, .devcontainer/docker-compose.yml)",
+        "Elasticsearch for search functionality (.devcontainer/docker-compose.yml)",
+        "Mailchimp for newsletter subscriptions via Gibbon gem (Gemfile)",
+        "GBIF (Global Biodiversity Information Facility) for taxonomic data (app/models/concerns/gbif_data.rb)",
+        "OpenFarm for agricultural data (app/models/concerns/open_farm_data.rb)",
+        "Australian Food Classification system integration (app/models/australian_food_classification_data.rb)"
+      ],
+      "architecture": {
+        "pattern": "monolith",
+        "components": [
+          "Member management system for user accounts and profiles",
+          "Garden management system for tracking growing spaces",
+          "Crop database with scientific taxonomy and growing information",
+          "Planting tracker for individual plant instances",
+          "Harvest recorder for yield data collection",
+          "Activity planner for garden tasks and scheduling",
+          "Photo management system with Flickr integration",
+          "Forum and messaging system for community interaction",
+          "Admin dashboard for content moderation and user management",
+          "JSON API layer for external data access"
+        ],
+        "entry_points": [
+          "config/application.rb",
+          "config/routes.rb"
+        ],
+        "data_flow": "Members create gardens and plant crops, track activities and harvests over time, upload photos, and share data through the community forum. All data flows through ActiveRecord models to PostgreSQL storage, with search handled by Elasticsearch and photos optionally stored on Flickr. The JSON API exposes aggregated data for external consumption.",
+        "persistence": "PostgreSQL primary database with ActiveRecord ORM, 171+ migration files for schema evolution, Elasticsearch for search indexing, optional Flickr for photo storage",
+        "concurrency_model": "Traditional Rails threading model with Unicorn HTTP server (Gemfile)",
+        "communication_patterns": "HTTP REST for web interface, JSON:API for external consumption, WebSocket not implemented",
+        "plugin_extension_model": "Rails engine architecture with Comfortable Mexican Sofa CMS integration (Gemfile)"
+      },
+      "data_model": {
+        "primary_entities": [
+          "Member (users with profiles and authentication)",
+          "Garden (growing spaces with location data)",
+          "Crop (plant species with taxonomic and growing information)",
+          "Planting (individual plant instances with dates and status)",
+          "Harvest (yield records with quantities and plant parts)",
+          "Seed (variety tracking and trading information)",
+          "Photo (images associated with crops, plantings, harvests)",
+          "Activity (garden tasks with scheduling and completion tracking)",
+          "Post (forum discussions and community content)",
+          "Comment (discussions on photos and posts)"
+        ],
+        "storage_backends": [
+          "PostgreSQL for primary data",
+          "Elasticsearch for search indexing",
+          "Flickr for photo storage"
+        ],
+        "schema_patterns": "Relational database design with ActiveRecord associations, polymorphic associations for photos and comments, role-based permissions",
+        "migration_strategy": "Rails ActiveRecord migrations with 171+ migration files tracking schema evolution from 2012 (db/migrate/)"
+      },
+      "algorithms": {
+        "problem_type": "Agricultural data collection, aggregation, and analysis for crowdsourced gardening information",
+        "core_patterns": [
+          "Repository pattern via ActiveRecord models",
+          "Observer pattern for notifications and callbacks",
+          "Strategy pattern for different crop data sources (GBIF, OpenFarm)",
+          "Factory pattern for test data generation (spec/factories/)",
+          "Concern pattern for shared model behavior (app/models/concerns/)"
+        ],
+        "complexity_indicators": "Medium complexity with 615 Ruby files, comprehensive test suite (277 test files), role-based authorization, and multi-tenant garden collaboration",
+        "key_algorithms": [
+          "Median-based harvest prediction algorithms (active_median gem, app/models/concerns/predict_harvest.rb)",
+          "Search ranking with Elasticsearch integration",
+          "Timeline visualization for garden planning (app/controllers/charts/gardens_controller.rb)",
+          "Geographic data handling with latitude/longitude coordinates"
+        ],
+        "evidence": "app/models/concerns/predict_harvest.rb implements prediction algorithms, app/models/concerns/search_*.rb implement search functionality"
+      },
+      "security_model": {
+        "authentication": "Devise gem for email/password authentication with OAuth support for external services",
+        "authorization": "CanCanCan role-based permissions with admin roles for content moderation (app/models/ability.rb)",
+        "data_protection": "Rails standard CSRF protection, encrypted credentials, secure password hashing via Devise",
+        "security_headers": "Standard Rails security headers, CSRF protection enabled in ApplicationController",
+        "vulnerability_handling": "Dependabot automated dependency updates visible in git history, security contact email in README"
+      },
+      "dependencies": {
+        "runtime": [
+          "rails ~> 7.2.0",
+          "pg (PostgreSQL adapter)",
+          "unicorn (HTTP server)",
+          "devise (authentication)",
+          "cancancan (authorization)",
+          "jsonapi-resources (API framework)",
+          "flickraw (Flickr integration)",
+          "gibbon ~> 1.2.0 (Mailchimp)",
+          "bootstrap >= 5.0.0",
+          "leaflet-rails >= 1.9.2",
+          "active_median (prediction algorithms)",
+          "comfortable_mexican_sofa (CMS)"
+        ],
+        "dev": [
+          "@coffeelint/cli ^3.0.0",
+          "@percy/cli ^1.0.0-beta.76",
+          "eslint ^5.0.0",
+          "csslint ^1.0.5",
+          "jshint ^2.9.4"
+        ],
+        "infrastructure": [
+          "PostgreSQL 17",
+          "Elasticsearch 7.4.0",
+          "Flickr API (optional)"
+        ]
+      },
+      "deployment": {
+        "containerized": true,
+        "container_orchestration": "Docker Compose",
+        "ci_cd": "GitHub Actions (visible from CI badge in README)",
+        "environment_config": "Environment variables for database, Elasticsearch, Flickr keys, domain configuration (.devcontainer/docker-compose.yml)",
+        "scaling_model": "Unicorn HTTP server supports process-based scaling, PostgreSQL and Elasticsearch can be scaled independently"
+      },
+      "code_quality_signals": {
+        "has_tests": true,
+        "test_framework": "RSpec (inferred from spec/ directory structure and CONTRIBUTING.md)",
+        "test_count_estimate": "277 test files",
+        "has_linting": true,
+        "has_type_hints": false,
+        "documentation_quality": "well-documented",
+        "code_style": "Overcommit with multiple linters (rubocop, eslint, coffeelint, csslint per CONTRIBUTING.md and package.json)"
+      },
+      "project_health": {
+        "license": "GPL-3.0",
+        "total_commits": "1",
+        "top_contributors": "1",
+        "recent_activity": "Recent Dependabot update for rubocop suggests ongoing maintenance and security updates",
+        "community_signals": "Code of conduct, security policy, contributing guidelines, contributor list, comprehensive wiki documentation"
+      },
+      "evidence_tracking": {
+        "files_analyzed": [
+          "README.md",
+          "Gemfile and Gemfile.lock",
+          "app/controllers/application_controller.rb",
+          "app/controllers/api/v1/base_controller.rb",
+          "app/models/member.rb",
+          "app/models/crop.rb",
+          "app/models/planting.rb",
+          "app/models/harvest.rb",
+          "app/models/garden.rb",
+          "swagger/v1/swagger.json",
+          ".devcontainer/docker-compose.yml",
+          "db/migrate/ directory structure",
+          "spec/ directory structure",
+          "CONTRIBUTING.md"
+        ],
+        "confidence_level": "High",
+        "information_gaps": [
+          "Exact number of git commits (extraction shows only 1 recent commit)",
+          "Production deployment configuration beyond development containers",
+          "Specific Elasticsearch mapping and indexing strategies"
+        ]
+      },
       "pricing": {
         "model": "open-source",
         "free_tier": "true"
-      },
-      "target_audience": "Developers",
-      "category": "Open Source Software",
-      "deployment": "Self-hosted",
-      "underlying_algorithm": {
-        "problem_type": "",
-        "pattern": ""
-      },
-      "evidence_tracking": {
-        "confidence_level": "High",
-        "technical_facts": [
-          "Tracks gardening activities including plantings, harvests, and garden management (app/controllers/activities_controller.rb, app/controllers/plantings_controller.rb, app/controllers/harvests_controller.rb)",
-          "Manages crop database with approval workflow and Wikipedia integration (app/models/crop.rb, app/controllers/crops_controller.rb)",
-          "Provides photo management with Flickr integration (app/controllers/photos_controller.rb, flickraw gem)",
-          "Implements member authentication and authorization with role-based permissions (app/controllers/application_controller.rb, cancancan gem)",
-          "Offers REST API for accessing gardening data (config/routes.rb API routes, jsonapi-resources gem)",
-          "Supports full-text search functionality via Elasticsearch (elasticsearch configuration in docker-compose.yml)",
-          "Generates CSV exports of gardening data (app/controllers/data_controller.rb)",
-          "Manages garden locations and mapping features (app/controllers/gardens_controller.rb)",
-          "Implements seed trading and sharing system (app/controllers/seeds_controller.rb)"
-        ],
-        "information_gaps": []
-      },
-      "architecture_patterns": [
-        "monolith",
-        "Concurrency: sync with Puma web server (config/puma.rb referenced in Procfile)"
-      ],
-      "auth_methods": [
-        "Session-based authentication",
-        "Role-based authorization via CanCanCan"
-      ],
-      "sdk_languages": [],
-      "dependencies": [
-        "rails ~> 7.2.0",
-        "pg",
-        "elasticsearch",
-        "flickraw",
-        "jsonapi-resources",
-        "cancancan",
-        "haml",
-        "bootstrap",
-        "jquery-rails",
-        "active_median",
-        "Infrastructure: PostgreSQL",
-        "Infrastructure: Elasticsearch",
-        "Infrastructure: Flickr API"
-      ],
-      "deployment_options": [
-        "Containerized (Docker)",
-        "CI/CD: GitHub Actions"
-      ]
+      }
     },
     "extracted_data": {},
     "source": "local_repo",
     "source_confidence": "high",
-    "timestamp": "2026-03-21T14:25:44.011484"
+    "timestamp": "2026-03-25T15:10:44.392463"
   },
   "step2": {
     "step1_data": {
       "product_name": "growstuff",
       "url": "https://github.com/Growstuff/growstuff.git",
       "analysis": {
-        "summary": "A Ruby on Rails web application for food gardeners to track planting, growing, and harvesting activities with crowdsourced data aggregation and open data API access.",
+        "summary": "Growstuff is a Ruby on Rails web application for food gardeners that crowdsources planting, growing, and harvesting data to create an open dataset. It implements a monolithic architecture with member-driven content, garden management, crop tracking, and photo sharing capabilities. The system integrates with external APIs like Flickr and provides both web UI and JSON API endpoints for accessing agricultural data.",
         "capabilities": [
-          "Tracks gardening activities including plantings, harvests, and garden management (app/controllers/activities_controller.rb, app/controllers/plantings_controller.rb, app/controllers/harvests_controller.rb)",
-          "Manages crop database with approval workflow and Wikipedia integration (app/models/crop.rb, app/controllers/crops_controller.rb)",
-          "Provides photo management with Flickr integration (app/controllers/photos_controller.rb, flickraw gem)",
-          "Implements member authentication and authorization with role-based permissions (app/controllers/application_controller.rb, cancancan gem)",
-          "Offers REST API for accessing gardening data (config/routes.rb API routes, jsonapi-resources gem)",
-          "Supports full-text search functionality via Elasticsearch (elasticsearch configuration in docker-compose.yml)",
-          "Generates CSV exports of gardening data (app/controllers/data_controller.rb)",
-          "Manages garden locations and mapping features (app/controllers/gardens_controller.rb)",
-          "Implements seed trading and sharing system (app/controllers/seeds_controller.rb)"
+          "Manages member authentication and profiles with Devise gem (app/models/member.rb, config/initializers/devise.rb)",
+          "Tracks crop plantings with planting dates, garden locations, and status tracking (app/models/planting.rb, app/controllers/plantings_controller.rb)",
+          "Records harvest data with quantities, plant parts, and harvest dates (app/models/harvest.rb, app/controllers/harvests_controller.rb)",
+          "Manages garden spaces with location data, types, and member collaboration (app/models/garden.rb, app/controllers/gardens_controller.rb)",
+          "Maintains comprehensive crop database with scientific names, companions, and growing metadata (app/models/crop.rb, app/controllers/crops_controller.rb)",
+          "Processes seed tracking with variety information and trading capabilities (app/models/seed.rb, app/controllers/seeds_controller.rb)",
+          "Handles photo uploads and associations with crops, plantings, and harvests (app/models/photo.rb, app/controllers/photos_controller.rb)",
+          "Implements activity planning and tracking with due dates and garden assignments (app/models/activity.rb, app/controllers/activities_controller.rb)",
+          "Provides JSON:API v1 endpoints for crops, gardens, plantings, harvests, seeds, and activities (app/controllers/api/v1/*, swagger/v1/swagger.json)",
+          "Manages forum discussions and posts with commenting system (app/models/post.rb, app/controllers/posts_controller.rb)",
+          "Handles member-to-member messaging with Mailboxer gem integration (app/controllers/conversations_controller.rb)",
+          "Implements role-based authorization with CanCanCan for admin functions (app/models/ability.rb, app/controllers/admin/)",
+          "Tracks crop companions and planting relationships (app/models/crop_companion.rb, app/controllers/admin/crop_companions_controller.rb)",
+          "Integrates with Flickr API for photo management using FlickRaw gem (app/models/concerns/member_flickr.rb, Gemfile)",
+          "Provides data export in CSV format with CSVShaper gem (app/views/activities/index.csv.shaper)",
+          "Implements timeline visualization for garden plantings (app/controllers/charts/gardens_controller.rb)",
+          "Manages scientific naming and taxonomic data integration (app/models/scientific_name.rb)",
+          "Handles OAuth authentication for external service connections (app/controllers/authentications_controller.rb)",
+          "Implements search functionality across crops, plantings, and activities (app/models/concerns/search_*.rb)",
+          "Manages notification system for member communications (app/models/notification.rb)",
+          "Provides location-based features with latitude/longitude coordinates (app/models/member.rb location fields)",
+          "Implements harvest prediction algorithms based on median values (app/models/concerns/predict_harvest.rb, active_median gem)",
+          "Manages alternate crop names in multiple languages (app/models/alternate_name.rb)",
+          "Handles garden collaboration and sharing between members (app/models/garden_collaborator.rb)",
+          "Provides administrative interfaces for crop wrangling and member management (app/controllers/admin/crops_controller.rb)"
         ],
-        "use_cases": [],
+        "use_cases": [
+          "Home gardeners use this to track their plantings, harvests, and garden activities throughout growing seasons",
+          "Urban farmers use this to manage multiple garden spaces and collaborate with other growers",
+          "Agricultural researchers access the crowdsourced data via API to study crop performance and growing patterns",
+          "Seed savers use this to catalog their seed collections and coordinate seed trades with other members",
+          "Garden communities use this to share knowledge, photos, and experiences about food production"
+        ],
+        "category": "Agricultural Data Management Platform",
+        "target_audience": "Home gardeners, urban farmers, agricultural researchers, seed savers, and gardening communities",
         "technical_stack": [
           "Ruby on Rails 7.2.0 (Gemfile)",
-          "PostgreSQL 17 (docker-compose.yml)",
-          "Elasticsearch 7.4.0 (docker-compose.yml)",
-          "Bootstrap 5.0+ CSS framework (Gemfile)",
+          "PostgreSQL 17 (.devcontainer/docker-compose.yml)",
+          "Elasticsearch 7.4.0 (.devcontainer/docker-compose.yml)",
+          "Bootstrap 5+ (Gemfile)",
           "jQuery and jQuery UI (Gemfile)",
-          "Flickr API integration via flickraw (Gemfile)",
-          "JSONAPI specification compliance (jsonapi-resources gem)",
-          "Swagger/OpenAPI documentation (rswag gems)",
-          "HAML templating (haml gem)",
-          "SASS/SCSS styling (sassc-rails gem)"
-        ],
-        "integrations": [
-          "Flickr API for photo management (flickraw gem)",
-          "Wikipedia for crop information (en_wikipedia_url in API spec)",
-          "Elasticsearch for search functionality (docker-compose.yml configuration)"
+          "Leaflet for mapping (Gemfile)",
+          "SASS/SCSS for stylesheets (Gemfile)",
+          "CoffeeScript for JavaScript (Gemfile)",
+          "Haml templating engine (Gemfile)",
+          "Unicorn HTTP server (Gemfile)",
+          "Devise for authentication (Gemfile)",
+          "CanCanCan for authorization (Gemfile)",
+          "Mailboxer for messaging (inferred from conversations_controller.rb)",
+          "PaperTrail for versioning (app/controllers/admin/versions_controller.rb)",
+          "FlickRaw for Flickr integration (Gemfile)",
+          "JSONAPI::Resources for API (Gemfile)"
         ],
         "api_endpoints": [
-          {
-            "method": "GET",
-            "path": "/api/v1/crops",
-            "summary": "List crops with filtering and pagination (swagger/v1/swagger.json)"
-          },
-          {
-            "method": "GET",
-            "path": "/api/v1/plantings",
-            "summary": "List plantings (inferred from API structure)"
-          },
-          {
-            "method": "GET",
-            "path": "/api/v1/harvests",
-            "summary": "List harvests (inferred from API structure)"
-          },
-          {
-            "method": "GET",
-            "path": "/api/v1/seeds",
-            "summary": "List seeds (inferred from API structure)"
-          },
-          {
-            "method": "GET",
-            "path": "/api/v1/photos",
-            "summary": "List photos (inferred from API structure)"
-          }
+          "GET /api/v1/crops \u2014 List crops with pagination and filtering (swagger/v1/swagger.json)",
+          "GET /api/v1/gardens \u2014 List gardens (app/controllers/api/v1/gardens_controller.rb)",
+          "GET /api/v1/plantings \u2014 List plantings (app/controllers/api/v1/plantings_controller.rb)",
+          "GET /api/v1/harvests \u2014 List harvests (app/controllers/api/v1/harvests_controller.rb)",
+          "GET /api/v1/seeds \u2014 List seeds (app/controllers/api/v1/seeds_controller.rb)",
+          "GET /api/v1/activities \u2014 List activities (app/controllers/api/v1/activities_controller.rb)",
+          "GET /api/v1/members \u2014 List members (app/controllers/api/v1/members_controller.rb)",
+          "GET /api/v1/photos \u2014 List photos (app/controllers/api/v1/photos_controller.rb)",
+          "GET /charts/crops/:crop_slug/sunniness \u2014 Crop sunniness chart data (app/controllers/charts/crops_controller.rb)",
+          "GET /charts/gardens/:garden_slug/timeline \u2014 Garden timeline chart data (app/controllers/charts/gardens_controller.rb)"
         ],
+        "sdk_languages": [],
+        "auth_methods": [
+          "Devise-based email/password authentication (app/models/member.rb, config/initializers/devise.rb)",
+          "OAuth integration for external services (app/controllers/authentications_controller.rb)",
+          "API token authentication for JSON API (app/controllers/api/v1/base_controller.rb)",
+          "Role-based authorization with CanCanCan (app/models/ability.rb)"
+        ],
+        "integrations": [
+          "Flickr API for photo management via FlickRaw gem (Gemfile, app/models/concerns/member_flickr.rb)",
+          "PostgreSQL database via ActiveRecord (Gemfile, .devcontainer/docker-compose.yml)",
+          "Elasticsearch for search functionality (.devcontainer/docker-compose.yml)",
+          "Mailchimp for newsletter subscriptions via Gibbon gem (Gemfile)",
+          "GBIF (Global Biodiversity Information Facility) for taxonomic data (app/models/concerns/gbif_data.rb)",
+          "OpenFarm for agricultural data (app/models/concerns/open_farm_data.rb)",
+          "Australian Food Classification system integration (app/models/australian_food_classification_data.rb)"
+        ],
+        "architecture": {
+          "pattern": "monolith",
+          "components": [
+            "Member management system for user accounts and profiles",
+            "Garden management system for tracking growing spaces",
+            "Crop database with scientific taxonomy and growing information",
+            "Planting tracker for individual plant instances",
+            "Harvest recorder for yield data collection",
+            "Activity planner for garden tasks and scheduling",
+            "Photo management system with Flickr integration",
+            "Forum and messaging system for community interaction",
+            "Admin dashboard for content moderation and user management",
+            "JSON API layer for external data access"
+          ],
+          "entry_points": [
+            "config/application.rb",
+            "config/routes.rb"
+          ],
+          "data_flow": "Members create gardens and plant crops, track activities and harvests over time, upload photos, and share data through the community forum. All data flows through ActiveRecord models to PostgreSQL storage, with search handled by Elasticsearch and photos optionally stored on Flickr. The JSON API exposes aggregated data for external consumption.",
+          "persistence": "PostgreSQL primary database with ActiveRecord ORM, 171+ migration files for schema evolution, Elasticsearch for search indexing, optional Flickr for photo storage",
+          "concurrency_model": "Traditional Rails threading model with Unicorn HTTP server (Gemfile)",
+          "communication_patterns": "HTTP REST for web interface, JSON:API for external consumption, WebSocket not implemented",
+          "plugin_extension_model": "Rails engine architecture with Comfortable Mexican Sofa CMS integration (Gemfile)"
+        },
+        "data_model": {
+          "primary_entities": [
+            "Member (users with profiles and authentication)",
+            "Garden (growing spaces with location data)",
+            "Crop (plant species with taxonomic and growing information)",
+            "Planting (individual plant instances with dates and status)",
+            "Harvest (yield records with quantities and plant parts)",
+            "Seed (variety tracking and trading information)",
+            "Photo (images associated with crops, plantings, harvests)",
+            "Activity (garden tasks with scheduling and completion tracking)",
+            "Post (forum discussions and community content)",
+            "Comment (discussions on photos and posts)"
+          ],
+          "storage_backends": [
+            "PostgreSQL for primary data",
+            "Elasticsearch for search indexing",
+            "Flickr for photo storage"
+          ],
+          "schema_patterns": "Relational database design with ActiveRecord associations, polymorphic associations for photos and comments, role-based permissions",
+          "migration_strategy": "Rails ActiveRecord migrations with 171+ migration files tracking schema evolution from 2012 (db/migrate/)"
+        },
+        "algorithms": {
+          "problem_type": "Agricultural data collection, aggregation, and analysis for crowdsourced gardening information",
+          "core_patterns": [
+            "Repository pattern via ActiveRecord models",
+            "Observer pattern for notifications and callbacks",
+            "Strategy pattern for different crop data sources (GBIF, OpenFarm)",
+            "Factory pattern for test data generation (spec/factories/)",
+            "Concern pattern for shared model behavior (app/models/concerns/)"
+          ],
+          "complexity_indicators": "Medium complexity with 615 Ruby files, comprehensive test suite (277 test files), role-based authorization, and multi-tenant garden collaboration",
+          "key_algorithms": [
+            "Median-based harvest prediction algorithms (active_median gem, app/models/concerns/predict_harvest.rb)",
+            "Search ranking with Elasticsearch integration",
+            "Timeline visualization for garden planning (app/controllers/charts/gardens_controller.rb)",
+            "Geographic data handling with latitude/longitude coordinates"
+          ],
+          "evidence": "app/models/concerns/predict_harvest.rb implements prediction algorithms, app/models/concerns/search_*.rb implement search functionality"
+        },
+        "security_model": {
+          "authentication": "Devise gem for email/password authentication with OAuth support for external services",
+          "authorization": "CanCanCan role-based permissions with admin roles for content moderation (app/models/ability.rb)",
+          "data_protection": "Rails standard CSRF protection, encrypted credentials, secure password hashing via Devise",
+          "security_headers": "Standard Rails security headers, CSRF protection enabled in ApplicationController",
+          "vulnerability_handling": "Dependabot automated dependency updates visible in git history, security contact email in README"
+        },
+        "dependencies": {
+          "runtime": [
+            "rails ~> 7.2.0",
+            "pg (PostgreSQL adapter)",
+            "unicorn (HTTP server)",
+            "devise (authentication)",
+            "cancancan (authorization)",
+            "jsonapi-resources (API framework)",
+            "flickraw (Flickr integration)",
+            "gibbon ~> 1.2.0 (Mailchimp)",
+            "bootstrap >= 5.0.0",
+            "leaflet-rails >= 1.9.2",
+            "active_median (prediction algorithms)",
+            "comfortable_mexican_sofa (CMS)"
+          ],
+          "dev": [
+            "@coffeelint/cli ^3.0.0",
+            "@percy/cli ^1.0.0-beta.76",
+            "eslint ^5.0.0",
+            "csslint ^1.0.5",
+            "jshint ^2.9.4"
+          ],
+          "infrastructure": [
+            "PostgreSQL 17",
+            "Elasticsearch 7.4.0",
+            "Flickr API (optional)"
+          ]
+        },
+        "deployment": {
+          "containerized": true,
+          "container_orchestration": "Docker Compose",
+          "ci_cd": "GitHub Actions (visible from CI badge in README)",
+          "environment_config": "Environment variables for database, Elasticsearch, Flickr keys, domain configuration (.devcontainer/docker-compose.yml)",
+          "scaling_model": "Unicorn HTTP server supports process-based scaling, PostgreSQL and Elasticsearch can be scaled independently"
+        },
+        "code_quality_signals": {
+          "has_tests": true,
+          "test_framework": "RSpec (inferred from spec/ directory structure and CONTRIBUTING.md)",
+          "test_count_estimate": "277 test files",
+          "has_linting": true,
+          "has_type_hints": false,
+          "documentation_quality": "well-documented",
+          "code_style": "Overcommit with multiple linters (rubocop, eslint, coffeelint, csslint per CONTRIBUTING.md and package.json)"
+        },
+        "project_health": {
+          "license": "GPL-3.0",
+          "total_commits": "1",
+          "top_contributors": "1",
+          "recent_activity": "Recent Dependabot update for rubocop suggests ongoing maintenance and security updates",
+          "community_signals": "Code of conduct, security policy, contributing guidelines, contributor list, comprehensive wiki documentation"
+        },
+        "evidence_tracking": {
+          "files_analyzed": [
+            "README.md",
+            "Gemfile and Gemfile.lock",
+            "app/controllers/application_controller.rb",
+            "app/controllers/api/v1/base_controller.rb",
+            "app/models/member.rb",
+            "app/models/crop.rb",
+            "app/models/planting.rb",
+            "app/models/harvest.rb",
+            "app/models/garden.rb",
+            "swagger/v1/swagger.json",
+            ".devcontainer/docker-compose.yml",
+            "db/migrate/ directory structure",
+            "spec/ directory structure",
+            "CONTRIBUTING.md"
+          ],
+          "confidence_level": "High",
+          "information_gaps": [
+            "Exact number of git commits (extraction shows only 1 recent commit)",
+            "Production deployment configuration beyond development containers",
+            "Specific Elasticsearch mapping and indexing strategies"
+          ]
+        },
         "pricing": {
           "model": "open-source",
           "free_tier": "true"
-        },
-        "target_audience": "Developers",
-        "category": "Open Source Software",
-        "deployment": "Self-hosted",
-        "underlying_algorithm": {
-          "problem_type": "",
-          "pattern": ""
-        },
-        "evidence_tracking": {
-          "confidence_level": "High",
-          "technical_facts": [
-            "Tracks gardening activities including plantings, harvests, and garden management (app/controllers/activities_controller.rb, app/controllers/plantings_controller.rb, app/controllers/harvests_controller.rb)",
-            "Manages crop database with approval workflow and Wikipedia integration (app/models/crop.rb, app/controllers/crops_controller.rb)",
-            "Provides photo management with Flickr integration (app/controllers/photos_controller.rb, flickraw gem)",
-            "Implements member authentication and authorization with role-based permissions (app/controllers/application_controller.rb, cancancan gem)",
-            "Offers REST API for accessing gardening data (config/routes.rb API routes, jsonapi-resources gem)",
-            "Supports full-text search functionality via Elasticsearch (elasticsearch configuration in docker-compose.yml)",
-            "Generates CSV exports of gardening data (app/controllers/data_controller.rb)",
-            "Manages garden locations and mapping features (app/controllers/gardens_controller.rb)",
-            "Implements seed trading and sharing system (app/controllers/seeds_controller.rb)"
-          ],
-          "information_gaps": []
-        },
-        "architecture_patterns": [
-          "monolith",
-          "Concurrency: sync with Puma web server (config/puma.rb referenced in Procfile)"
-        ],
-        "auth_methods": [
-          "Session-based authentication",
-          "Role-based authorization via CanCanCan"
-        ],
-        "sdk_languages": [],
-        "dependencies": [
-          "rails ~> 7.2.0",
-          "pg",
-          "elasticsearch",
-          "flickraw",
-          "jsonapi-resources",
-          "cancancan",
-          "haml",
-          "bootstrap",
-          "jquery-rails",
-          "active_median",
-          "Infrastructure: PostgreSQL",
-          "Infrastructure: Elasticsearch",
-          "Infrastructure: Flickr API"
-        ],
-        "deployment_options": [
-          "Containerized (Docker)",
-          "CI/CD: GitHub Actions"
-        ]
+        }
       },
       "extracted_data": {},
       "source": "local_repo",
       "source_confidence": "high",
-      "timestamp": "2026-03-21T14:25:44.011484"
+      "timestamp": "2026-03-25T15:10:44.392463"
     },
     "generalization": {
       "functional_dna": {
         "logic_archetype": "Data Aggregator",
-        "logic_archetype_evidence": "Tracks gardening activities including plantings, harvests, and garden management (app/controllers/activities_controller.rb, app/controllers/plantings_controller.rb, app/controllers/harvests_controller.rb) + Generates CSV exports of gardening data (app/controllers/data_controller.rb) + crowdsourced data aggregation from summary",
+        "logic_archetype_evidence": "System continuously collects crowdsourced data from distributed members, aggregates it into a centralized repository, and provides both API access and analytical views. The core value is transforming individual data points into collective intelligence through structured aggregation patterns.",
         "data_contract_strictness": "Highly Structured",
-        "data_contract_evidence": "JSONAPI specification compliance (jsonapi-resources gem) + PostgreSQL 17 (docker-compose.yml) + Swagger/OpenAPI documentation (rswag gems)",
+        "data_contract_evidence": "Evidence: Comprehensive ActiveRecord schema with 171+ migrations, JSON:API v1 specification (swagger/v1/swagger.json), strong relational database design with foreign key constraints and polymorphic associations",
         "core_algorithmic_class": "CRUD Operations",
-        "core_algorithmic_evidence": "Rails MVC pattern with controllers for activities, plantings, harvests, crops, gardens, seeds (app/controllers/) + PostgreSQL database operations + REST API endpoints",
+        "core_algorithmic_evidence": "Evidence from ActiveRecord ORM patterns, RESTful API endpoints for create/read/update/delete operations on primary entities, median-based harvest prediction algorithms (active_median gem), and Elasticsearch search indexing",
         "concurrency_requirements": "ACID Compliance Required",
-        "concurrency_evidence": "PostgreSQL 17 (docker-compose.yml) as primary database + Rails ActiveRecord ORM patterns",
+        "concurrency_evidence": "Evidence from PostgreSQL primary database choice, Rails ActiveRecord ORM with transaction support, role-based authorization requiring consistent permission checks",
+        "abstract_problem": "Maintains a crowdsourced repository where distributed contributors submit structured temporal data about entities they manage, with the system aggregating this data to provide collective insights and enabling collaborative tracking of multi-stage processes over time.",
+        "data_flow_pattern": "User input \u2192 validation \u2192 entity persistence \u2192 relationship linking \u2192 aggregation \u2192 API/UI materialization with optional external service synchronization",
+        "state_complexity": "Entity-scoped",
         "repurposing_confidence": 8,
-        "repurposing_reasoning": "High reusability due to generic data aggregation patterns, CRUD operations, REST API structure, and standard Rails architecture. Domain-specific elements (gardening) are primarily in data models and UI, not core logic."
+        "repurposing_reasoning": "The core data aggregation and community management patterns are highly reusable. The Rails architecture, role-based permissions, API layer, and crowdsourced data collection framework could easily adapt to other domains. Domain-specific elements are primarily in the crop/garden models and business logic, while the underlying member management, photo handling, messaging, and data export capabilities are generic. The temporal tracking and collaborative features make it valuable for any field requiring community-driven data collection."
       },
       "evidence_claims": [
         {
-          "claim": "Implements REST API with JSONAPI compliance",
-          "evidence": "config/routes.rb API routes, jsonapi-resources gem",
+          "claim": "System implements comprehensive JSON:API specification for external data access",
+          "evidence": "swagger/v1/swagger.json contains full API specification with endpoints for crops, gardens, plantings, harvests, seeds, activities",
           "confidence": "High"
         },
         {
-          "claim": "Uses PostgreSQL for data persistence",
-          "evidence": "PostgreSQL 17 (docker-compose.yml)",
+          "claim": "Uses role-based authorization with admin functions for content moderation",
+          "evidence": "app/models/ability.rb implements CanCanCan permissions, app/controllers/admin/ directory contains admin-only controllers",
           "confidence": "High"
         },
         {
-          "claim": "Supports full-text search via Elasticsearch",
-          "evidence": "elasticsearch configuration in docker-compose.yml",
+          "claim": "Implements temporal tracking with harvest prediction algorithms",
+          "evidence": "app/models/concerns/predict_harvest.rb uses active_median gem for prediction algorithms",
           "confidence": "High"
         },
         {
-          "claim": "Implements role-based authorization",
-          "evidence": "cancancan gem + app/controllers/application_controller.rb",
-          "confidence": "High"
-        },
-        {
-          "claim": "Provides data export functionality",
-          "evidence": "app/controllers/data_controller.rb",
+          "claim": "Supports external service integration for photo management",
+          "evidence": "app/models/concerns/member_flickr.rb and FlickRaw gem in Gemfile for Flickr API integration",
           "confidence": "High"
         }
       ],
       "market_reach": {
-        "primary_industry": "Agriculture/Gardening",
+        "primary_industry": "Agricultural Technology / Gardening",
         "cross_industry_applications": [
-          "Healthcare (patient tracking)",
-          "Education (learning progress)",
-          "Manufacturing (production tracking)",
-          "Research (data collection)",
-          "Inventory Management"
+          "Fitness/Health tracking - members tracking workouts, exercises, and health metrics over time",
+          "Hobbyist collecting - tracking collectibles, acquisitions, trades, and community knowledge sharing",
+          "Educational research - students and researchers contributing data to collaborative studies",
+          "Environmental monitoring - citizen scientists tracking local environmental conditions",
+          "Recipe/cooking communities - tracking ingredients, cooking experiments, and sharing results",
+          "Pet care tracking - monitoring pet health, feeding, activities with community support",
+          "Home maintenance - tracking repairs, improvements, costs with neighborhood collaboration",
+          "Investment tracking - portfolio management with community insights and data sharing"
         ],
         "utility_score": 8,
         "market_potential": "High"
@@ -301,45 +544,64 @@
         "difficulty": "Medium",
         "estimated_hours": 120,
         "required_technologies": [
-          "Ruby on Rails 7.2.0 (Gemfile)",
-          "PostgreSQL 17 (docker-compose.yml)",
-          "Elasticsearch 7.4.0 (docker-compose.yml)"
+          "Ruby on Rails",
+          "PostgreSQL",
+          "Elasticsearch",
+          "Bootstrap",
+          "JSON:API"
         ],
         "complexity_factors": [
-          "Domain model adaptation",
-          "UI/UX redesign",
-          "API endpoint customization",
-          "Search index reconfiguration"
+          "171+ database migrations need domain adaptation",
+          "Complex role-based permission system requires business rule changes",
+          "Extensive test suite (277 files) needs updating for new domain",
+          "External API integrations may need replacement",
+          "Domain-specific models and validations throughout codebase"
         ],
-        "risk_level": "Medium"
+        "risk_level": "Medium",
+        "migration_path": "Clone repository, replace domain models (crop/garden/planting) with target entities, update database schema, modify business logic in controllers, adapt admin interfaces, update API documentation, and replace external integrations as needed"
       },
       "interface_map": {
         "adapter_schema": {
           "input": {
             "format": "JSON",
             "required_fields": [
-              "JSONAPI compliant structure based on jsonapi-resources gem"
+              "member_id",
+              "entity_data",
+              "temporal_markers"
+            ],
+            "protocols": [
+              "HTTP REST",
+              "JSON:API"
             ]
           },
           "output": {
-            "format": "JSON"
+            "format": "JSON/CSV/HTML",
+            "delivery": "sync"
           },
           "authentication": {
-            "type": "Session-based authentication",
-            "method": "Role-based authorization via CanCanCan"
+            "type": "token-based",
+            "method": "Devise with OAuth support"
           }
         },
-        "standardization_level": "High"
+        "standardization_level": "High",
+        "api_surface_area": "Medium (10-50)"
       },
+      "comparable_systems": [
+        "Strava (fitness tracking with community data aggregation)",
+        "Goodreads (book tracking with crowdsourced reviews and recommendations)",
+        "iNaturalist (citizen science biodiversity data collection)",
+        "MyFitnessPal (nutrition tracking with community database)",
+        "Untappd (beer tracking with user-generated venue and product data)"
+      ],
       "information_gaps": [
-        "Business logic complexity details",
-        "Performance benchmarks",
-        "Scaling requirements",
-        "Integration complexity with external APIs",
-        "Database schema details"
+        "Production deployment architecture and scaling patterns",
+        "Specific Elasticsearch indexing and search ranking strategies",
+        "Real-world performance metrics and user engagement patterns",
+        "Data export/import capabilities beyond CSV",
+        "Mobile application integration or responsive design details"
       ]
     },
-    "timestamp": "2026-03-21T14:25:58.292540"
+    "timestamp": "2026-03-25T15:11:13.413086"
   },
   "errors": []
 }

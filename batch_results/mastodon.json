@@ -1,371 +1,653 @@
 {
   "url": "https://github.com/mastodon/mastodon.git",
   "repo_name": "mastodon",
-  "timestamp": "2026-03-21T15:15:41.724228",
+  "timestamp": "2026-03-25T15:31:23.101112",
   "step1": {
     "product_name": "mastodon",
     "url": "https://github.com/mastodon/mastodon.git",
     "analysis": {
-      "summary": "Mastodon is a federated social network server implementing ActivityPub protocol. It provides a Ruby on Rails web application with REST/Streaming APIs, OAuth2 authentication, media handling, and real-time features for decentralized social networking.",
+      "summary": "Mastodon is a decentralized social networking server built on Ruby on Rails that implements ActivityPub protocol for federated communication. It provides REST and streaming APIs, supports multimedia posts, follows/followers relationships, and includes comprehensive moderation tools. The system uses PostgreSQL for persistence, Redis for caching and job queues, and a React.js frontend for the web interface.",
       "capabilities": [
-        "ActivityPub federation for decentralized social networking (app/controllers/activitypub/*.rb)",
-        "REST API endpoints for client applications (app/controllers/api/*.rb)",
-        "Real-time streaming API using WebSocket connections (streaming/index.js)",
-        "OAuth2 authentication and authorization (Gemfile: omniauth, devise)",
-        "Media attachment processing and storage (Gemfile: kt-paperclip, ruby-vips)",
-        "Full-text search using Elasticsearch integration (app/chewy/*.rb)",
-        "Background job processing with Sidekiq (Procfile: sidekiq worker)",
-        "Administrative interface for moderation and server management (app/controllers/admin/*.rb)",
-        "Multi-language internationalization support (package.json: @formatjs/intl-pluralrules)",
-        "Two-factor authentication support (Gemfile: devise-two-factor)"
+        "Implements ActivityPub federation protocol for cross-server communication (app/controllers/activitypub/)",
+        "Processes incoming ActivityPub messages and dispatches to appropriate handlers (app/controllers/activitypub/inboxes_controller.rb)",
+        "Manages user authentication with Devise including 2FA and WebAuthn (app/controllers/auth/)",
+        "Provides OAuth2 authorization server for third-party applications (app/controllers/oauth/)",
+        "Handles media file uploads, processing, and storage with multiple backends (app/models/media_attachment.rb)",
+        "Implements real-time streaming API using Node.js and WebSockets (streaming/)",
+        "Manages follow/unfollow relationships and social graph (app/models/follow.rb)",
+        "Processes status updates including text, media, polls, and quotes (app/models/status.rb)",
+        "Implements content filtering and moderation with custom rules (app/models/filter.rb)",
+        "Handles notifications with grouping and filtering policies (app/models/notification.rb)",
+        "Provides full-text search using Elasticsearch integration (app/chewy/)",
+        "Manages user timelines with home, public, and list feeds (app/controllers/api/v1/timelines/)",
+        "Implements content warnings, sensitive media flagging, and interaction policies (app/models/status.rb)",
+        "Handles instance-wide and per-user blocking/muting functionality (app/models/block.rb, app/models/mute.rb)",
+        "Processes background jobs using Sidekiq for email delivery and federation (app/workers/)",
+        "Manages custom emoji upload and federation across instances (app/models/custom_emoji.rb)",
+        "Implements trending hashtags and link detection algorithms (app/models/trending_tags.rb)",
+        "Handles user profile customization including bio, avatar, and header images (app/models/account.rb)",
+        "Provides comprehensive admin interface for instance management (app/controllers/admin/)",
+        "Implements rate limiting and spam detection mechanisms (lib/mastodon/rate_limiter.rb)",
+        "Manages scheduled status posting functionality (app/models/scheduled_status.rb)",
+        "Handles bookmark and favorite status interactions (app/models/favourite.rb, app/models/bookmark.rb)",
+        "Implements lists for organizing followed accounts into custom feeds (app/models/list.rb)",
+        "Processes domain blocks and allows for federation control (app/models/domain_block.rb)",
+        "Manages user invitations and registration approval workflows (app/models/invite.rb)"
       ],
-      "use_cases": [],
+      "use_cases": [
+        "Individuals use this to run their own social media instance with full control over data and moderation policies",
+        "Organizations deploy this to create internal social networks while maintaining federation with the broader network",
+        "Communities use this to build topic-specific social media servers with custom rules and moderation",
+        "Developers integrate with the REST API to build third-party Mastodon clients and tools",
+        "Instance administrators use the web interface and API to moderate content and manage users"
+      ],
+      "category": "Decentralized Social Media Platform",
+      "target_audience": "System administrators, Ruby developers, social media enthusiasts, privacy-focused users",
       "technical_stack": [
         "Ruby on Rails 8.1.0 (Gemfile)",
-        "PostgreSQL 14 (docker-compose.yml, Gemfile: pg)",
-        "Redis (docker-compose.yml, streaming/package.json: ioredis)",
-        "Elasticsearch (docker-compose.yml, Gemfile: chewy)",
-        "React/TypeScript frontend (package.json: @vitejs/plugin-react, TypeScript)",
-        "Node.js streaming server (streaming/package.json: express, ws)",
-        "Sidekiq for background jobs (Gemfile, Procfile)",
-        "Puma web server (Gemfile)",
-        "AWS S3 for media storage (Gemfile: aws-sdk-s3)"
-      ],
-      "integrations": [
-        "ActivityPub protocol for federation",
-        "AWS S3 for media storage (Gemfile: aws-sdk-s3)",
-        "Elasticsearch for search functionality (Gemfile: chewy)",
-        "WebPush for notifications (Gemfile.lock: webpush)",
-        "SMTP for email delivery",
-        "Various OAuth providers (CAS, OpenID Connect)"
+        "PostgreSQL 14+ (README.md, docker-compose.yml)",
+        "Redis 7.0+ (README.md, Gemfile - hiredis)",
+        "Node.js 20+ (README.md, package.json)",
+        "React.js (package.json - @vitejs/plugin-react)",
+        "Redux Toolkit 2.0.1 (package.json - @reduxjs/toolkit)",
+        "TypeScript (package.json, .ts/.tsx files)",
+        "Elasticsearch (app/chewy/, Gemfile - chewy)",
+        "Sidekiq (Gemfile, README.md)",
+        "Puma 7.0 (Gemfile)",
+        "Devise (Gemfile - authentication)",
+        "Doorkeeper 5.6 (Gemfile - OAuth2)",
+        "Paperclip 7.2 (Gemfile - kt-paperclip)",
+        "FFmpeg 5.1+ (README.md, Dockerfile)",
+        "Vite (config/vite/)",
+        "Docker (Dockerfile, docker-compose.yml)"
       ],
       "api_endpoints": [
-        {
-          "method": null,
-          "path": "ActivityPub endpoints for federation (app/controllers/activitypub/inboxes_controller.rb)",
-          "summary": null
-        },
-        {
-          "method": null,
-          "path": "REST API for client applications (app/controllers/api/v1/*.rb pattern)",
-          "summary": null
-        },
-        {
-          "method": null,
-          "path": "Streaming API for real-time updates (streaming server)",
-          "summary": null
-        },
-        {
-          "method": null,
-          "path": "Admin interface endpoints (app/controllers/admin/*.rb)",
-          "summary": null
-        },
-        {
-          "method": null,
-          "path": "OAuth2 authorization endpoints (devise/omniauth integration)",
-          "summary": null
-        }
+        "GET /api/v2/instance \u2014 Fetch server information and configuration (app/controllers/api/v1/instances_controller.rb)",
+        "POST /api/v1/statuses \u2014 Create new status/post (app/controllers/api/v1/statuses_controller.rb)",
+        "GET /api/v1/timelines/home \u2014 Get home timeline (app/controllers/api/v1/timelines/home_controller.rb)",
+        "GET /api/v1/timelines/public \u2014 Get public timeline (app/controllers/api/v1/timelines/public_controller.rb)",
+        "POST /api/v1/accounts/:id/follow \u2014 Follow an account (app/controllers/api/v1/accounts_controller.rb)",
+        "GET /api/v1/notifications \u2014 Get notifications (app/controllers/api/v1/notifications_controller.rb)",
+        "POST /api/v1/media \u2014 Upload media attachment (app/controllers/api/v1/media_controller.rb)",
+        "POST /api/v1/apps \u2014 Register OAuth application (app/controllers/api/v1/apps_controller.rb)",
+        "POST /oauth/token \u2014 OAuth2 token endpoint (app/controllers/oauth/tokens_controller.rb)",
+        "GET /api/v1/accounts/verify_credentials \u2014 Get current user account (app/controllers/api/v1/accounts/credentials_controller.rb)",
+        "POST /api/v1/statuses/:id/favourite \u2014 Favorite a status (app/controllers/api/v1/statuses/favourites_controller.rb)",
+        "POST /api/v1/statuses/:id/reblog \u2014 Reblog/boost a status (app/controllers/api/v1/statuses/reblogs_controller.rb)",
+        "GET /api/v1/search \u2014 Search accounts, statuses, hashtags (app/controllers/api/v2/search_controller.rb)",
+        "GET /.well-known/nodeinfo \u2014 NodeInfo endpoint for federation discovery",
+        "POST /inbox \u2014 ActivityPub inbox for federation (app/controllers/activitypub/inboxes_controller.rb)",
+        "GET /users/:username/outbox \u2014 ActivityPub outbox (app/controllers/activitypub/outboxes_controller.rb)"
       ],
+      "sdk_languages": [],
+      "auth_methods": [
+        "OAuth2 with PKCE support (app/controllers/oauth/, Gemfile - doorkeeper)",
+        "Session-based authentication via Devise (app/controllers/auth/sessions_controller.rb)",
+        "Two-factor authentication with TOTP and WebAuthn (app/controllers/auth/, Gemfile - devise-two-factor)",
+        "HTTP Signature authentication for ActivityPub federation (app/controllers/concerns/signature_verification.rb)",
+        "API token authentication for applications (app/controllers/concerns/api_token_tracking_concern.rb)",
+        "LDAP authentication support (Gemfile - net-ldap)",
+        "PAM authentication support (Gemfile - devise_pam_authenticatable2)",
+        "SAML SSO support (Gemfile - omniauth-saml)",
+        "OpenID Connect support (Gemfile - omniauth_openid_connect)"
+      ],
+      "integrations": [
+        "PostgreSQL via ActiveRecord ORM (Gemfile - pg, config/database.yml implied)",
+        "Redis for caching, sessions, and job queues (Gemfile - hiredis, hiredis-client)",
+        "Elasticsearch for full-text search (app/chewy/, Gemfile - chewy)",
+        "AWS S3 for media storage (Gemfile - aws-sdk-s3)",
+        "Azure Blob Storage (Gemfile - jd-paperclip-azure)",
+        "OpenStack Swift storage (Gemfile - fog-openstack)",
+        "SMTP for email delivery (app/mailers/)",
+        "WebPush for push notifications (Gemfile - webpush)",
+        "Sentry for error monitoring (streaming/ Node.js service)",
+        "FFmpeg for media processing (Dockerfile, README.md requirements)",
+        "ImageMagick/VIPS for image processing (Gemfile - ruby-vips)"
+      ],
+      "architecture": {
+        "pattern": "monolith with microservice streaming API",
+        "components": [
+          "Main Rails application handling web UI and REST API (app/)",
+          "Node.js streaming service for real-time WebSocket connections (streaming/)",
+          "Sidekiq background job workers for async processing (app/workers/)",
+          "ActivityPub federation handlers for decentralized communication (app/controllers/activitypub/)",
+          "Admin interface for instance management (app/controllers/admin/)",
+          "OAuth2 provider for third-party app authentication (app/controllers/oauth/)",
+          "Search indexing via Elasticsearch integration (app/chewy/)"
+        ],
+        "entry_points": [
+          "config/application.rb (Rails application)",
+          "streaming/index.js (Node.js streaming server)",
+          "app/javascript/mastodon/main.tsx (React frontend)"
+        ],
+        "data_flow": "HTTP requests hit Rails controllers which interact with ActiveRecord models, background jobs are queued to Sidekiq via Redis, real-time updates flow through Node.js streaming service to WebSocket clients, ActivityPub messages are processed asynchronously and federated to remote instances",
+        "persistence": "PostgreSQL primary database with ActiveRecord ORM, Redis for caching and job queues, Elasticsearch for search indexes, file storage on local disk or cloud providers (S3, Azure)",
+        "concurrency_model": "Rails application uses multi-threaded Puma server, Sidekiq provides multi-threaded background job processing, Node.js streaming service uses event-loop concurrency",
+        "communication_patterns": "REST API for client-server communication, WebSockets for real-time streaming, ActivityPub HTTP POST for server-to-server federation, Redis pub/sub for internal messaging",
+        "plugin_extension_model": "Ruby gem-based extensions, middleware pipeline for request processing, Sidekiq middleware for job processing, webhook system for external integrations (app/controllers/admin/webhooks_controller.rb)"
+      },
+      "data_model": {
+        "primary_entities": [
+          "Account (user profiles and remote users)",
+          "Status (posts/toots with content, media, polls)",
+          "Follow (relationships between accounts)",
+          "Notification (user alerts and mentions)",
+          "MediaAttachment (uploaded files and metadata)",
+          "CustomEmoji (instance-specific emoji)",
+          "Filter (content filtering rules)",
+          "List (custom timeline groupings)",
+          "Report (moderation reports)",
+          "Domain (federation allow/block lists)"
+        ],
+        "storage_backends": [
+          "PostgreSQL for relational data and JSONB fields",
+          "Redis for caching, sessions, and job queues",
+          "Elasticsearch for full-text search indexes",
+          "File system or cloud storage for media assets"
+        ],
+        "schema_patterns": "Relational database with ActiveRecord associations, JSONB columns for semi-structured data (status metadata, account fields), full-text search indexes in Elasticsearch, polymorphic associations for notifications and reports",
+        "migration_strategy": "Rails ActiveRecord migrations with versioned schema changes (db/migrate/), post-deployment migrations for large table changes (db/post_migrate/)"
+      },
+      "algorithms": {
+        "problem_type": "Distributed social media with content discovery, federation, and moderation",
+        "core_patterns": [
+          "Observer pattern for activity propagation and notifications",
+          "Strategy pattern for different authentication methods",
+          "Factory pattern for ActivityPub object creation",
+          "Repository pattern via ActiveRecord models",
+          "Pub/Sub pattern for real-time updates",
+          "Command pattern for background job processing"
+        ],
+        "complexity_indicators": "Large codebase with 9651+ files, complex federation protocol implementation, real-time streaming requirements, multi-tenant moderation system",
+        "key_algorithms": [
+          "ActivityPub message parsing and validation (app/services/activitypub/)",
+          "Timeline generation with follower fan-out (app/services/fan_out_on_write_service.rb)",
+          "Content filtering and keyword matching (app/models/filter.rb)",
+          "Trending calculation based on engagement metrics (lib/mastodon/trending_tags.rb)",
+          "Rate limiting with sliding window algorithm (lib/mastodon/rate_limiter.rb)"
+        ],
+        "evidence": "app/services/activitypub/ contains federation logic, app/workers/ contains background job implementations, app/models/ contains business logic and associations"
+      },
+      "security_model": {
+        "authentication": "Multi-factor authentication with TOTP, WebAuthn, session-based auth via Devise, OAuth2 for API access",
+        "authorization": "Role-based permissions for admin functions, per-user privacy settings, instance-level moderation controls",
+        "data_protection": "HTTPS enforcement, secure headers middleware, password hashing via Devise, encrypted credentials in Rails",
+        "security_headers": "CSP, HSTS, X-Frame-Options implemented via Rails security middleware",
+        "vulnerability_handling": "SECURITY.md file present, dependency scanning via bundler-audit implied, regular security updates"
+      },
+      "dependencies": {
+        "runtime": [
+          "rails ~> 8.1.0",
+          "pg ~> 1.5",
+          "redis",
+          "sidekiq",
+          "devise",
+          "doorkeeper ~> 5.6",
+          "chewy (Elasticsearch)",
+          "kt-paperclip ~> 7.2",
+          "aws-sdk-s3 ~> 1.123",
+          "react",
+          "@reduxjs/toolkit ~> 2.0.1"
+        ],
+        "dev": [
+          "rspec-rails",
+          "fabrication",
+          "webmock",
+          "simplecov",
+          "rubocop",
+          "stylelint",
+          "@types/react",
+          "typescript"
+        ],
+        "infrastructure": [
+          "PostgreSQL 14+",
+          "Redis 7.0+",
+          "Elasticsearch (optional)",
+          "FFmpeg for media processing",
+          "ImageMagick or libvips for image processing",
+          "SMTP server for email delivery"
+        ]
+      },
+      "deployment": {
+        "containerized": true,
+        "container_orchestration": "Docker Compose provided, Kubernetes via separate chart repository",
+        "ci_cd": "GitHub Actions (test workflows visible in README badges)",
+        "environment_config": "Environment variables for configuration, Rails credentials for secrets, dotenv support in development",
+        "scaling_model": "Horizontal scaling via multiple Rails instances, separate streaming service, Redis cluster support, CDN for media assets"
+      },
+      "code_quality_signals": {
+        "has_tests": true,
+        "test_framework": "RSpec (spec/ directory structure)",
+        "test_count_estimate": "1291 test files",
+        "has_linting": true,
+        "has_type_hints": true,
+        "documentation_quality": "well-documented",
+        "code_style": "RuboCop for Ruby, Stylelint for CSS, TypeScript for frontend type checking"
+      },
+      "project_health": {
+        "license": "GPL-3.0",
+        "total_commits": "1 (limited sample)",
+        "top_contributors": "1 visible contributor in sample",
+        "recent_activity": "Recent commit focuses on federation improvements with collection item handling",
+        "community_signals": "CODE_OF_CONDUCT.md, SECURITY.md, CONTRIBUTING.md, issue templates, comprehensive documentation"
+      },
+      "evidence_tracking": {
+        "files_analyzed": [
+          "README.md",
+          "CONTRIBUTING.md",
+          "Gemfile",
+          "package.json",
+          "app/controllers/api/v1/statuses_controller.rb",
+          "app/controllers/activitypub/inboxes_controller.rb",
+          "app/javascript/mastodon/actions/",
+          "app/models/status.rb",
+          "app/workers/",
+          "db/migrate/",
+          "streaming/",
+          "docker-compose.yml",
+          "Dockerfile"
+        ],
+        "confidence_level": "High",
+        "information_gaps": [
+          "Limited git history in sample (only 1 commit)",
+          "Cannot determine exact Elasticsearch version requirements",
+          "Specific production deployment patterns not fully visible"
+        ]
+      },
       "pricing": {
         "model": "open-source",
         "free_tier": "true"
-      },
-      "target_audience": "Developers",
-      "category": "Open Source Software",
-      "deployment": "Self-hosted",
-      "underlying_algorithm": {
-        "problem_type": "",
-        "pattern": ""
-      },
-      "evidence_tracking": {
-        "confidence_level": "High",
-        "technical_facts": [
-          "ActivityPub federation for decentralized social networking (app/controllers/activitypub/*.rb)",
-          "REST API endpoints for client applications (app/controllers/api/*.rb)",
-          "Real-time streaming API using WebSocket connections (streaming/index.js)",
-          "OAuth2 authentication and authorization (Gemfile: omniauth, devise)",
-          "Media attachment processing and storage (Gemfile: kt-paperclip, ruby-vips)",
-          "Full-text search using Elasticsearch integration (app/chewy/*.rb)",
-          "Background job processing with Sidekiq (Procfile: sidekiq worker)",
-          "Administrative interface for moderation and server management (app/controllers/admin/*.rb)",
-          "Multi-language internationalization support (package.json: @formatjs/intl-pluralrules)",
-          "Two-factor authentication support (Gemfile: devise-two-factor)"
-        ],
-        "information_gaps": []
-      },
-      "architecture_patterns": [
-        "monolith",
-        "Concurrency: multi-threaded via Puma server, async job processing via Sidekiq, real-time streaming via WebSocket connections in Node.js"
-      ],
-      "auth_methods": [
-        "OAuth2 (Gemfile: omniauth)",
-        "Two-factor authentication (Gemfile: devise-two-factor)",
-        "LDAP authentication (Gemfile: net-ldap)",
-        "PAM authentication (Gemfile: devise_pam_authenticatable2)",
-        "OpenID Connect (Gemfile: omniauth_openid_connect)",
-        "CAS authentication (Gemfile: omniauth-cas)"
-      ],
-      "sdk_languages": [],
-      "dependencies": [
-        "rails (~> 8.1.0)",
-        "pg (~> 1.5)",
-        "redis",
-        "sidekiq",
-        "devise",
-        "omniauth",
-        "chewy",
-        "kt-paperclip",
-        "express (streaming)",
-        "ws (streaming)",
-        "ioredis (streaming)",
-        "Infrastructure: PostgreSQL 14",
-        "Infrastructure: Redis 7",
-        "Infrastructure: Elasticsearch 7.17",
-        "Infrastructure: S3-compatible storage"
-      ],
-      "deployment_options": [
-        "Containerized (Docker)",
-        "CI/CD: GitHub Actions (workflow files mentioned in README badges)"
-      ]
+      }
     },
     "extracted_data": {},
     "source": "local_repo",
     "source_confidence": "high",
-    "timestamp": "2026-03-21T15:16:52.435009"
+    "timestamp": "2026-03-25T15:32:46.769841"
   },
   "step2": {
     "step1_data": {
       "product_name": "mastodon",
       "url": "https://github.com/mastodon/mastodon.git",
       "analysis": {
-        "summary": "Mastodon is a federated social network server implementing ActivityPub protocol. It provides a Ruby on Rails web application with REST/Streaming APIs, OAuth2 authentication, media handling, and real-time features for decentralized social networking.",
+        "summary": "Mastodon is a decentralized social networking server built on Ruby on Rails that implements ActivityPub protocol for federated communication. It provides REST and streaming APIs, supports multimedia posts, follows/followers relationships, and includes comprehensive moderation tools. The system uses PostgreSQL for persistence, Redis for caching and job queues, and a React.js frontend for the web interface.",
         "capabilities": [
-          "ActivityPub federation for decentralized social networking (app/controllers/activitypub/*.rb)",
-          "REST API endpoints for client applications (app/controllers/api/*.rb)",
-          "Real-time streaming API using WebSocket connections (streaming/index.js)",
-          "OAuth2 authentication and authorization (Gemfile: omniauth, devise)",
-          "Media attachment processing and storage (Gemfile: kt-paperclip, ruby-vips)",
-          "Full-text search using Elasticsearch integration (app/chewy/*.rb)",
-          "Background job processing with Sidekiq (Procfile: sidekiq worker)",
-          "Administrative interface for moderation and server management (app/controllers/admin/*.rb)",
-          "Multi-language internationalization support (package.json: @formatjs/intl-pluralrules)",
-          "Two-factor authentication support (Gemfile: devise-two-factor)"
+          "Implements ActivityPub federation protocol for cross-server communication (app/controllers/activitypub/)",
+          "Processes incoming ActivityPub messages and dispatches to appropriate handlers (app/controllers/activitypub/inboxes_controller.rb)",
+          "Manages user authentication with Devise including 2FA and WebAuthn (app/controllers/auth/)",
+          "Provides OAuth2 authorization server for third-party applications (app/controllers/oauth/)",
+          "Handles media file uploads, processing, and storage with multiple backends (app/models/media_attachment.rb)",
+          "Implements real-time streaming API using Node.js and WebSockets (streaming/)",
+          "Manages follow/unfollow relationships and social graph (app/models/follow.rb)",
+          "Processes status updates including text, media, polls, and quotes (app/models/status.rb)",
+          "Implements content filtering and moderation with custom rules (app/models/filter.rb)",
+          "Handles notifications with grouping and filtering policies (app/models/notification.rb)",
+          "Provides full-text search using Elasticsearch integration (app/chewy/)",
+          "Manages user timelines with home, public, and list feeds (app/controllers/api/v1/timelines/)",
+          "Implements content warnings, sensitive media flagging, and interaction policies (app/models/status.rb)",
+          "Handles instance-wide and per-user blocking/muting functionality (app/models/block.rb, app/models/mute.rb)",
+          "Processes background jobs using Sidekiq for email delivery and federation (app/workers/)",
+          "Manages custom emoji upload and federation across instances (app/models/custom_emoji.rb)",
+          "Implements trending hashtags and link detection algorithms (app/models/trending_tags.rb)",
+          "Handles user profile customization including bio, avatar, and header images (app/models/account.rb)",
+          "Provides comprehensive admin interface for instance management (app/controllers/admin/)",
+          "Implements rate limiting and spam detection mechanisms (lib/mastodon/rate_limiter.rb)",
+          "Manages scheduled status posting functionality (app/models/scheduled_status.rb)",
+          "Handles bookmark and favorite status interactions (app/models/favourite.rb, app/models/bookmark.rb)",
+          "Implements lists for organizing followed accounts into custom feeds (app/models/list.rb)",
+          "Processes domain blocks and allows for federation control (app/models/domain_block.rb)",
+          "Manages user invitations and registration approval workflows (app/models/invite.rb)"
         ],
-        "use_cases": [],
+        "use_cases": [
+          "Individuals use this to run their own social media instance with full control over data and moderation policies",
+          "Organizations deploy this to create internal social networks while maintaining federation with the broader network",
+          "Communities use this to build topic-specific social media servers with custom rules and moderation",
+          "Developers integrate with the REST API to build third-party Mastodon clients and tools",
+          "Instance administrators use the web interface and API to moderate content and manage users"
+        ],
+        "category": "Decentralized Social Media Platform",
+        "target_audience": "System administrators, Ruby developers, social media enthusiasts, privacy-focused users",
         "technical_stack": [
           "Ruby on Rails 8.1.0 (Gemfile)",
-          "PostgreSQL 14 (docker-compose.yml, Gemfile: pg)",
-          "Redis (docker-compose.yml, streaming/package.json: ioredis)",
-          "Elasticsearch (docker-compose.yml, Gemfile: chewy)",
-          "React/TypeScript frontend (package.json: @vitejs/plugin-react, TypeScript)",
-          "Node.js streaming server (streaming/package.json: express, ws)",
-          "Sidekiq for background jobs (Gemfile, Procfile)",
-          "Puma web server (Gemfile)",
-          "AWS S3 for media storage (Gemfile: aws-sdk-s3)"
-        ],
-        "integrations": [
-          "ActivityPub protocol for federation",
-          "AWS S3 for media storage (Gemfile: aws-sdk-s3)",
-          "Elasticsearch for search functionality (Gemfile: chewy)",
-          "WebPush for notifications (Gemfile.lock: webpush)",
-          "SMTP for email delivery",
-          "Various OAuth providers (CAS, OpenID Connect)"
+          "PostgreSQL 14+ (README.md, docker-compose.yml)",
+          "Redis 7.0+ (README.md, Gemfile - hiredis)",
+          "Node.js 20+ (README.md, package.json)",
+          "React.js (package.json - @vitejs/plugin-react)",
+          "Redux Toolkit 2.0.1 (package.json - @reduxjs/toolkit)",
+          "TypeScript (package.json, .ts/.tsx files)",
+          "Elasticsearch (app/chewy/, Gemfile - chewy)",
+          "Sidekiq (Gemfile, README.md)",
+          "Puma 7.0 (Gemfile)",
+          "Devise (Gemfile - authentication)",
+          "Doorkeeper 5.6 (Gemfile - OAuth2)",
+          "Paperclip 7.2 (Gemfile - kt-paperclip)",
+          "FFmpeg 5.1+ (README.md, Dockerfile)",
+          "Vite (config/vite/)",
+          "Docker (Dockerfile, docker-compose.yml)"
         ],
         "api_endpoints": [
-          {
-            "method": null,
-            "path": "ActivityPub endpoints for federation (app/controllers/activitypub/inboxes_controller.rb)",
-            "summary": null
-          },
-          {
-            "method": null,
-            "path": "REST API for client applications (app/controllers/api/v1/*.rb pattern)",
-            "summary": null
-          },
-          {
-            "method": null,
-            "path": "Streaming API for real-time updates (streaming server)",
-            "summary": null
-          },
-          {
-            "method": null,
-            "path": "Admin interface endpoints (app/controllers/admin/*.rb)",
-            "summary": null
-          },
-          {
-            "method": null,
-            "path": "OAuth2 authorization endpoints (devise/omniauth integration)",
-            "summary": null
-          }
+          "GET /api/v2/instance \u2014 Fetch server information and configuration (app/controllers/api/v1/instances_controller.rb)",
+          "POST /api/v1/statuses \u2014 Create new status/post (app/controllers/api/v1/statuses_controller.rb)",
+          "GET /api/v1/timelines/home \u2014 Get home timeline (app/controllers/api/v1/timelines/home_controller.rb)",
+          "GET /api/v1/timelines/public \u2014 Get public timeline (app/controllers/api/v1/timelines/public_controller.rb)",
+          "POST /api/v1/accounts/:id/follow \u2014 Follow an account (app/controllers/api/v1/accounts_controller.rb)",
+          "GET /api/v1/notifications \u2014 Get notifications (app/controllers/api/v1/notifications_controller.rb)",
+          "POST /api/v1/media \u2014 Upload media attachment (app/controllers/api/v1/media_controller.rb)",
+          "POST /api/v1/apps \u2014 Register OAuth application (app/controllers/api/v1/apps_controller.rb)",
+          "POST /oauth/token \u2014 OAuth2 token endpoint (app/controllers/oauth/tokens_controller.rb)",
+          "GET /api/v1/accounts/verify_credentials \u2014 Get current user account (app/controllers/api/v1/accounts/credentials_controller.rb)",
+          "POST /api/v1/statuses/:id/favourite \u2014 Favorite a status (app/controllers/api/v1/statuses/favourites_controller.rb)",
+          "POST /api/v1/statuses/:id/reblog \u2014 Reblog/boost a status (app/controllers/api/v1/statuses/reblogs_controller.rb)",
+          "GET /api/v1/search \u2014 Search accounts, statuses, hashtags (app/controllers/api/v2/search_controller.rb)",
+          "GET /.well-known/nodeinfo \u2014 NodeInfo endpoint for federation discovery",
+          "POST /inbox \u2014 ActivityPub inbox for federation (app/controllers/activitypub/inboxes_controller.rb)",
+          "GET /users/:username/outbox \u2014 ActivityPub outbox (app/controllers/activitypub/outboxes_controller.rb)"
         ],
+        "sdk_languages": [],
+        "auth_methods": [
+          "OAuth2 with PKCE support (app/controllers/oauth/, Gemfile - doorkeeper)",
+          "Session-based authentication via Devise (app/controllers/auth/sessions_controller.rb)",
+          "Two-factor authentication with TOTP and WebAuthn (app/controllers/auth/, Gemfile - devise-two-factor)",
+          "HTTP Signature authentication for ActivityPub federation (app/controllers/concerns/signature_verification.rb)",
+          "API token authentication for applications (app/controllers/concerns/api_token_tracking_concern.rb)",
+          "LDAP authentication support (Gemfile - net-ldap)",
+          "PAM authentication support (Gemfile - devise_pam_authenticatable2)",
+          "SAML SSO support (Gemfile - omniauth-saml)",
+          "OpenID Connect support (Gemfile - omniauth_openid_connect)"
+        ],
+        "integrations": [
+          "PostgreSQL via ActiveRecord ORM (Gemfile - pg, config/database.yml implied)",
+          "Redis for caching, sessions, and job queues (Gemfile - hiredis, hiredis-client)",
+          "Elasticsearch for full-text search (app/chewy/, Gemfile - chewy)",
+          "AWS S3 for media storage (Gemfile - aws-sdk-s3)",
+          "Azure Blob Storage (Gemfile - jd-paperclip-azure)",
+          "OpenStack Swift storage (Gemfile - fog-openstack)",
+          "SMTP for email delivery (app/mailers/)",
+          "WebPush for push notifications (Gemfile - webpush)",
+          "Sentry for error monitoring (streaming/ Node.js service)",
+          "FFmpeg for media processing (Dockerfile, README.md requirements)",
+          "ImageMagick/VIPS for image processing (Gemfile - ruby-vips)"
+        ],
+        "architecture": {
+          "pattern": "monolith with microservice streaming API",
+          "components": [
+            "Main Rails application handling web UI and REST API (app/)",
+            "Node.js streaming service for real-time WebSocket connections (streaming/)",
+            "Sidekiq background job workers for async processing (app/workers/)",
+            "ActivityPub federation handlers for decentralized communication (app/controllers/activitypub/)",
+            "Admin interface for instance management (app/controllers/admin/)",
+            "OAuth2 provider for third-party app authentication (app/controllers/oauth/)",
+            "Search indexing via Elasticsearch integration (app/chewy/)"
+          ],
+          "entry_points": [
+            "config/application.rb (Rails application)",
+            "streaming/index.js (Node.js streaming server)",
+            "app/javascript/mastodon/main.tsx (React frontend)"
+          ],
+          "data_flow": "HTTP requests hit Rails controllers which interact with ActiveRecord models, background jobs are queued to Sidekiq via Redis, real-time updates flow through Node.js streaming service to WebSocket clients, ActivityPub messages are processed asynchronously and federated to remote instances",
+          "persistence": "PostgreSQL primary database with ActiveRecord ORM, Redis for caching and job queues, Elasticsearch for search indexes, file storage on local disk or cloud providers (S3, Azure)",
+          "concurrency_model": "Rails application uses multi-threaded Puma server, Sidekiq provides multi-threaded background job processing, Node.js streaming service uses event-loop concurrency",
+          "communication_patterns": "REST API for client-server communication, WebSockets for real-time streaming, ActivityPub HTTP POST for server-to-server federation, Redis pub/sub for internal messaging",
+          "plugin_extension_model": "Ruby gem-based extensions, middleware pipeline for request processing, Sidekiq middleware for job processing, webhook system for external integrations (app/controllers/admin/webhooks_controller.rb)"
+        },
+        "data_model": {
+          "primary_entities": [
+            "Account (user profiles and remote users)",
+            "Status (posts/toots with content, media, polls)",
+            "Follow (relationships between accounts)",
+            "Notification (user alerts and mentions)",
+            "MediaAttachment (uploaded files and metadata)",
+            "CustomEmoji (instance-specific emoji)",
+            "Filter (content filtering rules)",
+            "List (custom timeline groupings)",
+            "Report (moderation reports)",
+            "Domain (federation allow/block lists)"
+          ],
+          "storage_backends": [
+            "PostgreSQL for relational data and JSONB fields",
+            "Redis for caching, sessions, and job queues",
+            "Elasticsearch for full-text search indexes",
+            "File system or cloud storage for media assets"
+          ],
+          "schema_patterns": "Relational database with ActiveRecord associations, JSONB columns for semi-structured data (status metadata, account fields), full-text search indexes in Elasticsearch, polymorphic associations for notifications and reports",
+          "migration_strategy": "Rails ActiveRecord migrations with versioned schema changes (db/migrate/), post-deployment migrations for large table changes (db/post_migrate/)"
+        },
+        "algorithms": {
+          "problem_type": "Distributed social media with content discovery, federation, and moderation",
+          "core_patterns": [
+            "Observer pattern for activity propagation and notifications",
+            "Strategy pattern for different authentication methods",
+            "Factory pattern for ActivityPub object creation",
+            "Repository pattern via ActiveRecord models",
+            "Pub/Sub pattern for real-time updates",
+            "Command pattern for background job processing"
+          ],
+          "complexity_indicators": "Large codebase with 9651+ files, complex federation protocol implementation, real-time streaming requirements, multi-tenant moderation system",
+          "key_algorithms": [
+            "ActivityPub message parsing and validation (app/services/activitypub/)",
+            "Timeline generation with follower fan-out (app/services/fan_out_on_write_service.rb)",
+            "Content filtering and keyword matching (app/models/filter.rb)",
+            "Trending calculation based on engagement metrics (lib/mastodon/trending_tags.rb)",
+            "Rate limiting with sliding window algorithm (lib/mastodon/rate_limiter.rb)"
+          ],
+          "evidence": "app/services/activitypub/ contains federation logic, app/workers/ contains background job implementations, app/models/ contains business logic and associations"
+        },
+        "security_model": {
+          "authentication": "Multi-factor authentication with TOTP, WebAuthn, session-based auth via Devise, OAuth2 for API access",
+          "authorization": "Role-based permissions for admin functions, per-user privacy settings, instance-level moderation controls",
+          "data_protection": "HTTPS enforcement, secure headers middleware, password hashing via Devise, encrypted credentials in Rails",
+          "security_headers": "CSP, HSTS, X-Frame-Options implemented via Rails security middleware",
+          "vulnerability_handling": "SECURITY.md file present, dependency scanning via bundler-audit implied, regular security updates"
+        },
+        "dependencies": {
+          "runtime": [
+            "rails ~> 8.1.0",
+            "pg ~> 1.5",
+            "redis",
+            "sidekiq",
+            "devise",
+            "doorkeeper ~> 5.6",
+            "chewy (Elasticsearch)",
+            "kt-paperclip ~> 7.2",
+            "aws-sdk-s3 ~> 1.123",
+            "react",
+            "@reduxjs/toolkit ~> 2.0.1"
+          ],
+          "dev": [
+            "rspec-rails",
+            "fabrication",
+            "webmock",
+            "simplecov",
+            "rubocop",
+            "stylelint",
+            "@types/react",
+            "typescript"
+          ],
+          "infrastructure": [
+            "PostgreSQL 14+",
+            "Redis 7.0+",
+            "Elasticsearch (optional)",
+            "FFmpeg for media processing",
+            "ImageMagick or libvips for image processing",
+            "SMTP server for email delivery"
+          ]
+        },
+        "deployment": {
+          "containerized": true,
+          "container_orchestration": "Docker Compose provided, Kubernetes via separate chart repository",
+          "ci_cd": "GitHub Actions (test workflows visible in README badges)",
+          "environment_config": "Environment variables for configuration, Rails credentials for secrets, dotenv support in development",
+          "scaling_model": "Horizontal scaling via multiple Rails instances, separate streaming service, Redis cluster support, CDN for media assets"
+        },
+        "code_quality_signals": {
+          "has_tests": true,
+          "test_framework": "RSpec (spec/ directory structure)",
+          "test_count_estimate": "1291 test files",
+          "has_linting": true,
+          "has_type_hints": true,
+          "documentation_quality": "well-documented",
+          "code_style": "RuboCop for Ruby, Stylelint for CSS, TypeScript for frontend type checking"
+        },
+        "project_health": {
+          "license": "GPL-3.0",
+          "total_commits": "1 (limited sample)",
+          "top_contributors": "1 visible contributor in sample",
+          "recent_activity": "Recent commit focuses on federation improvements with collection item handling",
+          "community_signals": "CODE_OF_CONDUCT.md, SECURITY.md, CONTRIBUTING.md, issue templates, comprehensive documentation"
+        },
+        "evidence_tracking": {
+          "files_analyzed": [
+            "README.md",
+            "CONTRIBUTING.md",
+            "Gemfile",
+            "package.json",
+            "app/controllers/api/v1/statuses_controller.rb",
+            "app/controllers/activitypub/inboxes_controller.rb",
+            "app/javascript/mastodon/actions/",
+            "app/models/status.rb",
+            "app/workers/",
+            "db/migrate/",
+            "streaming/",
+            "docker-compose.yml",
+            "Dockerfile"
+          ],
+          "confidence_level": "High",
+          "information_gaps": [
+            "Limited git history in sample (only 1 commit)",
+            "Cannot determine exact Elasticsearch version requirements",
+            "Specific production deployment patterns not fully visible"
+          ]
+        },
         "pricing": {
           "model": "open-source",
           "free_tier": "true"
-        },
-        "target_audience": "Developers",
-        "category": "Open Source Software",
-        "deployment": "Self-hosted",
-        "underlying_algorithm": {
-          "problem_type": "",
-          "pattern": ""
-        },
-        "evidence_tracking": {
-          "confidence_level": "High",
-          "technical_facts": [
-            "ActivityPub federation for decentralized social networking (app/controllers/activitypub/*.rb)",
-            "REST API endpoints for client applications (app/controllers/api/*.rb)",
-            "Real-time streaming API using WebSocket connections (streaming/index.js)",
-            "OAuth2 authentication and authorization (Gemfile: omniauth, devise)",
-            "Media attachment processing and storage (Gemfile: kt-paperclip, ruby-vips)",
-            "Full-text search using Elasticsearch integration (app/chewy/*.rb)",
-            "Background job processing with Sidekiq (Procfile: sidekiq worker)",
-            "Administrative interface for moderation and server management (app/controllers/admin/*.rb)",
-            "Multi-language internationalization support (package.json: @formatjs/intl-pluralrules)",
-            "Two-factor authentication support (Gemfile: devise-two-factor)"
-          ],
-          "information_gaps": []
-        },
-        "architecture_patterns": [
-          "monolith",
-          "Concurrency: multi-threaded via Puma server, async job processing via Sidekiq, real-time streaming via WebSocket connections in Node.js"
-        ],
-        "auth_methods": [
-          "OAuth2 (Gemfile: omniauth)",
-          "Two-factor authentication (Gemfile: devise-two-factor)",
-          "LDAP authentication (Gemfile: net-ldap)",
-          "PAM authentication (Gemfile: devise_pam_authenticatable2)",
-          "OpenID Connect (Gemfile: omniauth_openid_connect)",
-          "CAS authentication (Gemfile: omniauth-cas)"
-        ],
-        "sdk_languages": [],
-        "dependencies": [
-          "rails (~> 8.1.0)",
-          "pg (~> 1.5)",
-          "redis",
-          "sidekiq",
-          "devise",
-          "omniauth",
-          "chewy",
-          "kt-paperclip",
-          "express (streaming)",
-          "ws (streaming)",
-          "ioredis (streaming)",
-          "Infrastructure: PostgreSQL 14",
-          "Infrastructure: Redis 7",
-          "Infrastructure: Elasticsearch 7.17",
-          "Infrastructure: S3-compatible storage"
-        ],
-        "deployment_options": [
-          "Containerized (Docker)",
-          "CI/CD: GitHub Actions (workflow files mentioned in README badges)"
-        ]
+        }
       },
       "extracted_data": {},
       "source": "local_repo",
       "source_confidence": "high",
-      "timestamp": "2026-03-21T15:16:52.435009"
+      "timestamp": "2026-03-25T15:32:46.769841"
     },
     "generalization": {
       "functional_dna": {
-        "logic_archetype": "Stateful Orchestrator",
-        "logic_archetype_evidence": "ActivityPub federation for decentralized social networking (app/controllers/activitypub/*.rb), Background job processing with Sidekiq (Procfile: sidekiq worker), Administrative interface for moderation and server management (app/controllers/admin/*.rb) - manages complex workflows across multiple services and maintains state across federation",
-        "data_contract_strictness": "Highly Structured",
-        "data_contract_evidence": "PostgreSQL 14 (docker-compose.yml, Gemfile: pg) as primary database with Rails models, ActivityPub protocol implementation requiring structured JSON-LD format",
-        "core_algorithmic_class": "Graph Algorithms",
-        "core_algorithmic_evidence": "ActivityPub federation creates distributed social graph, Full-text search using Elasticsearch integration (app/chewy/*.rb) for graph traversal and relationship mapping",
-        "concurrency_requirements": "ACID Compliance Required",
-        "concurrency_evidence": "PostgreSQL 14 (docker-compose.yml, Gemfile: pg) as primary database, multi-threaded via Puma server, async job processing via Sidekiq for maintaining data consistency in federated network",
+        "logic_archetype": "Event-Driven Reactor",
+        "logic_archetype_evidence": "The system processes incoming ActivityPub federation messages asynchronously, maintains real-time streaming connections via WebSocket, and uses event-driven background job processing via Sidekiq. Core pattern is reactive message handling with fan-out distribution to subscribers.",
+        "data_contract_strictness": "Moderately Structured",
+        "data_contract_evidence": "Evidence: ActivityPub protocol compliance with structured JSON-LD messages, REST API with defined endpoints, but also supports JSONB flexible fields and polymorphic associations for extensibility",
+        "core_algorithmic_class": "Event Processing",
+        "core_algorithmic_evidence": "Evidence from ActivityPub message parsing/validation, timeline fan-out algorithms, notification grouping, real-time streaming distribution, and background job orchestration patterns throughout app/services/ and app/workers/",
+        "concurrency_requirements": "Eventually Consistent",
+        "concurrency_evidence": "Evidence from federated architecture allowing network partitions, Redis-backed job queues, asynchronous ActivityPub message processing, and timeline generation that can tolerate temporary inconsistencies between nodes",
+        "abstract_problem": "Maintains a distributed graph of entities with bidirectional relationships, processes incoming modification events from federated peers, and propagates changes to interested subscribers in real-time while supporting content filtering and moderation policies.",
+        "data_flow_pattern": "Federated event ingestion \u2192 validation/filtering \u2192 graph mutation \u2192 fan-out notification \u2192 real-time stream distribution, with bidirectional sync across autonomous network nodes",
+        "state_complexity": "Distributed",
         "repurposing_confidence": 8,
-        "repurposing_reasoning": "High reusability due to modular architecture with REST APIs, OAuth2 authentication, background job processing, and federation protocol. Core components (user management, content distribution, real-time streaming) are applicable to many social/collaborative platforms."
+        "repurposing_reasoning": "The core federation protocol handling, real-time streaming infrastructure, and graph relationship management are highly reusable. The ActivityPub implementation could be abstracted to any federated communication protocol. The domain-specific elements (social media posts, follows) are relatively thin layers over generic graph operations and pub/sub messaging. Main complexity is in the specific ActivityPub protocol compliance and social media moderation features."
       },
       "evidence_claims": [
         {
-          "claim": "Implements ActivityPub federation protocol",
-          "evidence": "ActivityPub federation for decentralized social networking (app/controllers/activitypub/*.rb)",
+          "claim": "Implements federated message processing with ActivityPub protocol",
+          "evidence": "app/controllers/activitypub/inboxes_controller.rb processes incoming federation messages",
           "confidence": "High"
         },
         {
-          "claim": "Provides REST API architecture",
-          "evidence": "REST API endpoints for client applications (app/controllers/api/*.rb)",
+          "claim": "Uses event-driven architecture with background job processing",
+          "evidence": "app/workers/ directory and Sidekiq integration in Gemfile for asynchronous processing",
           "confidence": "High"
         },
         {
-          "claim": "Supports real-time communication",
-          "evidence": "Real-time streaming API using WebSocket connections (streaming/index.js)",
+          "claim": "Maintains real-time streaming connections",
+          "evidence": "streaming/ Node.js service with WebSocket support for live updates",
           "confidence": "High"
         },
         {
-          "claim": "Uses Ruby on Rails framework",
-          "evidence": "Ruby on Rails 8.1.0 (Gemfile)",
+          "claim": "Implements graph-based relationship management",
+          "evidence": "app/models/follow.rb and relationship management in API controllers",
           "confidence": "High"
         },
         {
-          "claim": "Implements comprehensive authentication",
-          "evidence": "OAuth2 authentication and authorization (Gemfile: omniauth, devise), Two-factor authentication support (Gemfile: devise-two-factor)",
-          "confidence": "High"
+          "claim": "Supports distributed eventual consistency",
+          "evidence": "Federation architecture allows autonomous instances with periodic synchronization",
+          "confidence": "Medium"
         }
       ],
       "market_reach": {
-        "primary_industry": "Social Media/Communication",
+        "primary_industry": "Social Media/Communications",
         "cross_industry_applications": [
-          "Enterprise Collaboration",
-          "Healthcare Communication",
-          "Education Platforms",
-          "Government Communications",
-          "Developer Communities",
-          "Media Broadcasting"
+          "Enterprise collaboration platforms (Teams/Slack alternatives with federation)",
+          "IoT device networks (federated sensor data sharing between organizations)",
+          "Financial trading networks (order book sharing between exchanges)",
+          "Supply chain management (federated inventory/shipment tracking)",
+          "Gaming networks (federated leaderboards/achievements across game servers)",
+          "Academic research networks (federated data sharing between institutions)",
+          "Healthcare networks (federated patient record sharing with privacy controls)",
+          "Content delivery networks (federated cache invalidation and content distribution)"
         ],
         "utility_score": 8,
         "market_potential": "High"
       },
       "friction_report": {
         "difficulty": "Medium",
-        "estimated_hours": 120,
+        "estimated_hours": 240,
         "required_technologies": [
-          "Ruby on Rails expertise (Ruby on Rails 8.1.0 (Gemfile))",
-          "PostgreSQL administration (PostgreSQL 14 (docker-compose.yml, Gemfile: pg))",
-          "Redis configuration (Redis (docker-compose.yml, streaming/package.json: ioredis))",
-          "Elasticsearch setup (Elasticsearch (docker-compose.yml, Gemfile: chewy))",
-          "Node.js for streaming (Node.js streaming server (streaming/package.json: express, ws))"
+          "Ruby on Rails",
+          "PostgreSQL",
+          "Redis",
+          "Node.js",
+          "WebSocket support",
+          "HTTP signature validation"
         ],
         "complexity_factors": [
-          "Multi-service architecture",
-          "Federation protocol complexity",
-          "Real-time streaming requirements",
-          "Background job orchestration",
-          "Multi-database coordination"
+          "ActivityPub protocol compliance",
+          "Cryptographic signature verification",
+          "Multi-threaded background job processing",
+          "Real-time WebSocket management",
+          "Database migration complexity"
         ],
-        "risk_level": "Medium"
+        "risk_level": "Medium",
+        "migration_path": "Extract the federation protocol handlers, streaming infrastructure, and graph relationship models into a generic framework, replace ActivityPub-specific message formats with domain-appropriate schemas, adapt the real-time streaming for target use case"
       },
       "interface_map": {
         "adapter_schema": {
           "input": {
-            "format": "JSON",
+            "format": "JSON over HTTP",
             "required_fields": [
-              "ActivityPub objects",
-              "REST API payloads",
-              "OAuth2 tokens"
+              "actor",
+              "object",
+              "type"
+            ],
+            "protocols": [
+              "HTTP POST",
+              "WebSocket",
+              "ActivityPub"
             ]
           },
           "output": {
-            "format": "JSON"
+            "format": "JSON/ActivityPub",
+            "delivery": "async streaming + sync REST"
           },
           "authentication": {
-            "type": "OAuth2",
-            "method": "Bearer token, Two-factor authentication"
+            "type": "multiple",
+            "method": "OAuth2, HTTP Signatures, session-based"
           }
         },
-        "standardization_level": "High"
+        "standardization_level": "High",
+        "api_surface_area": "Large (50+)"
       },
+      "comparable_systems": [
+        "Apache Kafka (distributed event streaming with topic-based fan-out)",
+        "Matrix protocol servers (federated real-time communication)",
+        "Git forge federation (distributed code repository synchronization)",
+        "Email servers with SMTP (federated message routing between autonomous domains)",
+        "Blockchain networks (distributed consensus with peer-to-peer propagation)"
+      ],
       "information_gaps": [
-        "Specific ActivityPub protocol version compatibility",
-        "Performance metrics and scaling limits",
-        "Database schema details",
-        "API rate limiting specifications",
-        "Federation security protocols"
+        "Specific federation conflict resolution strategies",
+        "Performance characteristics under high federation load",
+        "Exact real-time streaming capacity limits",
+        "Database sharding/partitioning strategies for large instances"
       ]
     },
-    "timestamp": "2026-03-21T15:17:09.099436"
+    "timestamp": "2026-03-25T15:33:47.255651"
   },
   "errors": []
 }

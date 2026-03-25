@@ -1,260 +1,169 @@
 {
   "url": "https://github.com/odoo/odoo.git",
   "repo_name": "odoo",
-  "timestamp": "2026-03-21T14:52:13.929548",
+  "timestamp": "2026-03-25T15:22:18.004789",
   "step1": {
     "product_name": "odoo",
     "url": "https://github.com/odoo/odoo.git",
     "analysis": {
-      "summary": "Odoo is a comprehensive open-source enterprise resource planning (ERP) system that provides a suite of integrated business applications including CRM, eCommerce, accounting, inventory management, and project management through a modular addon architecture.",
+      "summary": "Odoo is a comprehensive web-based ERP (Enterprise Resource Planning) system built on a modular architecture with a plugin-based addon system. It provides integrated business applications including CRM, accounting, inventory management, e-commerce, and human resources. The system follows a monolithic Python architecture with PostgreSQL persistence, web controllers for HTTP endpoints, and extensive localization support across multiple languages and countries.",
       "capabilities": [
-        "Provides OAuth2 authentication integration with external providers (addons/auth_oauth/controllers/main.py)",
-        "Implements WebAuthn/passkey authentication for passwordless login (addons/auth_passkey/controllers/main.py)",
-        "Handles user registration, password reset, and signup workflows (addons/auth_signup/controllers/main.py)",
-        "Manages business accounting operations including invoicing and financial reporting (addons/account/)",
-        "Processes HTTP requests through web controllers with session management (multiple controller files)",
-        "Supports multi-database operations with database filtering and selection",
-        "Provides REST API endpoints through JSON-RPC protocol",
-        "Implements modular addon system for extending functionality (46+ addon directories)"
+        "Processes OAuth2 authentication flows with state management and provider integration (addons/auth_oauth/controllers/main.py)",
+        "Implements WebAuthn passkey authentication for passwordless login (addons/auth_passkey/controllers/main.py)",
+        "Manages user signup workflows with email confirmation and account validation (addons/auth_signup/controllers/main.py)",
+        "Enforces session timeout policies with identity verification prompts (addons/auth_timeout/controllers/main.py)",
+        "Executes webhook-based automation rules with HTTP endpoint routing (addons/base_automation/controllers/main.py)",
+        "Handles file imports for data migration and CSV processing (addons/base_import/controllers/main.py)",
+        "Supports module installation via ZIP file upload with authentication (addons/base_import_module/controllers/main.py)",
+        "Provides system setup dashboard with user statistics and demo data management (addons/base_setup/controllers/main.py)",
+        "Creates customizable dashboards with drag-and-drop action widgets (addons/board/controllers/main.py)",
+        "Implements real-time messaging bus for notifications and model updates (addons/bus/controllers/main.py)",
+        "Manages calendar events with meeting acceptance/decline via token-based access (addons/calendar/controllers/main.py)",
+        "Processes accounting transactions with journal entries and reconciliation (addons/account/models/account_move.py)",
+        "Handles multi-currency operations with exchange rate management (addons/account/models/res_currency.py)",
+        "Implements tax calculation engine with configurable tax rules and repartition (addons/account/models/account_tax.py)",
+        "Manages payment processing with multiple payment methods and terms (addons/account/models/account_payment.py)",
+        "Provides chart of accounts templates for different countries and regulations (addons/account/models/chart_template.py)",
+        "Supports bank statement import and automatic reconciliation (addons/account/models/account_bank_statement.py)",
+        "Implements analytic accounting with cost centers and project tracking (addons/account/models/account_analytic_account.py)",
+        "Generates financial reports with customizable layouts and filters (addons/account/report/account_invoice_report.py)",
+        "Manages partner relationships with customer and supplier information (addons/account/models/partner.py)",
+        "Handles product catalog management with pricing and cost tracking (addons/account/models/product.py)",
+        "Implements data migration scripts for version upgrades (migration files in addons/*/migrations/)",
+        "Provides extensive localization support for 80+ countries (addons/l10n_* directories)",
+        "Supports IoT device integration with specialized hardware drivers (addons/iot_box_image/configuration/)",
+        "Implements role-based access control with security groups and rules (addons/account/security/account_security.xml)"
       ],
-      "use_cases": [],
+      "use_cases": [
+        "Small to large enterprises use Odoo as their primary ERP system to manage accounting, sales, inventory, and operations",
+        "Manufacturing companies use it to track production workflows, bills of materials, and quality control processes",
+        "E-commerce businesses use it to manage online stores, product catalogs, and order fulfillment",
+        "Service companies use it for project management, time tracking, and customer relationship management",
+        "Multi-national corporations use it for consolidated financial reporting across different countries and currencies",
+        "Developers and system integrators use it as a platform to build custom business applications using the addon framework"
+      ],
+      "category": "Enterprise Resource Planning (ERP) System",
+      "target_audience": "Business users, system administrators, developers, and consultants working with enterprise business applications",
       "technical_stack": [
-        "Python 3.10+ (requirements.txt, multiple .py files)",
-        "Werkzeug web framework (import statements in controllers)",
-        "Jinja2 templating engine (requirements.txt)",
-        "PostgreSQL database (implied from ORM patterns)",
-        "lxml for XML processing (requirements.txt)",
+        "Python 3.10+ (setup.py, requirements.txt)",
+        "PostgreSQL (implied from ORM models and database migrations)",
+        "Werkzeug web framework (imports in controllers)",
+        "Jinja2 templating engine (setup.py dependencies)",
         "Babel for internationalization (requirements.txt)",
-        "gevent for async processing (requirements.txt)",
-        "cryptography for security features (requirements.txt)",
-        "JavaScript/TypeScript frontend (5730+ .js files, 74+ .ts files)"
-      ],
-      "integrations": [
-        "OAuth2 providers (Google, Facebook, etc.) via auth_oauth addon",
-        "WebAuthn compatible authenticators",
-        "SMTP servers for email notifications",
-        "GeoIP2 services for location data (requirements.txt)"
+        "Cryptography for security functions (requirements.txt)",
+        "GeoIP2 for location services (requirements.txt)",
+        "Gevent for async operations (requirements.txt)",
+        "JavaScript/TypeScript for frontend (5730 .js files, 74 .ts files)",
+        "XML for data definitions and views (extensive .xml files)",
+        "CSS/SCSS for styling (numerous .css and .scss files)"
       ],
       "api_endpoints": [
-        {
-          "method": "POST",
-          "path": "/auth_oauth/signin",
-          "summary": "OAuth2 authentication callback (addons/auth_oauth/controllers/main.py:145)"
-        },
-        {
-          "method": "POST",
-          "path": "/auth/passkey/start-auth",
-          "summary": "Start WebAuthn authentication (addons/auth_passkey/controllers/main.py:11)"
-        },
-        {
-          "method": "GET",
-          "path": "/web/signup",
-          "summary": "User registration page (addons/auth_signup/controllers/main.py:36)"
-        },
-        {
-          "method": "POST",
-          "path": "/web/signup",
-          "summary": "Process user registration (addons/auth_signup/controllers/main.py:36)"
-        },
-        {
-          "method": "GET",
-          "path": "/web/reset_password",
-          "summary": "Password reset page (addons/auth_signup/controllers/main.py:75)"
-        },
-        {
-          "method": "GET",
-          "path": "/web/login",
-          "summary": "User login page (addons/auth_signup/controllers/main.py:21)"
-        }
+        "GET/POST /auth_oauth/signin \u2014 OAuth2 authentication callback (addons/auth_oauth/controllers/main.py)",
+        "JSONRPC /auth/passkey/start-auth \u2014 WebAuthn authentication initiation (addons/auth_passkey/controllers/main.py)",
+        "GET/POST /web/signup \u2014 User registration endpoint (addons/auth_signup/controllers/main.py)",
+        "HTTP /auth-timeout/check-identity \u2014 Session timeout identity verification (addons/auth_timeout/controllers/main.py)",
+        "JSONRPC /auth-timeout/session/check-identity \u2014 Identity verification form submission (addons/auth_timeout/controllers/main.py)",
+        "GET/POST /web/hook/<rule_uuid> \u2014 Webhook automation execution (addons/base_automation/controllers/main.py)",
+        "POST /base_import/set_file \u2014 File upload for data import (addons/base_import/controllers/main.py)",
+        "POST /base_import_module/login_upload \u2014 Module installation via ZIP upload (addons/base_import_module/controllers/main.py)",
+        "JSONRPC /base_setup/data \u2014 System setup dashboard data (addons/base_setup/controllers/main.py)",
+        "JSONRPC /board/add_to_dashboard \u2014 Dashboard widget addition (addons/board/controllers/main.py)",
+        "POST /bus/get_model_definitions \u2014 Model metadata for real-time updates (addons/bus/controllers/main.py)",
+        "HTTP /calendar/meeting/accept \u2014 Calendar meeting acceptance (addons/calendar/controllers/main.py)"
       ],
-      "pricing": {
-        "model": "open-source",
-        "free_tier": "true"
-      },
-      "target_audience": "Developers",
-      "category": "Open Source Software",
-      "deployment": "Self-hosted",
-      "underlying_algorithm": {
-        "problem_type": "",
-        "pattern": ""
-      },
-      "evidence_tracking": {
-        "confidence_level": "High",
-        "technical_facts": [
-          "Provides OAuth2 authentication integration with external providers (addons/auth_oauth/controllers/main.py)",
-          "Implements WebAuthn/passkey authentication for passwordless login (addons/auth_passkey/controllers/main.py)",
-          "Handles user registration, password reset, and signup workflows (addons/auth_signup/controllers/main.py)",
-          "Manages business accounting operations including invoicing and financial reporting (addons/account/)",
-          "Processes HTTP requests through web controllers with session management (multiple controller files)",
-          "Supports multi-database operations with database filtering and selection",
-          "Provides REST API endpoints through JSON-RPC protocol",
-          "Implements modular addon system for extending functionality (46+ addon directories)"
-        ],
-        "information_gaps": []
-      },
-      "architecture_patterns": [
-        "monolith",
-        "Concurrency: gevent-based async processing with greenlet coroutines"
+      "sdk_languages": [
+        "Python (native framework)",
+        "JavaScript (web client)"
       ],
       "auth_methods": [
-        "OAuth2 with external providers",
-        "WebAuthn/Passkey authentication",
-        "Traditional username/password",
-        "Session-based authentication",
-        "Token-based authentication"
+        "OAuth2 authentication with configurable providers (addons/auth_oauth/)",
+        "WebAuthn passkey authentication (addons/auth_passkey/)",
+        "LDAP integration (addons/auth_ldap/)",
+        "TOTP two-factor authentication (addons/auth_totp/)",
+        "Session timeout with re-authentication (addons/auth_timeout/)",
+        "Password policy enforcement (addons/auth_password_policy/)",
+        "User signup with email verification (addons/auth_signup/)"
       ],
-      "sdk_languages": [],
-      "dependencies": [
-        "asn1crypto",
-        "Babel",
-        "cbor2",
-        "chardet",
-        "cryptography",
-        "docutils",
-        "geoip2",
-        "gevent",
-        "greenlet",
-        "idna",
-        "Jinja2",
-        "lxml",
-        "MarkupSafe",
-        "num2words",
-        "ofxparse",
-        "passlib",
-        "Pillow",
-        "polib",
-        "psutil",
-        "psycopg2",
-        "pydot",
-        "pypdf",
-        "PyYAML",
-        "qrcode",
-        "reportlab",
-        "requests",
-        "rjsmin",
-        "urllib3",
-        "vobject",
-        "Werkzeug",
-        "xlrd",
-        "XlsxWriter",
-        "xlwt",
-        "zeep",
-        "Infrastructure: PostgreSQL database",
-        "Infrastructure: SMTP server for email"
+      "integrations": [
+        "Google services integration for calendar, Gmail, and address autocomplete (addons/google_*/)",
+        "Cloud storage providers: Azure, Google Cloud (addons/cloud_storage_*/)",
+        "Payment processors and banking systems (account payment models)",
+        "IoT devices and hardware integration (addons/iot_box_image/)",
+        "LDAP directory services (addons/auth_ldap/)",
+        "Email servers for SMTP/IMAP communication (mail system)",
+        "Barcode scanning systems (addons/barcodes/)",
+        "GeoIP location services (geoip2 dependency in requirements.txt)"
       ],
-      "deployment_options": []
-    },
-    "extracted_data": {},
-    "source": "local_repo",
-    "source_confidence": "high",
-    "timestamp": "2026-03-21T14:53:17.114010"
-  },
-  "step2": {
-    "step1_data": {
-      "product_name": "odoo",
-      "url": "https://github.com/odoo/odoo.git",
-      "analysis": {
-        "summary": "Odoo is a comprehensive open-source enterprise resource planning (ERP) system that provides a suite of integrated business applications including CRM, eCommerce, accounting, inventory management, and project management through a modular addon architecture.",
-        "capabilities": [
-          "Provides OAuth2 authentication integration with external providers (addons/auth_oauth/controllers/main.py)",
-          "Implements WebAuthn/passkey authentication for passwordless login (addons/auth_passkey/controllers/main.py)",
-          "Handles user registration, password reset, and signup workflows (addons/auth_signup/controllers/main.py)",
-          "Manages business accounting operations including invoicing and financial reporting (addons/account/)",
-          "Processes HTTP requests through web controllers with session management (multiple controller files)",
-          "Supports multi-database operations with database filtering and selection",
-          "Provides REST API endpoints through JSON-RPC protocol",
-          "Implements modular addon system for extending functionality (46+ addon directories)"
+      "architecture": {
+        "pattern": "monolith with plugin-based addon system",
+        "components": [
+          "Core framework providing ORM, HTTP routing, and security",
+          "Addon system for modular business applications",
+          "Web client with JavaScript/TypeScript frontend",
+          "Database abstraction layer with PostgreSQL backend",
+          "Authentication and authorization subsystem",
+          "Reporting engine with PDF and Excel generation",
+          "Workflow and automation engine",
+          "Internationalization and localization framework"
         ],
-        "use_cases": [],
-        "technical_stack": [
-          "Python 3.10+ (requirements.txt, multiple .py files)",
-          "Werkzeug web framework (import statements in controllers)",
-          "Jinja2 templating engine (requirements.txt)",
-          "PostgreSQL database (implied from ORM patterns)",
-          "lxml for XML processing (requirements.txt)",
-          "Babel for internationalization (requirements.txt)",
-          "gevent for async processing (requirements.txt)",
-          "cryptography for security features (requirements.txt)",
-          "JavaScript/TypeScript frontend (5730+ .js files, 74+ .ts files)"
+        "entry_points": [
+          "setup/odoo (main executable script)",
+          "odoo/cli/server.py (implied server entry point)"
         ],
-        "integrations": [
-          "OAuth2 providers (Google, Facebook, etc.) via auth_oauth addon",
-          "WebAuthn compatible authenticators",
-          "SMTP servers for email notifications",
-          "GeoIP2 services for location data (requirements.txt)"
+        "data_flow": "HTTP requests are routed through Werkzeug to controller methods, which interact with ORM models that persist data in PostgreSQL. Business logic is implemented in model methods, with UI updates pushed via the bus system for real-time notifications.",
+        "persistence": "PostgreSQL database with SQLAlchemy-style ORM, migration scripts for schema updates, and XML data files for initial configuration",
+        "concurrency_model": "Gevent-based async processing with greenlet coroutines for handling concurrent requests",
+        "communication_patterns": "HTTP REST for web API, JSONRPC for rich client communication, WebSocket-like bus system for real-time updates, webhook support for external integrations",
+        "plugin_extension_model": "Addon-based architecture where each addon in addons/ directory provides models, views, controllers, and business logic that extend core functionality"
+      },
+      "data_model": {
+        "primary_entities": [
+          "res.partner (customers, suppliers, contacts)",
+          "account.move (accounting transactions)",
+          "product.product (items and services)",
+          "res.users (system users)",
+          "ir.model (metadata definitions)",
+          "account.account (chart of accounts)",
+          "account.payment (payment records)",
+          "calendar.event (meetings and appointments)"
         ],
-        "api_endpoints": [
-          {
-            "method": "POST",
-            "path": "/auth_oauth/signin",
-            "summary": "OAuth2 authentication callback (addons/auth_oauth/controllers/main.py:145)"
-          },
-          {
-            "method": "POST",
-            "path": "/auth/passkey/start-auth",
-            "summary": "Start WebAuthn authentication (addons/auth_passkey/controllers/main.py:11)"
-          },
-          {
-            "method": "GET",
-            "path": "/web/signup",
-            "summary": "User registration page (addons/auth_signup/controllers/main.py:36)"
-          },
-          {
-            "method": "POST",
-            "path": "/web/signup",
-            "summary": "Process user registration (addons/auth_signup/controllers/main.py:36)"
-          },
-          {
-            "method": "GET",
-            "path": "/web/reset_password",
-            "summary": "Password reset page (addons/auth_signup/controllers/main.py:75)"
-          },
-          {
-            "method": "GET",
-            "path": "/web/login",
-            "summary": "User login page (addons/auth_signup/controllers/main.py:21)"
-          }
+        "storage_backends": [
+          "PostgreSQL database",
+          "File system for attachments and static assets"
         ],
-        "pricing": {
-          "model": "open-source",
-          "free_tier": "true"
-        },
-        "target_audience": "Developers",
-        "category": "Open Source Software",
-        "deployment": "Self-hosted",
-        "underlying_algorithm": {
-          "problem_type": "",
-          "pattern": ""
-        },
-        "evidence_tracking": {
-          "confidence_level": "High",
-          "technical_facts": [
-            "Provides OAuth2 authentication integration with external providers (addons/auth_oauth/controllers/main.py)",
-            "Implements WebAuthn/passkey authentication for passwordless login (addons/auth_passkey/controllers/main.py)",
-            "Handles user registration, password reset, and signup workflows (addons/auth_signup/controllers/main.py)",
-            "Manages business accounting operations including invoicing and financial reporting (addons/account/)",
-            "Processes HTTP requests through web controllers with session management (multiple controller files)",
-            "Supports multi-database operations with database filtering and selection",
-            "Provides REST API endpoints through JSON-RPC protocol",
-            "Implements modular addon system for extending functionality (46+ addon directories)"
-          ],
-          "information_gaps": []
-        },
-        "architecture_patterns": [
-          "monolith",
-          "Concurrency: gevent-based async processing with greenlet coroutines"
+        "schema_patterns": "Relational model with extensive use of foreign keys, inheritance via delegation, and polymorphic relationships through reference fields",
+        "migration_strategy": "Python migration scripts in addons/*/migrations/ directories with pre-migrate, post-migrate, and end-migrate hooks for version upgrades"
+      },
+      "algorithms": {
+        "problem_type": "Enterprise resource planning with multi-tenancy, complex business workflows, and real-time data synchronization",
+        "core_patterns": [
+          "Model-View-Controller (MVC) architecture",
+          "Active Record ORM pattern",
+          "Plugin/Extension pattern for addons",
+          "Observer pattern for model triggers",
+          "Factory pattern for model creation",
+          "Singleton pattern for registry management"
         ],
-        "auth_methods": [
-          "OAuth2 with external providers",
-          "WebAuthn/Passkey authentication",
-          "Traditional username/password",
-          "Session-based authentication",
-          "Token-based authentication"
+        "complexity_indicators": "High complexity evident from 46,612 files, extensive addon ecosystem, multi-language support (80+ locales), and complex financial calculation engines",
+        "key_algorithms": [
+          "Account reconciliation matching algorithms",
+          "Tax calculation with multi-level repartition",
+          "Currency conversion with rate management",
+          "Access control list evaluation",
+          "Real-time notification bus routing"
         ],
-        "sdk_languages": [],
-        "dependencies": [
-          "asn1crypto",
-          "Babel",
+        "evidence": "addons/account/models/account_move.py (reconciliation), addons/account/models/account_tax.py (tax calculations), addons/bus/controllers/main.py (notification routing)"
+      },
+      "security_model": {
+        "authentication": "Multi-method authentication including passwords, OAuth2, LDAP, WebAuthn passkeys, and TOTP",
+        "authorization": "Role-based access control (RBAC) with security groups, record rules, and field-level permissions defined in XML security files",
+        "data_protection": "Cryptography library for encryption, secure session management, CSRF protection, and access token-based API authentication",
+        "security_headers": "CSRF token validation, secure session cookies, and XSS protection through template escaping",
+        "vulnerability_handling": "Security policy documented (SECURITY.md), responsible disclosure process, and regular security updates"
+      },
+      "dependencies": {
+        "runtime": [
+          "babel>=1.0",
           "cbor2",
           "chardet",
           "cryptography",
@@ -264,134 +173,479 @@
           "greenlet",
           "idna",
           "Jinja2",
-          "lxml",
           "MarkupSafe",
-          "num2words",
-          "ofxparse",
-          "passlib",
           "Pillow",
           "polib",
           "psutil",
           "psycopg2",
-          "pydot",
-          "pypdf",
-          "PyYAML",
+          "PyPDF2",
+          "python-dateutil",
+          "pytz",
           "qrcode",
           "reportlab",
           "requests",
-          "rjsmin",
           "urllib3",
           "vobject",
           "Werkzeug",
           "xlrd",
           "XlsxWriter",
-          "xlwt",
-          "zeep",
-          "Infrastructure: PostgreSQL database",
-          "Infrastructure: SMTP server for email"
+          "xlwt"
         ],
-        "deployment_options": []
+        "dev": [
+          "freezegun (testing)",
+          "flake8 (linting)",
+          "coverage (test coverage)"
+        ],
+        "infrastructure": [
+          "PostgreSQL database server",
+          "Redis (optional for caching)",
+          "Nginx/Apache (web server proxy)"
+        ]
+      },
+      "deployment": {
+        "containerized": false,
+        "container_orchestration": "none observed",
+        "ci_cd": "none observed in provided files",
+        "environment_config": "Configuration through Python config files, command-line arguments, and environment variables as typical for Python applications",
+        "scaling_model": "Horizontal scaling through multiple worker processes, database replication support"
+      },
+      "code_quality_signals": {
+        "has_tests": true,
+        "test_framework": "Python unittest (implied from test file structure)",
+        "test_count_estimate": 4730,
+        "has_linting": true,
+        "has_type_hints": false,
+        "documentation_quality": "well-documented",
+        "code_style": "flake8 configuration in setup.cfg with RST documentation standards"
+      },
+      "project_health": {
+        "license": "Custom/Other",
+        "total_commits": 1,
+        "top_contributors": 1,
+        "recent_activity": "Recent activity shows bug fixes in Polish localization for EDI access control",
+        "community_signals": "Strong community health with CONTRIBUTING.md, SECURITY.md, and comprehensive documentation"
+      },
+      "evidence_tracking": {
+        "files_analyzed": [
+          "addons/auth_oauth/controllers/main.py",
+          "addons/auth_passkey/controllers/main.py",
+          "addons/auth_signup/controllers/main.py",
+          "addons/auth_timeout/controllers/main.py",
+          "addons/base_automation/controllers/main.py",
+          "addons/base_import/controllers/main.py",
+          "addons/base_import_module/controllers/main.py",
+          "addons/base_setup/controllers/main.py",
+          "addons/board/controllers/main.py",
+          "addons/bus/controllers/main.py",
+          "addons/calendar/controllers/main.py",
+          "requirements.txt",
+          "setup.py",
+          "setup.cfg",
+          "README.md",
+          "CONTRIBUTING.md"
+        ],
+        "confidence_level": "High",
+        "information_gaps": [
+          "Database schema details not fully visible from provided migration files",
+          "Frontend architecture details limited by code sample truncation",
+          "CI/CD pipeline configuration not present in provided files",
+          "Container deployment configurations not found"
+        ]
+      },
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      }
+    },
+    "extracted_data": {},
+    "source": "local_repo",
+    "source_confidence": "high",
+    "timestamp": "2026-03-25T15:24:35.425995"
+  },
+  "step2": {
+    "step1_data": {
+      "product_name": "odoo",
+      "url": "https://github.com/odoo/odoo.git",
+      "analysis": {
+        "summary": "Odoo is a comprehensive web-based ERP (Enterprise Resource Planning) system built on a modular architecture with a plugin-based addon system. It provides integrated business applications including CRM, accounting, inventory management, e-commerce, and human resources. The system follows a monolithic Python architecture with PostgreSQL persistence, web controllers for HTTP endpoints, and extensive localization support across multiple languages and countries.",
+        "capabilities": [
+          "Processes OAuth2 authentication flows with state management and provider integration (addons/auth_oauth/controllers/main.py)",
+          "Implements WebAuthn passkey authentication for passwordless login (addons/auth_passkey/controllers/main.py)",
+          "Manages user signup workflows with email confirmation and account validation (addons/auth_signup/controllers/main.py)",
+          "Enforces session timeout policies with identity verification prompts (addons/auth_timeout/controllers/main.py)",
+          "Executes webhook-based automation rules with HTTP endpoint routing (addons/base_automation/controllers/main.py)",
+          "Handles file imports for data migration and CSV processing (addons/base_import/controllers/main.py)",
+          "Supports module installation via ZIP file upload with authentication (addons/base_import_module/controllers/main.py)",
+          "Provides system setup dashboard with user statistics and demo data management (addons/base_setup/controllers/main.py)",
+          "Creates customizable dashboards with drag-and-drop action widgets (addons/board/controllers/main.py)",
+          "Implements real-time messaging bus for notifications and model updates (addons/bus/controllers/main.py)",
+          "Manages calendar events with meeting acceptance/decline via token-based access (addons/calendar/controllers/main.py)",
+          "Processes accounting transactions with journal entries and reconciliation (addons/account/models/account_move.py)",
+          "Handles multi-currency operations with exchange rate management (addons/account/models/res_currency.py)",
+          "Implements tax calculation engine with configurable tax rules and repartition (addons/account/models/account_tax.py)",
+          "Manages payment processing with multiple payment methods and terms (addons/account/models/account_payment.py)",
+          "Provides chart of accounts templates for different countries and regulations (addons/account/models/chart_template.py)",
+          "Supports bank statement import and automatic reconciliation (addons/account/models/account_bank_statement.py)",
+          "Implements analytic accounting with cost centers and project tracking (addons/account/models/account_analytic_account.py)",
+          "Generates financial reports with customizable layouts and filters (addons/account/report/account_invoice_report.py)",
+          "Manages partner relationships with customer and supplier information (addons/account/models/partner.py)",
+          "Handles product catalog management with pricing and cost tracking (addons/account/models/product.py)",
+          "Implements data migration scripts for version upgrades (migration files in addons/*/migrations/)",
+          "Provides extensive localization support for 80+ countries (addons/l10n_* directories)",
+          "Supports IoT device integration with specialized hardware drivers (addons/iot_box_image/configuration/)",
+          "Implements role-based access control with security groups and rules (addons/account/security/account_security.xml)"
+        ],
+        "use_cases": [
+          "Small to large enterprises use Odoo as their primary ERP system to manage accounting, sales, inventory, and operations",
+          "Manufacturing companies use it to track production workflows, bills of materials, and quality control processes",
+          "E-commerce businesses use it to manage online stores, product catalogs, and order fulfillment",
+          "Service companies use it for project management, time tracking, and customer relationship management",
+          "Multi-national corporations use it for consolidated financial reporting across different countries and currencies",
+          "Developers and system integrators use it as a platform to build custom business applications using the addon framework"
+        ],
+        "category": "Enterprise Resource Planning (ERP) System",
+        "target_audience": "Business users, system administrators, developers, and consultants working with enterprise business applications",
+        "technical_stack": [
+          "Python 3.10+ (setup.py, requirements.txt)",
+          "PostgreSQL (implied from ORM models and database migrations)",
+          "Werkzeug web framework (imports in controllers)",
+          "Jinja2 templating engine (setup.py dependencies)",
+          "Babel for internationalization (requirements.txt)",
+          "Cryptography for security functions (requirements.txt)",
+          "GeoIP2 for location services (requirements.txt)",
+          "Gevent for async operations (requirements.txt)",
+          "JavaScript/TypeScript for frontend (5730 .js files, 74 .ts files)",
+          "XML for data definitions and views (extensive .xml files)",
+          "CSS/SCSS for styling (numerous .css and .scss files)"
+        ],
+        "api_endpoints": [
+          "GET/POST /auth_oauth/signin \u2014 OAuth2 authentication callback (addons/auth_oauth/controllers/main.py)",
+          "JSONRPC /auth/passkey/start-auth \u2014 WebAuthn authentication initiation (addons/auth_passkey/controllers/main.py)",
+          "GET/POST /web/signup \u2014 User registration endpoint (addons/auth_signup/controllers/main.py)",
+          "HTTP /auth-timeout/check-identity \u2014 Session timeout identity verification (addons/auth_timeout/controllers/main.py)",
+          "JSONRPC /auth-timeout/session/check-identity \u2014 Identity verification form submission (addons/auth_timeout/controllers/main.py)",
+          "GET/POST /web/hook/<rule_uuid> \u2014 Webhook automation execution (addons/base_automation/controllers/main.py)",
+          "POST /base_import/set_file \u2014 File upload for data import (addons/base_import/controllers/main.py)",
+          "POST /base_import_module/login_upload \u2014 Module installation via ZIP upload (addons/base_import_module/controllers/main.py)",
+          "JSONRPC /base_setup/data \u2014 System setup dashboard data (addons/base_setup/controllers/main.py)",
+          "JSONRPC /board/add_to_dashboard \u2014 Dashboard widget addition (addons/board/controllers/main.py)",
+          "POST /bus/get_model_definitions \u2014 Model metadata for real-time updates (addons/bus/controllers/main.py)",
+          "HTTP /calendar/meeting/accept \u2014 Calendar meeting acceptance (addons/calendar/controllers/main.py)"
+        ],
+        "sdk_languages": [
+          "Python (native framework)",
+          "JavaScript (web client)"
+        ],
+        "auth_methods": [
+          "OAuth2 authentication with configurable providers (addons/auth_oauth/)",
+          "WebAuthn passkey authentication (addons/auth_passkey/)",
+          "LDAP integration (addons/auth_ldap/)",
+          "TOTP two-factor authentication (addons/auth_totp/)",
+          "Session timeout with re-authentication (addons/auth_timeout/)",
+          "Password policy enforcement (addons/auth_password_policy/)",
+          "User signup with email verification (addons/auth_signup/)"
+        ],
+        "integrations": [
+          "Google services integration for calendar, Gmail, and address autocomplete (addons/google_*/)",
+          "Cloud storage providers: Azure, Google Cloud (addons/cloud_storage_*/)",
+          "Payment processors and banking systems (account payment models)",
+          "IoT devices and hardware integration (addons/iot_box_image/)",
+          "LDAP directory services (addons/auth_ldap/)",
+          "Email servers for SMTP/IMAP communication (mail system)",
+          "Barcode scanning systems (addons/barcodes/)",
+          "GeoIP location services (geoip2 dependency in requirements.txt)"
+        ],
+        "architecture": {
+          "pattern": "monolith with plugin-based addon system",
+          "components": [
+            "Core framework providing ORM, HTTP routing, and security",
+            "Addon system for modular business applications",
+            "Web client with JavaScript/TypeScript frontend",
+            "Database abstraction layer with PostgreSQL backend",
+            "Authentication and authorization subsystem",
+            "Reporting engine with PDF and Excel generation",
+            "Workflow and automation engine",
+            "Internationalization and localization framework"
+          ],
+          "entry_points": [
+            "setup/odoo (main executable script)",
+            "odoo/cli/server.py (implied server entry point)"
+          ],
+          "data_flow": "HTTP requests are routed through Werkzeug to controller methods, which interact with ORM models that persist data in PostgreSQL. Business logic is implemented in model methods, with UI updates pushed via the bus system for real-time notifications.",
+          "persistence": "PostgreSQL database with SQLAlchemy-style ORM, migration scripts for schema updates, and XML data files for initial configuration",
+          "concurrency_model": "Gevent-based async processing with greenlet coroutines for handling concurrent requests",
+          "communication_patterns": "HTTP REST for web API, JSONRPC for rich client communication, WebSocket-like bus system for real-time updates, webhook support for external integrations",
+          "plugin_extension_model": "Addon-based architecture where each addon in addons/ directory provides models, views, controllers, and business logic that extend core functionality"
+        },
+        "data_model": {
+          "primary_entities": [
+            "res.partner (customers, suppliers, contacts)",
+            "account.move (accounting transactions)",
+            "product.product (items and services)",
+            "res.users (system users)",
+            "ir.model (metadata definitions)",
+            "account.account (chart of accounts)",
+            "account.payment (payment records)",
+            "calendar.event (meetings and appointments)"
+          ],
+          "storage_backends": [
+            "PostgreSQL database",
+            "File system for attachments and static assets"
+          ],
+          "schema_patterns": "Relational model with extensive use of foreign keys, inheritance via delegation, and polymorphic relationships through reference fields",
+          "migration_strategy": "Python migration scripts in addons/*/migrations/ directories with pre-migrate, post-migrate, and end-migrate hooks for version upgrades"
+        },
+        "algorithms": {
+          "problem_type": "Enterprise resource planning with multi-tenancy, complex business workflows, and real-time data synchronization",
+          "core_patterns": [
+            "Model-View-Controller (MVC) architecture",
+            "Active Record ORM pattern",
+            "Plugin/Extension pattern for addons",
+            "Observer pattern for model triggers",
+            "Factory pattern for model creation",
+            "Singleton pattern for registry management"
+          ],
+          "complexity_indicators": "High complexity evident from 46,612 files, extensive addon ecosystem, multi-language support (80+ locales), and complex financial calculation engines",
+          "key_algorithms": [
+            "Account reconciliation matching algorithms",
+            "Tax calculation with multi-level repartition",
+            "Currency conversion with rate management",
+            "Access control list evaluation",
+            "Real-time notification bus routing"
+          ],
+          "evidence": "addons/account/models/account_move.py (reconciliation), addons/account/models/account_tax.py (tax calculations), addons/bus/controllers/main.py (notification routing)"
+        },
+        "security_model": {
+          "authentication": "Multi-method authentication including passwords, OAuth2, LDAP, WebAuthn passkeys, and TOTP",
+          "authorization": "Role-based access control (RBAC) with security groups, record rules, and field-level permissions defined in XML security files",
+          "data_protection": "Cryptography library for encryption, secure session management, CSRF protection, and access token-based API authentication",
+          "security_headers": "CSRF token validation, secure session cookies, and XSS protection through template escaping",
+          "vulnerability_handling": "Security policy documented (SECURITY.md), responsible disclosure process, and regular security updates"
+        },
+        "dependencies": {
+          "runtime": [
+            "babel>=1.0",
+            "cbor2",
+            "chardet",
+            "cryptography",
+            "docutils",
+            "geoip2",
+            "gevent",
+            "greenlet",
+            "idna",
+            "Jinja2",
+            "MarkupSafe",
+            "Pillow",
+            "polib",
+            "psutil",
+            "psycopg2",
+            "PyPDF2",
+            "python-dateutil",
+            "pytz",
+            "qrcode",
+            "reportlab",
+            "requests",
+            "urllib3",
+            "vobject",
+            "Werkzeug",
+            "xlrd",
+            "XlsxWriter",
+            "xlwt"
+          ],
+          "dev": [
+            "freezegun (testing)",
+            "flake8 (linting)",
+            "coverage (test coverage)"
+          ],
+          "infrastructure": [
+            "PostgreSQL database server",
+            "Redis (optional for caching)",
+            "Nginx/Apache (web server proxy)"
+          ]
+        },
+        "deployment": {
+          "containerized": false,
+          "container_orchestration": "none observed",
+          "ci_cd": "none observed in provided files",
+          "environment_config": "Configuration through Python config files, command-line arguments, and environment variables as typical for Python applications",
+          "scaling_model": "Horizontal scaling through multiple worker processes, database replication support"
+        },
+        "code_quality_signals": {
+          "has_tests": true,
+          "test_framework": "Python unittest (implied from test file structure)",
+          "test_count_estimate": 4730,
+          "has_linting": true,
+          "has_type_hints": false,
+          "documentation_quality": "well-documented",
+          "code_style": "flake8 configuration in setup.cfg with RST documentation standards"
+        },
+        "project_health": {
+          "license": "Custom/Other",
+          "total_commits": 1,
+          "top_contributors": 1,
+          "recent_activity": "Recent activity shows bug fixes in Polish localization for EDI access control",
+          "community_signals": "Strong community health with CONTRIBUTING.md, SECURITY.md, and comprehensive documentation"
+        },
+        "evidence_tracking": {
+          "files_analyzed": [
+            "addons/auth_oauth/controllers/main.py",
+            "addons/auth_passkey/controllers/main.py",
+            "addons/auth_signup/controllers/main.py",
+            "addons/auth_timeout/controllers/main.py",
+            "addons/base_automation/controllers/main.py",
+            "addons/base_import/controllers/main.py",
+            "addons/base_import_module/controllers/main.py",
+            "addons/base_setup/controllers/main.py",
+            "addons/board/controllers/main.py",
+            "addons/bus/controllers/main.py",
+            "addons/calendar/controllers/main.py",
+            "requirements.txt",
+            "setup.py",
+            "setup.cfg",
+            "README.md",
+            "CONTRIBUTING.md"
+          ],
+          "confidence_level": "High",
+          "information_gaps": [
+            "Database schema details not fully visible from provided migration files",
+            "Frontend architecture details limited by code sample truncation",
+            "CI/CD pipeline configuration not present in provided files",
+            "Container deployment configurations not found"
+          ]
+        },
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        }
       },
       "extracted_data": {},
       "source": "local_repo",
       "source_confidence": "high",
-      "timestamp": "2026-03-21T14:53:17.114010"
+      "timestamp": "2026-03-25T15:24:35.425995"
     },
     "generalization": {
       "functional_dna": {
-        "logic_archetype": "Stateful Orchestrator",
-        "logic_archetype_evidence": "Implements modular addon system for extending functionality (46+ addon directories), manages business accounting operations including invoicing and financial reporting, and processes HTTP requests through web controllers with session management",
+        "logic_archetype": "Plugin Host",
+        "logic_archetype_evidence": "The system is fundamentally a plugin host with an addon-based architecture where each addon in addons/ directory provides models, views, controllers, and business logic that extend core functionality. The core framework provides ORM, HTTP routing, and security while business applications are implemented as modular addons.",
         "data_contract_strictness": "Highly Structured",
-        "data_contract_evidence": "Uses PostgreSQL database (implied from ORM patterns), manages business accounting operations with structured financial data, and implements JSON-RPC protocol for API endpoints",
+        "data_contract_evidence": "Evidence: Extensive ORM model definitions with foreign keys and relationships, XML security files defining field-level permissions, and migration scripts for schema evolution indicate a highly structured data contract",
         "core_algorithmic_class": "CRUD Operations",
-        "core_algorithmic_evidence": "Manages business accounting operations including invoicing and financial reporting (addons/account/), handles user registration, password reset, and signup workflows, and supports multi-database operations with database filtering and selection",
+        "core_algorithmic_evidence": "Evidence from Active Record ORM pattern, account.move model for transaction management, and extensive database operations across models. Core operations are Create/Read/Update/Delete with complex business logic layered on top",
         "concurrency_requirements": "ACID Compliance Required",
-        "concurrency_evidence": "Uses PostgreSQL database for business accounting operations and financial reporting, requires data consistency for financial transactions and multi-database operations",
+        "concurrency_evidence": "Evidence from PostgreSQL backend, account reconciliation algorithms, and financial transaction processing which requires transactional consistency for business operations",
+        "abstract_problem": "Manages a hierarchical registry of pluggable business rule modules that operate on shared entity graphs with role-based access control and real-time state synchronization across multiple client sessions.",
+        "data_flow_pattern": "HTTP request \u2192 controller routing \u2192 ORM model interaction \u2192 database persistence \u2192 real-time bus notification \u2192 client update, with plugin modules intercepting and extending each stage",
+        "state_complexity": "Global mutable",
         "repurposing_confidence": 8,
-        "repurposing_reasoning": "High confidence due to modular addon architecture (46+ addon directories) that allows extending functionality, comprehensive authentication systems (OAuth2, WebAuthn, traditional), and well-defined API endpoints. The ERP core can be adapted to various business domains by leveraging its orchestration patterns."
+        "repurposing_reasoning": "The plugin host architecture, ORM framework, and role-based access control system are highly generic and could be repurposed for any domain requiring modular business applications. The core framework abstracts away domain-specific concerns into addons. However, the accounting-specific models and financial calculations are domain-locked. The real-time bus system, authentication framework, and internationalization capabilities are broadly reusable."
       },
       "evidence_claims": [
         {
-          "claim": "Implements modular addon system for extensibility",
-          "evidence": "Implements modular addon system for extending functionality (46+ addon directories)",
+          "claim": "System implements a plugin-based addon architecture",
+          "evidence": "Plugin/Extension pattern for addons with each addon in addons/ directory providing models, views, controllers",
           "confidence": "High"
         },
         {
-          "claim": "Supports multiple authentication methods",
-          "evidence": "Provides OAuth2 authentication integration with external providers (addons/auth_oauth/controllers/main.py), Implements WebAuthn/passkey authentication for passwordless login (addons/auth_passkey/controllers/main.py)",
+          "claim": "Uses PostgreSQL for ACID-compliant data persistence",
+          "evidence": "PostgreSQL backend mentioned in architecture with migration scripts for schema updates",
           "confidence": "High"
         },
         {
-          "claim": "Uses Python with Werkzeug framework",
-          "evidence": "Python 3.10+ (requirements.txt, multiple .py files), Werkzeug web framework (import statements in controllers)",
+          "claim": "Implements real-time notifications via bus system",
+          "evidence": "addons/bus/controllers/main.py provides real-time messaging bus for notifications and model updates",
           "confidence": "High"
         },
         {
-          "claim": "Provides structured API endpoints",
-          "evidence": "POST /auth_oauth/signin OAuth2 authentication callback (addons/auth_oauth/controllers/main.py:145), GET /web/login User login page (addons/auth_signup/controllers/main.py:21)",
+          "claim": "Supports OAuth2 and WebAuthn authentication",
+          "evidence": "addons/auth_oauth/controllers/main.py and addons/auth_passkey/controllers/main.py",
+          "confidence": "High"
+        },
+        {
+          "claim": "Implements role-based access control with security groups",
+          "evidence": "Role-based access control (RBAC) with security groups and rules mentioned in addons/account/security/account_security.xml",
           "confidence": "High"
         }
       ],
       "market_reach": {
-        "primary_industry": "Enterprise Resource Planning",
+        "primary_industry": "Enterprise Resource Planning (ERP) / Business Management Software",
         "cross_industry_applications": [
-          "Manufacturing",
-          "Retail",
-          "Healthcare",
-          "Education",
-          "Non-profit",
-          "Professional Services",
-          "Government"
+          "Healthcare Management Systems - patient records, appointments, billing modules as plugins",
+          "Educational Institution Management - student records, course management, grading as modular addons",
+          "Government Administrative Systems - citizen services, permit processing, tax collection as separate modules",
+          "Real Estate Management Platforms - property listings, tenant management, maintenance tracking as plugins",
+          "Manufacturing Execution Systems - production planning, quality control, inventory as modular components",
+          "Non-profit Organization Management - donor management, volunteer coordination, grant tracking as addons",
+          "Professional Services Automation - project management, time tracking, client billing as plugin modules",
+          "Supply Chain Management - vendor management, procurement, logistics tracking as modular applications"
         ],
         "utility_score": 9,
         "market_potential": "High"
       },
       "friction_report": {
-        "difficulty": "Medium",
-        "estimated_hours": 120,
+        "difficulty": "High",
+        "estimated_hours": 2000,
         "required_technologies": [
           "Python 3.10+",
-          "PostgreSQL database",
-          "Werkzeug web framework",
-          "JavaScript/TypeScript frontend"
+          "PostgreSQL",
+          "Werkzeug",
+          "JavaScript/TypeScript",
+          "XML parsing",
+          "Jinja2 templating"
         ],
         "complexity_factors": [
-          "Modular addon architecture requires understanding",
-          "Multi-database operations",
-          "Complex authentication system integration",
-          "Business domain knowledge needed"
+          "Extensive ORM model relationships",
+          "Complex security framework with RBAC",
+          "Real-time bus system implementation",
+          "Multi-language internationalization",
+          "Plugin dependency management",
+          "Database migration system"
         ],
-        "risk_level": "Medium"
+        "risk_level": "Medium",
+        "migration_path": "Extract core framework components (ORM, plugin system, security framework) into a standalone platform, replace domain-specific models with generic entity types, create new addon templates for target domain"
       },
       "interface_map": {
         "adapter_schema": {
           "input": {
-            "format": "JSON",
+            "format": "HTTP/JSONRPC",
             "required_fields": [
+              "authentication_token",
+              "model",
               "method",
-              "path",
-              "authentication_token"
+              "parameters"
+            ],
+            "protocols": [
+              "HTTP",
+              "JSONRPC",
+              "WebSocket"
             ]
           },
           "output": {
-            "format": "JSON"
+            "format": "JSON",
+            "delivery": "sync/async via bus system"
           },
           "authentication": {
-            "type": "Multiple",
-            "method": "OAuth2, WebAuthn, Session-based, Token-based"
+            "type": "Multi-method",
+            "method": "OAuth2, WebAuthn, LDAP, password, TOTP"
           }
         },
-        "standardization_level": "High"
+        "standardization_level": "Medium",
+        "api_surface_area": "Large (50+)"
       },
+      "comparable_systems": [
+        "Salesforce Platform - plugin-based CRM with custom objects and workflow automation",
+        "Drupal CMS - modular content management with hook system and entity management",
+        "Jenkins CI/CD - plugin architecture for build automation and deployment pipelines",
+        "Moodle LMS - modular learning management with course plugins and activity modules",
+        "ServiceNow - workflow automation platform with custom applications and ITSM modules"
+      ],
       "information_gaps": [
-        "Specific database schema details",
-        "Performance benchmarks and scalability limits",
-        "Detailed API rate limiting policies",
-        "Specific business logic algorithms",
-        "Data migration patterns and procedures"
+        "Complete database schema structure not visible from migration samples",
+        "Frontend component architecture details limited by code truncation",
+        "Performance characteristics and scaling patterns not documented",
+        "Plugin dependency resolution and loading order mechanisms unclear"
       ]
     },
-    "timestamp": "2026-03-21T14:53:31.323857"
+    "timestamp": "2026-03-25T15:25:03.906993"
   },
   "errors": []
 }

@@ -1,448 +1,646 @@
 {
   "url": "https://github.com/getsentry/sentry.git",
   "repo_name": "sentry",
-  "timestamp": "2026-03-25T12:35:36.563394",
+  "timestamp": "2026-03-25T18:48:00.360112",
   "step1": {
     "product_name": "sentry",
     "url": "https://github.com/getsentry/sentry.git",
     "analysis": {
-      "summary": "Sentry is an error tracking and performance monitoring platform built with Django/React that ingests, aggregates, and analyzes error events and performance data from client applications across multiple programming languages.",
+      "summary": "Sentry is a comprehensive error monitoring and performance tracking platform built as a Django web application with a React frontend. It processes exception events, stack traces, and performance data from applications through multi-language SDKs, stores them in PostgreSQL/ClickHouse, and provides web-based dashboards for debugging and alerting. The system implements a multi-tenant architecture with organization/project isolation and extensive plugin-based integrations.",
       "capabilities": [
-        "Ingests and processes error events from client SDKs across multiple languages (src/sentry/receivers/, src/sentry/models/event.py)",
-        "Aggregates errors into issues with deduplication and grouping logic (src/sentry/grouping/, src/sentry/models/group.py)",
-        "Provides REST API for querying events, issues, projects, and organizations (src/sentry/api/endpoints/)",
-        "Renders React-based web interface for error analysis and project management (static/app/)",
-        "Processes and stores release deployments and source maps (src/sentry/models/release.py)",
-        "Manages user authentication and organization-based access control (src/sentry/auth/, src/sentry/models/organization.py)",
-        "Integrates with external services like Slack, GitHub, Jira for notifications (src/sentry/integrations/)",
-        "Supports SCIM provisioning for enterprise identity management (src/sentry/scim/)",
-        "Processes distributed tracing data for performance monitoring (src/sentry/spans/, src/sentry/traces/)",
-        "Generates alerts and notifications based on error patterns (src/sentry/rules/, src/sentry/notifications/)"
+        "Processes incoming error and performance events from multiple programming language SDKs (src/sentry/api/endpoints/events/)",
+        "Parses and symbolizes stack traces with source mapping support (fixtures/artifact_bundle/)",
+        "Detects performance issues like N+1 queries and slow database operations (fixtures/events/issue_detection/)",
+        "Manages multi-tenant organizations and projects with role-based access control (src/sentry/models/organization.py)",
+        "Provides REST API endpoints for events, issues, releases, and project management (api-docs/openapi.json)",
+        "Implements real-time alerting and notification systems via email and webhooks (fixtures/emails/)",
+        "Stores and queries large-scale event data using time-series databases (src/sentry/tsdb/)",
+        "Performs automated issue grouping and fingerprinting of similar errors (src/sentry/grouping/)",
+        "Integrates with version control systems for release tracking and commit correlation (src/sentry/integrations/)",
+        "Supports SCIM provisioning for enterprise identity management (api-docs/paths/scim/)",
+        "Processes source maps and debug symbols for enhanced stack trace resolution (fixtures/artifact_bundle_debug_ids/)",
+        "Implements distributed tracing for performance monitoring across services (fixtures/events/issue_detection/)",
+        "Provides session replay capture and playback functionality (bin/mock-replay)",
+        "Manages release deployments and tracks deployment-specific issues (api-docs/paths/releases/)",
+        "Implements rate limiting and quota management per organization (src/sentry/quotas/)",
+        "Supports plugin-based architecture for custom integrations (src/sentry/plugins/)",
+        "Performs automated security vulnerability detection in code (fixtures/events/issue_detection/sql-injection/)",
+        "Provides comprehensive search and filtering across events and issues (src/sentry/api/helpers/group_index/)",
+        "Implements backup and restore functionality for data migration (fixtures/backup/)",
+        "Manages user feedback collection and correlation with errors (api-docs/paths/projects/user-feedback.json)",
+        "Processes and analyzes application performance metrics and traces (bin/mock-traces)",
+        "Implements service hook webhooks for external system integration (api-docs/paths/projects/service-hooks.json)",
+        "Provides CLI tools for data loading, mocking, and administrative tasks (bin/)",
+        "Supports multi-region deployment with data residency compliance (api-docs/openapi.json servers configuration)"
       ],
-      "use_cases": [],
+      "use_cases": [
+        "Software development teams use this to monitor application errors and performance issues in production environments",
+        "DevOps engineers use this to track deployment-related issues and correlate errors with releases",
+        "Product managers use this to understand user impact of bugs and prioritize fixes based on error frequency",
+        "Security teams use this to detect and respond to application security vulnerabilities and attacks",
+        "QA teams use this to identify and reproduce bugs through detailed error contexts and session replays"
+      ],
+      "category": "Error Monitoring and Application Performance Management Platform",
+      "target_audience": "Software developers, DevOps engineers, QA teams, and site reliability engineers",
       "technical_stack": [
-        "Django 5.2.11 (pyproject.toml, web framework)",
-        "Django REST Framework 3.16.1 (pyproject.toml, API layer)",
-        "React 18+ (package.json, frontend UI)",
-        "TypeScript (package.json, frontend type safety)",
-        "Emotion CSS-in-JS (package.json, styling)",
-        "PostgreSQL (docker-compose configurations, primary database)",
-        "Redis (pyproject.toml redis dependency, caching/queues)",
-        "Celery (pyproject.toml celery dependency, task processing)",
-        "Kafka (confluent-kafka in pyproject.toml, event streaming)",
-        "ClickHouse (clickhouse-driver in pyproject.toml, analytics database)",
-        "Google Cloud services (google-cloud-* dependencies, infrastructure)",
-        "Boto3 (pyproject.toml, AWS services)"
-      ],
-      "integrations": [
-        "Slack (src/sentry/integrations/slack/)",
-        "GitHub (src/sentry/integrations/github/)",
-        "GitLab (src/sentry/integrations/gitlab/)",
-        "Jira (src/sentry/integrations/jira/)",
-        "PagerDuty (src/sentry/integrations/pagerduty/)",
-        "Vercel (src/sentry/integrations/vercel/)",
-        "AWS (boto3 dependency, src/sentry/integrations/aws/)",
-        "Google Cloud Platform (google-cloud-* dependencies)",
-        "Datadog (datadog dependency, metrics)"
+        "Django 5.2.11 (pyproject.toml)",
+        "Python 3.13 (self-hosted/Dockerfile)",
+        "React with TypeScript (.tsx files, package.json)",
+        "PostgreSQL for primary data storage (pyproject.toml django-pg-zero-downtime-migrations)",
+        "ClickHouse for analytics and time-series data (pyproject.toml clickhouse-driver)",
+        "Redis for caching and queuing (pyproject.toml redis-py-cluster)",
+        "Kafka for event streaming (pyproject.toml confluent-kafka)",
+        "Django REST Framework 3.16.1 (pyproject.toml)",
+        "Celery for background task processing (pyproject.toml celery)",
+        "Webpack with TypeScript for frontend bundling (package.json)",
+        "Emotion for CSS-in-JS styling (package.json @emotion/react)",
+        "SQLAlchemy for database ORM (pyproject.toml sqlalchemy)",
+        "Granian ASGI server 2.7+ (pyproject.toml)",
+        "Boto3 1.34.128+ for AWS integration (pyproject.toml)",
+        "Google Cloud SDK for GCP services (pyproject.toml google-cloud-*)"
       ],
       "api_endpoints": [
-        {
-          "method": "GET",
-          "path": "/api/0/organizations/{organization_id_or_slug}/repos/",
-          "summary": "List organization repositories (api-docs/openapi.json)"
-        },
-        {
-          "method": "GET",
-          "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/files/dsyms/",
-          "summary": "List debug symbols (api-docs/openapi.json)"
-        },
-        {
-          "method": "GET",
-          "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/users/",
-          "summary": "List project users (api-docs/openapi.json)"
-        },
-        {
-          "method": "GET",
-          "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/tags/{key}/values/",
-          "summary": "Get tag values (api-docs/openapi.json)"
-        },
-        {
-          "method": "GET",
-          "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/stats/",
-          "summary": "Project statistics (api-docs/openapi.json)"
-        },
-        {
-          "method": "POST",
-          "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/user-feedback/",
-          "summary": "Submit user feedback (api-docs/openapi.json)"
-        },
-        {
-          "method": "GET",
-          "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/hooks/",
-          "summary": "List service hooks (api-docs/openapi.json)"
-        }
+        "GET /api/0/ \u2014 API version and authentication info (src/sentry/api/endpoints/index.py)",
+        "GET /api/0/organizations/{org}/repos/ \u2014 List organization repositories (api-docs/paths/organizations/repos.json)",
+        "GET /api/0/projects/{org}/{project}/users/ \u2014 List project users (api-docs/paths/projects/users.json)",
+        "GET /api/0/projects/{org}/{project}/stats/ \u2014 Project statistics (api-docs/paths/projects/stats.json)",
+        "POST /api/0/projects/{org}/{project}/user-feedback/ \u2014 Submit user feedback (api-docs/paths/projects/user-feedback.json)",
+        "GET /api/0/projects/{org}/{project}/hooks/ \u2014 Service hooks management (api-docs/paths/projects/service-hooks.json)",
+        "GET /api/0/organizations/{org}/releases/ \u2014 Release management (api-docs/paths/releases/organization-releases.json)",
+        "GET /api/0/projects/{org}/{project}/files/dsyms/ \u2014 Debug symbol files (api-docs/paths/projects/dsyms.json)",
+        "POST /api/0/organizations/{org}/issues/ \u2014 Issue management (api-docs/paths/events/project-issues.json)",
+        "GET /api/0/projects/{org}/{project}/events/{event_id}/ \u2014 Event details (api-docs/paths/events/project-event-details.json)"
       ],
+      "sdk_languages": [
+        "JavaScript/TypeScript (package.json @sentry/browser)",
+        "Python (pyproject.toml sentry-sdk)",
+        "Ruby (README.md official SDKs)",
+        "Go (README.md official SDKs)",
+        "Java/Kotlin (README.md official SDKs)",
+        "PHP (README.md official SDKs)",
+        "C#/.NET (README.md official SDKs)",
+        "Swift/Objective-C (README.md official SDKs)",
+        "React Native (README.md official SDKs)",
+        "Flutter/Dart (README.md official SDKs)",
+        "Rust (README.md official SDKs)",
+        "Elixir (README.md official SDKs)"
+      ],
+      "auth_methods": [
+        "JWT tokens for API authentication (pyproject.toml pyjwt)",
+        "API keys for SDK and external integration access (src/sentry/api/endpoints/index.py auth context)",
+        "SAML2 SSO for enterprise authentication (pyproject.toml python-saml2)",
+        "SCIM provisioning for automated user management (api-docs/openapi.json SCIM tag)",
+        "OAuth2 for third-party integrations (pyproject.toml requests-oauthlib)",
+        "Session-based authentication for web interface (Django sessions)",
+        "Two-factor authentication support (fixtures/emails/mfa_added.txt)"
+      ],
+      "integrations": [
+        "Jira for issue tracking integration (fixtures/integrations/jira/)",
+        "GitHub for source code correlation (fixtures/github.py)",
+        "GitLab for CI/CD integration (fixtures/gitlab.py)",
+        "Bitbucket for repository management (fixtures/bitbucket.py)",
+        "Slack for notifications (pyproject.toml slack-sdk)",
+        "AWS services via Boto3 (pyproject.toml boto3, botocore)",
+        "Google Cloud Platform services (pyproject.toml google-cloud-*)",
+        "Kafka for event streaming (pyproject.toml confluent-kafka)",
+        "Datadog for metrics (pyproject.toml datadog)",
+        "PagerDuty for incident management (pyproject.toml pypd)",
+        "Twilio for SMS notifications (pyproject.toml twilio)"
+      ],
+      "architecture": {
+        "pattern": "monolith with microservices elements and plugin-based integrations",
+        "components": [
+          "Web API layer handling REST endpoints and authentication",
+          "Event ingestion pipeline processing SDK payloads",
+          "Issue grouping engine for error deduplication",
+          "Performance monitoring system for traces and metrics",
+          "Plugin framework for third-party integrations",
+          "Background task processing via Celery workers",
+          "Time-series data storage and analytics engine",
+          "Real-time notification and alerting system",
+          "Frontend React application for user interface"
+        ],
+        "entry_points": [
+          "src/sentry/__main__.py \u2014 Main Django application entry",
+          "src/sentry/runner/main.py \u2014 CLI runner entry point",
+          "src/sentry/api/endpoints/index.py \u2014 API root endpoint"
+        ],
+        "data_flow": "SDKs send events to ingestion API \u2192 events processed through grouping pipeline \u2192 stored in PostgreSQL/ClickHouse \u2192 background workers process alerts/notifications \u2192 React frontend queries via REST API \u2192 users view dashboards and manage issues",
+        "persistence": "PostgreSQL for transactional data with Django ORM, ClickHouse for analytics and time-series data, Redis for caching and session storage, file storage for artifacts and debug symbols",
+        "concurrency_model": "async Django with Granian ASGI server, Celery worker processes for background tasks, Kafka for distributed event streaming",
+        "communication_patterns": "HTTP REST API for client communication, Kafka for internal event streaming, WebSocket for real-time updates, webhook callbacks for external integrations",
+        "plugin_extension_model": "Plugin base classes in src/sentry/plugins/ with standardized interfaces for integrations, middleware system for request/response processing"
+      },
+      "data_model": {
+        "primary_entities": [
+          "Organization \u2014 top-level tenant container",
+          "Project \u2014 application being monitored within organization",
+          "Issue \u2014 grouped collection of similar error events",
+          "Event \u2014 individual error occurrence with stack trace and context",
+          "Release \u2014 software deployment version with associated commits",
+          "User \u2014 platform user with role-based permissions",
+          "Integration \u2014 third-party service connections",
+          "Team \u2014 organizational unit for access control"
+        ],
+        "storage_backends": [
+          "PostgreSQL for transactional data and metadata",
+          "ClickHouse for high-volume analytics and time-series data",
+          "Redis for caching, sessions, and task queues",
+          "File storage for debug symbols and artifacts"
+        ],
+        "schema_patterns": "Relational model with Django ORM, time-series data in ClickHouse, JSON document storage for event payloads, multi-tenant isolation by organization_id",
+        "migration_strategy": "Django migrations with zero-downtime support via django-pg-zero-downtime-migrations, 445 migration files present"
+      },
+      "algorithms": {
+        "problem_type": "Large-scale error monitoring with real-time event processing, issue grouping, and performance analysis",
+        "core_patterns": [
+          "Event streaming for high-throughput data ingestion",
+          "Fingerprinting algorithms for issue grouping and deduplication",
+          "Plugin architecture for extensible third-party integrations",
+          "Multi-tenant data isolation and access control",
+          "Time-series aggregation for performance metrics",
+          "Background task processing with Celery workers"
+        ],
+        "complexity_indicators": "19,809 files across multiple languages, 445 database migrations, 5,025+ test files, extensive plugin ecosystem",
+        "key_algorithms": [
+          "Issue fingerprinting for grouping similar errors (src/sentry/grouping/)",
+          "Performance issue detection for N+1 queries and slow operations (fixtures/events/issue_detection/)",
+          "Source map processing for stack trace symbolization (fixtures/artifact_bundle/)",
+          "Real-time event processing pipeline with Kafka streaming",
+          "Multi-dimensional time-series data aggregation"
+        ],
+        "evidence": "fixtures/events/issue_detection/ contains extensive test cases for performance issue detection algorithms, src/sentry/grouping/ implements fingerprinting"
+      },
+      "security_model": {
+        "authentication": "JWT tokens, API keys, SAML2 SSO, OAuth2, two-factor authentication support",
+        "authorization": "Role-based access control with organization/project/team hierarchy, SCIM provisioning for enterprise",
+        "data_protection": "Multi-tenant isolation, encrypted API communications, secure artifact storage, PII scrubbing capabilities",
+        "security_headers": "Django CSP support (pyproject.toml django-csp), CORS configuration, rate limiting per organization",
+        "vulnerability_handling": "Automated security issue detection in code (fixtures/events/issue_detection/sql-injection/), security policy present"
+      },
+      "dependencies": {
+        "runtime": [
+          "Django 5.2.11",
+          "djangorestframework 3.16.1",
+          "celery with Redis backend",
+          "confluent-kafka 2.8.0+",
+          "boto3 1.34.128+ for AWS",
+          "google-cloud suite for GCP",
+          "cryptography 44.0.1+",
+          "granian[pname,reload] 2.7+",
+          "clickhouse-driver 0.2.9+",
+          "redis-py-cluster 2.1.3+",
+          "sqlalchemy 2.0.36+"
+        ],
+        "dev": [
+          "pytest for testing framework",
+          "mypy for type checking",
+          "black for code formatting",
+          "webpack for frontend bundling",
+          "typescript for type safety"
+        ],
+        "infrastructure": [
+          "PostgreSQL database",
+          "ClickHouse for analytics",
+          "Redis for caching/queues",
+          "Kafka for event streaming",
+          "File storage (AWS S3/GCS)"
+        ]
+      },
+      "deployment": {
+        "containerized": true,
+        "container_orchestration": "Docker with self-hosted/Dockerfile, supports Kubernetes deployment",
+        "ci_cd": "GitHub Actions (.github/ directory structure implied)",
+        "environment_config": "Environment variables for configuration, Django settings pattern, devenv configuration system",
+        "scaling_model": "Horizontal scaling with load balancer, Celery workers can scale independently, database sharding support"
+      },
+      "code_quality_signals": {
+        "has_tests": true,
+        "test_framework": "pytest (pyproject.toml pytest configuration)",
+        "test_count_estimate": "5,025+ test files across tests/ directory",
+        "has_linting": true,
+        "has_type_hints": true,
+        "documentation_quality": "well-documented",
+        "code_style": "Black formatting (pyproject.toml black), ESLint for JavaScript (eslint.config.ts), MyPy type checking"
+      },
+      "project_health": {
+        "license": "Apache-2.0",
+        "total_commits": "1 (likely shallow clone)",
+        "top_contributors": "1 contributor in extracted history",
+        "recent_activity": "Active development with UI improvements to issues interface",
+        "community_signals": "Security policy present, extensive documentation, contribution guidelines, issue templates"
+      },
+      "evidence_tracking": {
+        "files_analyzed": [
+          "pyproject.toml",
+          "package.json",
+          "api-docs/openapi.json",
+          "src/sentry/__main__.py",
+          "src/sentry/api/endpoints/index.py",
+          "src/sentry/api/helpers/group_index/index.py",
+          "fixtures/events/issue_detection/",
+          "fixtures/integrations/jira/",
+          "self-hosted/Dockerfile",
+          "Makefile"
+        ],
+        "confidence_level": "High",
+        "information_gaps": [
+          "Exact deployment architecture patterns beyond Docker",
+          "Complete API endpoint coverage (OpenAPI spec shows partial coverage)",
+          "Specific ClickHouse schema details not visible in sample"
+        ]
+      },
       "pricing": {
         "model": "open-source",
         "free_tier": "true"
-      },
-      "target_audience": "Developers",
-      "category": "Open Source Software",
-      "deployment": "Self-hosted",
-      "underlying_algorithm": {
-        "problem_type": "",
-        "pattern": ""
-      },
-      "evidence_tracking": {
-        "confidence_level": "High",
-        "technical_facts": [
-          "Ingests and processes error events from client SDKs across multiple languages (src/sentry/receivers/, src/sentry/models/event.py)",
-          "Aggregates errors into issues with deduplication and grouping logic (src/sentry/grouping/, src/sentry/models/group.py)",
-          "Provides REST API for querying events, issues, projects, and organizations (src/sentry/api/endpoints/)",
-          "Renders React-based web interface for error analysis and project management (static/app/)",
-          "Processes and stores release deployments and source maps (src/sentry/models/release.py)",
-          "Manages user authentication and organization-based access control (src/sentry/auth/, src/sentry/models/organization.py)",
-          "Integrates with external services like Slack, GitHub, Jira for notifications (src/sentry/integrations/)",
-          "Supports SCIM provisioning for enterprise identity management (src/sentry/scim/)",
-          "Processes distributed tracing data for performance monitoring (src/sentry/spans/, src/sentry/traces/)",
-          "Generates alerts and notifications based on error patterns (src/sentry/rules/, src/sentry/notifications/)"
-        ],
-        "information_gaps": []
-      },
-      "architecture_patterns": [
-        "monolith",
-        "Concurrency: async with Celery task queues for background processing, Django ASGI for async request handling"
-      ],
-      "auth_methods": [
-        "Session authentication (Django sessions)",
-        "API token authentication (src/sentry/auth/)",
-        "OAuth2 (pyproject.toml oauthlib dependency)",
-        "SAML2 (python3-saml in pyproject.toml)",
-        "SCIM provisioning (src/sentry/scim/)",
-        "GitHub OAuth (src/sentry/auth/providers/github/)",
-        "Google OAuth (src/sentry/auth/providers/google/)"
-      ],
-      "sdk_languages": [
-        "JavaScript",
-        "Electron",
-        "React-Native",
-        "Python",
-        "Ruby",
-        "PHP",
-        "Laravel",
-        "Go",
-        "Rust",
-        "Java",
-        "Kotlin",
-        "Swift",
-        "Objective-C",
-        "C#",
-        "F#",
-        "C",
-        "C++",
-        "Dart",
-        "Flutter",
-        "Perl",
-        "Clojure",
-        "Elixir",
-        "Unity",
-        "Unreal Engine",
-        "Godot Engine",
-        "PowerShell"
-      ],
-      "dependencies": [
-        "django>=5.2.11",
-        "djangorestframework>=3.16.1",
-        "celery>=5.4.0",
-        "redis>=5.2.0",
-        "psycopg2>=2.9.5",
-        "clickhouse-driver>=0.2.6",
-        "confluent-kafka>=2.8.0",
-        "boto3>=1.34.128",
-        "Infrastructure: PostgreSQL",
-        "Infrastructure: Redis",
-        "Infrastructure: ClickHouse",
-        "Infrastructure: Kafka",
-        "Infrastructure: Memcached"
-      ],
-      "deployment_options": [
-        "Containerized (Docker)",
-        "CI/CD: GitHub Actions"
-      ]
+      }
     },
     "extracted_data": {},
     "source": "local_repo",
     "source_confidence": "high",
-    "timestamp": "2026-03-25T12:36:21.155076"
+    "timestamp": "2026-03-25T18:49:35.164730"
   },
   "step2": {
     "step1_data": {
       "product_name": "sentry",
       "url": "https://github.com/getsentry/sentry.git",
       "analysis": {
-        "summary": "Sentry is an error tracking and performance monitoring platform built with Django/React that ingests, aggregates, and analyzes error events and performance data from client applications across multiple programming languages.",
+        "summary": "Sentry is a comprehensive error monitoring and performance tracking platform built as a Django web application with a React frontend. It processes exception events, stack traces, and performance data from applications through multi-language SDKs, stores them in PostgreSQL/ClickHouse, and provides web-based dashboards for debugging and alerting. The system implements a multi-tenant architecture with organization/project isolation and extensive plugin-based integrations.",
         "capabilities": [
-          "Ingests and processes error events from client SDKs across multiple languages (src/sentry/receivers/, src/sentry/models/event.py)",
-          "Aggregates errors into issues with deduplication and grouping logic (src/sentry/grouping/, src/sentry/models/group.py)",
-          "Provides REST API for querying events, issues, projects, and organizations (src/sentry/api/endpoints/)",
-          "Renders React-based web interface for error analysis and project management (static/app/)",
-          "Processes and stores release deployments and source maps (src/sentry/models/release.py)",
-          "Manages user authentication and organization-based access control (src/sentry/auth/, src/sentry/models/organization.py)",
-          "Integrates with external services like Slack, GitHub, Jira for notifications (src/sentry/integrations/)",
-          "Supports SCIM provisioning for enterprise identity management (src/sentry/scim/)",
-          "Processes distributed tracing data for performance monitoring (src/sentry/spans/, src/sentry/traces/)",
-          "Generates alerts and notifications based on error patterns (src/sentry/rules/, src/sentry/notifications/)"
+          "Processes incoming error and performance events from multiple programming language SDKs (src/sentry/api/endpoints/events/)",
+          "Parses and symbolizes stack traces with source mapping support (fixtures/artifact_bundle/)",
+          "Detects performance issues like N+1 queries and slow database operations (fixtures/events/issue_detection/)",
+          "Manages multi-tenant organizations and projects with role-based access control (src/sentry/models/organization.py)",
+          "Provides REST API endpoints for events, issues, releases, and project management (api-docs/openapi.json)",
+          "Implements real-time alerting and notification systems via email and webhooks (fixtures/emails/)",
+          "Stores and queries large-scale event data using time-series databases (src/sentry/tsdb/)",
+          "Performs automated issue grouping and fingerprinting of similar errors (src/sentry/grouping/)",
+          "Integrates with version control systems for release tracking and commit correlation (src/sentry/integrations/)",
+          "Supports SCIM provisioning for enterprise identity management (api-docs/paths/scim/)",
+          "Processes source maps and debug symbols for enhanced stack trace resolution (fixtures/artifact_bundle_debug_ids/)",
+          "Implements distributed tracing for performance monitoring across services (fixtures/events/issue_detection/)",
+          "Provides session replay capture and playback functionality (bin/mock-replay)",
+          "Manages release deployments and tracks deployment-specific issues (api-docs/paths/releases/)",
+          "Implements rate limiting and quota management per organization (src/sentry/quotas/)",
+          "Supports plugin-based architecture for custom integrations (src/sentry/plugins/)",
+          "Performs automated security vulnerability detection in code (fixtures/events/issue_detection/sql-injection/)",
+          "Provides comprehensive search and filtering across events and issues (src/sentry/api/helpers/group_index/)",
+          "Implements backup and restore functionality for data migration (fixtures/backup/)",
+          "Manages user feedback collection and correlation with errors (api-docs/paths/projects/user-feedback.json)",
+          "Processes and analyzes application performance metrics and traces (bin/mock-traces)",
+          "Implements service hook webhooks for external system integration (api-docs/paths/projects/service-hooks.json)",
+          "Provides CLI tools for data loading, mocking, and administrative tasks (bin/)",
+          "Supports multi-region deployment with data residency compliance (api-docs/openapi.json servers configuration)"
         ],
-        "use_cases": [],
+        "use_cases": [
+          "Software development teams use this to monitor application errors and performance issues in production environments",
+          "DevOps engineers use this to track deployment-related issues and correlate errors with releases",
+          "Product managers use this to understand user impact of bugs and prioritize fixes based on error frequency",
+          "Security teams use this to detect and respond to application security vulnerabilities and attacks",
+          "QA teams use this to identify and reproduce bugs through detailed error contexts and session replays"
+        ],
+        "category": "Error Monitoring and Application Performance Management Platform",
+        "target_audience": "Software developers, DevOps engineers, QA teams, and site reliability engineers",
         "technical_stack": [
-          "Django 5.2.11 (pyproject.toml, web framework)",
-          "Django REST Framework 3.16.1 (pyproject.toml, API layer)",
-          "React 18+ (package.json, frontend UI)",
-          "TypeScript (package.json, frontend type safety)",
-          "Emotion CSS-in-JS (package.json, styling)",
-          "PostgreSQL (docker-compose configurations, primary database)",
-          "Redis (pyproject.toml redis dependency, caching/queues)",
-          "Celery (pyproject.toml celery dependency, task processing)",
-          "Kafka (confluent-kafka in pyproject.toml, event streaming)",
-          "ClickHouse (clickhouse-driver in pyproject.toml, analytics database)",
-          "Google Cloud services (google-cloud-* dependencies, infrastructure)",
-          "Boto3 (pyproject.toml, AWS services)"
-        ],
-        "integrations": [
-          "Slack (src/sentry/integrations/slack/)",
-          "GitHub (src/sentry/integrations/github/)",
-          "GitLab (src/sentry/integrations/gitlab/)",
-          "Jira (src/sentry/integrations/jira/)",
-          "PagerDuty (src/sentry/integrations/pagerduty/)",
-          "Vercel (src/sentry/integrations/vercel/)",
-          "AWS (boto3 dependency, src/sentry/integrations/aws/)",
-          "Google Cloud Platform (google-cloud-* dependencies)",
-          "Datadog (datadog dependency, metrics)"
+          "Django 5.2.11 (pyproject.toml)",
+          "Python 3.13 (self-hosted/Dockerfile)",
+          "React with TypeScript (.tsx files, package.json)",
+          "PostgreSQL for primary data storage (pyproject.toml django-pg-zero-downtime-migrations)",
+          "ClickHouse for analytics and time-series data (pyproject.toml clickhouse-driver)",
+          "Redis for caching and queuing (pyproject.toml redis-py-cluster)",
+          "Kafka for event streaming (pyproject.toml confluent-kafka)",
+          "Django REST Framework 3.16.1 (pyproject.toml)",
+          "Celery for background task processing (pyproject.toml celery)",
+          "Webpack with TypeScript for frontend bundling (package.json)",
+          "Emotion for CSS-in-JS styling (package.json @emotion/react)",
+          "SQLAlchemy for database ORM (pyproject.toml sqlalchemy)",
+          "Granian ASGI server 2.7+ (pyproject.toml)",
+          "Boto3 1.34.128+ for AWS integration (pyproject.toml)",
+          "Google Cloud SDK for GCP services (pyproject.toml google-cloud-*)"
         ],
         "api_endpoints": [
-          {
-            "method": "GET",
-            "path": "/api/0/organizations/{organization_id_or_slug}/repos/",
-            "summary": "List organization repositories (api-docs/openapi.json)"
-          },
-          {
-            "method": "GET",
-            "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/files/dsyms/",
-            "summary": "List debug symbols (api-docs/openapi.json)"
-          },
-          {
-            "method": "GET",
-            "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/users/",
-            "summary": "List project users (api-docs/openapi.json)"
-          },
-          {
-            "method": "GET",
-            "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/tags/{key}/values/",
-            "summary": "Get tag values (api-docs/openapi.json)"
-          },
-          {
-            "method": "GET",
-            "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/stats/",
-            "summary": "Project statistics (api-docs/openapi.json)"
-          },
-          {
-            "method": "POST",
-            "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/user-feedback/",
-            "summary": "Submit user feedback (api-docs/openapi.json)"
-          },
-          {
-            "method": "GET",
-            "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/hooks/",
-            "summary": "List service hooks (api-docs/openapi.json)"
-          }
+          "GET /api/0/ \u2014 API version and authentication info (src/sentry/api/endpoints/index.py)",
+          "GET /api/0/organizations/{org}/repos/ \u2014 List organization repositories (api-docs/paths/organizations/repos.json)",
+          "GET /api/0/projects/{org}/{project}/users/ \u2014 List project users (api-docs/paths/projects/users.json)",
+          "GET /api/0/projects/{org}/{project}/stats/ \u2014 Project statistics (api-docs/paths/projects/stats.json)",
+          "POST /api/0/projects/{org}/{project}/user-feedback/ \u2014 Submit user feedback (api-docs/paths/projects/user-feedback.json)",
+          "GET /api/0/projects/{org}/{project}/hooks/ \u2014 Service hooks management (api-docs/paths/projects/service-hooks.json)",
+          "GET /api/0/organizations/{org}/releases/ \u2014 Release management (api-docs/paths/releases/organization-releases.json)",
+          "GET /api/0/projects/{org}/{project}/files/dsyms/ \u2014 Debug symbol files (api-docs/paths/projects/dsyms.json)",
+          "POST /api/0/organizations/{org}/issues/ \u2014 Issue management (api-docs/paths/events/project-issues.json)",
+          "GET /api/0/projects/{org}/{project}/events/{event_id}/ \u2014 Event details (api-docs/paths/events/project-event-details.json)"
         ],
+        "sdk_languages": [
+          "JavaScript/TypeScript (package.json @sentry/browser)",
+          "Python (pyproject.toml sentry-sdk)",
+          "Ruby (README.md official SDKs)",
+          "Go (README.md official SDKs)",
+          "Java/Kotlin (README.md official SDKs)",
+          "PHP (README.md official SDKs)",
+          "C#/.NET (README.md official SDKs)",
+          "Swift/Objective-C (README.md official SDKs)",
+          "React Native (README.md official SDKs)",
+          "Flutter/Dart (README.md official SDKs)",
+          "Rust (README.md official SDKs)",
+          "Elixir (README.md official SDKs)"
+        ],
+        "auth_methods": [
+          "JWT tokens for API authentication (pyproject.toml pyjwt)",
+          "API keys for SDK and external integration access (src/sentry/api/endpoints/index.py auth context)",
+          "SAML2 SSO for enterprise authentication (pyproject.toml python-saml2)",
+          "SCIM provisioning for automated user management (api-docs/openapi.json SCIM tag)",
+          "OAuth2 for third-party integrations (pyproject.toml requests-oauthlib)",
+          "Session-based authentication for web interface (Django sessions)",
+          "Two-factor authentication support (fixtures/emails/mfa_added.txt)"
+        ],
+        "integrations": [
+          "Jira for issue tracking integration (fixtures/integrations/jira/)",
+          "GitHub for source code correlation (fixtures/github.py)",
+          "GitLab for CI/CD integration (fixtures/gitlab.py)",
+          "Bitbucket for repository management (fixtures/bitbucket.py)",
+          "Slack for notifications (pyproject.toml slack-sdk)",
+          "AWS services via Boto3 (pyproject.toml boto3, botocore)",
+          "Google Cloud Platform services (pyproject.toml google-cloud-*)",
+          "Kafka for event streaming (pyproject.toml confluent-kafka)",
+          "Datadog for metrics (pyproject.toml datadog)",
+          "PagerDuty for incident management (pyproject.toml pypd)",
+          "Twilio for SMS notifications (pyproject.toml twilio)"
+        ],
+        "architecture": {
+          "pattern": "monolith with microservices elements and plugin-based integrations",
+          "components": [
+            "Web API layer handling REST endpoints and authentication",
+            "Event ingestion pipeline processing SDK payloads",
+            "Issue grouping engine for error deduplication",
+            "Performance monitoring system for traces and metrics",
+            "Plugin framework for third-party integrations",
+            "Background task processing via Celery workers",
+            "Time-series data storage and analytics engine",
+            "Real-time notification and alerting system",
+            "Frontend React application for user interface"
+          ],
+          "entry_points": [
+            "src/sentry/__main__.py \u2014 Main Django application entry",
+            "src/sentry/runner/main.py \u2014 CLI runner entry point",
+            "src/sentry/api/endpoints/index.py \u2014 API root endpoint"
+          ],
+          "data_flow": "SDKs send events to ingestion API \u2192 events processed through grouping pipeline \u2192 stored in PostgreSQL/ClickHouse \u2192 background workers process alerts/notifications \u2192 React frontend queries via REST API \u2192 users view dashboards and manage issues",
+          "persistence": "PostgreSQL for transactional data with Django ORM, ClickHouse for analytics and time-series data, Redis for caching and session storage, file storage for artifacts and debug symbols",
+          "concurrency_model": "async Django with Granian ASGI server, Celery worker processes for background tasks, Kafka for distributed event streaming",
+          "communication_patterns": "HTTP REST API for client communication, Kafka for internal event streaming, WebSocket for real-time updates, webhook callbacks for external integrations",
+          "plugin_extension_model": "Plugin base classes in src/sentry/plugins/ with standardized interfaces for integrations, middleware system for request/response processing"
+        },
+        "data_model": {
+          "primary_entities": [
+            "Organization \u2014 top-level tenant container",
+            "Project \u2014 application being monitored within organization",
+            "Issue \u2014 grouped collection of similar error events",
+            "Event \u2014 individual error occurrence with stack trace and context",
+            "Release \u2014 software deployment version with associated commits",
+            "User \u2014 platform user with role-based permissions",
+            "Integration \u2014 third-party service connections",
+            "Team \u2014 organizational unit for access control"
+          ],
+          "storage_backends": [
+            "PostgreSQL for transactional data and metadata",
+            "ClickHouse for high-volume analytics and time-series data",
+            "Redis for caching, sessions, and task queues",
+            "File storage for debug symbols and artifacts"
+          ],
+          "schema_patterns": "Relational model with Django ORM, time-series data in ClickHouse, JSON document storage for event payloads, multi-tenant isolation by organization_id",
+          "migration_strategy": "Django migrations with zero-downtime support via django-pg-zero-downtime-migrations, 445 migration files present"
+        },
+        "algorithms": {
+          "problem_type": "Large-scale error monitoring with real-time event processing, issue grouping, and performance analysis",
+          "core_patterns": [
+            "Event streaming for high-throughput data ingestion",
+            "Fingerprinting algorithms for issue grouping and deduplication",
+            "Plugin architecture for extensible third-party integrations",
+            "Multi-tenant data isolation and access control",
+            "Time-series aggregation for performance metrics",
+            "Background task processing with Celery workers"
+          ],
+          "complexity_indicators": "19,809 files across multiple languages, 445 database migrations, 5,025+ test files, extensive plugin ecosystem",
+          "key_algorithms": [
+            "Issue fingerprinting for grouping similar errors (src/sentry/grouping/)",
+            "Performance issue detection for N+1 queries and slow operations (fixtures/events/issue_detection/)",
+            "Source map processing for stack trace symbolization (fixtures/artifact_bundle/)",
+            "Real-time event processing pipeline with Kafka streaming",
+            "Multi-dimensional time-series data aggregation"
+          ],
+          "evidence": "fixtures/events/issue_detection/ contains extensive test cases for performance issue detection algorithms, src/sentry/grouping/ implements fingerprinting"
+        },
+        "security_model": {
+          "authentication": "JWT tokens, API keys, SAML2 SSO, OAuth2, two-factor authentication support",
+          "authorization": "Role-based access control with organization/project/team hierarchy, SCIM provisioning for enterprise",
+          "data_protection": "Multi-tenant isolation, encrypted API communications, secure artifact storage, PII scrubbing capabilities",
+          "security_headers": "Django CSP support (pyproject.toml django-csp), CORS configuration, rate limiting per organization",
+          "vulnerability_handling": "Automated security issue detection in code (fixtures/events/issue_detection/sql-injection/), security policy present"
+        },
+        "dependencies": {
+          "runtime": [
+            "Django 5.2.11",
+            "djangorestframework 3.16.1",
+            "celery with Redis backend",
+            "confluent-kafka 2.8.0+",
+            "boto3 1.34.128+ for AWS",
+            "google-cloud suite for GCP",
+            "cryptography 44.0.1+",
+            "granian[pname,reload] 2.7+",
+            "clickhouse-driver 0.2.9+",
+            "redis-py-cluster 2.1.3+",
+            "sqlalchemy 2.0.36+"
+          ],
+          "dev": [
+            "pytest for testing framework",
+            "mypy for type checking",
+            "black for code formatting",
+            "webpack for frontend bundling",
+            "typescript for type safety"
+          ],
+          "infrastructure": [
+            "PostgreSQL database",
+            "ClickHouse for analytics",
+            "Redis for caching/queues",
+            "Kafka for event streaming",
+            "File storage (AWS S3/GCS)"
+          ]
+        },
+        "deployment": {
+          "containerized": true,
+          "container_orchestration": "Docker with self-hosted/Dockerfile, supports Kubernetes deployment",
+          "ci_cd": "GitHub Actions (.github/ directory structure implied)",
+          "environment_config": "Environment variables for configuration, Django settings pattern, devenv configuration system",
+          "scaling_model": "Horizontal scaling with load balancer, Celery workers can scale independently, database sharding support"
+        },
+        "code_quality_signals": {
+          "has_tests": true,
+          "test_framework": "pytest (pyproject.toml pytest configuration)",
+          "test_count_estimate": "5,025+ test files across tests/ directory",
+          "has_linting": true,
+          "has_type_hints": true,
+          "documentation_quality": "well-documented",
+          "code_style": "Black formatting (pyproject.toml black), ESLint for JavaScript (eslint.config.ts), MyPy type checking"
+        },
+        "project_health": {
+          "license": "Apache-2.0",
+          "total_commits": "1 (likely shallow clone)",
+          "top_contributors": "1 contributor in extracted history",
+          "recent_activity": "Active development with UI improvements to issues interface",
+          "community_signals": "Security policy present, extensive documentation, contribution guidelines, issue templates"
+        },
+        "evidence_tracking": {
+          "files_analyzed": [
+            "pyproject.toml",
+            "package.json",
+            "api-docs/openapi.json",
+            "src/sentry/__main__.py",
+            "src/sentry/api/endpoints/index.py",
+            "src/sentry/api/helpers/group_index/index.py",
+            "fixtures/events/issue_detection/",
+            "fixtures/integrations/jira/",
+            "self-hosted/Dockerfile",
+            "Makefile"
+          ],
+          "confidence_level": "High",
+          "information_gaps": [
+            "Exact deployment architecture patterns beyond Docker",
+            "Complete API endpoint coverage (OpenAPI spec shows partial coverage)",
+            "Specific ClickHouse schema details not visible in sample"
+          ]
+        },
         "pricing": {
           "model": "open-source",
           "free_tier": "true"
-        },
-        "target_audience": "Developers",
-        "category": "Open Source Software",
-        "deployment": "Self-hosted",
-        "underlying_algorithm": {
-          "problem_type": "",
-          "pattern": ""
-        },
-        "evidence_tracking": {
-          "confidence_level": "High",
-          "technical_facts": [
-            "Ingests and processes error events from client SDKs across multiple languages (src/sentry/receivers/, src/sentry/models/event.py)",
-            "Aggregates errors into issues with deduplication and grouping logic (src/sentry/grouping/, src/sentry/models/group.py)",
-            "Provides REST API for querying events, issues, projects, and organizations (src/sentry/api/endpoints/)",
-            "Renders React-based web interface for error analysis and project management (static/app/)",
-            "Processes and stores release deployments and source maps (src/sentry/models/release.py)",
-            "Manages user authentication and organization-based access control (src/sentry/auth/, src/sentry/models/organization.py)",
-            "Integrates with external services like Slack, GitHub, Jira for notifications (src/sentry/integrations/)",
-            "Supports SCIM provisioning for enterprise identity management (src/sentry/scim/)",
-            "Processes distributed tracing data for performance monitoring (src/sentry/spans/, src/sentry/traces/)",
-            "Generates alerts and notifications based on error patterns (src/sentry/rules/, src/sentry/notifications/)"
-          ],
-          "information_gaps": []
-        },
-        "architecture_patterns": [
-          "monolith",
-          "Concurrency: async with Celery task queues for background processing, Django ASGI for async request handling"
-        ],
-        "auth_methods": [
-          "Session authentication (Django sessions)",
-          "API token authentication (src/sentry/auth/)",
-          "OAuth2 (pyproject.toml oauthlib dependency)",
-          "SAML2 (python3-saml in pyproject.toml)",
-          "SCIM provisioning (src/sentry/scim/)",
-          "GitHub OAuth (src/sentry/auth/providers/github/)",
-          "Google OAuth (src/sentry/auth/providers/google/)"
-        ],
-        "sdk_languages": [
-          "JavaScript",
-          "Electron",
-          "React-Native",
-          "Python",
-          "Ruby",
-          "PHP",
-          "Laravel",
-          "Go",
-          "Rust",
-          "Java",
-          "Kotlin",
-          "Swift",
-          "Objective-C",
-          "C#",
-          "F#",
-          "C",
-          "C++",
-          "Dart",
-          "Flutter",
-          "Perl",
-          "Clojure",
-          "Elixir",
-          "Unity",
-          "Unreal Engine",
-          "Godot Engine",
-          "PowerShell"
-        ],
-        "dependencies": [
-          "django>=5.2.11",
-          "djangorestframework>=3.16.1",
-          "celery>=5.4.0",
-          "redis>=5.2.0",
-          "psycopg2>=2.9.5",
-          "clickhouse-driver>=0.2.6",
-          "confluent-kafka>=2.8.0",
-          "boto3>=1.34.128",
-          "Infrastructure: PostgreSQL",
-          "Infrastructure: Redis",
-          "Infrastructure: ClickHouse",
-          "Infrastructure: Kafka",
-          "Infrastructure: Memcached"
-        ],
-        "deployment_options": [
-          "Containerized (Docker)",
-          "CI/CD: GitHub Actions"
-        ]
+        }
       },
       "extracted_data": {},
       "source": "local_repo",
       "source_confidence": "high",
-      "timestamp": "2026-03-25T12:36:21.155076"
+      "timestamp": "2026-03-25T18:49:35.164730"
     },
     "generalization": {
       "functional_dna": {
-        "logic_archetype": "Stream Processor",
-        "logic_archetype_evidence": "Ingests and processes error events from client SDKs across multiple languages (src/sentry/receivers/, src/sentry/models/event.py) - continuous event ingestion and real-time processing of error streams",
+        "logic_archetype": "Event-Driven Reactor",
+        "logic_archetype_evidence": "System primarily reacts to incoming error and performance events from multiple sources (SDKs), processes them through grouping pipelines, and triggers notifications/alerts. The architecture centers around event ingestion, processing, and reactive responses rather than batch operations or stateful orchestration.",
         "data_contract_strictness": "Moderately Structured",
-        "data_contract_evidence": "REST API endpoints with defined paths and parameters (api-docs/openapi.json) but flexible event data structure to support multiple programming languages",
-        "core_algorithmic_class": "Statistical Models",
-        "core_algorithmic_evidence": "Aggregates errors into issues with deduplication and grouping logic (src/sentry/grouping/, src/sentry/models/group.py) - pattern recognition and statistical grouping algorithms",
+        "data_contract_evidence": "REST API with OpenAPI spec (api-docs/openapi.json), Django ORM models for structured data, but also handles flexible JSON event payloads and supports multiple SDK formats with varying schemas",
+        "core_algorithmic_class": "Event Processing",
+        "core_algorithmic_evidence": "Fingerprinting algorithms for issue grouping (src/sentry/grouping/), real-time event stream processing with Kafka, performance issue detection patterns, and time-series aggregation for metrics processing",
         "concurrency_requirements": "Eventually Consistent",
-        "concurrency_evidence": "Celery (pyproject.toml celery dependency, task processing) and Kafka (confluent-kafka in pyproject.toml, event streaming) - asynchronous processing architecture",
+        "concurrency_evidence": "Kafka for event streaming, Celery for background task processing, ClickHouse for analytics (eventual consistency), Redis caching, and async Django with ASGI server support",
+        "abstract_problem": "Ingests high-volume event streams from distributed sources, applies pattern recognition to group similar events, maintains temporal aggregations, and triggers reactive notifications based on configurable rules and thresholds.",
+        "data_flow_pattern": "Event stream \u2192 normalize/validate \u2192 fingerprint/group \u2192 persist to multiple stores \u2192 background analysis \u2192 reactive alerts/notifications \u2192 query interface for historical analysis",
+        "state_complexity": "Entity-scoped",
         "repurposing_confidence": 8,
-        "repurposing_reasoning": "High confidence due to generic event ingestion, aggregation, and alerting patterns that apply to many monitoring domains. Core streaming architecture is domain-agnostic."
+        "repurposing_reasoning": "The core event processing, grouping, and reactive notification patterns are highly generic and could be applied to any domain requiring high-volume event monitoring. The multi-tenant architecture, plugin system, and time-series analytics are domain-agnostic. However, the fingerprinting algorithms and specific error analysis components are somewhat specialized for software debugging contexts. The Django/React stack and database schemas could be adapted but would require moderate refactoring."
       },
       "evidence_claims": [
         {
-          "claim": "Real-time event stream processing capability",
-          "evidence": "Ingests and processes error events from client SDKs across multiple languages (src/sentry/receivers/, src/sentry/models/event.py)",
+          "claim": "System processes high-volume event streams with Kafka",
+          "evidence": "pyproject.toml confluent-kafka dependency and architecture description mentioning Kafka for event streaming",
           "confidence": "High"
         },
         {
-          "claim": "Pattern recognition and deduplication algorithms",
-          "evidence": "Aggregates errors into issues with deduplication and grouping logic (src/sentry/grouping/, src/sentry/models/group.py)",
+          "claim": "Implements fingerprinting algorithms for event grouping",
+          "evidence": "src/sentry/grouping/ directory and capability 'Implements automated issue grouping and fingerprinting of similar errors'",
           "confidence": "High"
         },
         {
-          "claim": "Multi-protocol integration framework",
-          "evidence": "Integrates with external services like Slack, GitHub, Jira for notifications (src/sentry/integrations/)",
+          "claim": "Multi-tenant architecture with organization isolation",
+          "evidence": "src/sentry/models/organization.py and capability 'Manages multi-tenant organizations and projects with role-based access control'",
           "confidence": "High"
         },
         {
-          "claim": "Distributed tracing capabilities",
-          "evidence": "Processes distributed tracing data for performance monitoring (src/sentry/spans/, src/sentry/traces/)",
+          "claim": "Plugin-based extensibility system",
+          "evidence": "src/sentry/plugins/ directory and capability 'Supports plugin-based architecture for custom integrations'",
+          "confidence": "High"
+        },
+        {
+          "claim": "Time-series data storage and analytics",
+          "evidence": "ClickHouse driver dependency and src/sentry/tsdb/ directory for time-series database operations",
           "confidence": "High"
         }
       ],
       "market_reach": {
-        "primary_industry": "Software Development",
+        "primary_industry": "Software Development and DevOps",
         "cross_industry_applications": [
-          "IT Operations",
-          "DevOps",
-          "System Monitoring",
-          "IoT Event Processing",
-          "Financial Transaction Monitoring",
-          "Healthcare System Monitoring"
+          "Manufacturing - Equipment failure monitoring with event grouping for similar machine errors and predictive maintenance alerts",
+          "Financial Services - Transaction anomaly detection with pattern recognition for fraud prevention and regulatory reporting",
+          "Healthcare - Patient monitoring systems that group similar vital sign alerts and trigger notifications to medical staff",
+          "Telecommunications - Network infrastructure monitoring with event correlation and automated incident response",
+          "IoT/Smart Cities - Sensor data aggregation with anomaly detection and automated alert routing to maintenance teams",
+          "Supply Chain - Logistics event tracking with exception grouping and stakeholder notifications for delivery issues",
+          "Energy/Utilities - Grid monitoring with fault pattern recognition and automated response to outage events",
+          "Automotive - Fleet management with vehicle event monitoring and predictive maintenance scheduling"
         ],
         "utility_score": 9,
         "market_potential": "High"
       },
       "friction_report": {
         "difficulty": "Medium",
-        "estimated_hours": 120,
+        "estimated_hours": 240,
         "required_technologies": [
-          "Django 5.2.11 (pyproject.toml)",
-          "PostgreSQL (docker-compose configurations)",
-          "Redis (pyproject.toml redis dependency)",
-          "Kafka (confluent-kafka in pyproject.toml)"
+          "Django",
+          "PostgreSQL",
+          "Redis",
+          "Kafka",
+          "ClickHouse",
+          "React",
+          "TypeScript",
+          "Celery"
         ],
         "complexity_factors": [
-          "Multi-database architecture with PostgreSQL and ClickHouse",
-          "Complex event grouping algorithms",
-          "Real-time streaming requirements",
-          "Multi-tenant organization structure"
+          "Multi-database architecture requires understanding of PostgreSQL and ClickHouse",
+          "Plugin system needs architectural understanding",
+          "Event processing pipeline complexity",
+          "Multi-tenant data isolation patterns",
+          "Background task orchestration with Celery"
         ],
-        "risk_level": "Medium"
+        "risk_level": "Medium",
+        "migration_path": "Extract core event processing engine, adapt fingerprinting algorithms for target domain, replace error-specific UI with domain-appropriate dashboards, modify plugin interfaces for target integrations, and adapt data models for domain entities"
       },
       "interface_map": {
         "adapter_schema": {
           "input": {
-            "format": "JSON",
+            "format": "JSON/HTTP",
             "required_fields": [
               "event_id",
               "timestamp",
-              "level",
-              "message"
+              "payload"
+            ],
+            "protocols": [
+              "HTTP REST API",
+              "SDK libraries"
             ]
           },
           "output": {
-            "format": "JSON"
+            "format": "JSON",
+            "delivery": "async notifications + sync API queries"
           },
           "authentication": {
-            "type": "API Token",
-            "method": "API token authentication (src/sentry/auth/)"
+            "type": "multi-method",
+            "method": "JWT tokens, API keys, SAML SSO, OAuth2"
           }
         },
-        "standardization_level": "High"
+        "standardization_level": "High",
+        "api_surface_area": "Large (50+)"
       },
+      "comparable_systems": [
+        "Datadog APM - Infrastructure monitoring with event correlation and alerting across IT operations",
+        "Splunk - Log aggregation and analysis with pattern recognition for security and operations monitoring",
+        "Prometheus/Grafana - Metrics collection and alerting system for infrastructure and application monitoring",
+        "Elastic Stack - Search and analytics platform with real-time data ingestion and visualization",
+        "AWS CloudWatch - Cloud resource monitoring with automated alerting and event-driven responses"
+      ],
       "information_gaps": [
-        "Specific event processing latency requirements",
-        "Data retention policies",
-        "Horizontal scaling architecture details",
-        "Performance benchmarks for event throughput"
+        "Specific ClickHouse schema design and time-series optimization strategies",
+        "Detailed fingerprinting algorithm implementations and customization options",
+        "Complete plugin architecture patterns and extension points",
+        "Exact performance characteristics and scaling limits of the event processing pipeline"
       ]
     },
-    "timestamp": "2026-03-25T12:36:34.923274"
+    "timestamp": "2026-03-25T18:50:06.461440"
   },
   "errors": []
 }

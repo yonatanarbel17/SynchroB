@@ -1,422 +1,606 @@
 {
   "url": "https://github.com/metabase/metabase.git",
   "repo_name": "metabase",
-  "timestamp": "2026-03-21T19:40:01.609749",
+  "timestamp": "2026-03-25T18:16:53.407218",
   "step1": {
     "product_name": "metabase",
     "url": "https://github.com/metabase/metabase.git",
     "analysis": {
-      "summary": "Metabase is an open-source business intelligence and data visualization platform that enables users to explore, query, and visualize data from multiple databases through web interfaces, dashboards, and embedded analytics.",
+      "summary": "Metabase is an open-source business intelligence and data analytics web application that enables non-technical users to create dashboards, ask questions of their data, and generate insights without SQL knowledge. Built with React/TypeScript frontend and Clojure backend, it uses a monolithic architecture with plugin-based extensions for enterprise features. The system supports multiple database connections, provides visual query building, SQL editing, and offers embedding capabilities through an SDK for integration into other applications.",
       "capabilities": [
-        "Provides web-based query builder for non-SQL users (frontend/src/metabase/query_builder/)",
-        "Executes SQL queries through native editor interface (frontend/src/metabase/native/)",
-        "Generates interactive dashboards with filters and visualizations (frontend/src/metabase/dashboard/)",
-        "Embeds charts and dashboards in external applications (frontend/src/metabase/public/)",
-        "Connects to multiple database types through driver architecture (modules/drivers/)",
-        "Provides REST API for programmatic access (src/metabase/api/)",
-        "Manages user authentication and permissions (src/metabase/models/permissions/)",
-        "Processes and caches query results (src/metabase/query_processor/)",
-        "Schedules automated reports and alerts (src/metabase/task/)",
-        "Provides embedding SDK for React applications (@metabase/embedding-sdk-react)"
+        "Visual query builder for non-technical users to create questions without SQL (frontend/src/metabase/query_builder)",
+        "SQL editor with syntax highlighting and auto-completion for advanced queries (frontend/src/metabase/sql_query_editor)",
+        "Interactive dashboard creation with filtering, auto-refresh, and custom click behaviors (frontend/src/metabase/dashboard)",
+        "Embedding SDK for integrating Metabase components into external applications (enterprise/frontend/src/embedding-sdk-package)",
+        "Multi-database connectivity with official and community drivers (modules/drivers/)",
+        "AI-powered query assistance through Metabot for natural language to SQL generation (frontend/src/metabase/metabot)",
+        "Real-time dashboard subscriptions via email and Slack (frontend/src/metabase/pulse)",
+        "Alert system for automated data notifications based on conditions (frontend/src/metabase/alert)",
+        "Data transformation pipeline for ETL operations (frontend/src/metabase/data_studio)",
+        "Permission system with granular access control and row-level security (enterprise/frontend/src/metabase-enterprise/advanced_permissions)",
+        "API key management for programmatic access (frontend/src/metabase/admin/settings)",
+        "Custom maps and geospatial visualization support (frontend/src/metabase/visualizations)",
+        "Multi-language internationalization with translation support (locales/)",
+        "Document creation for long-form data analysis with commenting (frontend/src/metabase/documents)",
+        "Data modeling tools for creating metrics and segments (frontend/src/metabase/admin/datamodel)",
+        "Collection management for organizing and sharing content (frontend/src/metabase/collections)",
+        "User management with SSO integration including SAML support (enterprise/frontend/src/metabase-enterprise/auth)",
+        "Caching layer for query performance optimization (resources/frontend_shared/src/metabase/lib/cache)",
+        "Migration system for database schema changes (resources/migrations/)",
+        "Plugin architecture for extending functionality (enterprise/frontend/src/metabase-enterprise/*/plugins)",
+        "Cross-database joins for querying across multiple data sources (frontend/src/metabase/lib/queries)",
+        "Export functionality for CSV, Excel, JSON, and PDF formats (frontend/src/metabase/sharing)",
+        "Public sharing and embedding with signed URLs (frontend/src/metabase/public)",
+        "Audit logging for tracking user activities and system changes (enterprise/backend/src/metabase_enterprise/audit_app)",
+        "Data sandboxing for multi-tenant deployments (enterprise/backend/src/metabase_enterprise/sandbox)"
       ],
-      "use_cases": [],
+      "use_cases": [
+        "Business analysts use Metabase to create interactive dashboards and reports from company databases without writing SQL",
+        "Data teams embed Metabase components into customer-facing applications to provide self-service analytics",
+        "Organizations deploy Metabase for company-wide business intelligence with role-based access to sensitive data",
+        "SaaS companies integrate Metabase's embedding SDK to offer white-labeled analytics to their customers",
+        "Executives and managers use automated dashboard subscriptions to receive regular business updates via email or Slack"
+      ],
+      "category": "Business Intelligence Platform",
+      "target_audience": "Business analysts, data teams, product managers, executives, and developers building analytics-enabled applications",
       "technical_stack": [
-        "Clojure (deps.edn backend)",
-        "React (package.json frontend dependencies)",
-        "TypeScript (4996 .ts files, package.json devDependencies)",
-        "Node.js (engines requirement in package.json)",
-        "Java (Dockerfile references Java 21)",
-        "SQL databases (multiple driver modules)",
-        "Docker (Dockerfile, docker-compose configurations)",
-        "Webpack (webpack.config.js)",
-        "Jest (package.json test dependencies)",
-        "Cypress (e2e test framework)",
-        "H2 Database (default embedded database)",
-        "CodeMirror (SQL/code editor components)",
-        "D3.js (data visualization)",
-        "Redux (state management)"
-      ],
-      "integrations": [
-        "Google Sheets (resources/openapi/openapi.json)",
-        "Slack (release/package.json @slack/web-api)",
-        "Multiple databases (PostgreSQL, MySQL, MongoDB, BigQuery, Snowflake drivers)",
-        "Email SMTP servers",
-        "Webhook endpoints",
-        "Git repositories for version control"
+        "React 18.3.1 (e2e/embedding-sdk-host-apps/angular-20-host-app/package.json)",
+        "TypeScript 5.8.3 (e2e/embedding-sdk-host-apps/angular-20-host-app/package.json)",
+        "Node.js 22 (Dockerfile)",
+        "Clojure 1.12.0 (Dockerfile)",
+        "Java 21 (Dockerfile)",
+        "Bun package manager (bunfig.toml)",
+        "Docker containerization (Dockerfile, docker-compose.yml)",
+        "Express.js 5.0.1 for SDK examples (bin/embedding-sdk/templates/package.json)",
+        "Jest testing framework (frontend test files)",
+        "Cypress for E2E testing (e2e/)",
+        "Angular 20.0.0 for SDK host app examples (e2e/embedding-sdk-host-apps/angular-20-host-app/package.json)",
+        "Next.js 15.5.9 for SDK examples (e2e/embedding-sdk-host-apps/next-15-app-router-host-app/package.json)"
       ],
       "api_endpoints": [
-        {
-          "method": "GET",
-          "path": "/api/database",
-          "summary": "Database connection management"
-        },
-        {
-          "method": "POST",
-          "path": "/api/dataset",
-          "summary": "Execute queries and return results"
-        },
-        {
-          "method": "GET",
-          "path": "/api/dashboard/:id",
-          "summary": "Retrieve dashboard configuration"
-        },
-        {
-          "method": "POST",
-          "path": "/api/card",
-          "summary": "Create/update saved questions"
-        },
-        {
-          "method": "GET",
-          "path": "/api/user/current",
-          "summary": "Current user information"
-        },
-        {
-          "method": "POST",
-          "path": "/api/session",
-          "summary": "User authentication"
-        },
-        {
-          "method": "GET",
-          "path": "/api/table/:id/query_metadata",
-          "summary": "Table schema information"
-        },
-        {
-          "method": "POST",
-          "path": "/api/gsheets",
-          "summary": "Google Sheets integration (resources/openapi/openapi.json)"
-        },
-        {
-          "method": "GET",
-          "path": "/api/embed/card/:token",
-          "summary": "Public embedded cards"
-        },
-        {
-          "method": "GET",
-          "path": "/api/embed/dashboard/:token",
-          "summary": "Public embedded dashboards"
-        }
+        "OpenAPI specification available at resources/openapi/openapi.json with comprehensive REST API documentation",
+        "Dashboard API endpoints for CRUD operations (resources/openapi/openapi.json)",
+        "Question/Card API for query management (resources/openapi/openapi.json)",
+        "Database connection API for data source management (resources/openapi/openapi.json)",
+        "User management and authentication endpoints (resources/openapi/openapi.json)",
+        "Collection API for content organization (resources/openapi/openapi.json)",
+        "Permissions API for access control (resources/openapi/openapi.json)",
+        "Google Sheets integration API with sync capabilities (resources/openapi/openapi.json gsheets.response schema)"
       ],
+      "sdk_languages": [
+        "JavaScript/TypeScript SDK for React applications (enterprise/frontend/src/embedding-sdk-package)",
+        "Angular integration support (e2e/embedding-sdk-host-apps/angular-20-host-app)",
+        "Next.js integration examples (e2e/embedding-sdk-host-apps/next-15-app-router-host-app)"
+      ],
+      "auth_methods": [
+        "JWT tokens for API authentication (enterprise/frontend/src/embedding/auth-common/jwt)",
+        "SAML SSO integration for enterprise authentication (enterprise/frontend/src/embedding/auth-common/saml)",
+        "API key authentication for programmatic access (e2e/support/helpers/api/createApiKey.ts)",
+        "Session-based authentication for web interface (enterprise/frontend/src/embedding/auth-common/validate-session-token)",
+        "OAuth2 integration through SSO providers (enterprise/frontend/src/metabase-enterprise/auth)"
+      ],
+      "integrations": [
+        "Google Sheets for importing spreadsheet data (docs/cloud/google-sheets.md, resources/openapi/openapi.json)",
+        "Slack for dashboard subscriptions and notifications (docs/configuring-metabase/slack.md)",
+        "Email/SMTP for alerts and subscriptions (docs/configuring-metabase/email.md)",
+        "LDAP for user authentication and management (test_resources/ldap/)",
+        "Multiple database drivers including PostgreSQL, MySQL, MongoDB (modules/drivers/)",
+        "Webhooks for external system integration (docs/configuring-metabase/webhooks.md)",
+        "AWS services through driver support (test_resources/certificates/)",
+        "Git integration for version control sync (docs/cloud/migrate/)"
+      ],
+      "architecture": {
+        "pattern": "monolith with plugin-based enterprise extensions",
+        "components": [
+          "Frontend React/TypeScript SPA (frontend/src/)",
+          "Backend Clojure API server (src/metabase/)",
+          "Embedding SDK package (enterprise/frontend/src/embedding-sdk-package/)",
+          "Database drivers as modules (modules/drivers/)",
+          "Enterprise plugins (enterprise/backend/, enterprise/frontend/)",
+          "Migration system (resources/migrations/)",
+          "Query processor engine (src/metabase/query_processor/)",
+          "Permissions engine (src/metabase/models/permissions/)",
+          "Caching layer (resources/frontend_shared/src/metabase/lib/cache/)"
+        ],
+        "entry_points": [
+          "Frontend main entry: frontend/src/metabase/main.ts",
+          "Backend main: src/metabase/core.clj",
+          "SDK package entry: enterprise/frontend/src/embedding-sdk-package/index.ts"
+        ],
+        "data_flow": "User queries flow through the frontend query builder to the Clojure backend, which processes MBQL (Metabase Query Language) and translates to native database queries. Results are cached and returned as JSON, with the frontend handling visualization and dashboard rendering. Enterprise features use a plugin architecture that extends core functionality.",
+        "persistence": "Supports H2, PostgreSQL, MySQL, and other databases for application metadata storage. User data remains in connected source databases with query results optionally cached in application database.",
+        "concurrency_model": "Backend uses Clojure's async/concurrent processing with core.async, frontend uses React's concurrent features and async/await patterns",
+        "communication_patterns": "HTTP REST API between frontend and backend, WebSocket connections for real-time features, plugin system uses dependency injection patterns",
+        "plugin_extension_model": "Enterprise features implemented as plugins that extend core functionality through defined hooks and interfaces, with separate frontend and backend plugin directories"
+      },
+      "data_model": {
+        "primary_entities": [
+          "Database connections and schemas",
+          "Questions/Cards (saved queries)",
+          "Dashboards and dashboard cards",
+          "Collections for content organization",
+          "Users and groups",
+          "Permissions and access controls",
+          "Metrics and segments for data modeling",
+          "Pulses and alerts for notifications"
+        ],
+        "storage_backends": [
+          "H2 database for development and small deployments",
+          "PostgreSQL for production metadata storage",
+          "MySQL support for application database",
+          "Connected databases remain as source of truth for user data"
+        ],
+        "schema_patterns": "Relational schema for application metadata with foreign key relationships between entities like dashboards, cards, and collections. User data follows source database schemas.",
+        "migration_strategy": "Liquibase-based migration system with versioned YAML files in resources/migrations/ directory, supports both up and down migrations"
+      },
+      "algorithms": {
+        "problem_type": "Business intelligence query processing, data visualization, and multi-tenant analytics with permission-based data access",
+        "core_patterns": [
+          "Query builder pattern for MBQL generation",
+          "Plugin architecture for extensibility",
+          "Repository pattern for data access",
+          "Observer pattern for real-time updates",
+          "Strategy pattern for different database drivers",
+          "Decorator pattern for query middleware",
+          "Factory pattern for visualization components"
+        ],
+        "complexity_indicators": "Complex query optimization engine, multi-database join processing, permission system with row-level security, plugin dependency management",
+        "key_algorithms": [
+          "MBQL (Metabase Query Language) parsing and translation (src/metabase/query_processor/)",
+          "Permission resolution algorithm for data access control (enterprise/backend/src/metabase_enterprise/advanced_permissions/)",
+          "Query caching and invalidation strategies (resources/frontend_shared/src/metabase/lib/cache/)",
+          "Dashboard filter propagation algorithm (frontend/src/metabase/dashboard/)",
+          "Cross-database join optimization (frontend/src/metabase/lib/queries/)"
+        ],
+        "evidence": "src/metabase/query_processor/middleware/ contains query processing pipeline, frontend/src/metabase/query_builder/ implements visual query construction"
+      },
+      "security_model": {
+        "authentication": "Multiple methods including JWT tokens, SAML SSO, LDAP, and session-based auth with configurable providers",
+        "authorization": "Role-based access control (RBAC) with granular permissions at database, schema, table, and row levels through enterprise sandboxing features",
+        "data_protection": "TLS/SSL for data in transit, API key rotation, signed URLs for public sharing, configurable session timeouts",
+        "security_headers": "CORS configuration support, CSP headers for embedding, rate limiting capabilities",
+        "vulnerability_handling": "SECURITY.md file present, dependency scanning through automated tools, security audit logging in enterprise edition"
+      },
+      "dependencies": {
+        "runtime": [
+          "Java 21 JVM runtime (Dockerfile)",
+          "Node.js 22 for frontend build (Dockerfile)",
+          "React 18.3.1 (package.json)",
+          "Clojure 1.12.0 (Dockerfile)",
+          "Database drivers for supported databases"
+        ],
+        "dev": [
+          "Bun package manager (bunfig.toml)",
+          "TypeScript 5.8.3 (package.json)",
+          "Jest for testing",
+          "Cypress for E2E testing",
+          "Docker for containerization",
+          "Webpack for bundling"
+        ],
+        "infrastructure": [
+          "PostgreSQL or MySQL for application database",
+          "Redis for caching (optional)",
+          "SMTP server for email notifications",
+          "Object storage for file uploads (optional)"
+        ]
+      },
+      "deployment": {
+        "containerized": true,
+        "container_orchestration": "Docker Compose supported with provided docker-compose.yml files",
+        "ci_cd": "GitHub Actions workflows for automated testing and deployment",
+        "environment_config": "Environment variables for configuration (.env.example), Java system properties, and config file support",
+        "scaling_model": "Horizontal scaling through multiple container instances with load balancer, database connection pooling for performance"
+      },
+      "code_quality_signals": {
+        "has_tests": true,
+        "test_framework": "Jest for frontend unit tests, Cypress for E2E testing, Clojure test framework for backend",
+        "test_count_estimate": "2709 test files across the codebase",
+        "has_linting": true,
+        "has_type_hints": true,
+        "documentation_quality": "well-documented",
+        "code_style": "ESLint, Prettier for JavaScript/TypeScript, cljfmt for Clojure formatting"
+      },
+      "project_health": {
+        "license": "AGPL-3.0 for open source edition, Metabase Commercial License for enterprise features",
+        "total_commits": "Over 1 commit in recent history",
+        "top_contributors": "Nicol\u00f2 Pretto and core Metabase team",
+        "recent_activity": "Active development with recent focus on fixing embedding SDK flaky tests and improving test reliability",
+        "community_signals": "Security policy present, contributing guidelines available, code of conduct implied, issue templates likely present"
+      },
+      "evidence_tracking": {
+        "files_analyzed": [
+          "README.md",
+          "docs/CONTRIBUTING.md",
+          "Dockerfile",
+          ".env.example",
+          "resources/openapi/openapi.json",
+          "frontend/src/metabase/",
+          "src/metabase/",
+          "enterprise/frontend/src/",
+          "enterprise/backend/src/",
+          "e2e/",
+          "resources/migrations/",
+          "modules/drivers/",
+          "bin/",
+          "package.json files"
+        ],
+        "confidence_level": "High",
+        "information_gaps": [
+          "Specific database performance benchmarks",
+          "Exact enterprise feature licensing tiers",
+          "Detailed API rate limiting specifications",
+          "Specific cloud provider integrations beyond AWS"
+        ]
+      },
       "pricing": {
         "model": "open-source",
         "free_tier": "true"
-      },
-      "target_audience": "Developers",
-      "category": "Open Source Software",
-      "deployment": "Self-hosted",
-      "underlying_algorithm": {
-        "problem_type": "",
-        "pattern": ""
-      },
-      "evidence_tracking": {
-        "confidence_level": "High",
-        "technical_facts": [
-          "Provides web-based query builder for non-SQL users (frontend/src/metabase/query_builder/)",
-          "Executes SQL queries through native editor interface (frontend/src/metabase/native/)",
-          "Generates interactive dashboards with filters and visualizations (frontend/src/metabase/dashboard/)",
-          "Embeds charts and dashboards in external applications (frontend/src/metabase/public/)",
-          "Connects to multiple database types through driver architecture (modules/drivers/)",
-          "Provides REST API for programmatic access (src/metabase/api/)",
-          "Manages user authentication and permissions (src/metabase/models/permissions/)",
-          "Processes and caches query results (src/metabase/query_processor/)",
-          "Schedules automated reports and alerts (src/metabase/task/)",
-          "Provides embedding SDK for React applications (@metabase/embedding-sdk-react)"
-        ],
-        "information_gaps": []
-      },
-      "architecture_patterns": [
-        "monolith",
-        "Concurrency: JVM-based with Clojure core.async for async operations, JavaScript event loop for frontend"
-      ],
-      "auth_methods": [
-        "Session-based authentication",
-        "JWT tokens for embedding",
-        "LDAP integration",
-        "SAML SSO",
-        "Google OAuth"
-      ],
-      "sdk_languages": [
-        "JavaScript",
-        "TypeScript",
-        "React"
-      ],
-      "dependencies": [
-        "React ^18",
-        "TypeScript",
-        "Clojure",
-        "@codemirror/lang-sql",
-        "@dagrejs/dagre",
-        "redux",
-        "react-router",
-        "Infrastructure: Database (H2/PostgreSQL/MySQL)",
-        "Infrastructure: Java Runtime Environment",
-        "Infrastructure: SMTP server for emails"
-      ],
-      "deployment_options": [
-        "Containerized (Docker)",
-        "CI/CD: GitHub Actions (inferred from .github presence)"
-      ]
+      }
     },
     "extracted_data": {},
     "source": "local_repo",
     "source_confidence": "high",
-    "timestamp": "2026-03-21T19:40:45.375298"
+    "timestamp": "2026-03-25T18:19:44.947095"
   },
   "step2": {
     "step1_data": {
       "product_name": "metabase",
       "url": "https://github.com/metabase/metabase.git",
       "analysis": {
-        "summary": "Metabase is an open-source business intelligence and data visualization platform that enables users to explore, query, and visualize data from multiple databases through web interfaces, dashboards, and embedded analytics.",
+        "summary": "Metabase is an open-source business intelligence and data analytics web application that enables non-technical users to create dashboards, ask questions of their data, and generate insights without SQL knowledge. Built with React/TypeScript frontend and Clojure backend, it uses a monolithic architecture with plugin-based extensions for enterprise features. The system supports multiple database connections, provides visual query building, SQL editing, and offers embedding capabilities through an SDK for integration into other applications.",
         "capabilities": [
-          "Provides web-based query builder for non-SQL users (frontend/src/metabase/query_builder/)",
-          "Executes SQL queries through native editor interface (frontend/src/metabase/native/)",
-          "Generates interactive dashboards with filters and visualizations (frontend/src/metabase/dashboard/)",
-          "Embeds charts and dashboards in external applications (frontend/src/metabase/public/)",
-          "Connects to multiple database types through driver architecture (modules/drivers/)",
-          "Provides REST API for programmatic access (src/metabase/api/)",
-          "Manages user authentication and permissions (src/metabase/models/permissions/)",
-          "Processes and caches query results (src/metabase/query_processor/)",
-          "Schedules automated reports and alerts (src/metabase/task/)",
-          "Provides embedding SDK for React applications (@metabase/embedding-sdk-react)"
+          "Visual query builder for non-technical users to create questions without SQL (frontend/src/metabase/query_builder)",
+          "SQL editor with syntax highlighting and auto-completion for advanced queries (frontend/src/metabase/sql_query_editor)",
+          "Interactive dashboard creation with filtering, auto-refresh, and custom click behaviors (frontend/src/metabase/dashboard)",
+          "Embedding SDK for integrating Metabase components into external applications (enterprise/frontend/src/embedding-sdk-package)",
+          "Multi-database connectivity with official and community drivers (modules/drivers/)",
+          "AI-powered query assistance through Metabot for natural language to SQL generation (frontend/src/metabase/metabot)",
+          "Real-time dashboard subscriptions via email and Slack (frontend/src/metabase/pulse)",
+          "Alert system for automated data notifications based on conditions (frontend/src/metabase/alert)",
+          "Data transformation pipeline for ETL operations (frontend/src/metabase/data_studio)",
+          "Permission system with granular access control and row-level security (enterprise/frontend/src/metabase-enterprise/advanced_permissions)",
+          "API key management for programmatic access (frontend/src/metabase/admin/settings)",
+          "Custom maps and geospatial visualization support (frontend/src/metabase/visualizations)",
+          "Multi-language internationalization with translation support (locales/)",
+          "Document creation for long-form data analysis with commenting (frontend/src/metabase/documents)",
+          "Data modeling tools for creating metrics and segments (frontend/src/metabase/admin/datamodel)",
+          "Collection management for organizing and sharing content (frontend/src/metabase/collections)",
+          "User management with SSO integration including SAML support (enterprise/frontend/src/metabase-enterprise/auth)",
+          "Caching layer for query performance optimization (resources/frontend_shared/src/metabase/lib/cache)",
+          "Migration system for database schema changes (resources/migrations/)",
+          "Plugin architecture for extending functionality (enterprise/frontend/src/metabase-enterprise/*/plugins)",
+          "Cross-database joins for querying across multiple data sources (frontend/src/metabase/lib/queries)",
+          "Export functionality for CSV, Excel, JSON, and PDF formats (frontend/src/metabase/sharing)",
+          "Public sharing and embedding with signed URLs (frontend/src/metabase/public)",
+          "Audit logging for tracking user activities and system changes (enterprise/backend/src/metabase_enterprise/audit_app)",
+          "Data sandboxing for multi-tenant deployments (enterprise/backend/src/metabase_enterprise/sandbox)"
         ],
-        "use_cases": [],
+        "use_cases": [
+          "Business analysts use Metabase to create interactive dashboards and reports from company databases without writing SQL",
+          "Data teams embed Metabase components into customer-facing applications to provide self-service analytics",
+          "Organizations deploy Metabase for company-wide business intelligence with role-based access to sensitive data",
+          "SaaS companies integrate Metabase's embedding SDK to offer white-labeled analytics to their customers",
+          "Executives and managers use automated dashboard subscriptions to receive regular business updates via email or Slack"
+        ],
+        "category": "Business Intelligence Platform",
+        "target_audience": "Business analysts, data teams, product managers, executives, and developers building analytics-enabled applications",
         "technical_stack": [
-          "Clojure (deps.edn backend)",
-          "React (package.json frontend dependencies)",
-          "TypeScript (4996 .ts files, package.json devDependencies)",
-          "Node.js (engines requirement in package.json)",
-          "Java (Dockerfile references Java 21)",
-          "SQL databases (multiple driver modules)",
-          "Docker (Dockerfile, docker-compose configurations)",
-          "Webpack (webpack.config.js)",
-          "Jest (package.json test dependencies)",
-          "Cypress (e2e test framework)",
-          "H2 Database (default embedded database)",
-          "CodeMirror (SQL/code editor components)",
-          "D3.js (data visualization)",
-          "Redux (state management)"
-        ],
-        "integrations": [
-          "Google Sheets (resources/openapi/openapi.json)",
-          "Slack (release/package.json @slack/web-api)",
-          "Multiple databases (PostgreSQL, MySQL, MongoDB, BigQuery, Snowflake drivers)",
-          "Email SMTP servers",
-          "Webhook endpoints",
-          "Git repositories for version control"
+          "React 18.3.1 (e2e/embedding-sdk-host-apps/angular-20-host-app/package.json)",
+          "TypeScript 5.8.3 (e2e/embedding-sdk-host-apps/angular-20-host-app/package.json)",
+          "Node.js 22 (Dockerfile)",
+          "Clojure 1.12.0 (Dockerfile)",
+          "Java 21 (Dockerfile)",
+          "Bun package manager (bunfig.toml)",
+          "Docker containerization (Dockerfile, docker-compose.yml)",
+          "Express.js 5.0.1 for SDK examples (bin/embedding-sdk/templates/package.json)",
+          "Jest testing framework (frontend test files)",
+          "Cypress for E2E testing (e2e/)",
+          "Angular 20.0.0 for SDK host app examples (e2e/embedding-sdk-host-apps/angular-20-host-app/package.json)",
+          "Next.js 15.5.9 for SDK examples (e2e/embedding-sdk-host-apps/next-15-app-router-host-app/package.json)"
         ],
         "api_endpoints": [
-          {
-            "method": "GET",
-            "path": "/api/database",
-            "summary": "Database connection management"
-          },
-          {
-            "method": "POST",
-            "path": "/api/dataset",
-            "summary": "Execute queries and return results"
-          },
-          {
-            "method": "GET",
-            "path": "/api/dashboard/:id",
-            "summary": "Retrieve dashboard configuration"
-          },
-          {
-            "method": "POST",
-            "path": "/api/card",
-            "summary": "Create/update saved questions"
-          },
-          {
-            "method": "GET",
-            "path": "/api/user/current",
-            "summary": "Current user information"
-          },
-          {
-            "method": "POST",
-            "path": "/api/session",
-            "summary": "User authentication"
-          },
-          {
-            "method": "GET",
-            "path": "/api/table/:id/query_metadata",
-            "summary": "Table schema information"
-          },
-          {
-            "method": "POST",
-            "path": "/api/gsheets",
-            "summary": "Google Sheets integration (resources/openapi/openapi.json)"
-          },
-          {
-            "method": "GET",
-            "path": "/api/embed/card/:token",
-            "summary": "Public embedded cards"
-          },
-          {
-            "method": "GET",
-            "path": "/api/embed/dashboard/:token",
-            "summary": "Public embedded dashboards"
-          }
+          "OpenAPI specification available at resources/openapi/openapi.json with comprehensive REST API documentation",
+          "Dashboard API endpoints for CRUD operations (resources/openapi/openapi.json)",
+          "Question/Card API for query management (resources/openapi/openapi.json)",
+          "Database connection API for data source management (resources/openapi/openapi.json)",
+          "User management and authentication endpoints (resources/openapi/openapi.json)",
+          "Collection API for content organization (resources/openapi/openapi.json)",
+          "Permissions API for access control (resources/openapi/openapi.json)",
+          "Google Sheets integration API with sync capabilities (resources/openapi/openapi.json gsheets.response schema)"
         ],
+        "sdk_languages": [
+          "JavaScript/TypeScript SDK for React applications (enterprise/frontend/src/embedding-sdk-package)",
+          "Angular integration support (e2e/embedding-sdk-host-apps/angular-20-host-app)",
+          "Next.js integration examples (e2e/embedding-sdk-host-apps/next-15-app-router-host-app)"
+        ],
+        "auth_methods": [
+          "JWT tokens for API authentication (enterprise/frontend/src/embedding/auth-common/jwt)",
+          "SAML SSO integration for enterprise authentication (enterprise/frontend/src/embedding/auth-common/saml)",
+          "API key authentication for programmatic access (e2e/support/helpers/api/createApiKey.ts)",
+          "Session-based authentication for web interface (enterprise/frontend/src/embedding/auth-common/validate-session-token)",
+          "OAuth2 integration through SSO providers (enterprise/frontend/src/metabase-enterprise/auth)"
+        ],
+        "integrations": [
+          "Google Sheets for importing spreadsheet data (docs/cloud/google-sheets.md, resources/openapi/openapi.json)",
+          "Slack for dashboard subscriptions and notifications (docs/configuring-metabase/slack.md)",
+          "Email/SMTP for alerts and subscriptions (docs/configuring-metabase/email.md)",
+          "LDAP for user authentication and management (test_resources/ldap/)",
+          "Multiple database drivers including PostgreSQL, MySQL, MongoDB (modules/drivers/)",
+          "Webhooks for external system integration (docs/configuring-metabase/webhooks.md)",
+          "AWS services through driver support (test_resources/certificates/)",
+          "Git integration for version control sync (docs/cloud/migrate/)"
+        ],
+        "architecture": {
+          "pattern": "monolith with plugin-based enterprise extensions",
+          "components": [
+            "Frontend React/TypeScript SPA (frontend/src/)",
+            "Backend Clojure API server (src/metabase/)",
+            "Embedding SDK package (enterprise/frontend/src/embedding-sdk-package/)",
+            "Database drivers as modules (modules/drivers/)",
+            "Enterprise plugins (enterprise/backend/, enterprise/frontend/)",
+            "Migration system (resources/migrations/)",
+            "Query processor engine (src/metabase/query_processor/)",
+            "Permissions engine (src/metabase/models/permissions/)",
+            "Caching layer (resources/frontend_shared/src/metabase/lib/cache/)"
+          ],
+          "entry_points": [
+            "Frontend main entry: frontend/src/metabase/main.ts",
+            "Backend main: src/metabase/core.clj",
+            "SDK package entry: enterprise/frontend/src/embedding-sdk-package/index.ts"
+          ],
+          "data_flow": "User queries flow through the frontend query builder to the Clojure backend, which processes MBQL (Metabase Query Language) and translates to native database queries. Results are cached and returned as JSON, with the frontend handling visualization and dashboard rendering. Enterprise features use a plugin architecture that extends core functionality.",
+          "persistence": "Supports H2, PostgreSQL, MySQL, and other databases for application metadata storage. User data remains in connected source databases with query results optionally cached in application database.",
+          "concurrency_model": "Backend uses Clojure's async/concurrent processing with core.async, frontend uses React's concurrent features and async/await patterns",
+          "communication_patterns": "HTTP REST API between frontend and backend, WebSocket connections for real-time features, plugin system uses dependency injection patterns",
+          "plugin_extension_model": "Enterprise features implemented as plugins that extend core functionality through defined hooks and interfaces, with separate frontend and backend plugin directories"
+        },
+        "data_model": {
+          "primary_entities": [
+            "Database connections and schemas",
+            "Questions/Cards (saved queries)",
+            "Dashboards and dashboard cards",
+            "Collections for content organization",
+            "Users and groups",
+            "Permissions and access controls",
+            "Metrics and segments for data modeling",
+            "Pulses and alerts for notifications"
+          ],
+          "storage_backends": [
+            "H2 database for development and small deployments",
+            "PostgreSQL for production metadata storage",
+            "MySQL support for application database",
+            "Connected databases remain as source of truth for user data"
+          ],
+          "schema_patterns": "Relational schema for application metadata with foreign key relationships between entities like dashboards, cards, and collections. User data follows source database schemas.",
+          "migration_strategy": "Liquibase-based migration system with versioned YAML files in resources/migrations/ directory, supports both up and down migrations"
+        },
+        "algorithms": {
+          "problem_type": "Business intelligence query processing, data visualization, and multi-tenant analytics with permission-based data access",
+          "core_patterns": [
+            "Query builder pattern for MBQL generation",
+            "Plugin architecture for extensibility",
+            "Repository pattern for data access",
+            "Observer pattern for real-time updates",
+            "Strategy pattern for different database drivers",
+            "Decorator pattern for query middleware",
+            "Factory pattern for visualization components"
+          ],
+          "complexity_indicators": "Complex query optimization engine, multi-database join processing, permission system with row-level security, plugin dependency management",
+          "key_algorithms": [
+            "MBQL (Metabase Query Language) parsing and translation (src/metabase/query_processor/)",
+            "Permission resolution algorithm for data access control (enterprise/backend/src/metabase_enterprise/advanced_permissions/)",
+            "Query caching and invalidation strategies (resources/frontend_shared/src/metabase/lib/cache/)",
+            "Dashboard filter propagation algorithm (frontend/src/metabase/dashboard/)",
+            "Cross-database join optimization (frontend/src/metabase/lib/queries/)"
+          ],
+          "evidence": "src/metabase/query_processor/middleware/ contains query processing pipeline, frontend/src/metabase/query_builder/ implements visual query construction"
+        },
+        "security_model": {
+          "authentication": "Multiple methods including JWT tokens, SAML SSO, LDAP, and session-based auth with configurable providers",
+          "authorization": "Role-based access control (RBAC) with granular permissions at database, schema, table, and row levels through enterprise sandboxing features",
+          "data_protection": "TLS/SSL for data in transit, API key rotation, signed URLs for public sharing, configurable session timeouts",
+          "security_headers": "CORS configuration support, CSP headers for embedding, rate limiting capabilities",
+          "vulnerability_handling": "SECURITY.md file present, dependency scanning through automated tools, security audit logging in enterprise edition"
+        },
+        "dependencies": {
+          "runtime": [
+            "Java 21 JVM runtime (Dockerfile)",
+            "Node.js 22 for frontend build (Dockerfile)",
+            "React 18.3.1 (package.json)",
+            "Clojure 1.12.0 (Dockerfile)",
+            "Database drivers for supported databases"
+          ],
+          "dev": [
+            "Bun package manager (bunfig.toml)",
+            "TypeScript 5.8.3 (package.json)",
+            "Jest for testing",
+            "Cypress for E2E testing",
+            "Docker for containerization",
+            "Webpack for bundling"
+          ],
+          "infrastructure": [
+            "PostgreSQL or MySQL for application database",
+            "Redis for caching (optional)",
+            "SMTP server for email notifications",
+            "Object storage for file uploads (optional)"
+          ]
+        },
+        "deployment": {
+          "containerized": true,
+          "container_orchestration": "Docker Compose supported with provided docker-compose.yml files",
+          "ci_cd": "GitHub Actions workflows for automated testing and deployment",
+          "environment_config": "Environment variables for configuration (.env.example), Java system properties, and config file support",
+          "scaling_model": "Horizontal scaling through multiple container instances with load balancer, database connection pooling for performance"
+        },
+        "code_quality_signals": {
+          "has_tests": true,
+          "test_framework": "Jest for frontend unit tests, Cypress for E2E testing, Clojure test framework for backend",
+          "test_count_estimate": "2709 test files across the codebase",
+          "has_linting": true,
+          "has_type_hints": true,
+          "documentation_quality": "well-documented",
+          "code_style": "ESLint, Prettier for JavaScript/TypeScript, cljfmt for Clojure formatting"
+        },
+        "project_health": {
+          "license": "AGPL-3.0 for open source edition, Metabase Commercial License for enterprise features",
+          "total_commits": "Over 1 commit in recent history",
+          "top_contributors": "Nicol\u00f2 Pretto and core Metabase team",
+          "recent_activity": "Active development with recent focus on fixing embedding SDK flaky tests and improving test reliability",
+          "community_signals": "Security policy present, contributing guidelines available, code of conduct implied, issue templates likely present"
+        },
+        "evidence_tracking": {
+          "files_analyzed": [
+            "README.md",
+            "docs/CONTRIBUTING.md",
+            "Dockerfile",
+            ".env.example",
+            "resources/openapi/openapi.json",
+            "frontend/src/metabase/",
+            "src/metabase/",
+            "enterprise/frontend/src/",
+            "enterprise/backend/src/",
+            "e2e/",
+            "resources/migrations/",
+            "modules/drivers/",
+            "bin/",
+            "package.json files"
+          ],
+          "confidence_level": "High",
+          "information_gaps": [
+            "Specific database performance benchmarks",
+            "Exact enterprise feature licensing tiers",
+            "Detailed API rate limiting specifications",
+            "Specific cloud provider integrations beyond AWS"
+          ]
+        },
         "pricing": {
           "model": "open-source",
           "free_tier": "true"
-        },
-        "target_audience": "Developers",
-        "category": "Open Source Software",
-        "deployment": "Self-hosted",
-        "underlying_algorithm": {
-          "problem_type": "",
-          "pattern": ""
-        },
-        "evidence_tracking": {
-          "confidence_level": "High",
-          "technical_facts": [
-            "Provides web-based query builder for non-SQL users (frontend/src/metabase/query_builder/)",
-            "Executes SQL queries through native editor interface (frontend/src/metabase/native/)",
-            "Generates interactive dashboards with filters and visualizations (frontend/src/metabase/dashboard/)",
-            "Embeds charts and dashboards in external applications (frontend/src/metabase/public/)",
-            "Connects to multiple database types through driver architecture (modules/drivers/)",
-            "Provides REST API for programmatic access (src/metabase/api/)",
-            "Manages user authentication and permissions (src/metabase/models/permissions/)",
-            "Processes and caches query results (src/metabase/query_processor/)",
-            "Schedules automated reports and alerts (src/metabase/task/)",
-            "Provides embedding SDK for React applications (@metabase/embedding-sdk-react)"
-          ],
-          "information_gaps": []
-        },
-        "architecture_patterns": [
-          "monolith",
-          "Concurrency: JVM-based with Clojure core.async for async operations, JavaScript event loop for frontend"
-        ],
-        "auth_methods": [
-          "Session-based authentication",
-          "JWT tokens for embedding",
-          "LDAP integration",
-          "SAML SSO",
-          "Google OAuth"
-        ],
-        "sdk_languages": [
-          "JavaScript",
-          "TypeScript",
-          "React"
-        ],
-        "dependencies": [
-          "React ^18",
-          "TypeScript",
-          "Clojure",
-          "@codemirror/lang-sql",
-          "@dagrejs/dagre",
-          "redux",
-          "react-router",
-          "Infrastructure: Database (H2/PostgreSQL/MySQL)",
-          "Infrastructure: Java Runtime Environment",
-          "Infrastructure: SMTP server for emails"
-        ],
-        "deployment_options": [
-          "Containerized (Docker)",
-          "CI/CD: GitHub Actions (inferred from .github presence)"
-        ]
+        }
       },
       "extracted_data": {},
       "source": "local_repo",
       "source_confidence": "high",
-      "timestamp": "2026-03-21T19:40:45.375298"
+      "timestamp": "2026-03-25T18:19:44.947095"
     },
     "generalization": {
       "functional_dna": {
-        "logic_archetype": "Data Aggregator",
-        "logic_archetype_evidence": "Processes and caches query results (src/metabase/query_processor/), Connects to multiple database types through driver architecture (modules/drivers/), Generates interactive dashboards with filters and visualizations (frontend/src/metabase/dashboard/)",
+        "logic_archetype": "Plugin Host",
+        "logic_archetype_evidence": "The system implements a plugin architecture with enterprise features as modular extensions, supports multiple database drivers as pluggable modules, and provides an embedding SDK for external applications. The architecture explicitly separates core functionality from extensible components through defined hooks and interfaces.",
         "data_contract_strictness": "Highly Structured",
-        "data_contract_evidence": "REST API endpoints with defined schemas (src/metabase/api/), Table schema information endpoint (/api/table/:id/query_metadata), Multiple database driver architecture requiring structured data contracts",
-        "core_algorithmic_class": "CRUD Operations",
-        "core_algorithmic_evidence": "Executes SQL queries through native editor interface (frontend/src/metabase/native/), Database connection management (/api/database), Create/update saved questions (/api/card)",
-        "concurrency_requirements": "ACID Compliance Required",
-        "concurrency_evidence": "Processes and caches query results (src/metabase/query_processor/), Connects to multiple database types including PostgreSQL and MySQL which require ACID compliance, User authentication and permissions management",
+        "data_contract_evidence": "Evidence: Comprehensive OpenAPI specification at resources/openapi/openapi.json, TypeScript type definitions throughout frontend, Clojure schemas for backend, and structured MBQL (Metabase Query Language) for query representation",
+        "core_algorithmic_class": "Tree/AST Processing",
+        "core_algorithmic_evidence": "Evidence from MBQL parsing and translation pipeline in src/metabase/query_processor/, visual query builder generates tree structures, cross-database join optimization requires AST manipulation, and filter propagation follows tree traversal patterns",
+        "concurrency_requirements": "Eventually Consistent",
+        "concurrency_evidence": "Evidence from Clojure core.async implementation, query result caching with invalidation strategies, real-time dashboard updates via WebSocket, and multi-tenant deployments with sandboxing",
+        "abstract_problem": "Transforms user-defined structured queries into optimized database-specific operations while maintaining a cached materialized view layer and supporting multi-tenant access control with real-time synchronization.",
+        "data_flow_pattern": "Query AST construction \u2192 middleware pipeline processing \u2192 database-specific translation \u2192 execution \u2192 result caching \u2192 visualization rendering with bidirectional filter propagation",
+        "state_complexity": "Entity-scoped",
         "repurposing_confidence": 8,
-        "repurposing_reasoning": "High confidence due to modular architecture with driver abstraction layer, REST API design, and clear separation between query processing, visualization, and authentication components. The dashboard and visualization components are domain-agnostic."
+        "repurposing_reasoning": "The query processing pipeline, plugin architecture, and permission system are highly generalizable patterns. The MBQL-to-SQL translation engine could be adapted for any query transformation needs. However, the visualization components and dashboard UI are somewhat domain-specific. The caching layer, multi-tenant sandboxing, and embedding SDK represent reusable infrastructure components that could serve many analytical applications."
       },
       "evidence_claims": [
         {
-          "claim": "Multi-database connectivity through driver architecture",
-          "evidence": "Connects to multiple database types through driver architecture (modules/drivers/)",
+          "claim": "Implements sophisticated query AST processing pipeline",
+          "evidence": "src/metabase/query_processor/middleware/ contains query processing pipeline components",
           "confidence": "High"
         },
         {
-          "claim": "Query processing and caching capabilities",
-          "evidence": "Processes and caches query results (src/metabase/query_processor/)",
+          "claim": "Plugin architecture enables modular extensibility",
+          "evidence": "enterprise/frontend/src/metabase-enterprise/*/plugins and separate frontend/backend plugin directories",
           "confidence": "High"
         },
         {
-          "claim": "Embeddable visualization components",
-          "evidence": "Embeds charts and dashboards in external applications (frontend/src/metabase/public/), Provides embedding SDK for React applications (@metabase/embedding-sdk-react)",
+          "claim": "Comprehensive REST API with OpenAPI specification",
+          "evidence": "resources/openapi/openapi.json with comprehensive REST API documentation",
           "confidence": "High"
         },
         {
-          "claim": "RESTful API architecture",
-          "evidence": "Provides REST API for programmatic access (src/metabase/api/)",
+          "claim": "Multi-tenant sandboxing with row-level security",
+          "evidence": "enterprise/backend/src/metabase_enterprise/sandbox and advanced_permissions directories",
+          "confidence": "High"
+        },
+        {
+          "claim": "Embedding SDK for external integration",
+          "evidence": "enterprise/frontend/src/embedding-sdk-package with React/Angular/Next.js examples",
           "confidence": "High"
         }
       ],
       "market_reach": {
-        "primary_industry": "Business Intelligence",
+        "primary_industry": "Business Intelligence and Data Analytics",
         "cross_industry_applications": [
-          "Financial Services",
-          "Healthcare Analytics",
-          "E-commerce",
-          "Manufacturing",
-          "Education",
-          "Government",
-          "Non-profit"
+          "DevOps monitoring platforms requiring query builders for log/metric analysis",
+          "Financial services creating custom reporting tools for regulatory compliance",
+          "Healthcare systems building patient data analytics with HIPAA-compliant access controls",
+          "E-commerce platforms providing merchant analytics dashboards with multi-tenant isolation",
+          "Educational institutions creating student performance analytics with role-based permissions",
+          "IoT platforms offering device data visualization with real-time alerting",
+          "Content management systems providing usage analytics with embedded reporting",
+          "Supply chain management platforms creating operational dashboards with cross-database joins"
         ],
         "utility_score": 9,
         "market_potential": "High"
       },
       "friction_report": {
         "difficulty": "Medium",
-        "estimated_hours": 80,
+        "estimated_hours": 240,
         "required_technologies": [
-          "Clojure (deps.edn backend)",
-          "React (package.json frontend dependencies)",
-          "TypeScript (4996 .ts files)",
-          "Java (Dockerfile references Java 21)",
-          "Docker (Dockerfile, docker-compose configurations)"
+          "React 18.3.1",
+          "TypeScript 5.8.3",
+          "Clojure 1.12.0",
+          "Java 21",
+          "Node.js 22",
+          "Docker"
         ],
         "complexity_factors": [
-          "Multi-language stack (Clojure/Java backend, React/TypeScript frontend)",
-          "Database driver architecture customization",
-          "Query processor modifications",
-          "Authentication system integration"
+          "Complex query processing middleware pipeline requires deep understanding",
+          "Multi-database driver architecture needs careful abstraction layer design",
+          "Permission system with row-level security involves intricate access control logic",
+          "Enterprise plugin system requires understanding of dependency injection patterns"
         ],
-        "risk_level": "Medium"
+        "risk_level": "Medium",
+        "migration_path": "Extract the query processor engine and plugin host architecture, implement domain-specific query language, adapt the caching and permission layers, and build new visualization components while reusing the embedding SDK pattern"
       },
       "interface_map": {
         "adapter_schema": {
           "input": {
-            "format": "JSON",
+            "format": "JSON/MBQL",
             "required_fields": [
-              "database_config",
-              "query_params",
-              "auth_token"
+              "query",
+              "database"
+            ],
+            "protocols": [
+              "HTTP REST",
+              "WebSocket"
             ]
           },
           "output": {
-            "format": "JSON"
+            "format": "JSON",
+            "delivery": "async with caching"
           },
           "authentication": {
-            "type": "Session-based authentication",
-            "method": "POST /api/session"
+            "type": "multi-method",
+            "method": "JWT/SAML/API-key/session-based"
           }
         },
-        "standardization_level": "High"
+        "standardization_level": "High",
+        "api_surface_area": "Large (50+)"
       },
+      "comparable_systems": [
+        "Grafana - Plugin-based visualization platform with query processing for time-series databases",
+        "Jupyter Hub - Multi-tenant notebook environment with plugin architecture and embedded rendering",
+        "Apache Superset - Open-source data visualization platform with SQL translation and multi-database support",
+        "Retool - Low-code application builder with query abstraction layer and embedding capabilities",
+        "Observable - Collaborative data analysis platform with reactive query processing and sharing features"
+      ],
       "information_gaps": [
-        "Specific query optimization algorithms used",
-        "Cache invalidation strategies",
-        "Performance metrics and scaling limits",
-        "Security audit details",
-        "Database driver extension mechanisms"
+        "Specific query optimization algorithms and performance benchmarks",
+        "Detailed enterprise licensing model and feature boundaries",
+        "Exact caching invalidation strategies and cache hit ratios",
+        "Specific multi-tenant isolation mechanisms beyond row-level security"
       ]
     },
-    "timestamp": "2026-03-21T19:40:59.029481"
+    "timestamp": "2026-03-25T18:20:13.131927"
   },
   "errors": []
 }

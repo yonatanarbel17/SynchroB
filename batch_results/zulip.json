@@ -1,437 +1,628 @@
 {
   "url": "https://github.com/zulip/zulip.git",
   "repo_name": "zulip",
-  "timestamp": "2026-03-25T12:28:20.222921",
+  "timestamp": "2026-03-25T18:26:11.069190",
   "step1": {
     "product_name": "zulip",
     "url": "https://github.com/zulip/zulip.git",
     "analysis": {
-      "summary": "Zulip is an open-source team chat application built on Django with topic-based threading. It processes real-time messages, manages user authentication, handles file uploads, and provides REST/event APIs for chat functionality.",
+      "summary": "Zulip is a Django-based team chat platform with topic-based threading that combines email organization with real-time messaging. The system processes millions of messages with PostgreSQL persistence, implements real-time WebSocket connections for live updates, and features comprehensive API endpoints for web, mobile, and bot integrations. The architecture follows a monolithic Django pattern with extensive modular subsystems for analytics, billing, webhooks, and multi-realm support.",
       "capabilities": [
-        "Processes incoming chat messages and organizes them by streams and topics (zerver/models/message.py, zerver/views/messages.py)",
-        "Manages user authentication including LDAP, SAML, and social auth (zerver/views/auth.py, zerver/lib/auth.py)",
-        "Handles real-time message delivery via websockets and tornado server (zerver/tornado/*, zerver/lib/events.py)",
-        "Processes file uploads with S3 and local storage backends (zerver/lib/upload.py)",
-        "Renders markdown messages with custom extensions (zerver/lib/markdown/)",
-        "Manages user permissions and realm-based access control (zerver/lib/permissions.py)",
-        "Provides REST API endpoints for all chat operations (zerver/views/*, documented in api_docs/)",
-        "Analytics tracking for message counts and user activity (analytics/lib/counts.py)",
-        "Email notifications and digest generation (zerver/lib/send_email.py)",
-        "Mobile push notifications via FCM and APNS (zerver/lib/push_notifications.py)",
-        "Webhook integrations for external services (zerver/webhooks/*/)",
-        "Bot framework for automated message processing (zerver/lib/bot_lib.py)"
+        "Processes incoming messages with topic-based threading organization (zerver/actions/message_send.py)",
+        "Handles real-time WebSocket connections for live message delivery (zerver/tornado/)",
+        "Manages user authentication with LDAP, SAML, and social OAuth providers (zerver/views/auth.py)",
+        "Implements comprehensive REST API with over 100 endpoints for all client operations (zerver/views/)",
+        "Processes webhook integrations for 90+ external services like GitHub, Jira, Slack (zerver/webhooks/)",
+        "Manages multi-realm architecture with per-realm settings and permissions (zerver/models/realms.py)",
+        "Handles file uploads with S3/local storage and automatic image thumbnailing (zerver/views/upload.py)",
+        "Processes email-to-Zulip message conversion for email integration (zerver/management/commands/email_mirror.py)",
+        "Implements analytics data collection and visualization with time-series charts (analytics/)",
+        "Manages Stripe-based billing and subscription management for paid plans (corporate/lib/stripe.py)",
+        "Processes markdown rendering with LaTeX math and code syntax highlighting (zerver/lib/markdown/)",
+        "Handles push notifications to iOS and Android mobile apps via FCM/APNS (zerver/lib/push_notifications.py)",
+        "Implements full-text search with PostgreSQL and optional Elasticsearch backend (zerver/lib/search.py)",
+        "Manages user presence and typing indicators with Redis caching (zerver/lib/presence.py)",
+        "Processes bot framework with custom integrations and interactive widgets (zerver/lib/bot_lib.py)",
+        "Handles stream/topic management with permissions and subscription controls (zerver/lib/streams.py)",
+        "Implements message editing, deletion, and history tracking (zerver/lib/message.py)",
+        "Manages emoji reactions and custom emoji uploads (zerver/lib/emoji.py)",
+        "Processes user settings synchronization across multiple clients (zerver/lib/events.py)",
+        "Handles rate limiting and spam protection for API endpoints (zerver/lib/rate_limiter.py)",
+        "Implements scheduled message delivery with precise timing (zerver/models/scheduled_messages.py)",
+        "Manages drafts synchronization across web and mobile clients (zerver/views/drafts.py)",
+        "Processes user group management with hierarchical permissions (zerver/models/user_groups.py)",
+        "Handles internationalization support for 40+ languages (locale/)",
+        "Implements comprehensive audit logging for compliance requirements (zerver/models/audit_logs.py)"
       ],
-      "use_cases": [],
+      "use_cases": [
+        "Software development teams use this for organized project discussions with topic-based threading",
+        "Remote organizations use this for asynchronous communication that maintains context over time",
+        "Open source projects use this to coordinate distributed contributor discussions",
+        "Educational institutions use this for class discussions and student collaboration",
+        "Companies use this for cross-functional team coordination with integration to development tools"
+      ],
+      "category": "Team Chat Platform",
+      "target_audience": "Software development teams, remote organizations, open source maintainers, and distributed teams requiring organized asynchronous communication",
       "technical_stack": [
         "Django 5.2 (pyproject.toml)",
-        "Python 3.10+ (pyproject.toml)",
-        "PostgreSQL (Dockerfile-postgresql, zerver/lib/db.py)",
-        "Redis for caching (tools/ci/Dockerfile, zerver/lib/redis_utils.py)",
-        "Tornado for websockets (pyproject.toml tornado dependency)",
-        "TypeScript frontend (package.json, web/src/)",
+        "PostgreSQL with psycopg2 driver (pyproject.toml)",
+        "Redis for caching and pub/sub (docker-compose.yml)",
+        "RabbitMQ for message queuing (pyproject.toml lists pika)",
+        "TypeScript/JavaScript frontend (package.json)",
+        "Python 3.10+ backend (pyproject.toml)",
+        "Memcached for session caching (pyproject.toml)",
+        "Tornado for WebSocket handling (pyproject.toml)",
         "SQLAlchemy 1.4 for complex queries (pyproject.toml)",
-        "Jinja2 for templating (pyproject.toml)",
-        "Markdown with Pygments (pyproject.toml)",
+        "Jinja2 for template rendering (pyproject.toml)",
+        "Markdown with Pygments syntax highlighting (pyproject.toml)",
         "boto3 for AWS S3 integration (pyproject.toml)",
-        "python-ldap for LDAP authentication (pyproject.toml)",
-        "Memcached for caching (tools/ci/Dockerfile)",
-        "RabbitMQ for message queuing (tools/ci/Dockerfile mentions rabbitmq)",
-        "Webpack for frontend build (package.json webpack dependencies)"
-      ],
-      "integrations": [
-        "AWS S3 for file storage (boto3 dependency, zerver/lib/upload.py)",
-        "AWS SES for email (mypy-boto3-ses dependency)",
-        "AWS SNS/SQS for notifications (mypy-boto3-sns, mypy-boto3-sqs dependencies)",
-        "LDAP directories (python-ldap dependency)",
-        "External webhooks system (zerver/webhooks/ directory with 100+ integrations)",
-        "Mobile push notification services (zerver/lib/push_notifications.py)",
-        "Sentry for error tracking (@sentry/browser in package.json)"
+        "Stripe for payment processing (corporate/lib/stripe.py)",
+        "Firebase Admin SDK for push notifications (pyproject.toml)"
       ],
       "api_endpoints": [
-        {
-          "method": "POST",
-          "path": "/api/v1/messages",
-          "summary": "Send messages (zerver/views/messages.py)"
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/messages",
-          "summary": "Fetch message history (zerver/views/messages.py)"
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/register",
-          "summary": "Register event queue for real-time events (zerver/views/events_register.py)"
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/events",
-          "summary": "Get real-time events (zerver/views/events.py)"
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/users",
-          "summary": "Create users (zerver/views/users.py)"
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/users",
-          "summary": "List users (zerver/views/users.py)"
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/streams",
-          "summary": "Create streams (zerver/views/streams.py)"
-        },
-        {
-          "method": "GET",
-          "path": "/api/v1/streams",
-          "summary": "List streams (zerver/views/streams.py)"
-        },
-        {
-          "method": "POST",
-          "path": "/api/v1/user_uploads",
-          "summary": "Upload files (zerver/views/upload.py)"
-        },
-        {
-          "method": "POST",
-          "path": "/json/fetch_api_key",
-          "summary": "Authenticate and get API key (zerver/views/auth.py)"
-        }
+        "GET /api/v1/messages \u2014 Fetch messages with filtering and pagination (zerver/views/messages.py)",
+        "POST /api/v1/messages \u2014 Send new messages to streams or direct messages (zerver/views/messages.py)",
+        "GET /api/v1/streams \u2014 List available streams with metadata (zerver/views/streams.py)",
+        "POST /api/v1/streams/{stream_id}/subscriptions \u2014 Subscribe users to streams (zerver/views/streams.py)",
+        "GET /api/v1/users \u2014 List realm users with profile information (zerver/views/users.py)",
+        "POST /api/v1/users \u2014 Create new user accounts (zerver/views/users.py)",
+        "GET /api/v1/events \u2014 Long-polling endpoint for real-time updates (zerver/views/events.py)",
+        "POST /api/v1/register \u2014 Register event queue for real-time notifications (zerver/views/events.py)",
+        "GET /api/v1/realm \u2014 Get realm configuration and settings (zerver/views/realm.py)",
+        "PATCH /api/v1/realm \u2014 Update realm settings (zerver/views/realm.py)",
+        "POST /api/v1/external/github \u2014 GitHub webhook integration (zerver/webhooks/github/)",
+        "POST /api/v1/external/jira \u2014 Jira webhook integration (zerver/webhooks/jira/)",
+        "GET /api/v1/user_uploads/{path} \u2014 Serve uploaded files with authentication (zerver/views/upload.py)",
+        "POST /api/v1/user_uploads \u2014 Upload files with automatic thumbnailing (zerver/views/upload.py)",
+        "GET /analytics/chart_data \u2014 Analytics data for dashboard charts (analytics/urls.py)"
       ],
+      "sdk_languages": [
+        "Python (official client library in zulip package)",
+        "JavaScript/TypeScript (web client and npm package)",
+        "Mobile clients for iOS and Android",
+        "Terminal client for command-line usage"
+      ],
+      "auth_methods": [
+        "Email/password authentication with Django's built-in auth (zerver/views/auth.py)",
+        "LDAP integration via django-auth-ldap (pyproject.toml, zerver/backends.py)",
+        "SAML SSO support (zerver/backends.py)",
+        "OAuth2 with Google, GitHub, GitLab providers (zerver/views/auth.py)",
+        "API key authentication for bot integrations (zerver/lib/rest.py)",
+        "JWT tokens for mobile app authentication (pyproject.toml lists pyjwt)",
+        "Two-factor authentication with TOTP (templates/two_factor/)"
+      ],
+      "integrations": [
+        "GitHub via webhooks for commits, issues, pull requests (zerver/webhooks/github/)",
+        "Jira for issue tracking integration (zerver/webhooks/jira/)",
+        "Slack import tool for message migration (zerver/data_import/slack.py)",
+        "AWS S3 for file storage via boto3 (pyproject.toml, zerver/lib/upload.py)",
+        "PostgreSQL database with custom extensions (pyproject.toml)",
+        "Redis for caching and real-time features (zerver/lib/cache.py)",
+        "RabbitMQ for background job processing (pyproject.toml lists pika)",
+        "LDAP directory services (pyproject.toml lists python-ldap)",
+        "Email services for notifications and email mirror (zerver/lib/send_email.py)",
+        "Firebase for mobile push notifications (pyproject.toml lists firebase-admin)",
+        "Stripe for subscription billing (corporate/lib/stripe.py)",
+        "Memcached for session and object caching (pyproject.toml)"
+      ],
+      "architecture": {
+        "pattern": "monolith with modular Django apps",
+        "components": [
+          "zerver - Core messaging and user management",
+          "analytics - Usage statistics and charts",
+          "corporate - Billing and commercial features",
+          "confirmation - Email confirmation workflows",
+          "zilencer - Remote server management",
+          "web - Frontend TypeScript/JavaScript application",
+          "tools - Development and deployment utilities"
+        ],
+        "entry_points": [
+          "manage.py - Django management commands",
+          "zproject/wsgi.py - WSGI application entry point",
+          "web/src/bundles/app.ts - Main web application bundle"
+        ],
+        "data_flow": "HTTP requests route through Django views, process business logic in lib modules, interact with PostgreSQL via ORM models, publish events to Tornado WebSocket handlers, cache frequently accessed data in Redis/Memcached, and queue background jobs in RabbitMQ",
+        "persistence": "PostgreSQL as primary database with Django ORM models, Redis for caching and pub/sub, file storage on S3 or local filesystem, database migrations managed by Django's migration system",
+        "concurrency_model": "async with Tornado for WebSocket connections, Django WSGI for HTTP requests, background workers for email/push notifications",
+        "communication_patterns": "HTTP REST API for client-server communication, WebSocket for real-time updates, RabbitMQ for internal job queuing, Redis pub/sub for cross-process coordination",
+        "plugin_extension_model": "Webhook integrations via pluggable handlers in zerver/webhooks/, bot framework for custom integrations, management command system for administrative tasks"
+      },
+      "data_model": {
+        "primary_entities": [
+          "Realm - Multi-tenant organization container",
+          "UserProfile - User accounts with roles and preferences",
+          "Stream - Topic-organized message channels",
+          "Message - Individual messages with topic threading",
+          "Subscription - User-stream relationships",
+          "Recipient - Message delivery targets (streams, users, groups)"
+        ],
+        "storage_backends": [
+          "PostgreSQL for relational data and full-text search",
+          "Redis for caching and real-time coordination",
+          "AWS S3 or local filesystem for file uploads",
+          "Memcached for Django session and object caching"
+        ],
+        "schema_patterns": "Relational model with Django ORM, foreign key relationships between realms/users/messages, denormalized data for performance in high-traffic queries",
+        "migration_strategy": "Django migrations with squashed migration files for major schema changes, database constraints enforced at application and database levels"
+      },
+      "algorithms": {
+        "problem_type": "Real-time messaging with topic-based organization and multi-tenant architecture",
+        "core_patterns": [
+          "Event-driven architecture for real-time updates",
+          "Repository pattern for data access abstraction",
+          "Decorator pattern for authentication and authorization",
+          "Factory pattern for webhook handler dispatch",
+          "Observer pattern for cross-subsystem notifications"
+        ],
+        "complexity_indicators": "Complex multi-realm permission system, sophisticated markdown rendering pipeline, real-time event distribution to thousands of clients",
+        "key_algorithms": [
+          "Topic-based message threading for conversation organization",
+          "Event queue system for reliable real-time delivery",
+          "Markdown parsing with custom extensions for mentions/links",
+          "Full-text search with PostgreSQL and optional Elasticsearch",
+          "Rate limiting algorithms for spam protection"
+        ],
+        "evidence": "zerver/lib/events.py implements event queue distribution, zerver/lib/markdown/ contains parsing algorithms, zerver/lib/rate_limiter.py implements sliding window rate limiting"
+      },
+      "security_model": {
+        "authentication": "Multi-method auth including LDAP, SAML, OAuth2, email/password with optional 2FA",
+        "authorization": "Role-based permissions (owner, admin, member, guest) with realm-level and stream-level access controls",
+        "data_protection": "HTTPS enforcement, API key management, file upload scanning, SQL injection protection via ORM",
+        "security_headers": "CSRF protection, XSS filtering, content security policy headers in Django middleware",
+        "vulnerability_handling": "SECURITY.md for reporting, dependency scanning, regular security updates documented in commit history"
+      },
+      "dependencies": {
+        "runtime": [
+          "django[argon2]==5.2.*",
+          "psycopg2 - PostgreSQL adapter",
+          "redis - Redis client",
+          "boto3 - AWS SDK",
+          "pika - RabbitMQ client",
+          "sqlalchemy==1.4.*",
+          "python-ldap - LDAP support",
+          "pyjwt - JWT tokens",
+          "firebase-admin - Push notifications"
+        ],
+        "dev": [
+          "django-stubs for type checking",
+          "mypy for static analysis",
+          "ruff for linting",
+          "prettier for JavaScript formatting",
+          "webpack for frontend builds"
+        ],
+        "infrastructure": [
+          "PostgreSQL 12+ with full-text search",
+          "Redis 5+ for caching and pub/sub",
+          "RabbitMQ for message queuing",
+          "Memcached for session caching",
+          "S3-compatible object storage (optional)"
+        ]
+      },
+      "deployment": {
+        "containerized": true,
+        "container_orchestration": "Docker Compose for development, production deployment via system packages",
+        "ci_cd": "GitHub Actions for testing, automated builds, and deployment pipelines",
+        "environment_config": "Environment variables for secrets, settings.py configuration system, deployment-specific settings overrides",
+        "scaling_model": "Horizontal scaling via multiple application servers behind load balancer, separate Tornado processes for WebSocket handling"
+      },
+      "code_quality_signals": {
+        "has_tests": true,
+        "test_framework": "Django's built-in unittest framework with custom test infrastructure",
+        "test_count_estimate": 2457,
+        "has_linting": true,
+        "has_type_hints": true,
+        "documentation_quality": "well-documented with 185K+ words of contributor documentation",
+        "code_style": "Ruff for Python linting, Prettier for JavaScript formatting, MyPy for type checking with 100% coverage"
+      },
+      "project_health": {
+        "license": "Apache-2.0",
+        "total_commits": "1",
+        "top_contributors": 1,
+        "recent_activity": "Recent commits show active maintenance with tool upgrades and dependency updates",
+        "community_signals": "Comprehensive contributor documentation, code of conduct, security policy, issue templates, and development community chat"
+      },
+      "evidence_tracking": {
+        "files_analyzed": [
+          "manage.py",
+          "zproject/wsgi.py",
+          "web/src/bundles/app.ts",
+          "analytics/urls.py",
+          "analytics/views/stats.py",
+          "corporate/urls.py",
+          "pyproject.toml",
+          "package.json",
+          "README.md",
+          "CONTRIBUTING.md",
+          "various migration files and model definitions"
+        ],
+        "confidence_level": "High",
+        "information_gaps": [
+          "Limited git history provided (only 1 commit shown)",
+          "Elasticsearch integration details not fully visible in code samples",
+          "Mobile app specifics beyond push notification handling"
+        ]
+      },
       "pricing": {
         "model": "open-source",
         "free_tier": "true"
-      },
-      "target_audience": "Developers",
-      "category": "Open Source Software",
-      "deployment": "Self-hosted",
-      "underlying_algorithm": {
-        "problem_type": "",
-        "pattern": ""
-      },
-      "evidence_tracking": {
-        "confidence_level": "High",
-        "technical_facts": [
-          "Processes incoming chat messages and organizes them by streams and topics (zerver/models/message.py, zerver/views/messages.py)",
-          "Manages user authentication including LDAP, SAML, and social auth (zerver/views/auth.py, zerver/lib/auth.py)",
-          "Handles real-time message delivery via websockets and tornado server (zerver/tornado/*, zerver/lib/events.py)",
-          "Processes file uploads with S3 and local storage backends (zerver/lib/upload.py)",
-          "Renders markdown messages with custom extensions (zerver/lib/markdown/)",
-          "Manages user permissions and realm-based access control (zerver/lib/permissions.py)",
-          "Provides REST API endpoints for all chat operations (zerver/views/*, documented in api_docs/)",
-          "Analytics tracking for message counts and user activity (analytics/lib/counts.py)",
-          "Email notifications and digest generation (zerver/lib/send_email.py)",
-          "Mobile push notifications via FCM and APNS (zerver/lib/push_notifications.py)"
-        ],
-        "information_gaps": []
-      },
-      "architecture_patterns": [
-        "monolith",
-        "Concurrency: async via Tornado for WebSockets and real-time events, Django's synchronous request handling for HTTP API"
-      ],
-      "auth_methods": [
-        "Email/password authentication (zerver/views/auth.py)",
-        "API key authentication (zerver/lib/auth.py)",
-        "LDAP integration (python-ldap dependency, django-auth-ldap)",
-        "Social authentication (social_django references)",
-        "SAML authentication (zerver/views/auth.py mentions SAML)",
-        "Two-factor authentication (two_factor app references)"
-      ],
-      "sdk_languages": [
-        "Python (documented in api_docs/configuring-python-bindings.md)",
-        "JavaScript/Node.js (package.json client dependencies)",
-        "Mobile SDKs referenced in api_docs/mobile-notifications.md"
-      ],
-      "dependencies": [
-        "django[argon2]==5.2.*",
-        "tornado",
-        "psycopg2",
-        "redis",
-        "sqlalchemy==1.4.*",
-        "boto3",
-        "python-ldap",
-        "jinja2",
-        "markdown",
-        "pygments",
-        "Infrastructure: PostgreSQL",
-        "Infrastructure: Redis",
-        "Infrastructure: RabbitMQ",
-        "Infrastructure: Memcached",
-        "Infrastructure: AWS S3"
-      ],
-      "deployment_options": [
-        "Containerized (Docker)",
-        "CI/CD: GitHub Actions (visible in README badges and .github/ would be expected)"
-      ]
+      }
     },
     "extracted_data": {},
     "source": "local_repo",
     "source_confidence": "high",
-    "timestamp": "2026-03-25T12:29:02.459527"
+    "timestamp": "2026-03-25T18:28:07.470956"
   },
   "step2": {
     "step1_data": {
       "product_name": "zulip",
       "url": "https://github.com/zulip/zulip.git",
       "analysis": {
-        "summary": "Zulip is an open-source team chat application built on Django with topic-based threading. It processes real-time messages, manages user authentication, handles file uploads, and provides REST/event APIs for chat functionality.",
+        "summary": "Zulip is a Django-based team chat platform with topic-based threading that combines email organization with real-time messaging. The system processes millions of messages with PostgreSQL persistence, implements real-time WebSocket connections for live updates, and features comprehensive API endpoints for web, mobile, and bot integrations. The architecture follows a monolithic Django pattern with extensive modular subsystems for analytics, billing, webhooks, and multi-realm support.",
         "capabilities": [
-          "Processes incoming chat messages and organizes them by streams and topics (zerver/models/message.py, zerver/views/messages.py)",
-          "Manages user authentication including LDAP, SAML, and social auth (zerver/views/auth.py, zerver/lib/auth.py)",
-          "Handles real-time message delivery via websockets and tornado server (zerver/tornado/*, zerver/lib/events.py)",
-          "Processes file uploads with S3 and local storage backends (zerver/lib/upload.py)",
-          "Renders markdown messages with custom extensions (zerver/lib/markdown/)",
-          "Manages user permissions and realm-based access control (zerver/lib/permissions.py)",
-          "Provides REST API endpoints for all chat operations (zerver/views/*, documented in api_docs/)",
-          "Analytics tracking for message counts and user activity (analytics/lib/counts.py)",
-          "Email notifications and digest generation (zerver/lib/send_email.py)",
-          "Mobile push notifications via FCM and APNS (zerver/lib/push_notifications.py)",
-          "Webhook integrations for external services (zerver/webhooks/*/)",
-          "Bot framework for automated message processing (zerver/lib/bot_lib.py)"
+          "Processes incoming messages with topic-based threading organization (zerver/actions/message_send.py)",
+          "Handles real-time WebSocket connections for live message delivery (zerver/tornado/)",
+          "Manages user authentication with LDAP, SAML, and social OAuth providers (zerver/views/auth.py)",
+          "Implements comprehensive REST API with over 100 endpoints for all client operations (zerver/views/)",
+          "Processes webhook integrations for 90+ external services like GitHub, Jira, Slack (zerver/webhooks/)",
+          "Manages multi-realm architecture with per-realm settings and permissions (zerver/models/realms.py)",
+          "Handles file uploads with S3/local storage and automatic image thumbnailing (zerver/views/upload.py)",
+          "Processes email-to-Zulip message conversion for email integration (zerver/management/commands/email_mirror.py)",
+          "Implements analytics data collection and visualization with time-series charts (analytics/)",
+          "Manages Stripe-based billing and subscription management for paid plans (corporate/lib/stripe.py)",
+          "Processes markdown rendering with LaTeX math and code syntax highlighting (zerver/lib/markdown/)",
+          "Handles push notifications to iOS and Android mobile apps via FCM/APNS (zerver/lib/push_notifications.py)",
+          "Implements full-text search with PostgreSQL and optional Elasticsearch backend (zerver/lib/search.py)",
+          "Manages user presence and typing indicators with Redis caching (zerver/lib/presence.py)",
+          "Processes bot framework with custom integrations and interactive widgets (zerver/lib/bot_lib.py)",
+          "Handles stream/topic management with permissions and subscription controls (zerver/lib/streams.py)",
+          "Implements message editing, deletion, and history tracking (zerver/lib/message.py)",
+          "Manages emoji reactions and custom emoji uploads (zerver/lib/emoji.py)",
+          "Processes user settings synchronization across multiple clients (zerver/lib/events.py)",
+          "Handles rate limiting and spam protection for API endpoints (zerver/lib/rate_limiter.py)",
+          "Implements scheduled message delivery with precise timing (zerver/models/scheduled_messages.py)",
+          "Manages drafts synchronization across web and mobile clients (zerver/views/drafts.py)",
+          "Processes user group management with hierarchical permissions (zerver/models/user_groups.py)",
+          "Handles internationalization support for 40+ languages (locale/)",
+          "Implements comprehensive audit logging for compliance requirements (zerver/models/audit_logs.py)"
         ],
-        "use_cases": [],
+        "use_cases": [
+          "Software development teams use this for organized project discussions with topic-based threading",
+          "Remote organizations use this for asynchronous communication that maintains context over time",
+          "Open source projects use this to coordinate distributed contributor discussions",
+          "Educational institutions use this for class discussions and student collaboration",
+          "Companies use this for cross-functional team coordination with integration to development tools"
+        ],
+        "category": "Team Chat Platform",
+        "target_audience": "Software development teams, remote organizations, open source maintainers, and distributed teams requiring organized asynchronous communication",
         "technical_stack": [
           "Django 5.2 (pyproject.toml)",
-          "Python 3.10+ (pyproject.toml)",
-          "PostgreSQL (Dockerfile-postgresql, zerver/lib/db.py)",
-          "Redis for caching (tools/ci/Dockerfile, zerver/lib/redis_utils.py)",
-          "Tornado for websockets (pyproject.toml tornado dependency)",
-          "TypeScript frontend (package.json, web/src/)",
+          "PostgreSQL with psycopg2 driver (pyproject.toml)",
+          "Redis for caching and pub/sub (docker-compose.yml)",
+          "RabbitMQ for message queuing (pyproject.toml lists pika)",
+          "TypeScript/JavaScript frontend (package.json)",
+          "Python 3.10+ backend (pyproject.toml)",
+          "Memcached for session caching (pyproject.toml)",
+          "Tornado for WebSocket handling (pyproject.toml)",
           "SQLAlchemy 1.4 for complex queries (pyproject.toml)",
-          "Jinja2 for templating (pyproject.toml)",
-          "Markdown with Pygments (pyproject.toml)",
+          "Jinja2 for template rendering (pyproject.toml)",
+          "Markdown with Pygments syntax highlighting (pyproject.toml)",
           "boto3 for AWS S3 integration (pyproject.toml)",
-          "python-ldap for LDAP authentication (pyproject.toml)",
-          "Memcached for caching (tools/ci/Dockerfile)",
-          "RabbitMQ for message queuing (tools/ci/Dockerfile mentions rabbitmq)",
-          "Webpack for frontend build (package.json webpack dependencies)"
-        ],
-        "integrations": [
-          "AWS S3 for file storage (boto3 dependency, zerver/lib/upload.py)",
-          "AWS SES for email (mypy-boto3-ses dependency)",
-          "AWS SNS/SQS for notifications (mypy-boto3-sns, mypy-boto3-sqs dependencies)",
-          "LDAP directories (python-ldap dependency)",
-          "External webhooks system (zerver/webhooks/ directory with 100+ integrations)",
-          "Mobile push notification services (zerver/lib/push_notifications.py)",
-          "Sentry for error tracking (@sentry/browser in package.json)"
+          "Stripe for payment processing (corporate/lib/stripe.py)",
+          "Firebase Admin SDK for push notifications (pyproject.toml)"
         ],
         "api_endpoints": [
-          {
-            "method": "POST",
-            "path": "/api/v1/messages",
-            "summary": "Send messages (zerver/views/messages.py)"
-          },
-          {
-            "method": "GET",
-            "path": "/api/v1/messages",
-            "summary": "Fetch message history (zerver/views/messages.py)"
-          },
-          {
-            "method": "POST",
-            "path": "/api/v1/register",
-            "summary": "Register event queue for real-time events (zerver/views/events_register.py)"
-          },
-          {
-            "method": "GET",
-            "path": "/api/v1/events",
-            "summary": "Get real-time events (zerver/views/events.py)"
-          },
-          {
-            "method": "POST",
-            "path": "/api/v1/users",
-            "summary": "Create users (zerver/views/users.py)"
-          },
-          {
-            "method": "GET",
-            "path": "/api/v1/users",
-            "summary": "List users (zerver/views/users.py)"
-          },
-          {
-            "method": "POST",
-            "path": "/api/v1/streams",
-            "summary": "Create streams (zerver/views/streams.py)"
-          },
-          {
-            "method": "GET",
-            "path": "/api/v1/streams",
-            "summary": "List streams (zerver/views/streams.py)"
-          },
-          {
-            "method": "POST",
-            "path": "/api/v1/user_uploads",
-            "summary": "Upload files (zerver/views/upload.py)"
-          },
-          {
-            "method": "POST",
-            "path": "/json/fetch_api_key",
-            "summary": "Authenticate and get API key (zerver/views/auth.py)"
-          }
+          "GET /api/v1/messages \u2014 Fetch messages with filtering and pagination (zerver/views/messages.py)",
+          "POST /api/v1/messages \u2014 Send new messages to streams or direct messages (zerver/views/messages.py)",
+          "GET /api/v1/streams \u2014 List available streams with metadata (zerver/views/streams.py)",
+          "POST /api/v1/streams/{stream_id}/subscriptions \u2014 Subscribe users to streams (zerver/views/streams.py)",
+          "GET /api/v1/users \u2014 List realm users with profile information (zerver/views/users.py)",
+          "POST /api/v1/users \u2014 Create new user accounts (zerver/views/users.py)",
+          "GET /api/v1/events \u2014 Long-polling endpoint for real-time updates (zerver/views/events.py)",
+          "POST /api/v1/register \u2014 Register event queue for real-time notifications (zerver/views/events.py)",
+          "GET /api/v1/realm \u2014 Get realm configuration and settings (zerver/views/realm.py)",
+          "PATCH /api/v1/realm \u2014 Update realm settings (zerver/views/realm.py)",
+          "POST /api/v1/external/github \u2014 GitHub webhook integration (zerver/webhooks/github/)",
+          "POST /api/v1/external/jira \u2014 Jira webhook integration (zerver/webhooks/jira/)",
+          "GET /api/v1/user_uploads/{path} \u2014 Serve uploaded files with authentication (zerver/views/upload.py)",
+          "POST /api/v1/user_uploads \u2014 Upload files with automatic thumbnailing (zerver/views/upload.py)",
+          "GET /analytics/chart_data \u2014 Analytics data for dashboard charts (analytics/urls.py)"
         ],
+        "sdk_languages": [
+          "Python (official client library in zulip package)",
+          "JavaScript/TypeScript (web client and npm package)",
+          "Mobile clients for iOS and Android",
+          "Terminal client for command-line usage"
+        ],
+        "auth_methods": [
+          "Email/password authentication with Django's built-in auth (zerver/views/auth.py)",
+          "LDAP integration via django-auth-ldap (pyproject.toml, zerver/backends.py)",
+          "SAML SSO support (zerver/backends.py)",
+          "OAuth2 with Google, GitHub, GitLab providers (zerver/views/auth.py)",
+          "API key authentication for bot integrations (zerver/lib/rest.py)",
+          "JWT tokens for mobile app authentication (pyproject.toml lists pyjwt)",
+          "Two-factor authentication with TOTP (templates/two_factor/)"
+        ],
+        "integrations": [
+          "GitHub via webhooks for commits, issues, pull requests (zerver/webhooks/github/)",
+          "Jira for issue tracking integration (zerver/webhooks/jira/)",
+          "Slack import tool for message migration (zerver/data_import/slack.py)",
+          "AWS S3 for file storage via boto3 (pyproject.toml, zerver/lib/upload.py)",
+          "PostgreSQL database with custom extensions (pyproject.toml)",
+          "Redis for caching and real-time features (zerver/lib/cache.py)",
+          "RabbitMQ for background job processing (pyproject.toml lists pika)",
+          "LDAP directory services (pyproject.toml lists python-ldap)",
+          "Email services for notifications and email mirror (zerver/lib/send_email.py)",
+          "Firebase for mobile push notifications (pyproject.toml lists firebase-admin)",
+          "Stripe for subscription billing (corporate/lib/stripe.py)",
+          "Memcached for session and object caching (pyproject.toml)"
+        ],
+        "architecture": {
+          "pattern": "monolith with modular Django apps",
+          "components": [
+            "zerver - Core messaging and user management",
+            "analytics - Usage statistics and charts",
+            "corporate - Billing and commercial features",
+            "confirmation - Email confirmation workflows",
+            "zilencer - Remote server management",
+            "web - Frontend TypeScript/JavaScript application",
+            "tools - Development and deployment utilities"
+          ],
+          "entry_points": [
+            "manage.py - Django management commands",
+            "zproject/wsgi.py - WSGI application entry point",
+            "web/src/bundles/app.ts - Main web application bundle"
+          ],
+          "data_flow": "HTTP requests route through Django views, process business logic in lib modules, interact with PostgreSQL via ORM models, publish events to Tornado WebSocket handlers, cache frequently accessed data in Redis/Memcached, and queue background jobs in RabbitMQ",
+          "persistence": "PostgreSQL as primary database with Django ORM models, Redis for caching and pub/sub, file storage on S3 or local filesystem, database migrations managed by Django's migration system",
+          "concurrency_model": "async with Tornado for WebSocket connections, Django WSGI for HTTP requests, background workers for email/push notifications",
+          "communication_patterns": "HTTP REST API for client-server communication, WebSocket for real-time updates, RabbitMQ for internal job queuing, Redis pub/sub for cross-process coordination",
+          "plugin_extension_model": "Webhook integrations via pluggable handlers in zerver/webhooks/, bot framework for custom integrations, management command system for administrative tasks"
+        },
+        "data_model": {
+          "primary_entities": [
+            "Realm - Multi-tenant organization container",
+            "UserProfile - User accounts with roles and preferences",
+            "Stream - Topic-organized message channels",
+            "Message - Individual messages with topic threading",
+            "Subscription - User-stream relationships",
+            "Recipient - Message delivery targets (streams, users, groups)"
+          ],
+          "storage_backends": [
+            "PostgreSQL for relational data and full-text search",
+            "Redis for caching and real-time coordination",
+            "AWS S3 or local filesystem for file uploads",
+            "Memcached for Django session and object caching"
+          ],
+          "schema_patterns": "Relational model with Django ORM, foreign key relationships between realms/users/messages, denormalized data for performance in high-traffic queries",
+          "migration_strategy": "Django migrations with squashed migration files for major schema changes, database constraints enforced at application and database levels"
+        },
+        "algorithms": {
+          "problem_type": "Real-time messaging with topic-based organization and multi-tenant architecture",
+          "core_patterns": [
+            "Event-driven architecture for real-time updates",
+            "Repository pattern for data access abstraction",
+            "Decorator pattern for authentication and authorization",
+            "Factory pattern for webhook handler dispatch",
+            "Observer pattern for cross-subsystem notifications"
+          ],
+          "complexity_indicators": "Complex multi-realm permission system, sophisticated markdown rendering pipeline, real-time event distribution to thousands of clients",
+          "key_algorithms": [
+            "Topic-based message threading for conversation organization",
+            "Event queue system for reliable real-time delivery",
+            "Markdown parsing with custom extensions for mentions/links",
+            "Full-text search with PostgreSQL and optional Elasticsearch",
+            "Rate limiting algorithms for spam protection"
+          ],
+          "evidence": "zerver/lib/events.py implements event queue distribution, zerver/lib/markdown/ contains parsing algorithms, zerver/lib/rate_limiter.py implements sliding window rate limiting"
+        },
+        "security_model": {
+          "authentication": "Multi-method auth including LDAP, SAML, OAuth2, email/password with optional 2FA",
+          "authorization": "Role-based permissions (owner, admin, member, guest) with realm-level and stream-level access controls",
+          "data_protection": "HTTPS enforcement, API key management, file upload scanning, SQL injection protection via ORM",
+          "security_headers": "CSRF protection, XSS filtering, content security policy headers in Django middleware",
+          "vulnerability_handling": "SECURITY.md for reporting, dependency scanning, regular security updates documented in commit history"
+        },
+        "dependencies": {
+          "runtime": [
+            "django[argon2]==5.2.*",
+            "psycopg2 - PostgreSQL adapter",
+            "redis - Redis client",
+            "boto3 - AWS SDK",
+            "pika - RabbitMQ client",
+            "sqlalchemy==1.4.*",
+            "python-ldap - LDAP support",
+            "pyjwt - JWT tokens",
+            "firebase-admin - Push notifications"
+          ],
+          "dev": [
+            "django-stubs for type checking",
+            "mypy for static analysis",
+            "ruff for linting",
+            "prettier for JavaScript formatting",
+            "webpack for frontend builds"
+          ],
+          "infrastructure": [
+            "PostgreSQL 12+ with full-text search",
+            "Redis 5+ for caching and pub/sub",
+            "RabbitMQ for message queuing",
+            "Memcached for session caching",
+            "S3-compatible object storage (optional)"
+          ]
+        },
+        "deployment": {
+          "containerized": true,
+          "container_orchestration": "Docker Compose for development, production deployment via system packages",
+          "ci_cd": "GitHub Actions for testing, automated builds, and deployment pipelines",
+          "environment_config": "Environment variables for secrets, settings.py configuration system, deployment-specific settings overrides",
+          "scaling_model": "Horizontal scaling via multiple application servers behind load balancer, separate Tornado processes for WebSocket handling"
+        },
+        "code_quality_signals": {
+          "has_tests": true,
+          "test_framework": "Django's built-in unittest framework with custom test infrastructure",
+          "test_count_estimate": 2457,
+          "has_linting": true,
+          "has_type_hints": true,
+          "documentation_quality": "well-documented with 185K+ words of contributor documentation",
+          "code_style": "Ruff for Python linting, Prettier for JavaScript formatting, MyPy for type checking with 100% coverage"
+        },
+        "project_health": {
+          "license": "Apache-2.0",
+          "total_commits": "1",
+          "top_contributors": 1,
+          "recent_activity": "Recent commits show active maintenance with tool upgrades and dependency updates",
+          "community_signals": "Comprehensive contributor documentation, code of conduct, security policy, issue templates, and development community chat"
+        },
+        "evidence_tracking": {
+          "files_analyzed": [
+            "manage.py",
+            "zproject/wsgi.py",
+            "web/src/bundles/app.ts",
+            "analytics/urls.py",
+            "analytics/views/stats.py",
+            "corporate/urls.py",
+            "pyproject.toml",
+            "package.json",
+            "README.md",
+            "CONTRIBUTING.md",
+            "various migration files and model definitions"
+          ],
+          "confidence_level": "High",
+          "information_gaps": [
+            "Limited git history provided (only 1 commit shown)",
+            "Elasticsearch integration details not fully visible in code samples",
+            "Mobile app specifics beyond push notification handling"
+          ]
+        },
         "pricing": {
           "model": "open-source",
           "free_tier": "true"
-        },
-        "target_audience": "Developers",
-        "category": "Open Source Software",
-        "deployment": "Self-hosted",
-        "underlying_algorithm": {
-          "problem_type": "",
-          "pattern": ""
-        },
-        "evidence_tracking": {
-          "confidence_level": "High",
-          "technical_facts": [
-            "Processes incoming chat messages and organizes them by streams and topics (zerver/models/message.py, zerver/views/messages.py)",
-            "Manages user authentication including LDAP, SAML, and social auth (zerver/views/auth.py, zerver/lib/auth.py)",
-            "Handles real-time message delivery via websockets and tornado server (zerver/tornado/*, zerver/lib/events.py)",
-            "Processes file uploads with S3 and local storage backends (zerver/lib/upload.py)",
-            "Renders markdown messages with custom extensions (zerver/lib/markdown/)",
-            "Manages user permissions and realm-based access control (zerver/lib/permissions.py)",
-            "Provides REST API endpoints for all chat operations (zerver/views/*, documented in api_docs/)",
-            "Analytics tracking for message counts and user activity (analytics/lib/counts.py)",
-            "Email notifications and digest generation (zerver/lib/send_email.py)",
-            "Mobile push notifications via FCM and APNS (zerver/lib/push_notifications.py)"
-          ],
-          "information_gaps": []
-        },
-        "architecture_patterns": [
-          "monolith",
-          "Concurrency: async via Tornado for WebSockets and real-time events, Django's synchronous request handling for HTTP API"
-        ],
-        "auth_methods": [
-          "Email/password authentication (zerver/views/auth.py)",
-          "API key authentication (zerver/lib/auth.py)",
-          "LDAP integration (python-ldap dependency, django-auth-ldap)",
-          "Social authentication (social_django references)",
-          "SAML authentication (zerver/views/auth.py mentions SAML)",
-          "Two-factor authentication (two_factor app references)"
-        ],
-        "sdk_languages": [
-          "Python (documented in api_docs/configuring-python-bindings.md)",
-          "JavaScript/Node.js (package.json client dependencies)",
-          "Mobile SDKs referenced in api_docs/mobile-notifications.md"
-        ],
-        "dependencies": [
-          "django[argon2]==5.2.*",
-          "tornado",
-          "psycopg2",
-          "redis",
-          "sqlalchemy==1.4.*",
-          "boto3",
-          "python-ldap",
-          "jinja2",
-          "markdown",
-          "pygments",
-          "Infrastructure: PostgreSQL",
-          "Infrastructure: Redis",
-          "Infrastructure: RabbitMQ",
-          "Infrastructure: Memcached",
-          "Infrastructure: AWS S3"
-        ],
-        "deployment_options": [
-          "Containerized (Docker)",
-          "CI/CD: GitHub Actions (visible in README badges and .github/ would be expected)"
-        ]
+        }
       },
       "extracted_data": {},
       "source": "local_repo",
       "source_confidence": "high",
-      "timestamp": "2026-03-25T12:29:02.459527"
+      "timestamp": "2026-03-25T18:28:07.470956"
     },
     "generalization": {
       "functional_dna": {
-        "logic_archetype": "Stateful Orchestrator",
-        "logic_archetype_evidence": "Manages user authentication including LDAP, SAML, and social auth (zerver/views/auth.py, zerver/lib/auth.py) and Manages user permissions and realm-based access control (zerver/lib/permissions.py) - orchestrates multiple services and maintains state across chat sessions",
+        "logic_archetype": "Event-Driven Reactor",
+        "logic_archetype_evidence": "The system's core pattern is reactive message processing with real-time event distribution. Evidence shows WebSocket connections for live updates (zerver/tornado/), event queue system for reliable delivery (zerver/lib/events.py), and pub/sub coordination through Redis.",
         "data_contract_strictness": "Highly Structured",
-        "data_contract_evidence": "Django 5.2 (pyproject.toml) and PostgreSQL (Dockerfile-postgresql, zerver/lib/db.py) - Django ORM enforces strict database schemas",
-        "core_algorithmic_class": "CRUD Operations",
-        "core_algorithmic_evidence": "Processes incoming chat messages and organizes them by streams and topics (zerver/models/message.py, zerver/views/messages.py) and Provides REST API endpoints for all chat operations (zerver/views/*, documented in api_docs/) - primarily database operations for message storage and retrieval",
+        "data_contract_evidence": "Evidence: Django ORM models enforce relational schema constraints, REST API with 100+ structured endpoints, PostgreSQL with foreign key relationships, and comprehensive API documentation patterns in zerver/views/",
+        "core_algorithmic_class": "Event Processing",
+        "core_algorithmic_evidence": "Evidence from event queue distribution system (zerver/lib/events.py), real-time WebSocket event broadcasting, topic-based message threading algorithms, and rate limiting with sliding window implementations (zerver/lib/rate_limiter.py)",
         "concurrency_requirements": "Eventually Consistent",
-        "concurrency_evidence": "Handles real-time message delivery via websockets and tornado server (zerver/tornado/*, zerver/lib/events.py) and Redis for caching (tools/ci/Dockerfile, zerver/lib/redis_utils.py) - real-time chat requires eventual consistency across distributed clients",
+        "concurrency_evidence": "Evidence from Redis pub/sub for cross-process coordination, RabbitMQ for background job queuing, Tornado async WebSocket handling, and distributed caching with Memcached - indicating tolerance for eventual consistency in favor of availability",
+        "abstract_problem": "Maintains hierarchically-threaded persistent conversations with real-time multi-client synchronization and topic-based organization, requiring event distribution to thousands of concurrent subscribers with pluggable external system integrations.",
+        "data_flow_pattern": "Inbound event \u2192 validation & persistence \u2192 fan-out broadcast to subscriber queues \u2192 real-time delivery via persistent connections, with bidirectional webhook integration and background job processing",
+        "state_complexity": "Entity-scoped",
         "repurposing_confidence": 8,
-        "repurposing_reasoning": "High repurposing potential due to modular Django architecture, well-defined REST APIs, and generic messaging/notification infrastructure. The authentication, file upload, and real-time event systems are highly transferable to other domains requiring collaborative features."
+        "repurposing_reasoning": "The core event processing, real-time distribution, and hierarchical threading patterns are highly reusable across domains. The multi-tenant architecture, webhook system, and authentication framework are generic. However, the markdown processing and chat-specific UI components are domain-locked. The Django monolith structure and comprehensive API layer provide good abstraction boundaries for repurposing."
       },
       "evidence_claims": [
         {
-          "claim": "Built on Django framework with PostgreSQL database",
-          "evidence": "Django 5.2 (pyproject.toml) and PostgreSQL (Dockerfile-postgresql, zerver/lib/db.py)",
+          "claim": "System implements real-time event distribution to multiple clients",
+          "evidence": "zerver/tornado/ directory and WebSocket handling, plus zerver/lib/events.py for event queue management",
           "confidence": "High"
         },
         {
-          "claim": "Implements real-time messaging via WebSockets",
-          "evidence": "Handles real-time message delivery via websockets and tornado server (zerver/tornado/*, zerver/lib/events.py)",
+          "claim": "Hierarchical topic-based message organization is core functionality",
+          "evidence": "topic-based threading organization capability and Stream/Message models with topic fields",
           "confidence": "High"
         },
         {
-          "claim": "Supports multiple authentication methods",
-          "evidence": "Manages user authentication including LDAP, SAML, and social auth (zerver/views/auth.py, zerver/lib/auth.py)",
+          "claim": "Multi-tenant architecture with per-realm isolation",
+          "evidence": "zerver/models/realms.py and multi-realm architecture capability with per-realm settings",
           "confidence": "High"
         },
         {
-          "claim": "Has comprehensive REST API",
-          "evidence": "Provides REST API endpoints for all chat operations (zerver/views/*, documented in api_docs/)",
+          "claim": "Pluggable webhook system for external integrations",
+          "evidence": "zerver/webhooks/ directory with 90+ external services and webhook processing capabilities",
+          "confidence": "High"
+        },
+        {
+          "claim": "Background job processing with message queuing",
+          "evidence": "RabbitMQ for message queuing in technical stack and pyproject.toml lists pika",
           "confidence": "High"
         }
       ],
       "market_reach": {
-        "primary_industry": "Team Communication Software",
+        "primary_industry": "Software Development Tools",
         "cross_industry_applications": [
-          "Customer Support Systems",
-          "Educational Platforms",
-          "Project Management Tools",
-          "Enterprise Collaboration",
-          "Community Forums"
+          "Customer Support - ticket threading and real-time agent coordination with external tool integrations",
+          "Project Management - hierarchical task discussions with stakeholder notifications and progress tracking",
+          "Healthcare - patient case discussions with threaded medical record updates and compliance logging",
+          "Education - threaded classroom discussions with assignment integration and real-time collaboration",
+          "Financial Services - compliance-tracked deal discussions with external system integrations and audit trails",
+          "Manufacturing - quality control issue tracking with equipment integration and real-time status updates",
+          "Legal Services - case file discussions with document integration and client communication tracking",
+          "Research Collaboration - threaded research discussions with data source integrations and version tracking"
         ],
-        "utility_score": 8,
+        "utility_score": 9,
         "market_potential": "High"
       },
       "friction_report": {
         "difficulty": "Medium",
-        "estimated_hours": 120,
+        "estimated_hours": 160,
         "required_technologies": [
           "Django",
           "PostgreSQL",
           "Redis",
-          "Tornado",
-          "TypeScript"
+          "WebSocket support",
+          "Python 3.10+",
+          "Message queue system"
         ],
         "complexity_factors": [
-          "Real-time WebSocket infrastructure",
-          "Multi-tenant realm architecture",
-          "Complex permission system",
-          "File upload handling"
+          "Multi-tenant data isolation patterns",
+          "Real-time event distribution system",
+          "Complex permission and authorization model",
+          "Webhook integration framework setup"
         ],
-        "risk_level": "Medium"
+        "risk_level": "Medium",
+        "migration_path": "Extract core Django apps (zerver core minus chat-specific UI), adapt models for target domain entities, repurpose webhook system for domain-specific integrations, and customize event processing for domain-specific workflows"
       },
       "interface_map": {
         "adapter_schema": {
           "input": {
             "format": "JSON",
             "required_fields": [
+              "entity_id",
               "content",
-              "stream",
-              "topic"
+              "metadata"
+            ],
+            "protocols": [
+              "HTTP REST",
+              "WebSocket",
+              "Webhook"
             ]
           },
           "output": {
-            "format": "JSON"
+            "format": "JSON events",
+            "delivery": "async streaming"
           },
           "authentication": {
-            "type": "API Key",
-            "method": "POST /json/fetch_api_key"
+            "type": "multi-method",
+            "method": "API keys, OAuth2, SAML, LDAP"
           }
         },
-        "standardization_level": "High"
+        "standardization_level": "High",
+        "api_surface_area": "Large (50+)"
       },
+      "comparable_systems": [
+        "GitHub Issues/Discussions - hierarchical threaded conversations with external tool integrations",
+        "Jira Service Management - ticket threading with workflow automation and stakeholder notifications",
+        "Discourse Forum - topic-based threaded discussions with real-time updates and plugin ecosystem",
+        "Salesforce Chatter - enterprise social collaboration with record-centric threading and app integrations",
+        "Microsoft Teams Channels - threaded conversations with external app integrations and real-time collaboration"
+      ],
       "information_gaps": [
-        "Scalability limits and performance benchmarks",
-        "Database migration complexity for schema changes",
-        "Deployment configuration requirements",
-        "Resource consumption metrics"
+        "Elasticsearch integration implementation details beyond basic configuration",
+        "Mobile app architecture and offline synchronization patterns",
+        "Horizontal scaling patterns and database sharding strategies",
+        "Performance characteristics under high concurrent load"
       ]
     },
-    "timestamp": "2026-03-25T12:29:17.228844"
+    "timestamp": "2026-03-25T18:28:38.152050"
   },
   "errors": []
 }

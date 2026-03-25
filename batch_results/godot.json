@@ -1,294 +1,580 @@
 {
   "url": "https://github.com/godotengine/godot.git",
   "repo_name": "godot",
-  "timestamp": "2026-03-21T14:48:02.656899",
+  "timestamp": "2026-03-25T15:16:59.701557",
   "step1": {
     "product_name": "godot",
     "url": "https://github.com/godotengine/godot.git",
     "analysis": {
-      "summary": "Godot Engine is a cross-platform 2D and 3D game engine written primarily in C++ that provides a comprehensive game development framework with editor, runtime, and multi-platform export capabilities.",
+      "summary": "Godot Engine is a comprehensive, cross-platform 2D and 3D game engine implemented primarily in C++ that provides a unified editor interface and scripting system. It features a modular architecture with separate rendering backends (Vulkan, OpenGL, Metal, D3D12), audio drivers, and platform-specific implementations. The engine processes scene graphs, manages resources through a sophisticated I/O system, and provides extensive scripting capabilities through GDScript and extension interfaces.",
       "capabilities": [
-        "2D and 3D game rendering with various graphics APIs (core/config/engine.cpp, platform/*/display_server_*.cpp)",
-        "Cross-platform compilation and deployment to desktop, mobile, web and console platforms (platform/ directory structure)",
-        "Visual scripting system and GDScript language support (modules/gdscript/)",
-        "Physics simulation for both 2D and 3D environments (modules/physics_*/, servers/physics_*/)",
-        "Audio processing and playback with WASAPI, ALSA, and other audio backends (drivers/wasapi/, drivers/alsa/)",
-        "Resource management and asset pipeline (core/io/, editor/import/)",
-        "Scene tree management and node-based architecture (scene/ directory)",
-        "Extension system for native code integration (core/extension/gdextension.cpp)",
-        "Built-in editor with visual scene editing (editor/ directory)",
-        "Multi-language binding support including C#, Java, Kotlin (modules/mono/, platform/android/java/)"
+        "Renders 2D and 3D graphics using multiple backends including Vulkan, OpenGL ES 3.0, Metal, and Direct3D 12 (drivers/vulkan/, drivers/gles3/, drivers/metal/, drivers/d3d12/)",
+        "Processes cross-platform audio through WASAPI, ALSA, CoreAudio, PulseAudio, and SDL audio drivers (drivers/wasapi/audio_driver_wasapi.cpp, drivers/alsa/, drivers/coreaudio/)",
+        "Manages scene node hierarchies with transform propagation and rendering order optimization (scene/main/scene_tree.cpp, scene/3d/node_3d.cpp)",
+        "Implements real-time physics simulation for 2D and 3D objects using custom Godot Physics and Jolt Physics integration (modules/godot_physics_2d/, modules/godot_physics_3d/, modules/jolt_physics/)",
+        "Executes GDScript bytecode through a custom virtual machine with garbage collection and type inference (modules/gdscript/gdscript.cpp, modules/gdscript/gdscript_vm.cpp)",
+        "Provides C# scripting support through Mono integration with marshalling between native and managed code (modules/mono/)",
+        "Loads and saves resources in proprietary binary and text formats with dependency tracking (core/io/resource_loader.cpp, core/io/resource_saver.cpp)",
+        "Imports assets from various formats including FBX, glTF, images, audio files through modular importer system (modules/fbx/, modules/gltf/, editor/import/)",
+        "Manages project settings and engine configuration through centralized configuration system (core/config/project_settings.cpp, core/config/engine.cpp)",
+        "Handles input events across platforms with remapping and action binding support (core/input/input.cpp, core/input/input_map.cpp)",
+        "Implements networking with TCP/UDP sockets, WebSocket, and multiplayer replication (core/io/tcp_server.cpp, core/io/udp_server.cpp, modules/multiplayer/)",
+        "Provides extensible plugin architecture for editor and runtime extensions (core/extension/gdextension.cpp, editor/plugins/)",
+        "Performs image processing with support for multiple formats including PNG, JPEG, WebP, HDR (modules/png/, modules/jpg/, core/io/image.cpp)",
+        "Executes animation systems with keyframe interpolation, blend trees, and state machines (scene/animation/animation_player.cpp, scene/animation/animation_tree.cpp)",
+        "Manages memory allocation with custom pools and reference counting for automatic cleanup (core/os/memory.cpp, core/object/ref_counted.cpp)",
+        "Implements audio processing with real-time effects, 3D spatialization, and bus routing (servers/audio/audio_server.cpp, scene/audio/)",
+        "Provides debugging capabilities with remote debugging, profiling, and script breakpoints (core/debugger/engine_debugger.cpp, core/debugger/remote_debugger.cpp)",
+        "Handles file system operations with virtual file system support and encryption (core/io/file_access.cpp, core/io/file_access_encrypted.cpp)",
+        "Implements shader compilation and management for GLSL, HLSL, and MSL targets (drivers/gles3/shader_gles3.cpp, servers/rendering/shader_language.cpp)",
+        "Manages navigation meshes for 2D and 3D pathfinding with A* algorithm implementation (modules/navigation_2d/, modules/navigation_3d/, core/math/a_star.cpp)",
+        "Provides cryptographic functions including AES encryption, hashing, and certificate validation (core/crypto/crypto.cpp, core/crypto/aes_context.cpp)",
+        "Implements lightmap baking with GPU-accelerated global illumination computation (modules/lightmapper_rd/)",
+        "Handles version control integration with Git support for project management (editor/version_control/)",
+        "Processes UI rendering with immediate mode GUI and theme system (scene/gui/, scene/theme/)",
+        "Manages export templates and deployment to multiple platforms including mobile and web (editor/export/)"
       ],
-      "use_cases": [],
+      "use_cases": [
+        "Game developers use this to create 2D and 3D games with visual scripting and code-based logic",
+        "Indie developers use this as a free alternative to commercial engines like Unity or Unreal Engine",
+        "Educational institutions use this to teach game development and programming concepts",
+        "Mobile developers use this to create cross-platform games for Android and iOS",
+        "Web developers use this to create browser-based games through WebAssembly export"
+      ],
+      "category": "Game Engine",
+      "target_audience": "Game developers, indie developers, students, educators, mobile developers",
       "technical_stack": [
-        "C++ (primary language, 2377+ .cpp files)",
-        "Python (build system and tools, SConstruct, 126+ .py files)",
-        "SCons (build system, SConstruct file)",
-        "OpenGL/Vulkan (graphics rendering, drivers/vulkan/)",
-        "C# (Mono integration, modules/mono/, 301+ .cs files)",
-        "Java/Kotlin (Android platform, platform/android/java/, 190+ .java files, 50+ .kt files)",
-        "JavaScript (web platform, platform/web/, 26+ .js files)",
-        "CMake (Android native builds, platform/android/java/nativeSrcsConfigs/CMakeLists.txt)",
-        "Gradle (Android builds, multiple build.gradle files)",
-        "ESLint/JSDoc (web platform tooling, platform/web/package.json)"
+        "C++ (primary implementation language with 2379 .cpp files)",
+        "C (921 files for low-level platform code)",
+        "C# (301 files for Mono scripting integration)",
+        "Python 3 (126 files for build scripts and tools)",
+        "SCons (build system - SConstruct file)",
+        "Java (190 files for Android platform)",
+        "Kotlin (50 files for Android platform)",
+        "Vulkan SDK (drivers/vulkan/)",
+        "OpenGL ES 3.0 (drivers/gles3/)",
+        "Metal (drivers/metal/)",
+        "Direct3D 12 (drivers/d3d12/)"
       ],
-      "integrations": [
-        "Android SDK (platform/android/)",
-        "iOS SDK (platform/ios/)",
-        "Windows APIs including WASAPI (drivers/wasapi/)",
-        "Linux ALSA audio (drivers/alsa/)",
-        "Vulkan graphics API (drivers/vulkan/)",
-        "OpenGL graphics (drivers/gl_context/)",
-        "Steam SDK integration support (modules/)",
-        "XR/VR platforms (modules/xr/)"
+      "api_endpoints": [
+        "GDExtension native interface for C/C++ plugins (core/extension/gdextension_interface.cpp)",
+        "ClassDB method binding system for registering C++ classes (core/object/class_db.cpp)",
+        "Script API for GDScript virtual machine calls (modules/gdscript/gdscript.cpp)",
+        "Android JNI interface for Java integration (platform/android/api/api.cpp)",
+        "Resource loading API for asset management (core/io/resource_loader.cpp)",
+        "Input handling API for device events (core/input/input.cpp)",
+        "Rendering server API for graphics commands (servers/rendering_server.cpp)",
+        "Audio server API for sound processing (servers/audio_server.cpp)",
+        "Physics server API for simulation control (servers/physics_server_2d.cpp, servers/physics_server_3d.cpp)"
       ],
-      "api_endpoints": [],
-      "pricing": {
-        "model": "open-source",
-        "free_tier": "true"
-      },
-      "target_audience": "Developers",
-      "category": "Open Source Software",
-      "deployment": "Self-hosted",
-      "underlying_algorithm": {
-        "problem_type": "",
-        "pattern": ""
-      },
-      "evidence_tracking": {
-        "confidence_level": "High",
-        "technical_facts": [
-          "2D and 3D game rendering with various graphics APIs (core/config/engine.cpp, platform/*/display_server_*.cpp)",
-          "Cross-platform compilation and deployment to desktop, mobile, web and console platforms (platform/ directory structure)",
-          "Visual scripting system and GDScript language support (modules/gdscript/)",
-          "Physics simulation for both 2D and 3D environments (modules/physics_*/, servers/physics_*/)",
-          "Audio processing and playback with WASAPI, ALSA, and other audio backends (drivers/wasapi/, drivers/alsa/)",
-          "Resource management and asset pipeline (core/io/, editor/import/)",
-          "Scene tree management and node-based architecture (scene/ directory)",
-          "Extension system for native code integration (core/extension/gdextension.cpp)",
-          "Built-in editor with visual scene editing (editor/ directory)",
-          "Multi-language binding support including C#, Java, Kotlin (modules/mono/, platform/android/java/)"
-        ],
-        "information_gaps": []
-      },
-      "architecture_patterns": [
-        "monolithic engine with modular components",
-        "Concurrency: multi-threaded with dedicated render thread, physics thread, and worker thread pool (core/templates/thread_work_pool.h)"
-      ],
-      "auth_methods": [],
       "sdk_languages": [
         "C++",
         "C#",
         "GDScript",
-        "Java",
-        "Kotlin",
-        "JavaScript"
+        "VisualScript"
       ],
-      "dependencies": [
-        "Platform-specific system libraries",
-        "Graphics drivers",
-        "Audio system libraries",
-        "Infrastructure: No external databases or services required"
+      "auth_methods": [],
+      "integrations": [
+        "Vulkan for high-performance 3D rendering (drivers/vulkan/)",
+        "OpenGL ES for cross-platform graphics (drivers/gles3/)",
+        "Metal for Apple platform graphics (drivers/metal/)",
+        "Direct3D 12 for Windows graphics (drivers/d3d12/)",
+        "WASAPI for Windows audio (drivers/wasapi/)",
+        "ALSA for Linux audio (drivers/alsa/)",
+        "CoreAudio for macOS audio (drivers/coreaudio/)",
+        "PulseAudio for Linux audio (drivers/pulseaudio/)",
+        "SDL for cross-platform windowing (drivers/sdl/)",
+        "Mono runtime for C# scripting (modules/mono/)",
+        "FreeType for font rendering (modules/freetype/)",
+        "mbedTLS for cryptography (modules/mbedtls/)",
+        "OGG Vorbis for audio compression (modules/ogg/)",
+        "libPNG for image handling (modules/png/)",
+        "OpenXR for VR/AR support (modules/openxr/)"
       ],
-      "deployment_options": [
-        "CI/CD: GitHub Actions (inferred from project structure)"
-      ]
+      "architecture": {
+        "pattern": "modular engine with plugin-based extensions",
+        "components": [
+          "Core engine runtime",
+          "Rendering servers (2D/3D)",
+          "Physics servers",
+          "Audio server",
+          "Platform drivers",
+          "Scene system",
+          "Resource management",
+          "Scripting systems",
+          "Editor interface",
+          "Export system"
+        ],
+        "entry_points": [
+          "main/main.cpp",
+          "platform/*/main.cpp files for each platform"
+        ],
+        "data_flow": "Input events flow through platform layer to Input singleton, scene processing occurs in SceneTree with node updates, rendering commands are sent to RenderingServer which dispatches to appropriate graphics drivers, audio samples flow through AudioServer to platform audio drivers, and resource loading goes through ResourceLoader to format-specific importers",
+        "persistence": "Custom resource format (.tres/.scn text, .res/.scn binary) with ResourceLoader/ResourceSaver, project settings in project.godot file, no traditional database",
+        "concurrency_model": "multi-threaded with main thread for game logic, separate render thread, thread pool for resource loading, mutex and semaphore synchronization",
+        "communication_patterns": "Message passing through MessageQueue, signal/slot system for decoupled communication, server pattern for core systems (rendering, physics, audio)",
+        "plugin_extension_model": "GDExtension system for native C++ plugins, GDScript plugins for editor extensions, module system for compile-time extensions"
+      },
+      "data_model": {
+        "primary_entities": [
+          "Node (scene hierarchy base)",
+          "Resource (asset base)",
+          "Object (reference counted base)",
+          "Variant (universal value type)",
+          "Script (behavior attachment)",
+          "PackedScene (serialized scenes)"
+        ],
+        "storage_backends": [
+          "File system",
+          "Memory",
+          "Resource packs (.pck files)",
+          "Encrypted resources"
+        ],
+        "schema_patterns": "Object-oriented with single inheritance, composition through node hierarchy, resource reference system with automatic cleanup",
+        "migration_strategy": "Version-based compatibility system with automatic conversion for project upgrades"
+      },
+      "algorithms": {
+        "problem_type": "Real-time interactive 3D graphics rendering, physics simulation, and cross-platform game development",
+        "core_patterns": [
+          "Observer pattern for signals",
+          "Command pattern for undo/redo",
+          "Factory pattern for resource loading",
+          "Singleton pattern for core servers",
+          "Component pattern for node system",
+          "Strategy pattern for rendering backends"
+        ],
+        "complexity_indicators": "Large codebase (14K+ files), multi-platform support, real-time constraints, memory management complexity",
+        "key_algorithms": [
+          "Scene graph traversal and culling",
+          "Spatial partitioning with octrees/BVH",
+          "A* pathfinding",
+          "Physics collision detection",
+          "Audio mixing and spatialization",
+          "Resource dependency resolution"
+        ],
+        "evidence": "core/math/bvh.h for spatial partitioning, core/math/a_star.cpp for pathfinding, scene/main/scene_tree.cpp for scene processing"
+      },
+      "security_model": {
+        "authentication": "No built-in user authentication system",
+        "authorization": "File system permissions, sandboxed script execution for GDScript",
+        "data_protection": "AES encryption for resources and files (core/crypto/aes_context.cpp), mbedTLS for network security",
+        "security_headers": "Not applicable (game engine, not web server)",
+        "vulnerability_handling": "SECURITY.md file present for reporting vulnerabilities"
+      },
+      "dependencies": {
+        "runtime": [
+          "FreeType for font rendering",
+          "mbedTLS for cryptography",
+          "Vulkan SDK for graphics",
+          "Platform-specific APIs (DirectX, Metal, OpenGL)"
+        ],
+        "dev": [
+          "SCons build system",
+          "Python 3 for build scripts",
+          "Platform SDKs (Android, iOS, etc.)"
+        ],
+        "infrastructure": [
+          "No external databases or message queues required",
+          "Optional cloud services for multiplayer"
+        ]
+      },
+      "deployment": {
+        "containerized": false,
+        "container_orchestration": "none",
+        "ci_cd": "GitHub Actions workflows detected in repository",
+        "environment_config": "Project settings in project.godot file, engine settings in editor settings, export presets for deployment configuration",
+        "scaling_model": "Single-instance application, no horizontal scaling (game engine)"
+      },
+      "code_quality_signals": {
+        "has_tests": true,
+        "test_framework": "Custom test framework based on doctest",
+        "test_count_estimate": "1807 test files",
+        "has_linting": true,
+        "has_type_hints": true,
+        "documentation_quality": "well-documented",
+        "code_style": "Custom style with clang-format configuration"
+      },
+      "project_health": {
+        "license": "MIT",
+        "total_commits": "1",
+        "top_contributors": "1",
+        "recent_activity": "Active development with merge of iOS threading improvements",
+        "community_signals": "Has security policy, contributing guidelines, code of conduct, issue templates"
+      },
+      "evidence_tracking": {
+        "files_analyzed": [
+          "core/config/engine.cpp",
+          "core/io/resource_loader.cpp",
+          "drivers/wasapi/audio_driver_wasapi.cpp",
+          "platform/android/api/api.cpp",
+          "modules/gdscript/gdscript.cpp",
+          "SConstruct",
+          "README.md",
+          "CONTRIBUTING.md"
+        ],
+        "confidence_level": "High",
+        "information_gaps": [
+          "Network API endpoints details",
+          "Specific version numbers for some dependencies",
+          "Complete test framework configuration"
+        ]
+      },
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      }
     },
     "extracted_data": {},
     "source": "local_repo",
     "source_confidence": "high",
-    "timestamp": "2026-03-21T14:48:44.375331"
+    "timestamp": "2026-03-25T15:18:22.679680"
   },
   "step2": {
     "step1_data": {
       "product_name": "godot",
       "url": "https://github.com/godotengine/godot.git",
       "analysis": {
-        "summary": "Godot Engine is a cross-platform 2D and 3D game engine written primarily in C++ that provides a comprehensive game development framework with editor, runtime, and multi-platform export capabilities.",
+        "summary": "Godot Engine is a comprehensive, cross-platform 2D and 3D game engine implemented primarily in C++ that provides a unified editor interface and scripting system. It features a modular architecture with separate rendering backends (Vulkan, OpenGL, Metal, D3D12), audio drivers, and platform-specific implementations. The engine processes scene graphs, manages resources through a sophisticated I/O system, and provides extensive scripting capabilities through GDScript and extension interfaces.",
         "capabilities": [
-          "2D and 3D game rendering with various graphics APIs (core/config/engine.cpp, platform/*/display_server_*.cpp)",
-          "Cross-platform compilation and deployment to desktop, mobile, web and console platforms (platform/ directory structure)",
-          "Visual scripting system and GDScript language support (modules/gdscript/)",
-          "Physics simulation for both 2D and 3D environments (modules/physics_*/, servers/physics_*/)",
-          "Audio processing and playback with WASAPI, ALSA, and other audio backends (drivers/wasapi/, drivers/alsa/)",
-          "Resource management and asset pipeline (core/io/, editor/import/)",
-          "Scene tree management and node-based architecture (scene/ directory)",
-          "Extension system for native code integration (core/extension/gdextension.cpp)",
-          "Built-in editor with visual scene editing (editor/ directory)",
-          "Multi-language binding support including C#, Java, Kotlin (modules/mono/, platform/android/java/)"
+          "Renders 2D and 3D graphics using multiple backends including Vulkan, OpenGL ES 3.0, Metal, and Direct3D 12 (drivers/vulkan/, drivers/gles3/, drivers/metal/, drivers/d3d12/)",
+          "Processes cross-platform audio through WASAPI, ALSA, CoreAudio, PulseAudio, and SDL audio drivers (drivers/wasapi/audio_driver_wasapi.cpp, drivers/alsa/, drivers/coreaudio/)",
+          "Manages scene node hierarchies with transform propagation and rendering order optimization (scene/main/scene_tree.cpp, scene/3d/node_3d.cpp)",
+          "Implements real-time physics simulation for 2D and 3D objects using custom Godot Physics and Jolt Physics integration (modules/godot_physics_2d/, modules/godot_physics_3d/, modules/jolt_physics/)",
+          "Executes GDScript bytecode through a custom virtual machine with garbage collection and type inference (modules/gdscript/gdscript.cpp, modules/gdscript/gdscript_vm.cpp)",
+          "Provides C# scripting support through Mono integration with marshalling between native and managed code (modules/mono/)",
+          "Loads and saves resources in proprietary binary and text formats with dependency tracking (core/io/resource_loader.cpp, core/io/resource_saver.cpp)",
+          "Imports assets from various formats including FBX, glTF, images, audio files through modular importer system (modules/fbx/, modules/gltf/, editor/import/)",
+          "Manages project settings and engine configuration through centralized configuration system (core/config/project_settings.cpp, core/config/engine.cpp)",
+          "Handles input events across platforms with remapping and action binding support (core/input/input.cpp, core/input/input_map.cpp)",
+          "Implements networking with TCP/UDP sockets, WebSocket, and multiplayer replication (core/io/tcp_server.cpp, core/io/udp_server.cpp, modules/multiplayer/)",
+          "Provides extensible plugin architecture for editor and runtime extensions (core/extension/gdextension.cpp, editor/plugins/)",
+          "Performs image processing with support for multiple formats including PNG, JPEG, WebP, HDR (modules/png/, modules/jpg/, core/io/image.cpp)",
+          "Executes animation systems with keyframe interpolation, blend trees, and state machines (scene/animation/animation_player.cpp, scene/animation/animation_tree.cpp)",
+          "Manages memory allocation with custom pools and reference counting for automatic cleanup (core/os/memory.cpp, core/object/ref_counted.cpp)",
+          "Implements audio processing with real-time effects, 3D spatialization, and bus routing (servers/audio/audio_server.cpp, scene/audio/)",
+          "Provides debugging capabilities with remote debugging, profiling, and script breakpoints (core/debugger/engine_debugger.cpp, core/debugger/remote_debugger.cpp)",
+          "Handles file system operations with virtual file system support and encryption (core/io/file_access.cpp, core/io/file_access_encrypted.cpp)",
+          "Implements shader compilation and management for GLSL, HLSL, and MSL targets (drivers/gles3/shader_gles3.cpp, servers/rendering/shader_language.cpp)",
+          "Manages navigation meshes for 2D and 3D pathfinding with A* algorithm implementation (modules/navigation_2d/, modules/navigation_3d/, core/math/a_star.cpp)",
+          "Provides cryptographic functions including AES encryption, hashing, and certificate validation (core/crypto/crypto.cpp, core/crypto/aes_context.cpp)",
+          "Implements lightmap baking with GPU-accelerated global illumination computation (modules/lightmapper_rd/)",
+          "Handles version control integration with Git support for project management (editor/version_control/)",
+          "Processes UI rendering with immediate mode GUI and theme system (scene/gui/, scene/theme/)",
+          "Manages export templates and deployment to multiple platforms including mobile and web (editor/export/)"
         ],
-        "use_cases": [],
+        "use_cases": [
+          "Game developers use this to create 2D and 3D games with visual scripting and code-based logic",
+          "Indie developers use this as a free alternative to commercial engines like Unity or Unreal Engine",
+          "Educational institutions use this to teach game development and programming concepts",
+          "Mobile developers use this to create cross-platform games for Android and iOS",
+          "Web developers use this to create browser-based games through WebAssembly export"
+        ],
+        "category": "Game Engine",
+        "target_audience": "Game developers, indie developers, students, educators, mobile developers",
         "technical_stack": [
-          "C++ (primary language, 2377+ .cpp files)",
-          "Python (build system and tools, SConstruct, 126+ .py files)",
-          "SCons (build system, SConstruct file)",
-          "OpenGL/Vulkan (graphics rendering, drivers/vulkan/)",
-          "C# (Mono integration, modules/mono/, 301+ .cs files)",
-          "Java/Kotlin (Android platform, platform/android/java/, 190+ .java files, 50+ .kt files)",
-          "JavaScript (web platform, platform/web/, 26+ .js files)",
-          "CMake (Android native builds, platform/android/java/nativeSrcsConfigs/CMakeLists.txt)",
-          "Gradle (Android builds, multiple build.gradle files)",
-          "ESLint/JSDoc (web platform tooling, platform/web/package.json)"
+          "C++ (primary implementation language with 2379 .cpp files)",
+          "C (921 files for low-level platform code)",
+          "C# (301 files for Mono scripting integration)",
+          "Python 3 (126 files for build scripts and tools)",
+          "SCons (build system - SConstruct file)",
+          "Java (190 files for Android platform)",
+          "Kotlin (50 files for Android platform)",
+          "Vulkan SDK (drivers/vulkan/)",
+          "OpenGL ES 3.0 (drivers/gles3/)",
+          "Metal (drivers/metal/)",
+          "Direct3D 12 (drivers/d3d12/)"
         ],
-        "integrations": [
-          "Android SDK (platform/android/)",
-          "iOS SDK (platform/ios/)",
-          "Windows APIs including WASAPI (drivers/wasapi/)",
-          "Linux ALSA audio (drivers/alsa/)",
-          "Vulkan graphics API (drivers/vulkan/)",
-          "OpenGL graphics (drivers/gl_context/)",
-          "Steam SDK integration support (modules/)",
-          "XR/VR platforms (modules/xr/)"
+        "api_endpoints": [
+          "GDExtension native interface for C/C++ plugins (core/extension/gdextension_interface.cpp)",
+          "ClassDB method binding system for registering C++ classes (core/object/class_db.cpp)",
+          "Script API for GDScript virtual machine calls (modules/gdscript/gdscript.cpp)",
+          "Android JNI interface for Java integration (platform/android/api/api.cpp)",
+          "Resource loading API for asset management (core/io/resource_loader.cpp)",
+          "Input handling API for device events (core/input/input.cpp)",
+          "Rendering server API for graphics commands (servers/rendering_server.cpp)",
+          "Audio server API for sound processing (servers/audio_server.cpp)",
+          "Physics server API for simulation control (servers/physics_server_2d.cpp, servers/physics_server_3d.cpp)"
         ],
-        "api_endpoints": [],
-        "pricing": {
-          "model": "open-source",
-          "free_tier": "true"
-        },
-        "target_audience": "Developers",
-        "category": "Open Source Software",
-        "deployment": "Self-hosted",
-        "underlying_algorithm": {
-          "problem_type": "",
-          "pattern": ""
-        },
-        "evidence_tracking": {
-          "confidence_level": "High",
-          "technical_facts": [
-            "2D and 3D game rendering with various graphics APIs (core/config/engine.cpp, platform/*/display_server_*.cpp)",
-            "Cross-platform compilation and deployment to desktop, mobile, web and console platforms (platform/ directory structure)",
-            "Visual scripting system and GDScript language support (modules/gdscript/)",
-            "Physics simulation for both 2D and 3D environments (modules/physics_*/, servers/physics_*/)",
-            "Audio processing and playback with WASAPI, ALSA, and other audio backends (drivers/wasapi/, drivers/alsa/)",
-            "Resource management and asset pipeline (core/io/, editor/import/)",
-            "Scene tree management and node-based architecture (scene/ directory)",
-            "Extension system for native code integration (core/extension/gdextension.cpp)",
-            "Built-in editor with visual scene editing (editor/ directory)",
-            "Multi-language binding support including C#, Java, Kotlin (modules/mono/, platform/android/java/)"
-          ],
-          "information_gaps": []
-        },
-        "architecture_patterns": [
-          "monolithic engine with modular components",
-          "Concurrency: multi-threaded with dedicated render thread, physics thread, and worker thread pool (core/templates/thread_work_pool.h)"
-        ],
-        "auth_methods": [],
         "sdk_languages": [
           "C++",
           "C#",
           "GDScript",
-          "Java",
-          "Kotlin",
-          "JavaScript"
+          "VisualScript"
         ],
-        "dependencies": [
-          "Platform-specific system libraries",
-          "Graphics drivers",
-          "Audio system libraries",
-          "Infrastructure: No external databases or services required"
+        "auth_methods": [],
+        "integrations": [
+          "Vulkan for high-performance 3D rendering (drivers/vulkan/)",
+          "OpenGL ES for cross-platform graphics (drivers/gles3/)",
+          "Metal for Apple platform graphics (drivers/metal/)",
+          "Direct3D 12 for Windows graphics (drivers/d3d12/)",
+          "WASAPI for Windows audio (drivers/wasapi/)",
+          "ALSA for Linux audio (drivers/alsa/)",
+          "CoreAudio for macOS audio (drivers/coreaudio/)",
+          "PulseAudio for Linux audio (drivers/pulseaudio/)",
+          "SDL for cross-platform windowing (drivers/sdl/)",
+          "Mono runtime for C# scripting (modules/mono/)",
+          "FreeType for font rendering (modules/freetype/)",
+          "mbedTLS for cryptography (modules/mbedtls/)",
+          "OGG Vorbis for audio compression (modules/ogg/)",
+          "libPNG for image handling (modules/png/)",
+          "OpenXR for VR/AR support (modules/openxr/)"
         ],
-        "deployment_options": [
-          "CI/CD: GitHub Actions (inferred from project structure)"
-        ]
+        "architecture": {
+          "pattern": "modular engine with plugin-based extensions",
+          "components": [
+            "Core engine runtime",
+            "Rendering servers (2D/3D)",
+            "Physics servers",
+            "Audio server",
+            "Platform drivers",
+            "Scene system",
+            "Resource management",
+            "Scripting systems",
+            "Editor interface",
+            "Export system"
+          ],
+          "entry_points": [
+            "main/main.cpp",
+            "platform/*/main.cpp files for each platform"
+          ],
+          "data_flow": "Input events flow through platform layer to Input singleton, scene processing occurs in SceneTree with node updates, rendering commands are sent to RenderingServer which dispatches to appropriate graphics drivers, audio samples flow through AudioServer to platform audio drivers, and resource loading goes through ResourceLoader to format-specific importers",
+          "persistence": "Custom resource format (.tres/.scn text, .res/.scn binary) with ResourceLoader/ResourceSaver, project settings in project.godot file, no traditional database",
+          "concurrency_model": "multi-threaded with main thread for game logic, separate render thread, thread pool for resource loading, mutex and semaphore synchronization",
+          "communication_patterns": "Message passing through MessageQueue, signal/slot system for decoupled communication, server pattern for core systems (rendering, physics, audio)",
+          "plugin_extension_model": "GDExtension system for native C++ plugins, GDScript plugins for editor extensions, module system for compile-time extensions"
+        },
+        "data_model": {
+          "primary_entities": [
+            "Node (scene hierarchy base)",
+            "Resource (asset base)",
+            "Object (reference counted base)",
+            "Variant (universal value type)",
+            "Script (behavior attachment)",
+            "PackedScene (serialized scenes)"
+          ],
+          "storage_backends": [
+            "File system",
+            "Memory",
+            "Resource packs (.pck files)",
+            "Encrypted resources"
+          ],
+          "schema_patterns": "Object-oriented with single inheritance, composition through node hierarchy, resource reference system with automatic cleanup",
+          "migration_strategy": "Version-based compatibility system with automatic conversion for project upgrades"
+        },
+        "algorithms": {
+          "problem_type": "Real-time interactive 3D graphics rendering, physics simulation, and cross-platform game development",
+          "core_patterns": [
+            "Observer pattern for signals",
+            "Command pattern for undo/redo",
+            "Factory pattern for resource loading",
+            "Singleton pattern for core servers",
+            "Component pattern for node system",
+            "Strategy pattern for rendering backends"
+          ],
+          "complexity_indicators": "Large codebase (14K+ files), multi-platform support, real-time constraints, memory management complexity",
+          "key_algorithms": [
+            "Scene graph traversal and culling",
+            "Spatial partitioning with octrees/BVH",
+            "A* pathfinding",
+            "Physics collision detection",
+            "Audio mixing and spatialization",
+            "Resource dependency resolution"
+          ],
+          "evidence": "core/math/bvh.h for spatial partitioning, core/math/a_star.cpp for pathfinding, scene/main/scene_tree.cpp for scene processing"
+        },
+        "security_model": {
+          "authentication": "No built-in user authentication system",
+          "authorization": "File system permissions, sandboxed script execution for GDScript",
+          "data_protection": "AES encryption for resources and files (core/crypto/aes_context.cpp), mbedTLS for network security",
+          "security_headers": "Not applicable (game engine, not web server)",
+          "vulnerability_handling": "SECURITY.md file present for reporting vulnerabilities"
+        },
+        "dependencies": {
+          "runtime": [
+            "FreeType for font rendering",
+            "mbedTLS for cryptography",
+            "Vulkan SDK for graphics",
+            "Platform-specific APIs (DirectX, Metal, OpenGL)"
+          ],
+          "dev": [
+            "SCons build system",
+            "Python 3 for build scripts",
+            "Platform SDKs (Android, iOS, etc.)"
+          ],
+          "infrastructure": [
+            "No external databases or message queues required",
+            "Optional cloud services for multiplayer"
+          ]
+        },
+        "deployment": {
+          "containerized": false,
+          "container_orchestration": "none",
+          "ci_cd": "GitHub Actions workflows detected in repository",
+          "environment_config": "Project settings in project.godot file, engine settings in editor settings, export presets for deployment configuration",
+          "scaling_model": "Single-instance application, no horizontal scaling (game engine)"
+        },
+        "code_quality_signals": {
+          "has_tests": true,
+          "test_framework": "Custom test framework based on doctest",
+          "test_count_estimate": "1807 test files",
+          "has_linting": true,
+          "has_type_hints": true,
+          "documentation_quality": "well-documented",
+          "code_style": "Custom style with clang-format configuration"
+        },
+        "project_health": {
+          "license": "MIT",
+          "total_commits": "1",
+          "top_contributors": "1",
+          "recent_activity": "Active development with merge of iOS threading improvements",
+          "community_signals": "Has security policy, contributing guidelines, code of conduct, issue templates"
+        },
+        "evidence_tracking": {
+          "files_analyzed": [
+            "core/config/engine.cpp",
+            "core/io/resource_loader.cpp",
+            "drivers/wasapi/audio_driver_wasapi.cpp",
+            "platform/android/api/api.cpp",
+            "modules/gdscript/gdscript.cpp",
+            "SConstruct",
+            "README.md",
+            "CONTRIBUTING.md"
+          ],
+          "confidence_level": "High",
+          "information_gaps": [
+            "Network API endpoints details",
+            "Specific version numbers for some dependencies",
+            "Complete test framework configuration"
+          ]
+        },
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        }
       },
       "extracted_data": {},
       "source": "local_repo",
       "source_confidence": "high",
-      "timestamp": "2026-03-21T14:48:44.375331"
+      "timestamp": "2026-03-25T15:18:22.679680"
     },
     "generalization": {
       "functional_dna": {
-        "logic_archetype": "Stateful Orchestrator",
-        "logic_archetype_evidence": "Scene tree management and node-based architecture (scene/ directory) - manages complex hierarchical state and coordinates multiple subsystems including rendering, physics, audio, and input",
-        "data_contract_strictness": "Highly Structured",
-        "data_contract_evidence": "Resource management and asset pipeline (core/io/, editor/import/) - requires specific file formats and structured scene definitions",
+        "logic_archetype": "Simulation Engine",
+        "logic_archetype_evidence": "The system performs real-time physics simulation, manages scene node hierarchies with transform propagation, and executes animation systems with keyframe interpolation. Core evidence includes physics servers (servers/physics_server_2d.cpp, servers/physics_server_3d.cpp) and scene tree processing (scene/main/scene_tree.cpp).",
+        "data_contract_strictness": "Moderately Structured",
+        "data_contract_evidence": "Evidence: Custom resource format with dependency tracking (.tres/.scn), strongly-typed node hierarchy system, but flexible Variant type system for universal value handling (core/object/variant.cpp)",
         "core_algorithmic_class": "Graph Algorithms",
-        "core_algorithmic_evidence": "Scene tree management and node-based architecture (scene/ directory) - implements hierarchical graph traversal and manipulation for scene graphs",
-        "concurrency_requirements": "No Consistency Requirements",
-        "concurrency_evidence": "Concurrency: multi-threaded with dedicated render thread, physics thread, and worker thread pool (core/templates/thread_work_pool.h) - designed for real-time performance over consistency",
-        "repurposing_confidence": 7,
-        "repurposing_reasoning": "High modularity with platform/ directory structure and extension system suggests good separation of concerns, but game engine architecture is highly specialized for real-time rendering and simulation"
+        "core_algorithmic_evidence": "Evidence from scene graph traversal and culling algorithms, spatial partitioning with octrees/BVH (core/math/bvh.h), A* pathfinding implementation (core/math/a_star.cpp), and hierarchical transform propagation through node trees",
+        "concurrency_requirements": "Lock-Free/Wait-Free",
+        "concurrency_evidence": "Evidence from multi-threaded architecture with main thread for logic, separate render thread, thread pool for resource loading, and message passing through MessageQueue for decoupled communication",
+        "abstract_problem": "Manages hierarchical entity graphs with real-time transform propagation, physics simulation, and multi-backend rendering while supporting dynamic script attachment and cross-platform resource serialization.",
+        "data_flow_pattern": "Scene graph traversal \u2192 physics simulation \u2192 rendering command dispatch \u2192 platform-specific driver execution, with bidirectional input event flow and resource dependency resolution",
+        "state_complexity": "Global mutable",
+        "repurposing_confidence": 8,
+        "repurposing_reasoning": "The core scene graph system, resource management, and multi-backend abstraction patterns are highly generic. The physics simulation, rendering servers, and plugin architecture could be repurposed for any hierarchical entity management system. However, game-specific optimizations like spatial culling and real-time constraints may need adjustment. The modular driver system provides excellent abstraction for different backends."
       },
       "evidence_claims": [
         {
-          "claim": "Multi-platform deployment capability",
-          "evidence": "Cross-platform compilation and deployment to desktop, mobile, web and console platforms (platform/ directory structure)",
+          "claim": "Multi-backend rendering abstraction with driver pattern",
+          "evidence": "drivers/vulkan/, drivers/gles3/, drivers/metal/, drivers/d3d12/ directories",
           "confidence": "High"
         },
         {
-          "claim": "Extensible architecture",
-          "evidence": "Extension system for native code integration (core/extension/gdextension.cpp)",
+          "claim": "Real-time physics simulation with custom engines",
+          "evidence": "modules/godot_physics_2d/, modules/godot_physics_3d/, modules/jolt_physics/",
           "confidence": "High"
         },
         {
-          "claim": "Multi-threaded processing",
-          "evidence": "Concurrency: multi-threaded with dedicated render thread, physics thread, and worker thread pool (core/templates/thread_work_pool.h)",
+          "claim": "Hierarchical scene node system with transform propagation",
+          "evidence": "scene/main/scene_tree.cpp, scene/3d/node_3d.cpp",
           "confidence": "High"
         },
         {
-          "claim": "Multi-language support",
-          "evidence": "Multi-language binding support including C#, Java, Kotlin (modules/mono/, platform/android/java/)",
+          "claim": "Plugin-based extension architecture",
+          "evidence": "core/extension/gdextension.cpp, editor/plugins/",
+          "confidence": "High"
+        },
+        {
+          "claim": "Cross-platform resource serialization system",
+          "evidence": "core/io/resource_loader.cpp, core/io/resource_saver.cpp",
           "confidence": "High"
         }
       ],
       "market_reach": {
-        "primary_industry": "Gaming",
+        "primary_industry": "Game Development",
         "cross_industry_applications": [
-          "Education",
-          "Training/Simulation",
-          "Data Visualization",
-          "Architecture/Design",
-          "Entertainment",
-          "Marketing"
+          "CAD/Engineering Software - hierarchical part assemblies with real-time visualization",
+          "Scientific Simulation - molecular dynamics with 3D visualization and data export",
+          "Architectural Visualization - building information modeling with interactive walkthroughs",
+          "Training Simulators - medical/military training with physics and scripting",
+          "Digital Twin Systems - industrial equipment monitoring with 3D representation",
+          "Animation/VFX Software - scene management with timeline and rendering pipeline",
+          "Robotics Simulation - path planning with physics and sensor simulation",
+          "Interactive Presentations - corporate/educational content with 3D interaction"
         ],
-        "utility_score": 8,
+        "utility_score": 9,
         "market_potential": "High"
       },
       "friction_report": {
-        "difficulty": "High",
-        "estimated_hours": 200,
+        "difficulty": "Medium",
+        "estimated_hours": 240,
         "required_technologies": [
           "C++",
-          "Platform-specific system libraries",
-          "Graphics drivers",
-          "Audio system libraries"
+          "CMake/SCons",
+          "OpenGL/Vulkan",
+          "Platform-specific SDKs"
         ],
         "complexity_factors": [
-          "Real-time rendering pipeline",
-          "Multi-platform deployment",
-          "Physics simulation",
-          "Complex build system with SCons"
+          "Large codebase with 14K+ files requiring significant learning curve",
+          "Multi-platform compilation and dependency management",
+          "Real-time performance constraints and memory management",
+          "Complex rendering pipeline integration"
         ],
-        "risk_level": "High"
+        "risk_level": "Medium",
+        "migration_path": "Extract core scene graph and resource systems, replace game-specific components with domain logic, adapt rendering backend for specific visualization needs"
       },
       "interface_map": {
         "adapter_schema": {
           "input": {
-            "format": "Native API calls",
+            "format": "C++ API calls",
             "required_fields": [
-              "scene_data",
-              "asset_references",
-              "configuration"
+              "node_hierarchy",
+              "resource_paths",
+              "script_bindings"
+            ],
+            "protocols": [
+              "Native API",
+              "GDExtension",
+              "Script bindings"
             ]
           },
           "output": {
-            "format": "Platform-specific executables"
+            "format": "Graphics rendering + resource exports",
+            "delivery": "sync rendering / async resource loading"
           },
           "authentication": {
-            "type": "None",
-            "method": "Open source"
+            "type": "none",
+            "method": "file system permissions only"
           }
         },
-        "standardization_level": "Low"
+        "standardization_level": "Medium",
+        "api_surface_area": "Large (50+)"
       },
+      "comparable_systems": [
+        "Blender's scene graph and addon system - hierarchical 3D object management with Python scripting",
+        "Qt's QObject tree and plugin architecture - hierarchical UI components with signal/slot communication",
+        "Unity3D's GameObject system - entity hierarchy with component attachment and multi-platform deployment",
+        "Three.js scene graph - hierarchical 3D objects with multiple renderer backends",
+        "Unreal Engine's Actor system - hierarchical game entities with Blueprint scripting and rendering abstraction"
+      ],
       "information_gaps": [
-        "Network architecture for multiplayer games",
-        "Memory management patterns",
-        "Specific rendering pipeline details",
-        "Performance benchmarks and resource requirements",
-        "Plugin/extension API specifications"
+        "Specific performance benchmarks and memory usage patterns",
+        "Detailed plugin API specifications beyond GDExtension",
+        "Network multiplayer architecture implementation details",
+        "Build system complexity and compilation time estimates"
       ]
     },
-    "timestamp": "2026-03-21T14:48:57.348360"
+    "timestamp": "2026-03-25T15:18:50.355946"
   },
   "errors": []
 }

@@ -1,265 +1,538 @@
 {
   "url": "https://github.com/axem-solutions/dem.git",
   "repo_name": "dem",
-  "timestamp": "2026-03-21T14:27:08.373698",
+  "timestamp": "2026-03-25T15:12:23.498377",
   "step1": {
     "product_name": "dem",
     "url": "https://github.com/axem-solutions/dem.git",
     "analysis": {
-      "summary": "DEM (Development Environment Manager) is a CLI tool that creates and manages containerized development environments for embedded software development, where each tool runs in its own isolated container while allowing users to work on their host system.",
+      "summary": "DEM (Development Environment Manager) is a command-line tool that creates and manages containerized development environments for embedded software development. It implements a multi-container architecture where each development tool (build system, debugger, toolchain, etc.) runs in its own isolated container while allowing developers to work on their host system. The system provides a platform abstraction layer that manages tool images, registries, catalogs, and hosts through both CLI and REST API interfaces.",
       "capabilities": [
-        "Creates and manages containerized development environments with isolated tools (dem/core/dev_env.py)",
-        "Installs development environments from remote catalogs (dem/core/commands/install_cmd.py)",
-        "Manages development environment configurations and tool assignments (dem/core/commands/assign_cmd.py, dem/core/commands/modify_cmd.py)",
-        "Executes tasks within containerized development environments (dem/core/commands/run_cmd.py)",
-        "Manages container registries and hosts for tool distribution (dem/core/registry.py, dem/core/hosts.py)",
-        "Exports and imports development environment configurations (dem/core/commands/export_cmd.py, dem/core/commands/import_cmd.py)",
-        "Provides TUI interface for development environment management (dem/cli/tui/)",
-        "Serves REST API for programmatic access to development environment operations (dem/api/main.py)"
+        "Creates isolated containerized development environments with separate containers for each tool (dem/core/dev_env.py)",
+        "Manages Docker container operations including pulling images, running containers, and removing images (dem/core/container_engine.py)",
+        "Provides command-line interface with 20+ commands for environment management (dem/cli/main.py)",
+        "Implements FastAPI-based REST API server for remote environment management (dem/api/main.py)",
+        "Manages development environment catalogs for sharing and discovering preconfigured environments (dem/core/dev_env_catalog.py)",
+        "Handles multiple container registries for storing and distributing tool images (dem/core/registry.py)",
+        "Supports remote host management for distributed development environments (dem/core/hosts.py)",
+        "Implements task execution system for running commands within containerized tools (dem/core/task.py)",
+        "Provides development environment cloning from shared catalogs (dem/core/commands/clone_cmd.py)",
+        "Manages environment installation and uninstallation with dependency tracking (dem/core/commands/install_cmd.py, dem/core/commands/uninstall_cmd.py)",
+        "Implements environment modification system for adding/removing tools and changing configurations (dem/core/commands/modify_cmd.py)",
+        "Provides environment import/export functionality for sharing configurations (dem/core/commands/import_cmd.py, dem/core/commands/export_cmd.py)",
+        "Implements project initialization with automatic environment detection and assignment (dem/core/commands/init_cmd.py, dem/core/commands/assign_cmd.py)",
+        "Manages tool image repositories with version control and metadata (dem/core/tool_images.py)",
+        "Provides comprehensive listing commands for environments, catalogs, registries, and tools (dem/core/commands/list_cmd.py series)",
+        "Implements data persistence with JSON-based configuration and environment descriptors (dem/core/data_management.py)",
+        "Supports cross-platform operation with platform-specific adaptations (dem/core/platform.py)",
+        "Provides rich terminal UI with progress indicators and formatted output using Rich library (dem/cli/tui/tui_user_output.py)",
+        "Implements environment copying and renaming operations (dem/core/commands/cp_cmd.py, dem/core/commands/rename_cmd.py)",
+        "Manages default environment settings and host configurations (dem/core/commands/set_default_cmd.py)",
+        "Provides comprehensive error handling with custom exception types (dem/core/exceptions.py)",
+        "Implements autocomplete functionality for CLI commands and parameters (dem/cli/main.py autocomplete functions)",
+        "Supports task management within environments including adding and removing tasks (dem/core/commands/add_task_cmd.py, dem/core/commands/del_task_cmd.py)",
+        "Provides registry and catalog management operations for adding, listing, and deleting resources (dem/core/commands/add_reg_cmd.py series)"
       ],
-      "use_cases": [],
+      "use_cases": [
+        "Embedded software developers use this to create reproducible development environments with specific toolchains, debuggers, and build systems",
+        "Development teams use this to ensure all team members work with identical tool versions and configurations",
+        "DevOps engineers use this to standardize development environments across different projects and deployment stages",
+        "System administrators use this to manage and distribute development tool configurations across multiple hosts",
+        "Software architects use this to define and maintain development environment templates in organizational catalogs"
+      ],
+      "category": "Development Environment Management Tool",
+      "target_audience": "Embedded software developers, DevOps engineers, Development team leads, System administrators",
       "technical_stack": [
-        "Python 3.x (pyproject.toml)",
-        "FastAPI (dem/api/main.py imports)",
-        "Typer CLI framework (dem/cli/main.py)",
-        "Docker container engine (docker.errors imports in __main__.py)",
-        "Rich console library (dem/cli/console.py)",
-        "Textual TUI framework (dem/cli/tui/ directory structure)",
-        "Pydantic data validation (dem/api/main.py)",
-        "Poetry packaging (pyproject.toml)"
-      ],
-      "integrations": [
-        "Docker container runtime for tool isolation (docker.errors handling in dem/__main__.py)",
-        "Container registries for tool image distribution (dem/core/registry.py)",
-        "Remote catalogs for development environment templates (dem/core/dev_env_catalog.py)"
+        "Python 3.10+ (pyproject.toml)",
+        "Docker Engine 24.0+ (pyproject.toml dependencies, dem/core/container_engine.py)",
+        "FastAPI 0.115.6 (pyproject.toml)",
+        "Uvicorn 0.34.0 (pyproject.toml)",
+        "Typer 0.12.2 for CLI framework (pyproject.toml)",
+        "Rich 13.7.1 for terminal formatting (pyproject.toml)",
+        "Textual 1.0.0 for TUI components (pyproject.toml)",
+        "Docker SDK 7.0.0 for container management (pyproject.toml)",
+        "Requests 2.31.0 for HTTP client operations (pyproject.toml)",
+        "Pytest 8.1.1 for testing (pyproject.toml)",
+        "MkDocs Material for documentation (pyproject.toml)"
       ],
       "api_endpoints": [
-        {
-          "method": "POST",
-          "path": "/run",
-          "summary": "Execute a task in a development environment (dem/api/main.py:43)"
-        }
+        "POST /run \u2014 Execute a task in a development environment with extra arguments (dem/api/main.py:25)"
       ],
+      "sdk_languages": [],
+      "auth_methods": [],
+      "integrations": [
+        "Docker Engine via Docker SDK for container management (dem/core/container_engine.py imports docker)",
+        "Container registries (Docker Hub, private registries) for tool image distribution (dem/core/registry.py)",
+        "Local file system for configuration and environment descriptor storage (dem/core/data_management.py)",
+        "Remote hosts via HTTP for distributed environment management (dem/core/hosts.py)"
+      ],
+      "architecture": {
+        "pattern": "CLI tool with optional API server",
+        "components": [
+          "Core platform abstraction layer (dem/core/core.py, dem/core/platform.py)",
+          "Command-line interface with Typer framework (dem/cli/main.py)",
+          "FastAPI-based REST API server (dem/api/main.py, dem/core/api_server.py)",
+          "Container engine interface for Docker operations (dem/core/container_engine.py)",
+          "Development environment management (dem/core/dev_env.py)",
+          "Catalog and registry management (dem/core/dev_env_catalog.py, dem/core/registry.py)",
+          "Host management for distributed environments (dem/core/hosts.py)",
+          "Task execution system (dem/core/task.py)",
+          "Data persistence layer (dem/core/data_management.py)",
+          "User interface components (dem/cli/tui/ directory)"
+        ],
+        "entry_points": [
+          "dem/__main__.py as main entry point",
+          "dem/cli/main.py for CLI commands",
+          "dem/api/main.py for API server"
+        ],
+        "data_flow": "User commands flow through CLI \u2192 Core platform \u2192 specific command modules \u2192 container engine/registries/file system. API requests follow API server \u2192 command execution \u2192 container operations. Configuration and environment data persisted as JSON files, tool images managed through Docker registries.",
+        "persistence": "JSON-based configuration files and environment descriptors stored locally, managed through data_management.py with backup/restore capabilities",
+        "concurrency_model": "Async support through FastAPI server running in separate thread, synchronous CLI operations with Docker SDK handling container operations",
+        "communication_patterns": "HTTP REST API for remote access, Docker API for container operations, file system for local persistence, HTTP for registry/catalog communication",
+        "plugin_extension_model": "Command-based architecture allows easy addition of new commands, platform abstraction supports different container engines and storage backends"
+      },
+      "data_model": {
+        "primary_entities": [
+          "Development Environment with tools, tasks, and installation status",
+          "Tool Image with name, version, and type (build system, debugger, toolchain, etc.)",
+          "Registry configuration with URL and authentication",
+          "Catalog with collection of environment templates",
+          "Host configuration for remote environment management",
+          "Task definitions for executable commands within environments"
+        ],
+        "storage_backends": [
+          "Local JSON files for configuration and environment descriptors",
+          "Docker registries for tool images",
+          "Remote catalogs via HTTP"
+        ],
+        "schema_patterns": "Document-based JSON storage with versioned schemas, hierarchical organization of environments, tools, and configurations",
+        "migration_strategy": "Version-controlled JSON schemas with backup and restore functionality in data_management.py"
+      },
+      "algorithms": {
+        "problem_type": "Multi-container development environment orchestration and management",
+        "core_patterns": [
+          "Command pattern for CLI operations",
+          "Factory pattern for platform abstraction",
+          "Strategy pattern for different container engines",
+          "Observer pattern for user output interface"
+        ],
+        "complexity_indicators": "Moderate complexity with 20+ command types, multi-level configuration management, distributed environment support",
+        "key_algorithms": [
+          "Container lifecycle management with Docker SDK",
+          "Environment dependency resolution for installation",
+          "Configuration merging and validation",
+          "Progress tracking for long-running operations"
+        ],
+        "evidence": "dem/core/container_engine.py for Docker operations, dem/core/commands/ directory for command implementations, dem/core/platform.py for system orchestration"
+      },
+      "security_model": {
+        "authentication": "No built-in authentication system observed",
+        "authorization": "No authorization mechanisms implemented",
+        "data_protection": "No encryption mechanisms observed, relies on Docker registry security",
+        "security_headers": "No security headers configuration found",
+        "vulnerability_handling": "No security policy or vulnerability handling mechanisms observed"
+      },
+      "dependencies": {
+        "runtime": [
+          "docker==7.0.0",
+          "fastapi==0.115.6",
+          "uvicorn==0.34.0",
+          "typer==0.12.2",
+          "rich==13.7.1",
+          "textual==1.0.0",
+          "requests==2.31.0",
+          "readchar==4.0.6",
+          "truststore==0.10.0"
+        ],
+        "dev": [
+          "pytest==8.1.1",
+          "mock==5.1.0",
+          "pytest-cov==5.0.0",
+          "mkdocs-material==9.5.17",
+          "mike==2.0.0",
+          "jinja2==3.1.3"
+        ],
+        "infrastructure": [
+          "Docker Engine 24.0+",
+          "Container registries for tool image storage"
+        ]
+      },
+      "deployment": {
+        "containerized": false,
+        "container_orchestration": "none",
+        "ci_cd": "none observed",
+        "environment_config": "JSON configuration files for platform settings, environment variables for Docker configuration",
+        "scaling_model": "Single-user desktop application with optional API server for remote access"
+      },
+      "code_quality_signals": {
+        "has_tests": true,
+        "test_framework": "pytest",
+        "test_count_estimate": "45 test files covering CLI commands and core functionality",
+        "has_linting": false,
+        "has_type_hints": true,
+        "documentation_quality": "well-documented with comprehensive markdown documentation and docstrings",
+        "code_style": "No automated code formatting tools detected"
+      },
+      "project_health": {
+        "license": "GPL-2.0",
+        "total_commits": "1",
+        "top_contributors": "1 contributor (janosmurai)",
+        "recent_activity": "Recent commit shows development of hybrid environments with remote host task execution capabilities",
+        "community_signals": "Professional documentation structure with MkDocs, comprehensive README with installation and usage instructions"
+      },
+      "evidence_tracking": {
+        "files_analyzed": [
+          "dem/__main__.py",
+          "dem/api/main.py",
+          "dem/cli/main.py",
+          "dem/core/platform.py",
+          "dem/core/container_engine.py",
+          "dem/core/api_server.py",
+          "pyproject.toml",
+          "docs/design.md",
+          "tests/ directory structure",
+          "README.md"
+        ],
+        "confidence_level": "High",
+        "information_gaps": [
+          "Limited git history with only 1 commit makes project maturity assessment difficult",
+          "No CI/CD configuration files found",
+          "Security mechanisms and authentication not implemented",
+          "No container orchestration deployment configurations found"
+        ]
+      },
       "pricing": {
         "model": "open-source",
         "free_tier": "true"
-      },
-      "target_audience": "Developers",
-      "category": "Open Source Software",
-      "deployment": "Self-hosted",
-      "underlying_algorithm": {
-        "problem_type": "",
-        "pattern": ""
-      },
-      "evidence_tracking": {
-        "confidence_level": "High",
-        "technical_facts": [
-          "Creates and manages containerized development environments with isolated tools (dem/core/dev_env.py)",
-          "Installs development environments from remote catalogs (dem/core/commands/install_cmd.py)",
-          "Manages development environment configurations and tool assignments (dem/core/commands/assign_cmd.py, dem/core/commands/modify_cmd.py)",
-          "Executes tasks within containerized development environments (dem/core/commands/run_cmd.py)",
-          "Manages container registries and hosts for tool distribution (dem/core/registry.py, dem/core/hosts.py)",
-          "Exports and imports development environment configurations (dem/core/commands/export_cmd.py, dem/core/commands/import_cmd.py)",
-          "Provides TUI interface for development environment management (dem/cli/tui/)",
-          "Serves REST API for programmatic access to development environment operations (dem/api/main.py)"
-        ],
-        "information_gaps": []
-      },
-      "architecture_patterns": [
-        "CLI tool with embedded API server",
-        "Concurrency: sync with FastAPI async capabilities for API server"
-      ],
-      "auth_methods": [],
-      "sdk_languages": [],
-      "dependencies": [
-        "fastapi",
-        "typer",
-        "pydantic",
-        "rich",
-        "textual",
-        "docker",
-        "Infrastructure: Docker container runtime"
-      ],
-      "deployment_options": []
+      }
     },
     "extracted_data": {},
     "source": "local_repo",
     "source_confidence": "high",
-    "timestamp": "2026-03-21T14:27:31.586810"
+    "timestamp": "2026-03-25T15:13:31.896972"
   },
   "step2": {
     "step1_data": {
       "product_name": "dem",
       "url": "https://github.com/axem-solutions/dem.git",
       "analysis": {
-        "summary": "DEM (Development Environment Manager) is a CLI tool that creates and manages containerized development environments for embedded software development, where each tool runs in its own isolated container while allowing users to work on their host system.",
+        "summary": "DEM (Development Environment Manager) is a command-line tool that creates and manages containerized development environments for embedded software development. It implements a multi-container architecture where each development tool (build system, debugger, toolchain, etc.) runs in its own isolated container while allowing developers to work on their host system. The system provides a platform abstraction layer that manages tool images, registries, catalogs, and hosts through both CLI and REST API interfaces.",
         "capabilities": [
-          "Creates and manages containerized development environments with isolated tools (dem/core/dev_env.py)",
-          "Installs development environments from remote catalogs (dem/core/commands/install_cmd.py)",
-          "Manages development environment configurations and tool assignments (dem/core/commands/assign_cmd.py, dem/core/commands/modify_cmd.py)",
-          "Executes tasks within containerized development environments (dem/core/commands/run_cmd.py)",
-          "Manages container registries and hosts for tool distribution (dem/core/registry.py, dem/core/hosts.py)",
-          "Exports and imports development environment configurations (dem/core/commands/export_cmd.py, dem/core/commands/import_cmd.py)",
-          "Provides TUI interface for development environment management (dem/cli/tui/)",
-          "Serves REST API for programmatic access to development environment operations (dem/api/main.py)"
+          "Creates isolated containerized development environments with separate containers for each tool (dem/core/dev_env.py)",
+          "Manages Docker container operations including pulling images, running containers, and removing images (dem/core/container_engine.py)",
+          "Provides command-line interface with 20+ commands for environment management (dem/cli/main.py)",
+          "Implements FastAPI-based REST API server for remote environment management (dem/api/main.py)",
+          "Manages development environment catalogs for sharing and discovering preconfigured environments (dem/core/dev_env_catalog.py)",
+          "Handles multiple container registries for storing and distributing tool images (dem/core/registry.py)",
+          "Supports remote host management for distributed development environments (dem/core/hosts.py)",
+          "Implements task execution system for running commands within containerized tools (dem/core/task.py)",
+          "Provides development environment cloning from shared catalogs (dem/core/commands/clone_cmd.py)",
+          "Manages environment installation and uninstallation with dependency tracking (dem/core/commands/install_cmd.py, dem/core/commands/uninstall_cmd.py)",
+          "Implements environment modification system for adding/removing tools and changing configurations (dem/core/commands/modify_cmd.py)",
+          "Provides environment import/export functionality for sharing configurations (dem/core/commands/import_cmd.py, dem/core/commands/export_cmd.py)",
+          "Implements project initialization with automatic environment detection and assignment (dem/core/commands/init_cmd.py, dem/core/commands/assign_cmd.py)",
+          "Manages tool image repositories with version control and metadata (dem/core/tool_images.py)",
+          "Provides comprehensive listing commands for environments, catalogs, registries, and tools (dem/core/commands/list_cmd.py series)",
+          "Implements data persistence with JSON-based configuration and environment descriptors (dem/core/data_management.py)",
+          "Supports cross-platform operation with platform-specific adaptations (dem/core/platform.py)",
+          "Provides rich terminal UI with progress indicators and formatted output using Rich library (dem/cli/tui/tui_user_output.py)",
+          "Implements environment copying and renaming operations (dem/core/commands/cp_cmd.py, dem/core/commands/rename_cmd.py)",
+          "Manages default environment settings and host configurations (dem/core/commands/set_default_cmd.py)",
+          "Provides comprehensive error handling with custom exception types (dem/core/exceptions.py)",
+          "Implements autocomplete functionality for CLI commands and parameters (dem/cli/main.py autocomplete functions)",
+          "Supports task management within environments including adding and removing tasks (dem/core/commands/add_task_cmd.py, dem/core/commands/del_task_cmd.py)",
+          "Provides registry and catalog management operations for adding, listing, and deleting resources (dem/core/commands/add_reg_cmd.py series)"
         ],
-        "use_cases": [],
+        "use_cases": [
+          "Embedded software developers use this to create reproducible development environments with specific toolchains, debuggers, and build systems",
+          "Development teams use this to ensure all team members work with identical tool versions and configurations",
+          "DevOps engineers use this to standardize development environments across different projects and deployment stages",
+          "System administrators use this to manage and distribute development tool configurations across multiple hosts",
+          "Software architects use this to define and maintain development environment templates in organizational catalogs"
+        ],
+        "category": "Development Environment Management Tool",
+        "target_audience": "Embedded software developers, DevOps engineers, Development team leads, System administrators",
         "technical_stack": [
-          "Python 3.x (pyproject.toml)",
-          "FastAPI (dem/api/main.py imports)",
-          "Typer CLI framework (dem/cli/main.py)",
-          "Docker container engine (docker.errors imports in __main__.py)",
-          "Rich console library (dem/cli/console.py)",
-          "Textual TUI framework (dem/cli/tui/ directory structure)",
-          "Pydantic data validation (dem/api/main.py)",
-          "Poetry packaging (pyproject.toml)"
-        ],
-        "integrations": [
-          "Docker container runtime for tool isolation (docker.errors handling in dem/__main__.py)",
-          "Container registries for tool image distribution (dem/core/registry.py)",
-          "Remote catalogs for development environment templates (dem/core/dev_env_catalog.py)"
+          "Python 3.10+ (pyproject.toml)",
+          "Docker Engine 24.0+ (pyproject.toml dependencies, dem/core/container_engine.py)",
+          "FastAPI 0.115.6 (pyproject.toml)",
+          "Uvicorn 0.34.0 (pyproject.toml)",
+          "Typer 0.12.2 for CLI framework (pyproject.toml)",
+          "Rich 13.7.1 for terminal formatting (pyproject.toml)",
+          "Textual 1.0.0 for TUI components (pyproject.toml)",
+          "Docker SDK 7.0.0 for container management (pyproject.toml)",
+          "Requests 2.31.0 for HTTP client operations (pyproject.toml)",
+          "Pytest 8.1.1 for testing (pyproject.toml)",
+          "MkDocs Material for documentation (pyproject.toml)"
         ],
         "api_endpoints": [
-          {
-            "method": "POST",
-            "path": "/run",
-            "summary": "Execute a task in a development environment (dem/api/main.py:43)"
-          }
+          "POST /run \u2014 Execute a task in a development environment with extra arguments (dem/api/main.py:25)"
         ],
+        "sdk_languages": [],
+        "auth_methods": [],
+        "integrations": [
+          "Docker Engine via Docker SDK for container management (dem/core/container_engine.py imports docker)",
+          "Container registries (Docker Hub, private registries) for tool image distribution (dem/core/registry.py)",
+          "Local file system for configuration and environment descriptor storage (dem/core/data_management.py)",
+          "Remote hosts via HTTP for distributed environment management (dem/core/hosts.py)"
+        ],
+        "architecture": {
+          "pattern": "CLI tool with optional API server",
+          "components": [
+            "Core platform abstraction layer (dem/core/core.py, dem/core/platform.py)",
+            "Command-line interface with Typer framework (dem/cli/main.py)",
+            "FastAPI-based REST API server (dem/api/main.py, dem/core/api_server.py)",
+            "Container engine interface for Docker operations (dem/core/container_engine.py)",
+            "Development environment management (dem/core/dev_env.py)",
+            "Catalog and registry management (dem/core/dev_env_catalog.py, dem/core/registry.py)",
+            "Host management for distributed environments (dem/core/hosts.py)",
+            "Task execution system (dem/core/task.py)",
+            "Data persistence layer (dem/core/data_management.py)",
+            "User interface components (dem/cli/tui/ directory)"
+          ],
+          "entry_points": [
+            "dem/__main__.py as main entry point",
+            "dem/cli/main.py for CLI commands",
+            "dem/api/main.py for API server"
+          ],
+          "data_flow": "User commands flow through CLI \u2192 Core platform \u2192 specific command modules \u2192 container engine/registries/file system. API requests follow API server \u2192 command execution \u2192 container operations. Configuration and environment data persisted as JSON files, tool images managed through Docker registries.",
+          "persistence": "JSON-based configuration files and environment descriptors stored locally, managed through data_management.py with backup/restore capabilities",
+          "concurrency_model": "Async support through FastAPI server running in separate thread, synchronous CLI operations with Docker SDK handling container operations",
+          "communication_patterns": "HTTP REST API for remote access, Docker API for container operations, file system for local persistence, HTTP for registry/catalog communication",
+          "plugin_extension_model": "Command-based architecture allows easy addition of new commands, platform abstraction supports different container engines and storage backends"
+        },
+        "data_model": {
+          "primary_entities": [
+            "Development Environment with tools, tasks, and installation status",
+            "Tool Image with name, version, and type (build system, debugger, toolchain, etc.)",
+            "Registry configuration with URL and authentication",
+            "Catalog with collection of environment templates",
+            "Host configuration for remote environment management",
+            "Task definitions for executable commands within environments"
+          ],
+          "storage_backends": [
+            "Local JSON files for configuration and environment descriptors",
+            "Docker registries for tool images",
+            "Remote catalogs via HTTP"
+          ],
+          "schema_patterns": "Document-based JSON storage with versioned schemas, hierarchical organization of environments, tools, and configurations",
+          "migration_strategy": "Version-controlled JSON schemas with backup and restore functionality in data_management.py"
+        },
+        "algorithms": {
+          "problem_type": "Multi-container development environment orchestration and management",
+          "core_patterns": [
+            "Command pattern for CLI operations",
+            "Factory pattern for platform abstraction",
+            "Strategy pattern for different container engines",
+            "Observer pattern for user output interface"
+          ],
+          "complexity_indicators": "Moderate complexity with 20+ command types, multi-level configuration management, distributed environment support",
+          "key_algorithms": [
+            "Container lifecycle management with Docker SDK",
+            "Environment dependency resolution for installation",
+            "Configuration merging and validation",
+            "Progress tracking for long-running operations"
+          ],
+          "evidence": "dem/core/container_engine.py for Docker operations, dem/core/commands/ directory for command implementations, dem/core/platform.py for system orchestration"
+        },
+        "security_model": {
+          "authentication": "No built-in authentication system observed",
+          "authorization": "No authorization mechanisms implemented",
+          "data_protection": "No encryption mechanisms observed, relies on Docker registry security",
+          "security_headers": "No security headers configuration found",
+          "vulnerability_handling": "No security policy or vulnerability handling mechanisms observed"
+        },
+        "dependencies": {
+          "runtime": [
+            "docker==7.0.0",
+            "fastapi==0.115.6",
+            "uvicorn==0.34.0",
+            "typer==0.12.2",
+            "rich==13.7.1",
+            "textual==1.0.0",
+            "requests==2.31.0",
+            "readchar==4.0.6",
+            "truststore==0.10.0"
+          ],
+          "dev": [
+            "pytest==8.1.1",
+            "mock==5.1.0",
+            "pytest-cov==5.0.0",
+            "mkdocs-material==9.5.17",
+            "mike==2.0.0",
+            "jinja2==3.1.3"
+          ],
+          "infrastructure": [
+            "Docker Engine 24.0+",
+            "Container registries for tool image storage"
+          ]
+        },
+        "deployment": {
+          "containerized": false,
+          "container_orchestration": "none",
+          "ci_cd": "none observed",
+          "environment_config": "JSON configuration files for platform settings, environment variables for Docker configuration",
+          "scaling_model": "Single-user desktop application with optional API server for remote access"
+        },
+        "code_quality_signals": {
+          "has_tests": true,
+          "test_framework": "pytest",
+          "test_count_estimate": "45 test files covering CLI commands and core functionality",
+          "has_linting": false,
+          "has_type_hints": true,
+          "documentation_quality": "well-documented with comprehensive markdown documentation and docstrings",
+          "code_style": "No automated code formatting tools detected"
+        },
+        "project_health": {
+          "license": "GPL-2.0",
+          "total_commits": "1",
+          "top_contributors": "1 contributor (janosmurai)",
+          "recent_activity": "Recent commit shows development of hybrid environments with remote host task execution capabilities",
+          "community_signals": "Professional documentation structure with MkDocs, comprehensive README with installation and usage instructions"
+        },
+        "evidence_tracking": {
+          "files_analyzed": [
+            "dem/__main__.py",
+            "dem/api/main.py",
+            "dem/cli/main.py",
+            "dem/core/platform.py",
+            "dem/core/container_engine.py",
+            "dem/core/api_server.py",
+            "pyproject.toml",
+            "docs/design.md",
+            "tests/ directory structure",
+            "README.md"
+          ],
+          "confidence_level": "High",
+          "information_gaps": [
+            "Limited git history with only 1 commit makes project maturity assessment difficult",
+            "No CI/CD configuration files found",
+            "Security mechanisms and authentication not implemented",
+            "No container orchestration deployment configurations found"
+          ]
+        },
         "pricing": {
           "model": "open-source",
           "free_tier": "true"
-        },
-        "target_audience": "Developers",
-        "category": "Open Source Software",
-        "deployment": "Self-hosted",
-        "underlying_algorithm": {
-          "problem_type": "",
-          "pattern": ""
-        },
-        "evidence_tracking": {
-          "confidence_level": "High",
-          "technical_facts": [
-            "Creates and manages containerized development environments with isolated tools (dem/core/dev_env.py)",
-            "Installs development environments from remote catalogs (dem/core/commands/install_cmd.py)",
-            "Manages development environment configurations and tool assignments (dem/core/commands/assign_cmd.py, dem/core/commands/modify_cmd.py)",
-            "Executes tasks within containerized development environments (dem/core/commands/run_cmd.py)",
-            "Manages container registries and hosts for tool distribution (dem/core/registry.py, dem/core/hosts.py)",
-            "Exports and imports development environment configurations (dem/core/commands/export_cmd.py, dem/core/commands/import_cmd.py)",
-            "Provides TUI interface for development environment management (dem/cli/tui/)",
-            "Serves REST API for programmatic access to development environment operations (dem/api/main.py)"
-          ],
-          "information_gaps": []
-        },
-        "architecture_patterns": [
-          "CLI tool with embedded API server",
-          "Concurrency: sync with FastAPI async capabilities for API server"
-        ],
-        "auth_methods": [],
-        "sdk_languages": [],
-        "dependencies": [
-          "fastapi",
-          "typer",
-          "pydantic",
-          "rich",
-          "textual",
-          "docker",
-          "Infrastructure: Docker container runtime"
-        ],
-        "deployment_options": []
+        }
       },
       "extracted_data": {},
       "source": "local_repo",
       "source_confidence": "high",
-      "timestamp": "2026-03-21T14:27:31.586810"
+      "timestamp": "2026-03-25T15:13:31.896972"
     },
     "generalization": {
       "functional_dna": {
         "logic_archetype": "Stateful Orchestrator",
-        "logic_archetype_evidence": "Creates and manages containerized development environments with isolated tools (dem/core/dev_env.py), Manages development environment configurations and tool assignments (dem/core/commands/assign_cmd.py, dem/core/commands/modify_cmd.py), Manages container registries and hosts for tool distribution (dem/core/registry.py, dem/core/hosts.py)",
+        "logic_archetype_evidence": "The system manages complex multi-container lifecycle orchestration with dependency tracking, environment state persistence, and distributed resource coordination. It maintains stateful environments with tool installations, task definitions, and configuration management across local and remote hosts.",
         "data_contract_strictness": "Moderately Structured",
-        "data_contract_evidence": "Pydantic data validation (dem/api/main.py), FastAPI (dem/api/main.py imports) with structured endpoints, configuration management through CLI commands",
-        "core_algorithmic_class": "CRUD Operations",
-        "core_algorithmic_evidence": "Installs development environments from remote catalogs (dem/core/commands/install_cmd.py), Exports and imports development environment configurations (dem/core/commands/export_cmd.py, dem/core/commands/import_cmd.py), configuration management operations",
-        "concurrency_requirements": "No Consistency Requirements",
-        "concurrency_evidence": "CLI tool with embedded API server, sync with FastAPI async capabilities for API server, no evidence of distributed state or transaction requirements",
+        "data_contract_evidence": "JSON-based configuration schemas with versioned environment descriptors, tool image metadata, and registry definitions. Type hints throughout codebase but flexible configuration merging allows schema evolution.",
+        "core_algorithmic_class": "State Machine",
+        "core_algorithmic_evidence": "Container lifecycle management (pull\u2192run\u2192stop\u2192remove), environment installation state tracking, dependency resolution for tool chains, and configuration validation with rollback capabilities indicate state machine patterns.",
+        "concurrency_requirements": "Eventually Consistent",
+        "concurrency_evidence": "Async FastAPI server with synchronous CLI operations, distributed environment management across hosts, Docker SDK handling concurrent container operations without ACID requirements.",
+        "abstract_problem": "Orchestrates isolated execution contexts with dependency-managed toolsets across distributed infrastructure, maintaining persistent configuration state and enabling reproducible multi-tool workflow execution.",
+        "data_flow_pattern": "Command\u2192State Validation\u2192Resource Resolution\u2192Container Orchestration\u2192Persistence, with bidirectional sync between local configuration and distributed runtime state",
+        "state_complexity": "Entity-scoped",
         "repurposing_confidence": 8,
-        "repurposing_reasoning": "High confidence due to generic orchestration pattern - container lifecycle management, configuration handling, and CLI/API interface patterns are broadly applicable to many domains requiring resource orchestration"
+        "repurposing_reasoning": "The core patterns of multi-container orchestration, dependency management, and distributed state synchronization are highly generic. The CLI framework, configuration management, and REST API patterns are domain-agnostic. Only the specific tool types and embedded development concepts are domain-locked, while the underlying orchestration engine could manage any containerized resource set."
       },
       "evidence_claims": [
         {
-          "claim": "System manages containerized environments with state persistence",
-          "evidence": "Creates and manages containerized development environments with isolated tools (dem/core/dev_env.py), Manages development environment configurations and tool assignments (dem/core/commands/assign_cmd.py, dem/core/commands/modify_cmd.py)",
+          "claim": "Multi-container lifecycle orchestration with dependency tracking",
+          "evidence": "dem/core/container_engine.py manages Docker operations, dem/core/commands/install_cmd.py handles dependency tracking",
           "confidence": "High"
         },
         {
-          "claim": "Supports both CLI and REST API interfaces",
-          "evidence": "Typer CLI framework (dem/cli/main.py), Serves REST API for programmatic access to development environment operations (dem/api/main.py)",
+          "claim": "Distributed state management across hosts",
+          "evidence": "dem/core/hosts.py for remote host management, distributed environment support capabilities",
           "confidence": "High"
         },
         {
-          "claim": "Uses Docker for container orchestration",
-          "evidence": "Docker container engine (docker.errors imports in __main__.py), Docker container runtime for tool isolation (docker.errors handling in dem/__main__.py)",
+          "claim": "JSON-based persistent configuration with versioning",
+          "evidence": "dem/core/data_management.py with backup/restore capabilities, versioned schemas mentioned",
+          "confidence": "High"
+        },
+        {
+          "claim": "Command pattern architecture for extensibility",
+          "evidence": "dem/core/commands/ directory with 20+ command modules, plugin extension model described",
           "confidence": "High"
         }
       ],
       "market_reach": {
         "primary_industry": "Software Development Tools",
         "cross_industry_applications": [
-          "Infrastructure Management",
-          "Cloud Computing",
-          "DevOps",
-          "System Administration",
-          "Container Orchestration"
+          "Scientific Computing - Managing research tool environments with specific software versions",
+          "Financial Services - Orchestrating trading algorithm environments with compliance toolchains",
+          "Healthcare - Managing medical device firmware development with regulatory toolsets",
+          "Automotive - Coordinating embedded system development for vehicle ECUs",
+          "Manufacturing - Managing industrial automation software development environments",
+          "Telecommunications - Orchestrating network function development toolchains",
+          "Gaming - Managing game engine and platform-specific development environments",
+          "Aerospace - Coordinating safety-critical software development with certified toolchains"
         ],
-        "utility_score": 8,
+        "utility_score": 9,
         "market_potential": "High"
       },
       "friction_report": {
         "difficulty": "Medium",
-        "estimated_hours": 40,
+        "estimated_hours": 120,
         "required_technologies": [
-          "Docker (docker.errors imports)",
-          "Python 3.x (pyproject.toml)",
-          "FastAPI (dem/api/main.py)",
-          "Container runtime infrastructure"
+          "Docker Engine 24.0+",
+          "Python 3.10+",
+          "FastAPI",
+          "Container registry access"
         ],
         "complexity_factors": [
-          "Container orchestration logic",
-          "Multi-interface design (CLI/TUI/API)",
-          "Registry and host management",
-          "Configuration state management"
+          "Multi-container orchestration complexity",
+          "Distributed state synchronization",
+          "Platform abstraction layer adaptation",
+          "Custom CLI command integration"
         ],
-        "risk_level": "Medium"
+        "risk_level": "Medium",
+        "migration_path": "Extract core orchestration engine, replace domain-specific tool definitions with generic resource types, adapt CLI commands for new domain, implement domain-specific validation rules"
       },
       "interface_map": {
         "adapter_schema": {
           "input": {
-            "format": "JSON",
+            "format": "JSON/CLI",
             "required_fields": [
-              "task",
-              "environment_config"
+              "environment_config",
+              "tool_definitions",
+              "host_targets"
+            ],
+            "protocols": [
+              "CLI",
+              "HTTP REST"
             ]
           },
           "output": {
-            "format": "JSON"
+            "format": "JSON status/logs",
+            "delivery": "sync with async operations"
           },
           "authentication": {
-            "type": "Unknown",
-            "method": "No evidence in Step 1"
+            "type": "none",
+            "method": "no authentication implemented"
           }
         },
-        "standardization_level": "High"
+        "standardization_level": "Medium",
+        "api_surface_area": "Medium (10-50)"
       },
+      "comparable_systems": [
+        "Kubernetes Operator Framework - Orchestrates complex application lifecycles with custom resources",
+        "Ansible Tower - Manages distributed infrastructure automation with playbook orchestration",
+        "Jenkins Pipeline - Coordinates multi-stage build environments with tool dependency management",
+        "Terraform Cloud - Orchestrates infrastructure state across distributed providers with workspace management",
+        "Docker Compose with Swarm - Multi-container application orchestration with service dependencies"
+      ],
       "information_gaps": [
-        "Authentication mechanisms for API",
-        "Database or persistence layer details",
-        "Specific container orchestration algorithms",
-        "Error handling and recovery mechanisms",
-        "Performance and scaling characteristics"
+        "Specific container registry authentication mechanisms",
+        "Performance characteristics under high container churn",
+        "Error recovery and rollback strategies for failed installations",
+        "Multi-tenancy support for shared host environments"
       ]
     },
-    "timestamp": "2026-03-21T14:27:45.549107"
+    "timestamp": "2026-03-25T15:13:58.266127"
   },
   "errors": []
 }

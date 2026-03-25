@@ -1,317 +1,595 @@
 {
   "url": "https://github.com/ClickHouse/ClickHouse.git",
   "repo_name": "ClickHouse",
-  "timestamp": "2026-03-21T19:33:43.250394",
+  "timestamp": "2026-03-25T15:34:57.336108",
   "step1": {
     "product_name": "ClickHouse",
     "url": "https://github.com/ClickHouse/ClickHouse.git",
     "analysis": {
-      "summary": "ClickHouse is an open-source columnar OLAP database management system that processes analytical queries on large datasets in real-time. It implements a high-performance SQL engine with vectorized execution, distributed query processing, and specialized storage formats optimized for analytical workloads.",
+      "summary": "ClickHouse is an open-source columnar database management system designed for real-time analytical query processing. It implements vectorized query execution on columnar data structures, uses LSM-tree-like storage with advanced compression, and provides distributed architecture for horizontal scaling. The system processes analytical queries using SIMD operations and sophisticated algorithms for aggregation, sorting, and filtering across massive datasets.",
       "capabilities": [
-        "Executes SQL queries with OLAP-specific extensions and functions (src/Parsers/, src/Interpreters/)",
-        "Stores data in columnar format with compression and indexing (src/Storages/)",
-        "Processes distributed queries across multiple nodes with query coordination (src/Interpreters/Cluster*)",
-        "Implements vectorized query execution with SIMD optimizations (src/Columns/, src/Functions/)",
-        "Provides HTTP and TCP network interfaces for client connections (src/Server/)",
-        "Supports real-time data ingestion and streaming (src/Storages/Kafka/, src/Storages/RabbitMQ/)",
-        "Implements table engines for various data sources and formats (src/Storages/)",
-        "Provides backup and replication capabilities (src/Backups/, src/Storages/MergeTree/)",
-        "Offers integration with external systems via table functions (src/TableFunctions/)"
+        "Executes vectorized queries on columnar data structures for analytical workloads (src/Columns/IColumn.h, architecture docs)",
+        "Implements advanced data compression using multiple algorithms including LZ4, ZSTD, and Delta encoding (base/base/BFloat16.h, contrib/)",
+        "Provides distributed query execution across multiple nodes with automatic sharding (architecture overview mentions distributed processing)",
+        "Supports real-time data ingestion with multiple input formats including CSV, JSON, Parquet, and custom formats (ci/docker/integration shows format support)",
+        "Implements LSM-tree-like storage engine with merge operations for efficient writes and reads (architecture docs mention MergeTree engine)",
+        "Executes SQL queries with custom dialect extensions and optimization passes (rust/workspace/polyglot/, rust/workspace/prql/)",
+        "Provides HTTP REST API for query execution and cluster management (integration tests show HTTP endpoints)",
+        "Implements advanced indexing including bloom filters, skip indices, and primary key indices (architecture mentions indexing strategies)",
+        "Supports time-series data processing with specialized functions and window operations (base/base/DayNum.h for date handling)",
+        "Executes parallel query processing using multi-threading and NUMA-aware memory allocation (base/base/Numa.cpp)",
+        "Implements sophisticated memory management with custom allocators and memory tracking (base/base/getMemoryAmount.cpp)",
+        "Provides integration with external data sources including S3, HDFS, and Kafka (ci/docker/integration tests show connectors)",
+        "Supports materialized views and continuous query processing for real-time analytics (architecture mentions materialized views)",
+        "Implements query result caching and compilation caching for performance optimization (rust/chcache/ for compilation caching)",
+        "Executes complex analytical functions including statistical, mathematical, and machine learning operations (base/base/wide_integer.h for precision arithmetic)",
+        "Provides data replication and high availability through replica synchronization (architecture mentions replication)",
+        "Supports schema evolution and DDL operations on live systems without downtime (architecture mentions schema management)",
+        "Implements custom authentication and authorization with RBAC support (SECURITY.md mentions security model)",
+        "Executes batch and streaming data processing with backpressure handling (architecture mentions streaming)",
+        "Provides monitoring and observability with detailed metrics and query profiling (base/base/coverage.cpp for instrumentation)",
+        "Supports cross-platform deployment on Linux, macOS, and FreeBSD with containerization (cmake/ directories for multiple platforms)",
+        "Implements custom networking protocol with compression and connection pooling (base/poco/ networking foundation)",
+        "Executes geographical and spatial data processing with specialized functions (contrib/ includes geo libraries)",
+        "Provides integration with machine learning workflows through Python and R connectors (ci/docker/integration/runner/requirements.txt shows ML libraries)"
       ],
-      "use_cases": [],
+      "use_cases": [
+        "Data analysts and business intelligence teams use ClickHouse to execute real-time analytical queries on large datasets with sub-second response times",
+        "DevOps engineers deploy ClickHouse for log analytics, monitoring dashboards, and observability platforms processing billions of events",
+        "Data engineers build ETL pipelines and data warehouses using ClickHouse for high-performance analytical workloads",
+        "Financial services companies use ClickHouse for real-time risk analytics, fraud detection, and high-frequency trading analytics",
+        "AdTech and marketing analytics teams leverage ClickHouse for real-time bidding analytics and campaign performance monitoring"
+      ],
+      "category": "Columnar Database Management System",
+      "target_audience": "Data engineers, database administrators, analytics engineers, and backend developers building analytical applications",
       "technical_stack": [
-        "C++ (primary implementation language - 4560 .cpp files, 4245 .h files)",
-        "Python (testing and tooling - 1976 .py files)",
-        "CMake (build system - CMakeLists.txt files throughout)",
-        "Rust (performance-critical components - cargo manifests in rust/)",
-        "LLVM (JIT compilation support)",
-        "ClickHouse-specific storage formats and protocols"
+        "C++ 20 (primary implementation language, CMakeLists.txt)",
+        "Python 3.x for testing and tooling (ci/docker/*/requirements.txt)",
+        "Rust for performance-critical components (rust/workspace/, rust/chcache/)",
+        "LLVM/Clang for compilation and code generation (ci/docker/binary-builder/Dockerfile)",
+        "CMake build system (CMakeLists.txt)",
+        "Docker for containerization (ci/docker/)",
+        "Poco C++ libraries for networking and utilities (base/poco/)",
+        "ANTLR4 for SQL parsing (contrib/antlr4-grammars-cmake/)",
+        "Apache Arrow for columnar data interchange (contrib/arrow-cmake/)",
+        "gRPC for inter-node communication (contrib/grpc-cmake/)",
+        "Protocol Buffers for serialization (contrib/google-protobuf-cmake/)",
+        "OpenSSL for encryption and security (ci/docker/binary-builder/Dockerfile mentions OpenSSL FIPS)",
+        "Zstd, LZ4, Brotli for compression (contrib/*-cmake/)",
+        "jemalloc for memory allocation (contrib/jemalloc-cmake/)"
+      ],
+      "api_endpoints": [
+        "HTTP API endpoints for query execution and management (inferred from integration tests)",
+        "Native TCP protocol for high-performance client connections (base/poco/ networking layer)",
+        "MySQL wire protocol compatibility (ci/docker/integration/mysql_golang_client/main.go)",
+        "PostgreSQL wire protocol support (ci/docker/integration/runner/requirements.txt shows psycopg dependencies)",
+        "gRPC API for programmatic access (contrib/grpc-cmake/)"
+      ],
+      "sdk_languages": [
+        "Python (ci/docker/integration/runner/requirements.txt shows extensive Python ecosystem)",
+        "Go (ci/docker/integration/mysql_golang_client/main.go shows Go MySQL connector)",
+        "Java (contrib/ includes Java connectors)",
+        "Rust (rust/workspace/ shows Rust integrations)",
+        "C++ (native API)"
+      ],
+      "auth_methods": [
+        "User authentication with passwords and certificates (SECURITY.md mentions authentication)",
+        "Role-based access control (RBAC) for fine-grained permissions",
+        "LDAP integration for enterprise authentication",
+        "Kerberos support (contrib/krb5-cmake/)",
+        "JWT token authentication (contrib/jwt-cpp-cmake/)"
       ],
       "integrations": [
-        "Apache Kafka (src/Storages/Kafka/)",
-        "RabbitMQ (src/Storages/RabbitMQ/)",
-        "MySQL (src/Storages/MySQL/)",
-        "PostgreSQL (src/Storages/PostgreSQL/)",
-        "MongoDB (src/Storages/MongoDB/)",
-        "Apache Hive (src/Storages/Hive/)",
-        "HDFS (src/Storages/HDFS/)",
-        "S3 and S3-compatible storage (src/Storages/S3/)",
-        "Azure Blob Storage",
-        "Google Cloud Storage",
-        "NATS messaging system",
-        "Redis",
-        "Cassandra"
+        "Amazon S3 for object storage (contrib/aws-cmake/)",
+        "Apache Kafka for streaming data ingestion (contrib/cppkafka-cmake/)",
+        "Apache Arrow for columnar data exchange (contrib/arrow-cmake/)",
+        "Apache Parquet for columnar file format support (contrib/arrow-cmake/)",
+        "PostgreSQL for data federation (ci/docker/integration/runner/requirements.txt)",
+        "MySQL compatibility layer (ci/docker/integration/mysql_golang_client/)",
+        "Azure Blob Storage (contrib/azure-cmake/)",
+        "Google Cloud Storage (contrib/google-cloud-cpp-cmake/)",
+        "Apache Cassandra integration (contrib/cassandra-cmake/)",
+        "MongoDB connector support (ci/docker/integration/runner/requirements.txt shows pymongo)",
+        "Redis for caching and pub/sub (integration test dependencies)",
+        "HDFS for big data ecosystem integration (ci/docker/integration/runner/requirements.txt shows PyHDFS)",
+        "Apache Iceberg for data lake formats (ci/docker/integration/runner/requirements.txt shows pyiceberg)"
       ],
-      "api_endpoints": [],
+      "architecture": {
+        "pattern": "distributed database with columnar storage and vectorized processing",
+        "components": [
+          "Query execution engine with vectorized operations and SIMD optimization",
+          "Storage engine with LSM-tree-like MergeTree family and advanced compression",
+          "Distributed coordinator for cluster management and query routing",
+          "Memory management subsystem with NUMA-aware allocation and tracking",
+          "Networking layer with custom protocols and connection pooling",
+          "Replication manager for data synchronization across nodes",
+          "Query optimizer with cost-based optimization and predicate pushdown",
+          "Data ingestion pipeline with multiple format parsers and streaming support"
+        ],
+        "entry_points": [
+          "Server binary (main entry point)",
+          "Client tools",
+          "HTTP interface",
+          "Native protocol handlers"
+        ],
+        "data_flow": "Queries arrive via HTTP/native protocol, get parsed and optimized, execute on columnar data using vectorized operations with SIMD instructions, results are aggregated across distributed nodes and returned with compression. Data ingestion flows through format parsers into columnar storage with real-time compression and indexing.",
+        "persistence": "Custom columnar storage format with LSM-tree-like merge operations, supporting multiple compression algorithms (LZ4, ZSTD, Delta), advanced indexing (bloom filters, skip indices), and distributed replication across nodes",
+        "concurrency_model": "Multi-threaded with async I/O, NUMA-aware memory allocation, and vectorized parallel query execution across cores",
+        "communication_patterns": "Native binary protocol for high-performance clients, HTTP REST for web integration, gRPC for inter-node communication, MySQL/PostgreSQL wire protocol compatibility",
+        "plugin_extension_model": "Function plugins, storage engine extensions, format parsers, and table functions through shared library loading mechanism"
+      },
+      "data_model": {
+        "primary_entities": [
+          "Tables with columnar storage and flexible schema",
+          "Databases as logical containers for tables",
+          "Parts and partitions for horizontal data distribution",
+          "Materialized views for precomputed aggregations",
+          "Dictionaries for external reference data"
+        ],
+        "storage_backends": [
+          "Local filesystem",
+          "S3-compatible object storage",
+          "HDFS",
+          "Azure Blob Storage",
+          "Google Cloud Storage"
+        ],
+        "schema_patterns": "Columnar relational model with support for nested data structures (Arrays, Tuples), semi-structured data (JSON), and specialized types for time-series and geographical data",
+        "migration_strategy": "Schema evolution through ALTER TABLE operations with background merge operations to maintain consistency"
+      },
+      "algorithms": {
+        "problem_type": "Real-time analytical query processing on massive columnar datasets with distributed execution",
+        "core_patterns": [
+          "Vectorized execution pattern for SIMD optimization",
+          "LSM-tree pattern for write-optimized storage",
+          "Columnar compression algorithms for storage efficiency",
+          "Distributed hash table for cluster coordination",
+          "Observer pattern for replication and monitoring"
+        ],
+        "complexity_indicators": "Highly optimized algorithms for sorting (multi-way merge), aggregation (hash tables with SIMD), join processing (hash joins, merge joins), and compression (custom columnar codecs)",
+        "key_algorithms": [
+          "Vectorized aggregation with SIMD operations for sum/count/average",
+          "Multi-way merge sort for ORDER BY operations",
+          "Bloom filter and skip index algorithms for query pruning",
+          "Delta encoding and dictionary compression for columnar data",
+          "Consistent hashing for distributed data placement"
+        ],
+        "evidence": "base/base/simd.h for SIMD operations, base/base/sort.h for sorting algorithms, architecture docs describe vectorized execution"
+      },
+      "security_model": {
+        "authentication": "Multi-method authentication supporting passwords, certificates, LDAP, Kerberos, and JWT tokens",
+        "authorization": "Role-based access control (RBAC) with granular permissions on databases, tables, columns, and functions",
+        "data_protection": "TLS encryption for network communication, data-at-rest encryption support, secure credential management",
+        "security_headers": "Custom protocol security with connection-level encryption and authentication",
+        "vulnerability_handling": "SECURITY.md file with vulnerability reporting process and security advisories"
+      },
+      "dependencies": {
+        "runtime": [
+          "LLVM/Clang compiler infrastructure",
+          "Poco C++ libraries for networking and utilities",
+          "OpenSSL for cryptographic operations",
+          "zlib, lz4, zstd for compression algorithms",
+          "jemalloc for optimized memory allocation"
+        ],
+        "dev": [
+          "CMake 3.x for build system",
+          "Python 3.x with various testing libraries",
+          "Docker for containerized builds and testing",
+          "ANTLR4 for SQL grammar generation",
+          "Google Test framework for C++ unit testing"
+        ],
+        "infrastructure": [
+          "ZooKeeper for distributed coordination (optional)",
+          "Object storage systems (S3, Azure, GCS) for data storage",
+          "Load balancers for distributing client connections"
+        ]
+      },
+      "deployment": {
+        "containerized": true,
+        "container_orchestration": "Docker Compose for single-node, Kubernetes for multi-node clusters",
+        "ci_cd": "GitHub Actions with extensive CI/CD pipeline including multi-platform builds, integration tests, and performance benchmarks",
+        "environment_config": "Configuration via XML files, environment variables, and command-line parameters with extensive tuning options",
+        "scaling_model": "Horizontal scaling through distributed clusters with automatic sharding and replication, vertical scaling through multi-core vectorized processing"
+      },
+      "code_quality_signals": {
+        "has_tests": true,
+        "test_framework": "Google Test for C++ unit tests, pytest for Python integration tests, custom functional testing framework",
+        "test_count_estimate": "25996 test files across unit, integration, and functional test suites",
+        "has_linting": true,
+        "has_type_hints": true,
+        "documentation_quality": "well-documented",
+        "code_style": "Custom C++ style guide with clang-format and clang-tidy enforcement"
+      },
+      "project_health": {
+        "license": "Apache-2.0",
+        "total_commits": 1,
+        "top_contributors": 1,
+        "recent_activity": "Active development with performance optimizations and feature enhancements based on recent merge commit",
+        "community_signals": "Strong community health with CODE_OF_CONDUCT.md, SECURITY.md, comprehensive CONTRIBUTING.md, and active community events and meetups"
+      },
+      "evidence_tracking": {
+        "files_analyzed": [
+          "CMakeLists.txt",
+          "base/base/simd.h",
+          "base/base/Numa.cpp",
+          "base/poco/Foundation/",
+          "contrib/*/CMakeLists.txt",
+          "ci/docker/*/requirements.txt",
+          "ci/docker/integration/mysql_golang_client/main.go",
+          "rust/chcache/src/main.rs",
+          "rust/workspace/*/src/lib.rs",
+          "docs/en/development/architecture.md",
+          "CONTRIBUTING.md",
+          "SECURITY.md"
+        ],
+        "confidence_level": "High",
+        "information_gaps": [
+          "Specific HTTP API endpoint definitions require deeper code analysis",
+          "Complete authentication mechanism details need security configuration analysis",
+          "Performance benchmarks and optimization details require runtime analysis"
+        ]
+      },
       "pricing": {
         "model": "open-source",
         "free_tier": "true"
-      },
-      "target_audience": "Developers",
-      "category": "Open Source Software",
-      "deployment": "Self-hosted",
-      "underlying_algorithm": {
-        "problem_type": "",
-        "pattern": ""
-      },
-      "evidence_tracking": {
-        "confidence_level": "High",
-        "technical_facts": [
-          "Executes SQL queries with OLAP-specific extensions and functions (src/Parsers/, src/Interpreters/)",
-          "Stores data in columnar format with compression and indexing (src/Storages/)",
-          "Processes distributed queries across multiple nodes with query coordination (src/Interpreters/Cluster*)",
-          "Implements vectorized query execution with SIMD optimizations (src/Columns/, src/Functions/)",
-          "Provides HTTP and TCP network interfaces for client connections (src/Server/)",
-          "Supports real-time data ingestion and streaming (src/Storages/Kafka/, src/Storages/RabbitMQ/)",
-          "Implements table engines for various data sources and formats (src/Storages/)",
-          "Provides backup and replication capabilities (src/Backups/, src/Storages/MergeTree/)",
-          "Offers integration with external systems via table functions (src/TableFunctions/)"
-        ],
-        "information_gaps": []
-      },
-      "architecture_patterns": [
-        "monolith with distributed query capabilities",
-        "Concurrency: multi-threaded with thread pools for query execution, background merges, and network handling"
-      ],
-      "auth_methods": [
-        "User/password authentication",
-        "SSL/TLS encryption",
-        "LDAP integration",
-        "Kerberos support"
-      ],
-      "sdk_languages": [
-        "Python",
-        "Java",
-        "Rust",
-        "JavaScript",
-        "C#",
-        "Go",
-        "PHP"
-      ],
-      "dependencies": [
-        "LLVM (JIT compilation)",
-        "Poco (networking and utilities)",
-        "librdkafka (Kafka integration)",
-        "AWS SDK (S3 integration)",
-        "Azure SDK (Azure storage)",
-        "Google Cloud SDK",
-        "OpenSSL (cryptography)",
-        "Infrastructure: ZooKeeper or ClickHouse Keeper (distributed coordination)",
-        "Infrastructure: Optional external storage (S3, HDFS, etc.)",
-        "Infrastructure: Optional message queues (Kafka, RabbitMQ)"
-      ],
-      "deployment_options": [
-        "Containerized (Docker)",
-        "CI/CD: GitHub Actions (extensive CI pipeline in .github/workflows/)"
-      ]
+      }
     },
     "extracted_data": {},
     "source": "local_repo",
     "source_confidence": "high",
-    "timestamp": "2026-03-21T19:34:40.299780"
+    "timestamp": "2026-03-25T15:36:27.346649"
   },
   "step2": {
     "step1_data": {
       "product_name": "ClickHouse",
       "url": "https://github.com/ClickHouse/ClickHouse.git",
       "analysis": {
-        "summary": "ClickHouse is an open-source columnar OLAP database management system that processes analytical queries on large datasets in real-time. It implements a high-performance SQL engine with vectorized execution, distributed query processing, and specialized storage formats optimized for analytical workloads.",
+        "summary": "ClickHouse is an open-source columnar database management system designed for real-time analytical query processing. It implements vectorized query execution on columnar data structures, uses LSM-tree-like storage with advanced compression, and provides distributed architecture for horizontal scaling. The system processes analytical queries using SIMD operations and sophisticated algorithms for aggregation, sorting, and filtering across massive datasets.",
         "capabilities": [
-          "Executes SQL queries with OLAP-specific extensions and functions (src/Parsers/, src/Interpreters/)",
-          "Stores data in columnar format with compression and indexing (src/Storages/)",
-          "Processes distributed queries across multiple nodes with query coordination (src/Interpreters/Cluster*)",
-          "Implements vectorized query execution with SIMD optimizations (src/Columns/, src/Functions/)",
-          "Provides HTTP and TCP network interfaces for client connections (src/Server/)",
-          "Supports real-time data ingestion and streaming (src/Storages/Kafka/, src/Storages/RabbitMQ/)",
-          "Implements table engines for various data sources and formats (src/Storages/)",
-          "Provides backup and replication capabilities (src/Backups/, src/Storages/MergeTree/)",
-          "Offers integration with external systems via table functions (src/TableFunctions/)"
+          "Executes vectorized queries on columnar data structures for analytical workloads (src/Columns/IColumn.h, architecture docs)",
+          "Implements advanced data compression using multiple algorithms including LZ4, ZSTD, and Delta encoding (base/base/BFloat16.h, contrib/)",
+          "Provides distributed query execution across multiple nodes with automatic sharding (architecture overview mentions distributed processing)",
+          "Supports real-time data ingestion with multiple input formats including CSV, JSON, Parquet, and custom formats (ci/docker/integration shows format support)",
+          "Implements LSM-tree-like storage engine with merge operations for efficient writes and reads (architecture docs mention MergeTree engine)",
+          "Executes SQL queries with custom dialect extensions and optimization passes (rust/workspace/polyglot/, rust/workspace/prql/)",
+          "Provides HTTP REST API for query execution and cluster management (integration tests show HTTP endpoints)",
+          "Implements advanced indexing including bloom filters, skip indices, and primary key indices (architecture mentions indexing strategies)",
+          "Supports time-series data processing with specialized functions and window operations (base/base/DayNum.h for date handling)",
+          "Executes parallel query processing using multi-threading and NUMA-aware memory allocation (base/base/Numa.cpp)",
+          "Implements sophisticated memory management with custom allocators and memory tracking (base/base/getMemoryAmount.cpp)",
+          "Provides integration with external data sources including S3, HDFS, and Kafka (ci/docker/integration tests show connectors)",
+          "Supports materialized views and continuous query processing for real-time analytics (architecture mentions materialized views)",
+          "Implements query result caching and compilation caching for performance optimization (rust/chcache/ for compilation caching)",
+          "Executes complex analytical functions including statistical, mathematical, and machine learning operations (base/base/wide_integer.h for precision arithmetic)",
+          "Provides data replication and high availability through replica synchronization (architecture mentions replication)",
+          "Supports schema evolution and DDL operations on live systems without downtime (architecture mentions schema management)",
+          "Implements custom authentication and authorization with RBAC support (SECURITY.md mentions security model)",
+          "Executes batch and streaming data processing with backpressure handling (architecture mentions streaming)",
+          "Provides monitoring and observability with detailed metrics and query profiling (base/base/coverage.cpp for instrumentation)",
+          "Supports cross-platform deployment on Linux, macOS, and FreeBSD with containerization (cmake/ directories for multiple platforms)",
+          "Implements custom networking protocol with compression and connection pooling (base/poco/ networking foundation)",
+          "Executes geographical and spatial data processing with specialized functions (contrib/ includes geo libraries)",
+          "Provides integration with machine learning workflows through Python and R connectors (ci/docker/integration/runner/requirements.txt shows ML libraries)"
         ],
-        "use_cases": [],
+        "use_cases": [
+          "Data analysts and business intelligence teams use ClickHouse to execute real-time analytical queries on large datasets with sub-second response times",
+          "DevOps engineers deploy ClickHouse for log analytics, monitoring dashboards, and observability platforms processing billions of events",
+          "Data engineers build ETL pipelines and data warehouses using ClickHouse for high-performance analytical workloads",
+          "Financial services companies use ClickHouse for real-time risk analytics, fraud detection, and high-frequency trading analytics",
+          "AdTech and marketing analytics teams leverage ClickHouse for real-time bidding analytics and campaign performance monitoring"
+        ],
+        "category": "Columnar Database Management System",
+        "target_audience": "Data engineers, database administrators, analytics engineers, and backend developers building analytical applications",
         "technical_stack": [
-          "C++ (primary implementation language - 4560 .cpp files, 4245 .h files)",
-          "Python (testing and tooling - 1976 .py files)",
-          "CMake (build system - CMakeLists.txt files throughout)",
-          "Rust (performance-critical components - cargo manifests in rust/)",
-          "LLVM (JIT compilation support)",
-          "ClickHouse-specific storage formats and protocols"
+          "C++ 20 (primary implementation language, CMakeLists.txt)",
+          "Python 3.x for testing and tooling (ci/docker/*/requirements.txt)",
+          "Rust for performance-critical components (rust/workspace/, rust/chcache/)",
+          "LLVM/Clang for compilation and code generation (ci/docker/binary-builder/Dockerfile)",
+          "CMake build system (CMakeLists.txt)",
+          "Docker for containerization (ci/docker/)",
+          "Poco C++ libraries for networking and utilities (base/poco/)",
+          "ANTLR4 for SQL parsing (contrib/antlr4-grammars-cmake/)",
+          "Apache Arrow for columnar data interchange (contrib/arrow-cmake/)",
+          "gRPC for inter-node communication (contrib/grpc-cmake/)",
+          "Protocol Buffers for serialization (contrib/google-protobuf-cmake/)",
+          "OpenSSL for encryption and security (ci/docker/binary-builder/Dockerfile mentions OpenSSL FIPS)",
+          "Zstd, LZ4, Brotli for compression (contrib/*-cmake/)",
+          "jemalloc for memory allocation (contrib/jemalloc-cmake/)"
+        ],
+        "api_endpoints": [
+          "HTTP API endpoints for query execution and management (inferred from integration tests)",
+          "Native TCP protocol for high-performance client connections (base/poco/ networking layer)",
+          "MySQL wire protocol compatibility (ci/docker/integration/mysql_golang_client/main.go)",
+          "PostgreSQL wire protocol support (ci/docker/integration/runner/requirements.txt shows psycopg dependencies)",
+          "gRPC API for programmatic access (contrib/grpc-cmake/)"
+        ],
+        "sdk_languages": [
+          "Python (ci/docker/integration/runner/requirements.txt shows extensive Python ecosystem)",
+          "Go (ci/docker/integration/mysql_golang_client/main.go shows Go MySQL connector)",
+          "Java (contrib/ includes Java connectors)",
+          "Rust (rust/workspace/ shows Rust integrations)",
+          "C++ (native API)"
+        ],
+        "auth_methods": [
+          "User authentication with passwords and certificates (SECURITY.md mentions authentication)",
+          "Role-based access control (RBAC) for fine-grained permissions",
+          "LDAP integration for enterprise authentication",
+          "Kerberos support (contrib/krb5-cmake/)",
+          "JWT token authentication (contrib/jwt-cpp-cmake/)"
         ],
         "integrations": [
-          "Apache Kafka (src/Storages/Kafka/)",
-          "RabbitMQ (src/Storages/RabbitMQ/)",
-          "MySQL (src/Storages/MySQL/)",
-          "PostgreSQL (src/Storages/PostgreSQL/)",
-          "MongoDB (src/Storages/MongoDB/)",
-          "Apache Hive (src/Storages/Hive/)",
-          "HDFS (src/Storages/HDFS/)",
-          "S3 and S3-compatible storage (src/Storages/S3/)",
-          "Azure Blob Storage",
-          "Google Cloud Storage",
-          "NATS messaging system",
-          "Redis",
-          "Cassandra"
+          "Amazon S3 for object storage (contrib/aws-cmake/)",
+          "Apache Kafka for streaming data ingestion (contrib/cppkafka-cmake/)",
+          "Apache Arrow for columnar data exchange (contrib/arrow-cmake/)",
+          "Apache Parquet for columnar file format support (contrib/arrow-cmake/)",
+          "PostgreSQL for data federation (ci/docker/integration/runner/requirements.txt)",
+          "MySQL compatibility layer (ci/docker/integration/mysql_golang_client/)",
+          "Azure Blob Storage (contrib/azure-cmake/)",
+          "Google Cloud Storage (contrib/google-cloud-cpp-cmake/)",
+          "Apache Cassandra integration (contrib/cassandra-cmake/)",
+          "MongoDB connector support (ci/docker/integration/runner/requirements.txt shows pymongo)",
+          "Redis for caching and pub/sub (integration test dependencies)",
+          "HDFS for big data ecosystem integration (ci/docker/integration/runner/requirements.txt shows PyHDFS)",
+          "Apache Iceberg for data lake formats (ci/docker/integration/runner/requirements.txt shows pyiceberg)"
         ],
-        "api_endpoints": [],
+        "architecture": {
+          "pattern": "distributed database with columnar storage and vectorized processing",
+          "components": [
+            "Query execution engine with vectorized operations and SIMD optimization",
+            "Storage engine with LSM-tree-like MergeTree family and advanced compression",
+            "Distributed coordinator for cluster management and query routing",
+            "Memory management subsystem with NUMA-aware allocation and tracking",
+            "Networking layer with custom protocols and connection pooling",
+            "Replication manager for data synchronization across nodes",
+            "Query optimizer with cost-based optimization and predicate pushdown",
+            "Data ingestion pipeline with multiple format parsers and streaming support"
+          ],
+          "entry_points": [
+            "Server binary (main entry point)",
+            "Client tools",
+            "HTTP interface",
+            "Native protocol handlers"
+          ],
+          "data_flow": "Queries arrive via HTTP/native protocol, get parsed and optimized, execute on columnar data using vectorized operations with SIMD instructions, results are aggregated across distributed nodes and returned with compression. Data ingestion flows through format parsers into columnar storage with real-time compression and indexing.",
+          "persistence": "Custom columnar storage format with LSM-tree-like merge operations, supporting multiple compression algorithms (LZ4, ZSTD, Delta), advanced indexing (bloom filters, skip indices), and distributed replication across nodes",
+          "concurrency_model": "Multi-threaded with async I/O, NUMA-aware memory allocation, and vectorized parallel query execution across cores",
+          "communication_patterns": "Native binary protocol for high-performance clients, HTTP REST for web integration, gRPC for inter-node communication, MySQL/PostgreSQL wire protocol compatibility",
+          "plugin_extension_model": "Function plugins, storage engine extensions, format parsers, and table functions through shared library loading mechanism"
+        },
+        "data_model": {
+          "primary_entities": [
+            "Tables with columnar storage and flexible schema",
+            "Databases as logical containers for tables",
+            "Parts and partitions for horizontal data distribution",
+            "Materialized views for precomputed aggregations",
+            "Dictionaries for external reference data"
+          ],
+          "storage_backends": [
+            "Local filesystem",
+            "S3-compatible object storage",
+            "HDFS",
+            "Azure Blob Storage",
+            "Google Cloud Storage"
+          ],
+          "schema_patterns": "Columnar relational model with support for nested data structures (Arrays, Tuples), semi-structured data (JSON), and specialized types for time-series and geographical data",
+          "migration_strategy": "Schema evolution through ALTER TABLE operations with background merge operations to maintain consistency"
+        },
+        "algorithms": {
+          "problem_type": "Real-time analytical query processing on massive columnar datasets with distributed execution",
+          "core_patterns": [
+            "Vectorized execution pattern for SIMD optimization",
+            "LSM-tree pattern for write-optimized storage",
+            "Columnar compression algorithms for storage efficiency",
+            "Distributed hash table for cluster coordination",
+            "Observer pattern for replication and monitoring"
+          ],
+          "complexity_indicators": "Highly optimized algorithms for sorting (multi-way merge), aggregation (hash tables with SIMD), join processing (hash joins, merge joins), and compression (custom columnar codecs)",
+          "key_algorithms": [
+            "Vectorized aggregation with SIMD operations for sum/count/average",
+            "Multi-way merge sort for ORDER BY operations",
+            "Bloom filter and skip index algorithms for query pruning",
+            "Delta encoding and dictionary compression for columnar data",
+            "Consistent hashing for distributed data placement"
+          ],
+          "evidence": "base/base/simd.h for SIMD operations, base/base/sort.h for sorting algorithms, architecture docs describe vectorized execution"
+        },
+        "security_model": {
+          "authentication": "Multi-method authentication supporting passwords, certificates, LDAP, Kerberos, and JWT tokens",
+          "authorization": "Role-based access control (RBAC) with granular permissions on databases, tables, columns, and functions",
+          "data_protection": "TLS encryption for network communication, data-at-rest encryption support, secure credential management",
+          "security_headers": "Custom protocol security with connection-level encryption and authentication",
+          "vulnerability_handling": "SECURITY.md file with vulnerability reporting process and security advisories"
+        },
+        "dependencies": {
+          "runtime": [
+            "LLVM/Clang compiler infrastructure",
+            "Poco C++ libraries for networking and utilities",
+            "OpenSSL for cryptographic operations",
+            "zlib, lz4, zstd for compression algorithms",
+            "jemalloc for optimized memory allocation"
+          ],
+          "dev": [
+            "CMake 3.x for build system",
+            "Python 3.x with various testing libraries",
+            "Docker for containerized builds and testing",
+            "ANTLR4 for SQL grammar generation",
+            "Google Test framework for C++ unit testing"
+          ],
+          "infrastructure": [
+            "ZooKeeper for distributed coordination (optional)",
+            "Object storage systems (S3, Azure, GCS) for data storage",
+            "Load balancers for distributing client connections"
+          ]
+        },
+        "deployment": {
+          "containerized": true,
+          "container_orchestration": "Docker Compose for single-node, Kubernetes for multi-node clusters",
+          "ci_cd": "GitHub Actions with extensive CI/CD pipeline including multi-platform builds, integration tests, and performance benchmarks",
+          "environment_config": "Configuration via XML files, environment variables, and command-line parameters with extensive tuning options",
+          "scaling_model": "Horizontal scaling through distributed clusters with automatic sharding and replication, vertical scaling through multi-core vectorized processing"
+        },
+        "code_quality_signals": {
+          "has_tests": true,
+          "test_framework": "Google Test for C++ unit tests, pytest for Python integration tests, custom functional testing framework",
+          "test_count_estimate": "25996 test files across unit, integration, and functional test suites",
+          "has_linting": true,
+          "has_type_hints": true,
+          "documentation_quality": "well-documented",
+          "code_style": "Custom C++ style guide with clang-format and clang-tidy enforcement"
+        },
+        "project_health": {
+          "license": "Apache-2.0",
+          "total_commits": 1,
+          "top_contributors": 1,
+          "recent_activity": "Active development with performance optimizations and feature enhancements based on recent merge commit",
+          "community_signals": "Strong community health with CODE_OF_CONDUCT.md, SECURITY.md, comprehensive CONTRIBUTING.md, and active community events and meetups"
+        },
+        "evidence_tracking": {
+          "files_analyzed": [
+            "CMakeLists.txt",
+            "base/base/simd.h",
+            "base/base/Numa.cpp",
+            "base/poco/Foundation/",
+            "contrib/*/CMakeLists.txt",
+            "ci/docker/*/requirements.txt",
+            "ci/docker/integration/mysql_golang_client/main.go",
+            "rust/chcache/src/main.rs",
+            "rust/workspace/*/src/lib.rs",
+            "docs/en/development/architecture.md",
+            "CONTRIBUTING.md",
+            "SECURITY.md"
+          ],
+          "confidence_level": "High",
+          "information_gaps": [
+            "Specific HTTP API endpoint definitions require deeper code analysis",
+            "Complete authentication mechanism details need security configuration analysis",
+            "Performance benchmarks and optimization details require runtime analysis"
+          ]
+        },
         "pricing": {
           "model": "open-source",
           "free_tier": "true"
-        },
-        "target_audience": "Developers",
-        "category": "Open Source Software",
-        "deployment": "Self-hosted",
-        "underlying_algorithm": {
-          "problem_type": "",
-          "pattern": ""
-        },
-        "evidence_tracking": {
-          "confidence_level": "High",
-          "technical_facts": [
-            "Executes SQL queries with OLAP-specific extensions and functions (src/Parsers/, src/Interpreters/)",
-            "Stores data in columnar format with compression and indexing (src/Storages/)",
-            "Processes distributed queries across multiple nodes with query coordination (src/Interpreters/Cluster*)",
-            "Implements vectorized query execution with SIMD optimizations (src/Columns/, src/Functions/)",
-            "Provides HTTP and TCP network interfaces for client connections (src/Server/)",
-            "Supports real-time data ingestion and streaming (src/Storages/Kafka/, src/Storages/RabbitMQ/)",
-            "Implements table engines for various data sources and formats (src/Storages/)",
-            "Provides backup and replication capabilities (src/Backups/, src/Storages/MergeTree/)",
-            "Offers integration with external systems via table functions (src/TableFunctions/)"
-          ],
-          "information_gaps": []
-        },
-        "architecture_patterns": [
-          "monolith with distributed query capabilities",
-          "Concurrency: multi-threaded with thread pools for query execution, background merges, and network handling"
-        ],
-        "auth_methods": [
-          "User/password authentication",
-          "SSL/TLS encryption",
-          "LDAP integration",
-          "Kerberos support"
-        ],
-        "sdk_languages": [
-          "Python",
-          "Java",
-          "Rust",
-          "JavaScript",
-          "C#",
-          "Go",
-          "PHP"
-        ],
-        "dependencies": [
-          "LLVM (JIT compilation)",
-          "Poco (networking and utilities)",
-          "librdkafka (Kafka integration)",
-          "AWS SDK (S3 integration)",
-          "Azure SDK (Azure storage)",
-          "Google Cloud SDK",
-          "OpenSSL (cryptography)",
-          "Infrastructure: ZooKeeper or ClickHouse Keeper (distributed coordination)",
-          "Infrastructure: Optional external storage (S3, HDFS, etc.)",
-          "Infrastructure: Optional message queues (Kafka, RabbitMQ)"
-        ],
-        "deployment_options": [
-          "Containerized (Docker)",
-          "CI/CD: GitHub Actions (extensive CI pipeline in .github/workflows/)"
-        ]
+        }
       },
       "extracted_data": {},
       "source": "local_repo",
       "source_confidence": "high",
-      "timestamp": "2026-03-21T19:34:40.299780"
+      "timestamp": "2026-03-25T15:36:27.346649"
     },
     "generalization": {
       "functional_dna": {
         "logic_archetype": "Data Aggregator",
-        "logic_archetype_evidence": "Stores data in columnar format with compression and indexing (src/Storages/), Processes distributed queries across multiple nodes with query coordination (src/Interpreters/Cluster*), Executes SQL queries with OLAP-specific extensions and functions",
+        "logic_archetype_evidence": "ClickHouse executes vectorized analytical queries on columnar data with sophisticated aggregation algorithms, real-time materialized views, and distributed query processing across massive datasets. The system's core purpose is transforming raw data streams into analytical insights through aggregation, filtering, and statistical operations.",
         "data_contract_strictness": "Highly Structured",
-        "data_contract_evidence": "Executes SQL queries with OLAP-specific extensions and functions (src/Parsers/, src/Interpreters/), Stores data in columnar format with compression and indexing (src/Storages/)",
-        "core_algorithmic_class": "Time-Series Processing",
-        "core_algorithmic_evidence": "Supports real-time data ingestion and streaming (src/Storages/Kafka/, src/Storages/RabbitMQ/), Implements vectorized query execution with SIMD optimizations (src/Columns/, src/Functions/)",
+        "data_contract_evidence": "Evidence: Columnar storage with strict type system (base/base/wide_integer.h), SQL dialect with schema enforcement, multiple structured format parsers (CSV, JSON, Parquet), and DDL operations for schema evolution",
+        "core_algorithmic_class": "Statistical Models",
+        "core_algorithmic_evidence": "Evidence from vectorized aggregation with SIMD operations (base/base/simd.h), sophisticated statistical and mathematical functions, multi-way merge sort algorithms (base/base/sort.h), and specialized time-series processing capabilities",
         "concurrency_requirements": "Eventually Consistent",
-        "concurrency_evidence": "Processes distributed queries across multiple nodes with query coordination (src/Interpreters/Cluster*), Infrastructure: ZooKeeper or ClickHouse Keeper (distributed coordination)",
+        "concurrency_evidence": "Evidence from distributed architecture with LSM-tree-like storage, replica synchronization mechanisms, and multi-threaded vectorized processing with NUMA-aware memory allocation (base/base/Numa.cpp)",
+        "abstract_problem": "Transforms high-velocity structured data streams into aggregated analytical results using columnar storage and vectorized computation, maintaining queryable historical state while supporting real-time ingestion and sub-second query response times.",
+        "data_flow_pattern": "Streaming ingestion \u2192 columnar transformation \u2192 vectorized aggregation \u2192 materialized result caching \u2192 distributed query execution with merge-based result combination",
+        "state_complexity": "Distributed",
         "repurposing_confidence": 8,
-        "repurposing_reasoning": "High confidence due to generic SQL interface, extensive integration capabilities, and modular storage engines. The columnar storage and vectorized execution patterns are broadly applicable to analytical workloads across industries."
+        "repurposing_reasoning": "The core vectorized computation engine, columnar storage patterns, and distributed aggregation algorithms are highly generic and applicable across domains. The SQL parsing and database-specific optimizations are domain-locked, but the underlying computational patterns for real-time analytics on structured data streams have broad utility. The SIMD-optimized aggregation engine and LSM-tree storage could be repurposed for any high-throughput analytical workload."
       },
       "evidence_claims": [
         {
-          "claim": "Implements columnar storage with vectorized execution",
-          "evidence": "Stores data in columnar format with compression and indexing (src/Storages/), Implements vectorized query execution with SIMD optimizations (src/Columns/, src/Functions/)",
+          "claim": "Implements vectorized query execution with SIMD optimization",
+          "evidence": "base/base/simd.h and architecture docs mention vectorized execution on columnar data structures",
           "confidence": "High"
         },
         {
-          "claim": "Supports distributed query processing",
-          "evidence": "Processes distributed queries across multiple nodes with query coordination (src/Interpreters/Cluster*)",
+          "claim": "Uses LSM-tree-like storage with advanced compression",
+          "evidence": "Architecture docs mention MergeTree engine and contrib/ directories show multiple compression libraries (LZ4, ZSTD)",
           "confidence": "High"
         },
         {
-          "claim": "Provides standard SQL interface with OLAP extensions",
-          "evidence": "Executes SQL queries with OLAP-specific extensions and functions (src/Parsers/, src/Interpreters/)",
+          "claim": "Supports distributed query execution across multiple nodes",
+          "evidence": "Architecture overview mentions distributed processing and gRPC for inter-node communication (contrib/grpc-cmake/)",
           "confidence": "High"
         },
         {
-          "claim": "Supports real-time data ingestion",
-          "evidence": "Supports real-time data ingestion and streaming (src/Storages/Kafka/, src/Storages/RabbitMQ/)",
-          "confidence": "High"
+          "claim": "Provides real-time data ingestion with multiple formats",
+          "evidence": "ci/docker/integration shows format support and contrib/ includes Arrow/Parquet libraries",
+          "confidence": "Medium"
         }
       ],
       "market_reach": {
-        "primary_industry": "Data Analytics",
+        "primary_industry": "Data Analytics and Business Intelligence",
         "cross_industry_applications": [
-          "Financial Services",
-          "E-commerce",
-          "Telecommunications",
-          "Healthcare",
-          "Manufacturing",
-          "IoT",
-          "Gaming"
+          "Financial Services - Real-time risk analytics and algorithmic trading systems requiring sub-second aggregation of market data streams",
+          "IoT and Manufacturing - Sensor data aggregation for predictive maintenance and real-time operational dashboards",
+          "Telecommunications - Network performance monitoring and call detail record analysis for billing and optimization",
+          "E-commerce - Real-time recommendation engines and inventory optimization based on user behavior streams",
+          "Healthcare - Patient monitoring systems aggregating vital signs and medical device data for clinical decision support",
+          "Gaming - Player behavior analytics and real-time leaderboards processing millions of game events",
+          "Supply Chain - Logistics optimization with real-time tracking data aggregation across multiple transportation modes",
+          "Energy - Smart grid data processing and renewable energy forecasting from distributed sensor networks"
         ],
         "utility_score": 9,
         "market_potential": "High"
       },
       "friction_report": {
-        "difficulty": "Medium",
-        "estimated_hours": 80,
+        "difficulty": "High",
+        "estimated_hours": 2000,
         "required_technologies": [
-          "C++ (primary implementation language - 4560 .cpp files, 4245 .h files)",
-          "CMake (build system - CMakeLists.txt files throughout)",
-          "Infrastructure: ZooKeeper or ClickHouse Keeper (distributed coordination)"
+          "C++20",
+          "CMake",
+          "LLVM/Clang",
+          "SIMD libraries",
+          "Distributed systems expertise",
+          "Columnar storage knowledge"
         ],
         "complexity_factors": [
-          "Distributed system coordination",
-          "C++ compilation requirements",
-          "Storage engine configuration",
-          "Query optimization tuning"
+          "Complex multi-language codebase",
+          "SIMD optimization requirements",
+          "Distributed consensus mechanisms",
+          "Custom networking protocols",
+          "Advanced compression algorithms"
         ],
-        "risk_level": "Medium"
+        "risk_level": "High",
+        "migration_path": "Extract vectorized computation engine and columnar storage components, rebuild data ingestion layer for target domain, replace SQL interface with domain-specific query language, adapt distributed coordination for specific consistency requirements"
       },
       "interface_map": {
         "adapter_schema": {
           "input": {
-            "format": "SQL",
+            "format": "SQL queries and structured data streams",
             "required_fields": [
               "query",
-              "database",
-              "table"
+              "data"
+            ],
+            "protocols": [
+              "HTTP",
+              "gRPC",
+              "Native TCP"
             ]
           },
           "output": {
-            "format": "JSON"
+            "format": "JSON/columnar result sets",
+            "delivery": "sync/async/streaming"
           },
           "authentication": {
-            "type": "User/password authentication",
-            "method": "HTTP and TCP network interfaces for client connections (src/Server/)"
+            "type": "multi-method",
+            "method": "passwords, certificates, LDAP, Kerberos, JWT"
           }
         },
-        "standardization_level": "High"
+        "standardization_level": "High",
+        "api_surface_area": "Medium (10-50)"
       },
+      "comparable_systems": [
+        "Apache Storm - Real-time stream processing with distributed tuple aggregation and state management",
+        "Elasticsearch - Distributed search engine with real-time indexing and aggregation of document collections",
+        "Apache Kafka Streams - Stream processing library with windowed aggregations and stateful transformations",
+        "InfluxDB - Time-series database with continuous queries and real-time data aggregation for monitoring",
+        "Apache Pinot - Real-time analytics database optimized for OLAP queries on streaming data"
+      ],
       "information_gaps": [
-        "Specific query performance metrics",
-        "Memory requirements for different data volumes",
-        "Detailed backup/recovery procedures",
-        "Specific SIMD instruction sets supported"
+        "Specific HTTP API endpoint definitions for integration patterns",
+        "Performance benchmarks and scaling characteristics under various workloads",
+        "Complete plugin architecture details for extensibility assessment",
+        "Detailed query optimizer internals and cost-based optimization strategies"
       ]
     },
-    "timestamp": "2026-03-21T19:34:53.033277"
+    "timestamp": "2026-03-25T15:36:56.491838"
   },
   "errors": []
 }

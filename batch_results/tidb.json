@@ -1,330 +1,583 @@
 {
   "url": "https://github.com/pingcap/tidb.git",
   "repo_name": "tidb",
-  "timestamp": "2026-03-21T19:38:00.891801",
+  "timestamp": "2026-03-25T18:13:12.432742",
   "step1": {
     "product_name": "tidb",
     "url": "https://github.com/pingcap/tidb.git",
     "analysis": {
-      "summary": "TiDB is a distributed SQL database written in Go that provides ACID-compliant transactions across multiple nodes using a two-phase commit protocol. It separates compute from storage layers, supports both row-based (TiKV) and columnar (TiFlash) storage engines for HTAP workloads, and includes backup/restore tools (BR) and data import utilities (Lightning).",
+      "summary": "TiDB is a distributed SQL database designed for horizontal scalability, high availability, and hybrid transactional/analytical processing (HTAP). It implements a three-tier architecture with TiDB server nodes handling SQL processing, TiKV providing distributed transactional storage using Raft consensus, and TiFlash offering columnar storage for analytics. The system supports MySQL 8.0 protocol compatibility and provides strong ACID guarantees across distributed transactions.",
       "capabilities": [
-        "Executes distributed SQL queries with ACID transaction guarantees using two-phase commit protocol (pkg/executor/, pkg/kv/)",
-        "Parses and optimizes SQL statements through cost-based optimizer (pkg/parser/, pkg/planner/)",
-        "Manages distributed transactions across multiple TiKV nodes (pkg/store/tikv/)",
-        "Provides backup and restore functionality for cluster data (br/pkg/backup/, br/pkg/restore/)",
-        "Imports data from various sources including CSV, SQL dumps, and Parquet files (lightning/)",
-        "Serves MySQL-compatible protocol for client connections (pkg/server/)",
-        "Manages table statistics for query optimization (pkg/statistics/)",
-        "Handles DDL operations in distributed environment (pkg/ddl/)",
-        "Provides telemetry and metrics collection (pkg/telemetry/, pkg/metrics/)"
+        "Provides distributed SQL query processing with MySQL 8.0 protocol compatibility (cmd/tidb-server/main.go, pkg/server/)",
+        "Implements distributed transactional storage with Raft consensus protocol for strong consistency (pkg/store/, TiKV integration)",
+        "Supports backup and restore operations for cluster data (br/cmd/br/main.go, br/pkg/backup/, br/pkg/restore/)",
+        "Enables data import/export through Lightning fast parallel data loading (lightning/cmd/, dumpling/cmd/dumpling/main.go)",
+        "Manages distributed DDL operations across cluster nodes (pkg/ddl/)",
+        "Provides columnar analytics storage engine integration with TiFlash (pkg/store/)",
+        "Handles session management and connection pooling (pkg/session/, pkg/sessionctx/)",
+        "Implements SQL query planning and optimization (pkg/planner/)",
+        "Supports distributed SQL execution with MPP processing (pkg/executor/, pkg/executor/mppcoordmanager/)",
+        "Manages privilege and access control with RBAC (pkg/privilege/)",
+        "Provides statistics collection and analysis for query optimization (pkg/statistics/)",
+        "Handles distributed lock management and deadlock detection (pkg/lock/, pkg/util/deadlockhistory/)",
+        "Supports plugin architecture for extensibility (pkg/plugin/, pkg/extension/)",
+        "Implements resource group management and workload isolation (pkg/resourcegroup/, pkg/resourcemanager/)",
+        "Provides telemetry and monitoring metrics collection (pkg/telemetry/, pkg/metrics/)",
+        "Handles table partitioning and sharding logic (pkg/table/, pkg/tablecodec/)",
+        "Manages keyspace isolation for multi-tenancy (pkg/keyspace/)",
+        "Supports time-to-live (TTL) data management (pkg/ttl/)",
+        "Provides expression evaluation and type system (pkg/expression/, pkg/types/)",
+        "Implements auto-increment ID generation service (pkg/autoid_service/)",
+        "Handles domain and schema management (pkg/domain/, pkg/infoschema/)",
+        "Supports bind variables and SQL plan binding (pkg/bindinfo/)",
+        "Provides distributed garbage collection management (br/pkg/gc/)",
+        "Implements streaming change data capture (br/pkg/stream/)",
+        "Supports external storage backends (S3, GCS, Azure) for backup/restore (br/pkg/aws/, cloud storage integrations)"
       ],
-      "use_cases": [],
+      "use_cases": [
+        "Database administrators use TiDB to deploy horizontally scalable MySQL-compatible databases for high-traffic applications",
+        "Data engineers use the backup/restore tools to manage cluster data migration and disaster recovery",
+        "Application developers use TiDB as a drop-in replacement for MySQL with automatic horizontal scaling",
+        "Analytics teams use TiFlash integration for real-time OLAP queries on transactional data",
+        "DevOps teams use Lightning for fast bulk data loading and Dumpling for data export operations"
+      ],
+      "category": "Distributed SQL Database",
+      "target_audience": "Database administrators, Backend developers, Data engineers, DevOps engineers",
       "technical_stack": [
         "Go 1.25.8 (go.mod)",
-        "gRPC for inter-node communication (go.mod: google.golang.org/grpc)",
-        "etcd for metadata storage (go.mod: go.etcd.io/etcd)",
-        "Prometheus for metrics (go.mod: github.com/prometheus/client_golang)",
-        "MySQL driver compatibility (go.mod: github.com/go-sql-driver/mysql)",
-        "Apache Arrow for columnar data processing (go.mod: github.com/apache/arrow-go)",
-        "AWS SDK for cloud storage integration (go.mod: github.com/aws/aws-sdk-go)",
-        "React/TypeScript for Lightning web UI (lightning/web/package.json)",
-        "Docker for containerization (Dockerfile, docker-compose.yaml)"
-      ],
-      "integrations": [
-        "TiKV distributed key-value storage backend (pkg/store/tikv/)",
-        "TiFlash columnar storage engine (pkg/store/tikv/tikvrpc/)",
-        "Apache Kafka for CDC (go.mod: github.com/Shopify/sarama)",
-        "AWS S3 for backup storage (br/pkg/storage/)",
-        "Google Cloud Storage (go.mod: cloud.google.com/go/storage)",
-        "Azure Blob Storage (go.mod: github.com/Azure/azure-sdk-for-go)",
-        "MinIO S3-compatible storage (br/docker-compose.yaml)",
-        "Prometheus monitoring (pkg/metrics/)",
-        "etcd for PD cluster coordination (go.mod: go.etcd.io/etcd)"
+        "TiKV distributed key-value store (tikv/client-go/v2 in go.mod)",
+        "Raft consensus protocol (built into TiKV)",
+        "gRPC for inter-service communication (google.golang.org/grpc in go.mod)",
+        "Prometheus metrics (prometheus/client_golang in go.mod)",
+        "Apache Arrow for columnar data processing (github.com/apache/arrow-go/v18 in go.mod)",
+        "AWS SDK for cloud storage (aws/aws-sdk-go-v2 in go.mod)",
+        "Google Cloud SDK (cloud.google.com/go in go.mod)",
+        "Azure SDK (Azure/azure-sdk-for-go in go.mod)",
+        "Cobra CLI framework (spf13/cobra in go.mod)",
+        "React 17.0.1 for Lightning web UI (lightning/web/package-lock.json)",
+        "TypeScript 4.0.2 for web frontend (lightning/web/package-lock.json)",
+        "Bazel build system (BUILD.bazel files, WORKSPACE)"
       ],
       "api_endpoints": [
-        {
-          "method": null,
-          "path": "SQL query execution via MySQL protocol on port 4000 (pkg/server/)",
-          "summary": null
-        },
-        {
-          "method": null,
-          "path": "HTTP status and admin endpoints (pkg/server/http_status.go)",
-          "summary": null
-        },
-        {
-          "method": null,
-          "path": "Lightning web UI endpoints for data import monitoring (lightning/web/)",
-          "summary": null
-        }
+        "MySQL protocol on port 4000 (default TiDB server port from Dockerfile EXPOSE)",
+        "HTTP status endpoint for health checks (pkg/server/)",
+        "Prometheus metrics endpoint (pkg/metrics/)",
+        "Lightning web UI endpoints for import monitoring (lightning/web/)",
+        "gRPC endpoints for internal cluster communication (pkg/server/)"
       ],
+      "sdk_languages": [
+        "Go (primary client through database/sql driver)",
+        "Any language with MySQL connector support"
+      ],
+      "auth_methods": [
+        "MySQL native authentication",
+        "SSL/TLS encryption",
+        "Role-based access control (RBAC) (pkg/privilege/)",
+        "Certificate-based authentication for cluster nodes"
+      ],
+      "integrations": [
+        "TiKV for distributed storage (tikv/client-go/v2 imports)",
+        "TiFlash for columnar analytics (pkg/store/ TiFlash integration)",
+        "Placement Driver (PD) for cluster coordination (github.com/tikv/pd imports)",
+        "AWS S3 for backup storage (aws/aws-sdk-go-v2/service/s3)",
+        "Google Cloud Storage (cloud.google.com/go/storage)",
+        "Azure Blob Storage (Azure/azure-sdk-for-go/sdk/storage/azblob)",
+        "Prometheus for monitoring (prometheus/client_golang)",
+        "OpenTracing for distributed tracing (opentracing/opentracing-go)",
+        "Grafana Pyroscope for profiling (grafana/pyroscope-go)"
+      ],
+      "architecture": {
+        "pattern": "microservices with distributed storage",
+        "components": [
+          "TiDB Server - stateless SQL processing layer",
+          "TiKV - distributed transactional storage engine",
+          "TiFlash - columnar analytics storage engine",
+          "Placement Driver (PD) - cluster metadata and scheduling",
+          "BR - backup and restore service",
+          "Lightning - fast data import tool",
+          "Dumpling - data export tool"
+        ],
+        "entry_points": [
+          "cmd/tidb-server/main.go",
+          "br/cmd/br/main.go",
+          "lightning/cmd/tidb-lightning/main.go",
+          "dumpling/cmd/dumpling/main.go"
+        ],
+        "data_flow": "SQL queries enter through TiDB server nodes, get parsed and planned, then distributed to TiKV nodes for transactional processing or TiFlash for analytical processing. Data is automatically sharded across TiKV regions using Raft consensus for consistency. Results are aggregated back through TiDB nodes to clients.",
+        "persistence": "TiKV provides persistent distributed storage with Raft replication, TiFlash maintains columnar replicas, automatic schema versioning and DDL coordination",
+        "concurrency_model": "async with goroutines for high concurrency SQL processing, Raft-based distributed consensus for data consistency",
+        "communication_patterns": "gRPC for internal cluster communication, MySQL protocol for client connections, HTTP for monitoring and admin APIs",
+        "plugin_extension_model": "Plugin system in pkg/plugin/ and pkg/extension/ for custom functionality, hooks for DDL operations, extensible storage backends"
+      },
+      "data_model": {
+        "primary_entities": [
+          "Tables",
+          "Databases",
+          "Regions",
+          "Placement Rules",
+          "Users",
+          "Privileges",
+          "Statistics",
+          "Indexes"
+        ],
+        "storage_backends": [
+          "TiKV (transactional row-based)",
+          "TiFlash (analytical columnar)",
+          "External storage (S3, GCS, Azure) for backups"
+        ],
+        "schema_patterns": "Relational SQL schema with MySQL compatibility, distributed sharding by key ranges, multi-version concurrency control (MVCC)",
+        "migration_strategy": "Online DDL operations coordinated across cluster, schema versioning in pkg/domain/, backward compatibility maintenance"
+      },
+      "algorithms": {
+        "problem_type": "Distributed SQL processing with HTAP workloads requiring horizontal scaling and strong consistency",
+        "core_patterns": [
+          "Raft consensus for replication",
+          "Two-phase commit for distributed transactions",
+          "Cost-based query optimization",
+          "Range-based data sharding",
+          "Online schema migration"
+        ],
+        "complexity_indicators": "Handles thousands of nodes, millions of QPS, automatic load balancing and failover",
+        "key_algorithms": [
+          "Raft consensus protocol in TiKV",
+          "Percolator-style distributed transactions",
+          "Cascades query optimizer framework",
+          "Region splitting and merging",
+          "Online DDL with schema versioning"
+        ],
+        "evidence": "pkg/ddl/ for distributed DDL, pkg/planner/ for query optimization, tikv integration for Raft consensus, pkg/executor/ for distributed execution"
+      },
+      "security_model": {
+        "authentication": "MySQL native auth, SSL/TLS certificates, cluster internal authentication",
+        "authorization": "Role-based access control (RBAC) with fine-grained privileges (pkg/privilege/)",
+        "data_protection": "TLS encryption in transit, encryption at rest in TiKV, certificate-based cluster auth",
+        "security_headers": "Configurable CORS support, secure client connections",
+        "vulnerability_handling": "SECURITY.md policy, dependency scanning, security patches"
+      },
+      "dependencies": {
+        "runtime": [
+          "tikv/client-go/v2",
+          "google.golang.org/grpc",
+          "prometheus/client_golang",
+          "aws/aws-sdk-go-v2",
+          "cloud.google.com/go",
+          "spf13/cobra"
+        ],
+        "dev": [
+          "bazelbuild/buildtools",
+          "golangci-lint tools",
+          "testing frameworks"
+        ],
+        "infrastructure": [
+          "TiKV storage nodes",
+          "Placement Driver (PD)",
+          "TiFlash analytics nodes",
+          "Load balancers",
+          "Monitoring stack"
+        ]
+      },
+      "deployment": {
+        "containerized": true,
+        "container_orchestration": "Docker Compose / Kubernetes with TiDB Operator",
+        "ci_cd": "Custom Prow-based CI system (prow.tidb.net from README badges)",
+        "environment_config": "Configuration files, environment variables, command-line flags, TOML config format",
+        "scaling_model": "Horizontal auto-scaling by adding TiDB/TiKV/TiFlash nodes, automatic data rebalancing"
+      },
+      "code_quality_signals": {
+        "has_tests": true,
+        "test_framework": "Go built-in testing framework",
+        "test_count_estimate": "3647 test files",
+        "has_linting": true,
+        "has_type_hints": true,
+        "documentation_quality": "well-documented",
+        "code_style": "Standard Go formatting with gofmt, extensive code review process"
+      },
+      "project_health": {
+        "license": "Apache-2.0",
+        "total_commits": "1",
+        "top_contributors": "1",
+        "recent_activity": "Active development with import size estimation features",
+        "community_signals": "Code of conduct, security policy, contribution guidelines, issue templates"
+      },
+      "evidence_tracking": {
+        "files_analyzed": [
+          "cmd/tidb-server/main.go",
+          "br/cmd/br/main.go",
+          "dumpling/cmd/dumpling/main.go",
+          "lightning/cmd/tidb-lightning-ctl/main.go",
+          "go.mod",
+          "Dockerfile",
+          "Makefile",
+          "README.md",
+          "CONTRIBUTING.md"
+        ],
+        "confidence_level": "High",
+        "information_gaps": [
+          "Limited git history provided (only 1 commit)",
+          "Full API endpoint details would require deeper source analysis",
+          "Performance benchmarks not visible in provided extraction"
+        ]
+      },
       "pricing": {
         "model": "open-source",
         "free_tier": "true"
-      },
-      "target_audience": "Developers",
-      "category": "Open Source Software",
-      "deployment": "Self-hosted",
-      "underlying_algorithm": {
-        "problem_type": "",
-        "pattern": ""
-      },
-      "evidence_tracking": {
-        "confidence_level": "High",
-        "technical_facts": [
-          "Executes distributed SQL queries with ACID transaction guarantees using two-phase commit protocol (pkg/executor/, pkg/kv/)",
-          "Parses and optimizes SQL statements through cost-based optimizer (pkg/parser/, pkg/planner/)",
-          "Manages distributed transactions across multiple TiKV nodes (pkg/store/tikv/)",
-          "Provides backup and restore functionality for cluster data (br/pkg/backup/, br/pkg/restore/)",
-          "Imports data from various sources including CSV, SQL dumps, and Parquet files (lightning/)",
-          "Serves MySQL-compatible protocol for client connections (pkg/server/)",
-          "Manages table statistics for query optimization (pkg/statistics/)",
-          "Handles DDL operations in distributed environment (pkg/ddl/)",
-          "Provides telemetry and metrics collection (pkg/telemetry/, pkg/metrics/)"
-        ],
-        "information_gaps": []
-      },
-      "architecture_patterns": [
-        "distributed system with separated compute and storage layers",
-        "Concurrency: goroutines with async I/O for handling concurrent connections and distributed operations (pkg/server/conn.go, pkg/store/tikv/)"
-      ],
-      "auth_methods": [
-        "MySQL-compatible authentication (pkg/server/conn.go)",
-        "TLS/SSL support for secure connections (pkg/server/)",
-        "Certificate-based authentication (pkg/util/security/)"
-      ],
-      "sdk_languages": [],
-      "dependencies": [
-        "etcd",
-        "gRPC",
-        "Prometheus client",
-        "MySQL driver",
-        "Apache Arrow",
-        "AWS/GCP/Azure SDKs",
-        "Infrastructure: TiKV storage nodes",
-        "Infrastructure: PD (Placement Driver) cluster",
-        "Infrastructure: TiFlash columnar storage",
-        "Infrastructure: etcd cluster"
-      ],
-      "deployment_options": [
-        "Containerized (Docker)",
-        "CI/CD: GitHub Actions (implied from file structure), Jenkins (Jenkinsfile), Bazel build system (BUILD.bazel files)"
-      ]
+      }
     },
     "extracted_data": {},
     "source": "local_repo",
     "source_confidence": "high",
-    "timestamp": "2026-03-21T19:38:39.592613"
+    "timestamp": "2026-03-25T18:14:40.498915"
   },
   "step2": {
     "step1_data": {
       "product_name": "tidb",
       "url": "https://github.com/pingcap/tidb.git",
       "analysis": {
-        "summary": "TiDB is a distributed SQL database written in Go that provides ACID-compliant transactions across multiple nodes using a two-phase commit protocol. It separates compute from storage layers, supports both row-based (TiKV) and columnar (TiFlash) storage engines for HTAP workloads, and includes backup/restore tools (BR) and data import utilities (Lightning).",
+        "summary": "TiDB is a distributed SQL database designed for horizontal scalability, high availability, and hybrid transactional/analytical processing (HTAP). It implements a three-tier architecture with TiDB server nodes handling SQL processing, TiKV providing distributed transactional storage using Raft consensus, and TiFlash offering columnar storage for analytics. The system supports MySQL 8.0 protocol compatibility and provides strong ACID guarantees across distributed transactions.",
         "capabilities": [
-          "Executes distributed SQL queries with ACID transaction guarantees using two-phase commit protocol (pkg/executor/, pkg/kv/)",
-          "Parses and optimizes SQL statements through cost-based optimizer (pkg/parser/, pkg/planner/)",
-          "Manages distributed transactions across multiple TiKV nodes (pkg/store/tikv/)",
-          "Provides backup and restore functionality for cluster data (br/pkg/backup/, br/pkg/restore/)",
-          "Imports data from various sources including CSV, SQL dumps, and Parquet files (lightning/)",
-          "Serves MySQL-compatible protocol for client connections (pkg/server/)",
-          "Manages table statistics for query optimization (pkg/statistics/)",
-          "Handles DDL operations in distributed environment (pkg/ddl/)",
-          "Provides telemetry and metrics collection (pkg/telemetry/, pkg/metrics/)"
+          "Provides distributed SQL query processing with MySQL 8.0 protocol compatibility (cmd/tidb-server/main.go, pkg/server/)",
+          "Implements distributed transactional storage with Raft consensus protocol for strong consistency (pkg/store/, TiKV integration)",
+          "Supports backup and restore operations for cluster data (br/cmd/br/main.go, br/pkg/backup/, br/pkg/restore/)",
+          "Enables data import/export through Lightning fast parallel data loading (lightning/cmd/, dumpling/cmd/dumpling/main.go)",
+          "Manages distributed DDL operations across cluster nodes (pkg/ddl/)",
+          "Provides columnar analytics storage engine integration with TiFlash (pkg/store/)",
+          "Handles session management and connection pooling (pkg/session/, pkg/sessionctx/)",
+          "Implements SQL query planning and optimization (pkg/planner/)",
+          "Supports distributed SQL execution with MPP processing (pkg/executor/, pkg/executor/mppcoordmanager/)",
+          "Manages privilege and access control with RBAC (pkg/privilege/)",
+          "Provides statistics collection and analysis for query optimization (pkg/statistics/)",
+          "Handles distributed lock management and deadlock detection (pkg/lock/, pkg/util/deadlockhistory/)",
+          "Supports plugin architecture for extensibility (pkg/plugin/, pkg/extension/)",
+          "Implements resource group management and workload isolation (pkg/resourcegroup/, pkg/resourcemanager/)",
+          "Provides telemetry and monitoring metrics collection (pkg/telemetry/, pkg/metrics/)",
+          "Handles table partitioning and sharding logic (pkg/table/, pkg/tablecodec/)",
+          "Manages keyspace isolation for multi-tenancy (pkg/keyspace/)",
+          "Supports time-to-live (TTL) data management (pkg/ttl/)",
+          "Provides expression evaluation and type system (pkg/expression/, pkg/types/)",
+          "Implements auto-increment ID generation service (pkg/autoid_service/)",
+          "Handles domain and schema management (pkg/domain/, pkg/infoschema/)",
+          "Supports bind variables and SQL plan binding (pkg/bindinfo/)",
+          "Provides distributed garbage collection management (br/pkg/gc/)",
+          "Implements streaming change data capture (br/pkg/stream/)",
+          "Supports external storage backends (S3, GCS, Azure) for backup/restore (br/pkg/aws/, cloud storage integrations)"
         ],
-        "use_cases": [],
+        "use_cases": [
+          "Database administrators use TiDB to deploy horizontally scalable MySQL-compatible databases for high-traffic applications",
+          "Data engineers use the backup/restore tools to manage cluster data migration and disaster recovery",
+          "Application developers use TiDB as a drop-in replacement for MySQL with automatic horizontal scaling",
+          "Analytics teams use TiFlash integration for real-time OLAP queries on transactional data",
+          "DevOps teams use Lightning for fast bulk data loading and Dumpling for data export operations"
+        ],
+        "category": "Distributed SQL Database",
+        "target_audience": "Database administrators, Backend developers, Data engineers, DevOps engineers",
         "technical_stack": [
           "Go 1.25.8 (go.mod)",
-          "gRPC for inter-node communication (go.mod: google.golang.org/grpc)",
-          "etcd for metadata storage (go.mod: go.etcd.io/etcd)",
-          "Prometheus for metrics (go.mod: github.com/prometheus/client_golang)",
-          "MySQL driver compatibility (go.mod: github.com/go-sql-driver/mysql)",
-          "Apache Arrow for columnar data processing (go.mod: github.com/apache/arrow-go)",
-          "AWS SDK for cloud storage integration (go.mod: github.com/aws/aws-sdk-go)",
-          "React/TypeScript for Lightning web UI (lightning/web/package.json)",
-          "Docker for containerization (Dockerfile, docker-compose.yaml)"
-        ],
-        "integrations": [
-          "TiKV distributed key-value storage backend (pkg/store/tikv/)",
-          "TiFlash columnar storage engine (pkg/store/tikv/tikvrpc/)",
-          "Apache Kafka for CDC (go.mod: github.com/Shopify/sarama)",
-          "AWS S3 for backup storage (br/pkg/storage/)",
-          "Google Cloud Storage (go.mod: cloud.google.com/go/storage)",
-          "Azure Blob Storage (go.mod: github.com/Azure/azure-sdk-for-go)",
-          "MinIO S3-compatible storage (br/docker-compose.yaml)",
-          "Prometheus monitoring (pkg/metrics/)",
-          "etcd for PD cluster coordination (go.mod: go.etcd.io/etcd)"
+          "TiKV distributed key-value store (tikv/client-go/v2 in go.mod)",
+          "Raft consensus protocol (built into TiKV)",
+          "gRPC for inter-service communication (google.golang.org/grpc in go.mod)",
+          "Prometheus metrics (prometheus/client_golang in go.mod)",
+          "Apache Arrow for columnar data processing (github.com/apache/arrow-go/v18 in go.mod)",
+          "AWS SDK for cloud storage (aws/aws-sdk-go-v2 in go.mod)",
+          "Google Cloud SDK (cloud.google.com/go in go.mod)",
+          "Azure SDK (Azure/azure-sdk-for-go in go.mod)",
+          "Cobra CLI framework (spf13/cobra in go.mod)",
+          "React 17.0.1 for Lightning web UI (lightning/web/package-lock.json)",
+          "TypeScript 4.0.2 for web frontend (lightning/web/package-lock.json)",
+          "Bazel build system (BUILD.bazel files, WORKSPACE)"
         ],
         "api_endpoints": [
-          {
-            "method": null,
-            "path": "SQL query execution via MySQL protocol on port 4000 (pkg/server/)",
-            "summary": null
-          },
-          {
-            "method": null,
-            "path": "HTTP status and admin endpoints (pkg/server/http_status.go)",
-            "summary": null
-          },
-          {
-            "method": null,
-            "path": "Lightning web UI endpoints for data import monitoring (lightning/web/)",
-            "summary": null
-          }
+          "MySQL protocol on port 4000 (default TiDB server port from Dockerfile EXPOSE)",
+          "HTTP status endpoint for health checks (pkg/server/)",
+          "Prometheus metrics endpoint (pkg/metrics/)",
+          "Lightning web UI endpoints for import monitoring (lightning/web/)",
+          "gRPC endpoints for internal cluster communication (pkg/server/)"
         ],
+        "sdk_languages": [
+          "Go (primary client through database/sql driver)",
+          "Any language with MySQL connector support"
+        ],
+        "auth_methods": [
+          "MySQL native authentication",
+          "SSL/TLS encryption",
+          "Role-based access control (RBAC) (pkg/privilege/)",
+          "Certificate-based authentication for cluster nodes"
+        ],
+        "integrations": [
+          "TiKV for distributed storage (tikv/client-go/v2 imports)",
+          "TiFlash for columnar analytics (pkg/store/ TiFlash integration)",
+          "Placement Driver (PD) for cluster coordination (github.com/tikv/pd imports)",
+          "AWS S3 for backup storage (aws/aws-sdk-go-v2/service/s3)",
+          "Google Cloud Storage (cloud.google.com/go/storage)",
+          "Azure Blob Storage (Azure/azure-sdk-for-go/sdk/storage/azblob)",
+          "Prometheus for monitoring (prometheus/client_golang)",
+          "OpenTracing for distributed tracing (opentracing/opentracing-go)",
+          "Grafana Pyroscope for profiling (grafana/pyroscope-go)"
+        ],
+        "architecture": {
+          "pattern": "microservices with distributed storage",
+          "components": [
+            "TiDB Server - stateless SQL processing layer",
+            "TiKV - distributed transactional storage engine",
+            "TiFlash - columnar analytics storage engine",
+            "Placement Driver (PD) - cluster metadata and scheduling",
+            "BR - backup and restore service",
+            "Lightning - fast data import tool",
+            "Dumpling - data export tool"
+          ],
+          "entry_points": [
+            "cmd/tidb-server/main.go",
+            "br/cmd/br/main.go",
+            "lightning/cmd/tidb-lightning/main.go",
+            "dumpling/cmd/dumpling/main.go"
+          ],
+          "data_flow": "SQL queries enter through TiDB server nodes, get parsed and planned, then distributed to TiKV nodes for transactional processing or TiFlash for analytical processing. Data is automatically sharded across TiKV regions using Raft consensus for consistency. Results are aggregated back through TiDB nodes to clients.",
+          "persistence": "TiKV provides persistent distributed storage with Raft replication, TiFlash maintains columnar replicas, automatic schema versioning and DDL coordination",
+          "concurrency_model": "async with goroutines for high concurrency SQL processing, Raft-based distributed consensus for data consistency",
+          "communication_patterns": "gRPC for internal cluster communication, MySQL protocol for client connections, HTTP for monitoring and admin APIs",
+          "plugin_extension_model": "Plugin system in pkg/plugin/ and pkg/extension/ for custom functionality, hooks for DDL operations, extensible storage backends"
+        },
+        "data_model": {
+          "primary_entities": [
+            "Tables",
+            "Databases",
+            "Regions",
+            "Placement Rules",
+            "Users",
+            "Privileges",
+            "Statistics",
+            "Indexes"
+          ],
+          "storage_backends": [
+            "TiKV (transactional row-based)",
+            "TiFlash (analytical columnar)",
+            "External storage (S3, GCS, Azure) for backups"
+          ],
+          "schema_patterns": "Relational SQL schema with MySQL compatibility, distributed sharding by key ranges, multi-version concurrency control (MVCC)",
+          "migration_strategy": "Online DDL operations coordinated across cluster, schema versioning in pkg/domain/, backward compatibility maintenance"
+        },
+        "algorithms": {
+          "problem_type": "Distributed SQL processing with HTAP workloads requiring horizontal scaling and strong consistency",
+          "core_patterns": [
+            "Raft consensus for replication",
+            "Two-phase commit for distributed transactions",
+            "Cost-based query optimization",
+            "Range-based data sharding",
+            "Online schema migration"
+          ],
+          "complexity_indicators": "Handles thousands of nodes, millions of QPS, automatic load balancing and failover",
+          "key_algorithms": [
+            "Raft consensus protocol in TiKV",
+            "Percolator-style distributed transactions",
+            "Cascades query optimizer framework",
+            "Region splitting and merging",
+            "Online DDL with schema versioning"
+          ],
+          "evidence": "pkg/ddl/ for distributed DDL, pkg/planner/ for query optimization, tikv integration for Raft consensus, pkg/executor/ for distributed execution"
+        },
+        "security_model": {
+          "authentication": "MySQL native auth, SSL/TLS certificates, cluster internal authentication",
+          "authorization": "Role-based access control (RBAC) with fine-grained privileges (pkg/privilege/)",
+          "data_protection": "TLS encryption in transit, encryption at rest in TiKV, certificate-based cluster auth",
+          "security_headers": "Configurable CORS support, secure client connections",
+          "vulnerability_handling": "SECURITY.md policy, dependency scanning, security patches"
+        },
+        "dependencies": {
+          "runtime": [
+            "tikv/client-go/v2",
+            "google.golang.org/grpc",
+            "prometheus/client_golang",
+            "aws/aws-sdk-go-v2",
+            "cloud.google.com/go",
+            "spf13/cobra"
+          ],
+          "dev": [
+            "bazelbuild/buildtools",
+            "golangci-lint tools",
+            "testing frameworks"
+          ],
+          "infrastructure": [
+            "TiKV storage nodes",
+            "Placement Driver (PD)",
+            "TiFlash analytics nodes",
+            "Load balancers",
+            "Monitoring stack"
+          ]
+        },
+        "deployment": {
+          "containerized": true,
+          "container_orchestration": "Docker Compose / Kubernetes with TiDB Operator",
+          "ci_cd": "Custom Prow-based CI system (prow.tidb.net from README badges)",
+          "environment_config": "Configuration files, environment variables, command-line flags, TOML config format",
+          "scaling_model": "Horizontal auto-scaling by adding TiDB/TiKV/TiFlash nodes, automatic data rebalancing"
+        },
+        "code_quality_signals": {
+          "has_tests": true,
+          "test_framework": "Go built-in testing framework",
+          "test_count_estimate": "3647 test files",
+          "has_linting": true,
+          "has_type_hints": true,
+          "documentation_quality": "well-documented",
+          "code_style": "Standard Go formatting with gofmt, extensive code review process"
+        },
+        "project_health": {
+          "license": "Apache-2.0",
+          "total_commits": "1",
+          "top_contributors": "1",
+          "recent_activity": "Active development with import size estimation features",
+          "community_signals": "Code of conduct, security policy, contribution guidelines, issue templates"
+        },
+        "evidence_tracking": {
+          "files_analyzed": [
+            "cmd/tidb-server/main.go",
+            "br/cmd/br/main.go",
+            "dumpling/cmd/dumpling/main.go",
+            "lightning/cmd/tidb-lightning-ctl/main.go",
+            "go.mod",
+            "Dockerfile",
+            "Makefile",
+            "README.md",
+            "CONTRIBUTING.md"
+          ],
+          "confidence_level": "High",
+          "information_gaps": [
+            "Limited git history provided (only 1 commit)",
+            "Full API endpoint details would require deeper source analysis",
+            "Performance benchmarks not visible in provided extraction"
+          ]
+        },
         "pricing": {
           "model": "open-source",
           "free_tier": "true"
-        },
-        "target_audience": "Developers",
-        "category": "Open Source Software",
-        "deployment": "Self-hosted",
-        "underlying_algorithm": {
-          "problem_type": "",
-          "pattern": ""
-        },
-        "evidence_tracking": {
-          "confidence_level": "High",
-          "technical_facts": [
-            "Executes distributed SQL queries with ACID transaction guarantees using two-phase commit protocol (pkg/executor/, pkg/kv/)",
-            "Parses and optimizes SQL statements through cost-based optimizer (pkg/parser/, pkg/planner/)",
-            "Manages distributed transactions across multiple TiKV nodes (pkg/store/tikv/)",
-            "Provides backup and restore functionality for cluster data (br/pkg/backup/, br/pkg/restore/)",
-            "Imports data from various sources including CSV, SQL dumps, and Parquet files (lightning/)",
-            "Serves MySQL-compatible protocol for client connections (pkg/server/)",
-            "Manages table statistics for query optimization (pkg/statistics/)",
-            "Handles DDL operations in distributed environment (pkg/ddl/)",
-            "Provides telemetry and metrics collection (pkg/telemetry/, pkg/metrics/)"
-          ],
-          "information_gaps": []
-        },
-        "architecture_patterns": [
-          "distributed system with separated compute and storage layers",
-          "Concurrency: goroutines with async I/O for handling concurrent connections and distributed operations (pkg/server/conn.go, pkg/store/tikv/)"
-        ],
-        "auth_methods": [
-          "MySQL-compatible authentication (pkg/server/conn.go)",
-          "TLS/SSL support for secure connections (pkg/server/)",
-          "Certificate-based authentication (pkg/util/security/)"
-        ],
-        "sdk_languages": [],
-        "dependencies": [
-          "etcd",
-          "gRPC",
-          "Prometheus client",
-          "MySQL driver",
-          "Apache Arrow",
-          "AWS/GCP/Azure SDKs",
-          "Infrastructure: TiKV storage nodes",
-          "Infrastructure: PD (Placement Driver) cluster",
-          "Infrastructure: TiFlash columnar storage",
-          "Infrastructure: etcd cluster"
-        ],
-        "deployment_options": [
-          "Containerized (Docker)",
-          "CI/CD: GitHub Actions (implied from file structure), Jenkins (Jenkinsfile), Bazel build system (BUILD.bazel files)"
-        ]
+        }
       },
       "extracted_data": {},
       "source": "local_repo",
       "source_confidence": "high",
-      "timestamp": "2026-03-21T19:38:39.592613"
+      "timestamp": "2026-03-25T18:14:40.498915"
     },
     "generalization": {
       "functional_dna": {
         "logic_archetype": "Stateful Orchestrator",
-        "logic_archetype_evidence": "Manages distributed transactions across multiple TiKV nodes (pkg/store/tikv/) and handles DDL operations in distributed environment (pkg/ddl/) with ACID transaction guarantees using two-phase commit protocol",
+        "logic_archetype_evidence": "TiDB orchestrates distributed SQL processing across multiple storage engines (TiKV, TiFlash), coordinates distributed transactions using two-phase commit, manages cluster-wide DDL operations, and handles automatic data rebalancing and failover. It maintains complex cluster state including placement rules, region mappings, and schema versioning.",
         "data_contract_strictness": "Highly Structured",
-        "data_contract_evidence": "Parses and optimizes SQL statements through cost-based optimizer (pkg/parser/, pkg/planner/) and serves MySQL-compatible protocol for client connections (pkg/server/)",
+        "data_contract_evidence": "MySQL 8.0 protocol compatibility, strict SQL schema enforcement, relational data model with ACID guarantees, typed expression system in pkg/types/, and structured DDL operations coordinated across cluster nodes.",
         "core_algorithmic_class": "Distributed Consensus",
-        "core_algorithmic_evidence": "Uses two-phase commit protocol for ACID transaction guarantees (pkg/executor/, pkg/kv/) and coordinates with etcd for metadata storage and PD cluster coordination",
+        "core_algorithmic_evidence": "Uses Raft consensus protocol in TiKV for replication, implements Percolator-style distributed transactions with two-phase commit, employs range-based sharding with automatic splitting/merging, and coordinates distributed DDL operations with schema versioning across cluster nodes.",
         "concurrency_requirements": "ACID Compliance Required",
-        "concurrency_evidence": "Executes distributed SQL queries with ACID transaction guarantees using two-phase commit protocol (pkg/executor/, pkg/kv/)",
+        "concurrency_evidence": "Implements distributed transactions with strong consistency guarantees, uses Raft consensus for data replication, provides MVCC for concurrent access, includes distributed lock management and deadlock detection in pkg/lock/, and maintains ACID properties across distributed storage.",
+        "abstract_problem": "Coordinates distributed execution of structured queries across multiple heterogeneous storage engines while maintaining strong consistency guarantees and providing transparent horizontal scaling with automatic data distribution and rebalancing.",
+        "data_flow_pattern": "Query ingestion \u2192 parsing/planning \u2192 distributed execution coordination \u2192 heterogeneous storage access \u2192 result aggregation \u2192 response delivery, with background processes for data rebalancing, schema coordination, and consistency maintenance",
+        "state_complexity": "Distributed",
         "repurposing_confidence": 7,
-        "repurposing_reasoning": "High confidence due to generic distributed transaction management and SQL processing capabilities, but moderate due to tight coupling with TiKV storage layer and specific database-oriented architecture patterns"
+        "repurposing_reasoning": "The core distributed coordination patterns, consensus algorithms, and multi-engine orchestration logic are highly reusable across domains requiring distributed consistency. The SQL parsing and MySQL protocol layers are domain-specific, but the underlying distributed state management, automatic sharding, and multi-storage coordination patterns could be abstracted for other structured data systems. The plugin architecture and resource management components provide good extension points."
       },
       "evidence_claims": [
         {
-          "claim": "Implements distributed ACID transactions",
-          "evidence": "Executes distributed SQL queries with ACID transaction guarantees using two-phase commit protocol (pkg/executor/, pkg/kv/)",
+          "claim": "Implements distributed consensus for strong consistency",
+          "evidence": "TiKV integration with Raft consensus protocol, distributed transaction support in pkg/store/",
           "confidence": "High"
         },
         {
-          "claim": "Provides SQL query optimization",
-          "evidence": "Parses and optimizes SQL statements through cost-based optimizer (pkg/parser/, pkg/planner/)",
+          "claim": "Coordinates multiple heterogeneous storage engines",
+          "evidence": "TiKV for transactional storage and TiFlash for columnar analytics in pkg/store/, different storage backends",
           "confidence": "High"
         },
         {
-          "claim": "Manages distributed storage coordination",
-          "evidence": "Manages distributed transactions across multiple TiKV nodes (pkg/store/tikv/)",
+          "claim": "Provides automatic horizontal scaling and data rebalancing",
+          "evidence": "Range-based sharding, region splitting/merging, placement rules in pkg/tablecodec/ and architecture description",
           "confidence": "High"
         },
         {
-          "claim": "Supports data import/export operations",
-          "evidence": "Provides backup and restore functionality for cluster data (br/pkg/backup/, br/pkg/restore/) and imports data from various sources including CSV, SQL dumps, and Parquet files (lightning/)",
+          "claim": "Supports plugin-based extensibility",
+          "evidence": "Plugin system in pkg/plugin/ and pkg/extension/ with hooks for custom functionality",
+          "confidence": "High"
+        },
+        {
+          "claim": "Handles distributed DDL operations",
+          "evidence": "Distributed DDL management in pkg/ddl/ with online schema changes and versioning",
           "confidence": "High"
         }
       ],
       "market_reach": {
-        "primary_industry": "Database Management Systems",
+        "primary_industry": "Database and Data Infrastructure",
         "cross_industry_applications": [
-          "Financial Services",
-          "E-commerce",
-          "Healthcare",
-          "Telecommunications",
-          "Government",
-          "Manufacturing"
+          "Financial Trading Systems - distributed order matching with ACID guarantees across multiple exchanges",
+          "Supply Chain Management - coordinated inventory tracking across multiple warehouses with consistency requirements",
+          "Telecommunications Billing - distributed call detail record processing with real-time analytics and strict consistency",
+          "Gaming Platforms - distributed player state management across multiple game servers with leaderboard analytics",
+          "IoT Data Platforms - coordinated sensor data ingestion with real-time analytics across edge and cloud storage",
+          "Healthcare Records - distributed patient data management with HIPAA compliance and cross-facility coordination",
+          "Content Management - distributed media asset coordination across CDN nodes with metadata consistency",
+          "E-commerce Platforms - distributed inventory and order management with real-time reporting across multiple channels"
         ],
         "utility_score": 8,
         "market_potential": "High"
       },
       "friction_report": {
         "difficulty": "High",
-        "estimated_hours": 240,
+        "estimated_hours": 2000,
         "required_technologies": [
-          "Go 1.25.8",
-          "gRPC",
-          "etcd",
-          "TiKV storage nodes",
-          "PD cluster",
-          "Docker"
+          "Go runtime environment",
+          "gRPC for inter-service communication",
+          "Raft consensus implementation",
+          "Distributed key-value storage",
+          "Load balancing infrastructure",
+          "Monitoring and metrics collection"
         ],
         "complexity_factors": [
-          "Distributed system architecture",
-          "Complex dependency on TiKV/PD infrastructure",
-          "Multi-node coordination",
-          "ACID transaction management"
+          "Complex distributed consensus mechanisms",
+          "Multi-storage engine coordination logic",
+          "Automatic data rebalancing algorithms",
+          "Distributed transaction management",
+          "Online schema migration coordination",
+          "Extensive monitoring and observability requirements"
         ],
-        "risk_level": "High"
+        "risk_level": "High",
+        "migration_path": "Extract the distributed coordination layer and consensus algorithms, replace SQL-specific components with domain-appropriate query/command processors, adapt the multi-storage coordination patterns for target storage systems, and customize the plugin system for domain-specific extensions."
       },
       "interface_map": {
         "adapter_schema": {
           "input": {
-            "format": "SQL",
+            "format": "SQL queries via MySQL protocol",
             "required_fields": [
-              "SQL queries via MySQL protocol"
+              "query_string",
+              "connection_params",
+              "transaction_context"
+            ],
+            "protocols": [
+              "MySQL wire protocol on port 4000",
+              "gRPC for cluster communication",
+              "HTTP for admin/metrics"
             ]
           },
           "output": {
-            "format": "SQL Result Sets"
+            "format": "SQL result sets or execution status",
+            "delivery": "sync for queries, async for DDL operations"
           },
           "authentication": {
-            "type": "MySQL-compatible",
-            "method": "Certificate-based and TLS/SSL"
+            "type": "MySQL native authentication with RBAC",
+            "method": "username/password with SSL/TLS encryption and certificate-based cluster auth"
           }
         },
-        "standardization_level": "High"
+        "standardization_level": "High",
+        "api_surface_area": "Large (50+)"
       },
+      "comparable_systems": [
+        "Apache Kafka with Schema Registry - distributed event coordination with multiple storage tiers and schema evolution",
+        "Kubernetes Control Plane - distributed resource orchestration across heterogeneous compute nodes with etcd consensus",
+        "Apache Spark Cluster Manager - coordinated distributed computation across multiple storage systems with fault tolerance",
+        "Elasticsearch Cluster - distributed search coordination across multiple node types with automatic rebalancing",
+        "Redis Cluster with Sentinel - distributed cache coordination with automatic failover and data distribution"
+      ],
       "information_gaps": [
-        "Specific performance metrics",
-        "Scaling limits",
-        "Resource requirements",
-        "Configuration parameters",
-        "Monitoring thresholds"
+        "Performance benchmarks and throughput characteristics",
+        "Detailed placement rule algorithms and data distribution strategies",
+        "Specific consensus protocol optimizations beyond standard Raft",
+        "Resource isolation mechanisms and multi-tenancy implementation details",
+        "Backup/restore coordination protocols and consistency guarantees"
       ]
     },
-    "timestamp": "2026-03-21T19:38:51.559317"
+    "timestamp": "2026-03-25T18:15:43.348772"
   },
   "errors": []
 }
