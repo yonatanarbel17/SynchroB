@@ -1,0 +1,278 @@
+{
+  "url": "https://github.com/keycloak/keycloak.git",
+  "repo_name": "keycloak",
+  "timestamp": "2026-03-25T12:39:51.814327",
+  "step1": {
+    "product_name": "keycloak",
+    "url": "https://github.com/keycloak/keycloak.git",
+    "analysis": {
+      "summary": "Keycloak is an open-source identity and access management server that provides user authentication, authorization, and federation services. It processes authentication requests, manages user identities, and integrates with applications via SAML, OAuth2/OIDC protocols.",
+      "capabilities": [
+        "Processes SAML authentication requests and generates responses (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/SamlAuthenticator.java)",
+        "Manages user sessions and session stores (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/SamlSessionStore.java)",
+        "Provides role mapping and authorization services (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/RoleMappingsProvider.java)",
+        "Handles single sign-on (SSO) and single logout (SLO) flows (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/profile/webbrowsersso/WebBrowserSsoAuthenticationHandler.java)",
+        "Parses and validates SAML configuration and metadata (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/config/parsers/KeycloakSamlAdapterParser.java)",
+        "Implements cryptographic key rotation and management (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/rotation/SamlDescriptorPublicKeyLocator.java)",
+        "Provides client adapters for Java EE/Jakarta EE applications (adapters/saml/wildfly-elytron/src/main/java/org/keycloak/adapters/saml/elytron/ElytronSamlAuthenticator.java)"
+      ],
+      "use_cases": [],
+      "technical_stack": [
+        "Java (primary language - 7630 .java files)",
+        "TypeScript/React (595 .tsx, 382 .ts files for admin console)",
+        "Maven (build system - pom.xml files throughout)",
+        "WildFly/JBoss (server runtime - wildfly integration modules)",
+        "Apache HTTP Client (adapters/saml/core/src/main/java/org/keycloak/adapters/cloned/HttpClientBuilder.java)",
+        "SAML 2.0 Protocol Implementation"
+      ],
+      "integrations": [
+        "WildFly/JBoss EAP application server",
+        "JBoss Elytron security framework",
+        "LDAP/Active Directory (user federation)",
+        "Database systems (user storage)",
+        "External identity providers via SAML metadata"
+      ],
+      "api_endpoints": [],
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      },
+      "target_audience": "Developers",
+      "category": "Open Source Software",
+      "deployment": "Self-hosted",
+      "underlying_algorithm": {
+        "problem_type": "",
+        "pattern": ""
+      },
+      "evidence_tracking": {
+        "confidence_level": "High",
+        "technical_facts": [
+          "Processes SAML authentication requests and generates responses (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/SamlAuthenticator.java)",
+          "Manages user sessions and session stores (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/SamlSessionStore.java)",
+          "Provides role mapping and authorization services (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/RoleMappingsProvider.java)",
+          "Handles single sign-on (SSO) and single logout (SLO) flows (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/profile/webbrowsersso/WebBrowserSsoAuthenticationHandler.java)",
+          "Parses and validates SAML configuration and metadata (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/config/parsers/KeycloakSamlAdapterParser.java)",
+          "Implements cryptographic key rotation and management (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/rotation/SamlDescriptorPublicKeyLocator.java)",
+          "Provides client adapters for Java EE/Jakarta EE applications (adapters/saml/wildfly-elytron/src/main/java/org/keycloak/adapters/saml/elytron/ElytronSamlAuthenticator.java)"
+        ],
+        "information_gaps": []
+      },
+      "architecture_patterns": [
+        "monolith",
+        "Concurrency: multi-threaded Java server with synchronous request processing"
+      ],
+      "auth_methods": [
+        "SAML 2.0",
+        "OAuth2/OIDC",
+        "JWT tokens",
+        "X.509 certificates (PEM format support in adapters/saml/core/src/main/java/org/keycloak/adapters/saml/config/PemUtils.java)"
+      ],
+      "sdk_languages": [
+        "Java"
+      ],
+      "dependencies": [
+        "Maven parent POM dependencies (specific versions truncated in extraction)",
+        "Infrastructure: Database system",
+        "Infrastructure: Application server (WildFly/JBoss)",
+        "Infrastructure: Load balancer (clustering support)"
+      ],
+      "deployment_options": [
+        "Containerized (Docker)",
+        "CI/CD: GitHub Actions (inferred from .github directory)"
+      ]
+    },
+    "extracted_data": {},
+    "source": "local_repo",
+    "source_confidence": "high",
+    "timestamp": "2026-03-25T12:40:24.874456"
+  },
+  "step2": {
+    "step1_data": {
+      "product_name": "keycloak",
+      "url": "https://github.com/keycloak/keycloak.git",
+      "analysis": {
+        "summary": "Keycloak is an open-source identity and access management server that provides user authentication, authorization, and federation services. It processes authentication requests, manages user identities, and integrates with applications via SAML, OAuth2/OIDC protocols.",
+        "capabilities": [
+          "Processes SAML authentication requests and generates responses (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/SamlAuthenticator.java)",
+          "Manages user sessions and session stores (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/SamlSessionStore.java)",
+          "Provides role mapping and authorization services (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/RoleMappingsProvider.java)",
+          "Handles single sign-on (SSO) and single logout (SLO) flows (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/profile/webbrowsersso/WebBrowserSsoAuthenticationHandler.java)",
+          "Parses and validates SAML configuration and metadata (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/config/parsers/KeycloakSamlAdapterParser.java)",
+          "Implements cryptographic key rotation and management (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/rotation/SamlDescriptorPublicKeyLocator.java)",
+          "Provides client adapters for Java EE/Jakarta EE applications (adapters/saml/wildfly-elytron/src/main/java/org/keycloak/adapters/saml/elytron/ElytronSamlAuthenticator.java)"
+        ],
+        "use_cases": [],
+        "technical_stack": [
+          "Java (primary language - 7630 .java files)",
+          "TypeScript/React (595 .tsx, 382 .ts files for admin console)",
+          "Maven (build system - pom.xml files throughout)",
+          "WildFly/JBoss (server runtime - wildfly integration modules)",
+          "Apache HTTP Client (adapters/saml/core/src/main/java/org/keycloak/adapters/cloned/HttpClientBuilder.java)",
+          "SAML 2.0 Protocol Implementation"
+        ],
+        "integrations": [
+          "WildFly/JBoss EAP application server",
+          "JBoss Elytron security framework",
+          "LDAP/Active Directory (user federation)",
+          "Database systems (user storage)",
+          "External identity providers via SAML metadata"
+        ],
+        "api_endpoints": [],
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        },
+        "target_audience": "Developers",
+        "category": "Open Source Software",
+        "deployment": "Self-hosted",
+        "underlying_algorithm": {
+          "problem_type": "",
+          "pattern": ""
+        },
+        "evidence_tracking": {
+          "confidence_level": "High",
+          "technical_facts": [
+            "Processes SAML authentication requests and generates responses (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/SamlAuthenticator.java)",
+            "Manages user sessions and session stores (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/SamlSessionStore.java)",
+            "Provides role mapping and authorization services (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/RoleMappingsProvider.java)",
+            "Handles single sign-on (SSO) and single logout (SLO) flows (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/profile/webbrowsersso/WebBrowserSsoAuthenticationHandler.java)",
+            "Parses and validates SAML configuration and metadata (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/config/parsers/KeycloakSamlAdapterParser.java)",
+            "Implements cryptographic key rotation and management (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/rotation/SamlDescriptorPublicKeyLocator.java)",
+            "Provides client adapters for Java EE/Jakarta EE applications (adapters/saml/wildfly-elytron/src/main/java/org/keycloak/adapters/saml/elytron/ElytronSamlAuthenticator.java)"
+          ],
+          "information_gaps": []
+        },
+        "architecture_patterns": [
+          "monolith",
+          "Concurrency: multi-threaded Java server with synchronous request processing"
+        ],
+        "auth_methods": [
+          "SAML 2.0",
+          "OAuth2/OIDC",
+          "JWT tokens",
+          "X.509 certificates (PEM format support in adapters/saml/core/src/main/java/org/keycloak/adapters/saml/config/PemUtils.java)"
+        ],
+        "sdk_languages": [
+          "Java"
+        ],
+        "dependencies": [
+          "Maven parent POM dependencies (specific versions truncated in extraction)",
+          "Infrastructure: Database system",
+          "Infrastructure: Application server (WildFly/JBoss)",
+          "Infrastructure: Load balancer (clustering support)"
+        ],
+        "deployment_options": [
+          "Containerized (Docker)",
+          "CI/CD: GitHub Actions (inferred from .github directory)"
+        ]
+      },
+      "extracted_data": {},
+      "source": "local_repo",
+      "source_confidence": "high",
+      "timestamp": "2026-03-25T12:40:24.874456"
+    },
+    "generalization": {
+      "functional_dna": {
+        "logic_archetype": "Authentication/Authorization Service",
+        "logic_archetype_evidence": "Processes SAML authentication requests and generates responses (SamlAuthenticator.java), provides role mapping and authorization services (RoleMappingsProvider.java), handles single sign-on (SSO) and single logout (SLO) flows",
+        "data_contract_strictness": "Highly Structured",
+        "data_contract_evidence": "SAML 2.0 Protocol Implementation with strict XML schema validation, parses and validates SAML configuration and metadata (KeycloakSamlAdapterParser.java)",
+        "core_algorithmic_class": "CRUD Operations",
+        "core_algorithmic_evidence": "Manages user sessions and session stores (SamlSessionStore.java), user identity management with database storage, session lifecycle operations",
+        "concurrency_requirements": "Eventually Consistent",
+        "concurrency_evidence": "Multi-threaded Java server with synchronous request processing, clustering support mentioned, session management across distributed instances",
+        "repurposing_confidence": 8,
+        "repurposing_reasoning": "High confidence due to standard protocol implementations (SAML, OAuth2/OIDC) and modular adapter architecture. The authentication/authorization patterns are universally applicable across industries, with well-defined interfaces and extensible plugin system."
+      },
+      "evidence_claims": [
+        {
+          "claim": "Implements SAML 2.0 authentication protocol",
+          "evidence": "Processes SAML authentication requests and generates responses (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/SamlAuthenticator.java)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Provides session management capabilities",
+          "evidence": "Manages user sessions and session stores (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/SamlSessionStore.java)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Supports role-based authorization",
+          "evidence": "Provides role mapping and authorization services (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/RoleMappingsProvider.java)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Built on Java technology stack",
+          "evidence": "Java (primary language - 7630 .java files)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Supports cryptographic operations",
+          "evidence": "Implements cryptographic key rotation and management (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/rotation/SamlDescriptorPublicKeyLocator.java)",
+          "confidence": "High"
+        }
+      ],
+      "market_reach": {
+        "primary_industry": "Enterprise Software / Identity Management",
+        "cross_industry_applications": [
+          "Financial Services",
+          "Healthcare",
+          "Government",
+          "Education",
+          "E-commerce",
+          "SaaS Platforms",
+          "Manufacturing",
+          "Telecommunications"
+        ],
+        "utility_score": 9,
+        "market_potential": "High"
+      },
+      "friction_report": {
+        "difficulty": "Medium",
+        "estimated_hours": 160,
+        "required_technologies": [
+          "Java runtime environment",
+          "Database system",
+          "Application server (WildFly/JBoss)",
+          "Maven build system"
+        ],
+        "complexity_factors": [
+          "Protocol compliance requirements",
+          "Security certificate management",
+          "Database schema migration",
+          "Integration adapter development"
+        ],
+        "risk_level": "Medium"
+      },
+      "interface_map": {
+        "adapter_schema": {
+          "input": {
+            "format": "SAML XML",
+            "required_fields": [
+              "AuthnRequest",
+              "Assertion",
+              "NameID"
+            ]
+          },
+          "output": {
+            "format": "SAML XML"
+          },
+          "authentication": {
+            "type": "Protocol-based",
+            "method": "SAML 2.0, OAuth2/OIDC, X.509 certificates"
+          }
+        },
+        "standardization_level": "High"
+      },
+      "information_gaps": [
+        "Specific database schema requirements",
+        "Performance benchmarks and scalability limits",
+        "Specific OAuth2/OIDC implementation details",
+        "API endpoint specifications",
+        "Memory and CPU resource requirements",
+        "Backup and disaster recovery capabilities"
+      ]
+    },
+    "timestamp": "2026-03-25T12:40:40.294256"
+  },
+  "errors": []
+}

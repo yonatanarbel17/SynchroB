@@ -1,0 +1,370 @@
+{
+  "url": "https://github.com/magento/magento2.git",
+  "repo_name": "magento2",
+  "timestamp": "2026-03-25T12:33:26.470024",
+  "step1": {
+    "product_name": "magento2",
+    "url": "https://github.com/magento/magento2.git",
+    "analysis": {
+      "summary": "Magento Open Source is a comprehensive PHP-based eCommerce platform that processes online transactions, manages product catalogs, and handles customer interactions through a modular architecture with over 200 integrated modules for storefront and admin functionality.",
+      "capabilities": [
+        "Processes eCommerce transactions and order management (app/code/Magento/Sales/)",
+        "Manages product catalogs with inventory tracking (app/code/Magento/Catalog/, app/code/Magento/CatalogInventory/)",
+        "Handles customer registration and authentication (app/code/Magento/Customer/)",
+        "Provides admin dashboard and backend management (app/code/Magento/Backend/)",
+        "Processes payment transactions through multiple gateways (app/code/Magento/Payment/)",
+        "Manages content pages and blocks (app/code/Magento/Cms/)",
+        "Handles advanced search functionality (app/code/Magento/AdvancedSearch/, app/code/Magento/CatalogSearch/)",
+        "Supports multi-store and multi-currency operations (app/code/Magento/Store/, app/code/Magento/Directory/)",
+        "Manages shipping and tax calculations (app/code/Magento/Shipping/, app/code/Magento/Tax/)",
+        "Provides import/export capabilities for product data (app/code/Magento/ImportExport/)",
+        "Handles message queuing for asynchronous operations (app/code/Magento/AsynchronousOperations/, app/code/Magento/Amqp/)",
+        "Manages user roles and permissions (app/code/Magento/Authorization/, app/code/Magento/User/)",
+        "Processes analytics and reporting (app/code/Magento/Analytics/, app/code/Magento/Reports/)"
+      ],
+      "use_cases": [],
+      "technical_stack": [
+        "PHP 8.3-8.5 (composer.json files)",
+        "MySQL/MariaDB (db_schema.xml files throughout modules)",
+        "Redis (app/code/Magento/Cache/)",
+        "Elasticsearch/OpenSearch (app/code/Magento/Elasticsearch/)",
+        "RabbitMQ/AMQP (app/code/Magento/Amqp/)",
+        "Varnish HTTP Cache (app/code/Magento/PageCache/)",
+        "AWS S3 (app/code/Magento/AwsS3/)",
+        "JavaScript/RequireJS (Gruntfile.js.sample, requirejs-config.js files)",
+        "XML for configuration and layout (etc/ directories)",
+        "Zend Framework components (legacy dependency)"
+      ],
+      "integrations": [
+        "PayPal",
+        "Amazon S3",
+        "Google Analytics",
+        "New Relic",
+        "USPS",
+        "UPS",
+        "FedEx",
+        "DHL"
+      ],
+      "api_endpoints": [
+        {
+          "method": "GET",
+          "path": "/rest/V1/*",
+          "summary": "REST API endpoints (webapi.xml files)"
+        },
+        {
+          "method": "POST",
+          "path": "/rest/V1/*",
+          "summary": "REST API endpoints (webapi.xml files)"
+        },
+        {
+          "method": "PUT",
+          "path": "/rest/V1/*",
+          "summary": "REST API endpoints (webapi.xml files)"
+        },
+        {
+          "method": "DELETE",
+          "path": "/rest/V1/*",
+          "summary": "REST API endpoints (webapi.xml files)"
+        },
+        {
+          "method": "POST",
+          "path": "/soap/V1/*",
+          "summary": "SOAP API endpoints (webapi.xml files)"
+        }
+      ],
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      },
+      "target_audience": "Developers",
+      "category": "Open Source Software",
+      "deployment": "Self-hosted",
+      "underlying_algorithm": {
+        "problem_type": "",
+        "pattern": ""
+      },
+      "evidence_tracking": {
+        "confidence_level": "High",
+        "technical_facts": [
+          "Processes eCommerce transactions and order management (app/code/Magento/Sales/)",
+          "Manages product catalogs with inventory tracking (app/code/Magento/Catalog/, app/code/Magento/CatalogInventory/)",
+          "Handles customer registration and authentication (app/code/Magento/Customer/)",
+          "Provides admin dashboard and backend management (app/code/Magento/Backend/)",
+          "Processes payment transactions through multiple gateways (app/code/Magento/Payment/)",
+          "Manages content pages and blocks (app/code/Magento/Cms/)",
+          "Handles advanced search functionality (app/code/Magento/AdvancedSearch/, app/code/Magento/CatalogSearch/)",
+          "Supports multi-store and multi-currency operations (app/code/Magento/Store/, app/code/Magento/Directory/)",
+          "Manages shipping and tax calculations (app/code/Magento/Shipping/, app/code/Magento/Tax/)",
+          "Provides import/export capabilities for product data (app/code/Magento/ImportExport/)"
+        ],
+        "information_gaps": []
+      },
+      "architecture_patterns": [
+        "monolith",
+        "Concurrency: synchronous with asynchronous message queue processing via RabbitMQ/AMQP for bulk operations"
+      ],
+      "auth_methods": [
+        "OAuth 1.0/2.0",
+        "Token-based authentication",
+        "Admin session authentication",
+        "Customer session authentication"
+      ],
+      "sdk_languages": [
+        "PHP"
+      ],
+      "dependencies": [
+        "php 8.3-8.5",
+        "magento/framework",
+        "lib-libxml",
+        "various magento modules",
+        "Infrastructure: MySQL/MariaDB",
+        "Infrastructure: Redis",
+        "Infrastructure: Elasticsearch/OpenSearch",
+        "Infrastructure: RabbitMQ",
+        "Infrastructure: Web server (Apache/Nginx)"
+      ],
+      "deployment_options": [
+        "CI/CD: GitHub Actions (implied from repository structure)"
+      ]
+    },
+    "extracted_data": {},
+    "source": "local_repo",
+    "source_confidence": "high",
+    "timestamp": "2026-03-25T12:34:10.166599"
+  },
+  "step2": {
+    "step1_data": {
+      "product_name": "magento2",
+      "url": "https://github.com/magento/magento2.git",
+      "analysis": {
+        "summary": "Magento Open Source is a comprehensive PHP-based eCommerce platform that processes online transactions, manages product catalogs, and handles customer interactions through a modular architecture with over 200 integrated modules for storefront and admin functionality.",
+        "capabilities": [
+          "Processes eCommerce transactions and order management (app/code/Magento/Sales/)",
+          "Manages product catalogs with inventory tracking (app/code/Magento/Catalog/, app/code/Magento/CatalogInventory/)",
+          "Handles customer registration and authentication (app/code/Magento/Customer/)",
+          "Provides admin dashboard and backend management (app/code/Magento/Backend/)",
+          "Processes payment transactions through multiple gateways (app/code/Magento/Payment/)",
+          "Manages content pages and blocks (app/code/Magento/Cms/)",
+          "Handles advanced search functionality (app/code/Magento/AdvancedSearch/, app/code/Magento/CatalogSearch/)",
+          "Supports multi-store and multi-currency operations (app/code/Magento/Store/, app/code/Magento/Directory/)",
+          "Manages shipping and tax calculations (app/code/Magento/Shipping/, app/code/Magento/Tax/)",
+          "Provides import/export capabilities for product data (app/code/Magento/ImportExport/)",
+          "Handles message queuing for asynchronous operations (app/code/Magento/AsynchronousOperations/, app/code/Magento/Amqp/)",
+          "Manages user roles and permissions (app/code/Magento/Authorization/, app/code/Magento/User/)",
+          "Processes analytics and reporting (app/code/Magento/Analytics/, app/code/Magento/Reports/)"
+        ],
+        "use_cases": [],
+        "technical_stack": [
+          "PHP 8.3-8.5 (composer.json files)",
+          "MySQL/MariaDB (db_schema.xml files throughout modules)",
+          "Redis (app/code/Magento/Cache/)",
+          "Elasticsearch/OpenSearch (app/code/Magento/Elasticsearch/)",
+          "RabbitMQ/AMQP (app/code/Magento/Amqp/)",
+          "Varnish HTTP Cache (app/code/Magento/PageCache/)",
+          "AWS S3 (app/code/Magento/AwsS3/)",
+          "JavaScript/RequireJS (Gruntfile.js.sample, requirejs-config.js files)",
+          "XML for configuration and layout (etc/ directories)",
+          "Zend Framework components (legacy dependency)"
+        ],
+        "integrations": [
+          "PayPal",
+          "Amazon S3",
+          "Google Analytics",
+          "New Relic",
+          "USPS",
+          "UPS",
+          "FedEx",
+          "DHL"
+        ],
+        "api_endpoints": [
+          {
+            "method": "GET",
+            "path": "/rest/V1/*",
+            "summary": "REST API endpoints (webapi.xml files)"
+          },
+          {
+            "method": "POST",
+            "path": "/rest/V1/*",
+            "summary": "REST API endpoints (webapi.xml files)"
+          },
+          {
+            "method": "PUT",
+            "path": "/rest/V1/*",
+            "summary": "REST API endpoints (webapi.xml files)"
+          },
+          {
+            "method": "DELETE",
+            "path": "/rest/V1/*",
+            "summary": "REST API endpoints (webapi.xml files)"
+          },
+          {
+            "method": "POST",
+            "path": "/soap/V1/*",
+            "summary": "SOAP API endpoints (webapi.xml files)"
+          }
+        ],
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        },
+        "target_audience": "Developers",
+        "category": "Open Source Software",
+        "deployment": "Self-hosted",
+        "underlying_algorithm": {
+          "problem_type": "",
+          "pattern": ""
+        },
+        "evidence_tracking": {
+          "confidence_level": "High",
+          "technical_facts": [
+            "Processes eCommerce transactions and order management (app/code/Magento/Sales/)",
+            "Manages product catalogs with inventory tracking (app/code/Magento/Catalog/, app/code/Magento/CatalogInventory/)",
+            "Handles customer registration and authentication (app/code/Magento/Customer/)",
+            "Provides admin dashboard and backend management (app/code/Magento/Backend/)",
+            "Processes payment transactions through multiple gateways (app/code/Magento/Payment/)",
+            "Manages content pages and blocks (app/code/Magento/Cms/)",
+            "Handles advanced search functionality (app/code/Magento/AdvancedSearch/, app/code/Magento/CatalogSearch/)",
+            "Supports multi-store and multi-currency operations (app/code/Magento/Store/, app/code/Magento/Directory/)",
+            "Manages shipping and tax calculations (app/code/Magento/Shipping/, app/code/Magento/Tax/)",
+            "Provides import/export capabilities for product data (app/code/Magento/ImportExport/)"
+          ],
+          "information_gaps": []
+        },
+        "architecture_patterns": [
+          "monolith",
+          "Concurrency: synchronous with asynchronous message queue processing via RabbitMQ/AMQP for bulk operations"
+        ],
+        "auth_methods": [
+          "OAuth 1.0/2.0",
+          "Token-based authentication",
+          "Admin session authentication",
+          "Customer session authentication"
+        ],
+        "sdk_languages": [
+          "PHP"
+        ],
+        "dependencies": [
+          "php 8.3-8.5",
+          "magento/framework",
+          "lib-libxml",
+          "various magento modules",
+          "Infrastructure: MySQL/MariaDB",
+          "Infrastructure: Redis",
+          "Infrastructure: Elasticsearch/OpenSearch",
+          "Infrastructure: RabbitMQ",
+          "Infrastructure: Web server (Apache/Nginx)"
+        ],
+        "deployment_options": [
+          "CI/CD: GitHub Actions (implied from repository structure)"
+        ]
+      },
+      "extracted_data": {},
+      "source": "local_repo",
+      "source_confidence": "high",
+      "timestamp": "2026-03-25T12:34:10.166599"
+    },
+    "generalization": {
+      "functional_dna": {
+        "logic_archetype": "Stateful Orchestrator",
+        "logic_archetype_evidence": "Manages complex eCommerce workflows including order processing (app/code/Magento/Sales/), customer sessions (app/code/Magento/Customer/), inventory tracking (app/code/Magento/CatalogInventory/), and multi-store operations requiring state persistence across transactions",
+        "data_contract_strictness": "Highly Structured",
+        "data_contract_evidence": "Uses XML schemas for configuration (etc/ directories), db_schema.xml files throughout modules for database structure, and REST/SOAP API endpoints with defined schemas (webapi.xml files)",
+        "core_algorithmic_class": "CRUD Operations",
+        "core_algorithmic_evidence": "Primary operations involve Create, Read, Update, Delete for products (app/code/Magento/Catalog/), orders (app/code/Magento/Sales/), customers (app/code/Magento/Customer/), and content management (app/code/Magento/Cms/)",
+        "concurrency_requirements": "ACID Compliance Required",
+        "concurrency_evidence": "eCommerce transactions require ACID compliance for order processing, payment handling (app/code/Magento/Payment/), inventory management (app/code/Magento/CatalogInventory/), and financial calculations (app/code/Magento/Tax/, app/code/Magento/Shipping/)",
+        "repurposing_confidence": 7,
+        "repurposing_reasoning": "High modularity with 200+ modules and well-defined APIs makes components reusable, but deep eCommerce domain coupling (sales, shipping, tax calculations) limits direct application to other domains without significant modification"
+      },
+      "evidence_claims": [
+        {
+          "claim": "Uses PHP 8.3-8.5 runtime",
+          "evidence": "composer.json files throughout the codebase specify PHP version requirements",
+          "confidence": "High"
+        },
+        {
+          "claim": "Implements MySQL/MariaDB data persistence",
+          "evidence": "db_schema.xml files throughout modules define database structure",
+          "confidence": "High"
+        },
+        {
+          "claim": "Provides REST and SOAP API interfaces",
+          "evidence": "webapi.xml files define REST API endpoints at /rest/V1/* and SOAP endpoints at /soap/V1/*",
+          "confidence": "High"
+        },
+        {
+          "claim": "Supports asynchronous processing",
+          "evidence": "app/code/Magento/AsynchronousOperations/ and app/code/Magento/Amqp/ modules for message queuing",
+          "confidence": "High"
+        },
+        {
+          "claim": "Implements search capabilities",
+          "evidence": "app/code/Magento/AdvancedSearch/ and app/code/Magento/CatalogSearch/ modules with Elasticsearch integration (app/code/Magento/Elasticsearch/)",
+          "confidence": "High"
+        }
+      ],
+      "market_reach": {
+        "primary_industry": "eCommerce/Retail",
+        "cross_industry_applications": [
+          "Content Management",
+          "Customer Relationship Management",
+          "Inventory Management",
+          "Financial Services",
+          "Digital Asset Management"
+        ],
+        "utility_score": 8,
+        "market_potential": "High"
+      },
+      "friction_report": {
+        "difficulty": "High",
+        "estimated_hours": 200,
+        "required_technologies": [
+          "PHP 8.3-8.5",
+          "MySQL/MariaDB",
+          "Redis",
+          "Elasticsearch/OpenSearch",
+          "RabbitMQ",
+          "Web server (Apache/Nginx)"
+        ],
+        "complexity_factors": [
+          "200+ interconnected modules",
+          "Complex dependency management",
+          "eCommerce-specific business logic",
+          "Multi-layer architecture",
+          "Legacy Zend Framework components"
+        ],
+        "risk_level": "Medium"
+      },
+      "interface_map": {
+        "adapter_schema": {
+          "input": {
+            "format": "JSON",
+            "required_fields": [
+              "authentication_token",
+              "store_id",
+              "entity_type",
+              "operation"
+            ]
+          },
+          "output": {
+            "format": "JSON"
+          },
+          "authentication": {
+            "type": "OAuth/Token",
+            "method": "Bearer token or OAuth 1.0/2.0"
+          }
+        },
+        "standardization_level": "High"
+      },
+      "information_gaps": [
+        "Specific database schema definitions for core entities",
+        "Performance benchmarks and scalability limits",
+        "Detailed API rate limiting and throttling policies",
+        "Security implementation details beyond authentication methods",
+        "Specific version compatibility matrices for dependencies"
+      ]
+    },
+    "timestamp": "2026-03-25T12:34:26.473333"
+  },
+  "errors": []
+}

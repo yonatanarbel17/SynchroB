@@ -1,0 +1,346 @@
+{
+  "url": "https://github.com/appsmithorg/appsmith.git",
+  "repo_name": "appsmith",
+  "timestamp": "2026-03-25T12:30:27.309254",
+  "step1": {
+    "product_name": "appsmith",
+    "url": "https://github.com/appsmithorg/appsmith.git",
+    "analysis": {
+      "summary": "Appsmith is a full-stack low-code platform that enables users to build custom internal applications like dashboards and admin panels through a visual interface with drag-and-drop widgets, database connections, and API integrations.",
+      "capabilities": [
+        "Provides a visual application builder with drag-and-drop UI widgets and components (app/client/src/widgets/)",
+        "Connects to multiple data sources including databases, REST APIs, and cloud services (app/server/appsmith-server/src/main/java/com/appsmith/server/datasources/)",
+        "Executes JavaScript code and queries within the application context (app/client/src/workers/)",
+        "Manages user authentication and authorization with multiple providers (app/server/appsmith-server/src/main/java/com/appsmith/server/authentication/)",
+        "Deploys applications with containerized infrastructure (Dockerfile, docker-compose.yml)",
+        "Provides real-time collaboration features for multi-user application development (app/client/src/sagas/)",
+        "Supports custom theming and branding through design system components (app/client/packages/design-system/)"
+      ],
+      "use_cases": [],
+      "technical_stack": [
+        "React (TypeScript frontend - app/client/package.json)",
+        "Spring Boot (Java backend - app/server/appsmith-server/pom.xml)",
+        "MongoDB (database - docker-compose.yml)",
+        "Redis (caching - docker-compose.yml)",
+        "Nginx (reverse proxy - deploy/docker/fs/)",
+        "Docker (containerization - Dockerfile)",
+        "Node.js (build tooling - app/client/package.json)",
+        "Webpack (bundling - app/client/config/webpack.config.js)",
+        "Cypress (E2E testing - app/client/cypress/)"
+      ],
+      "integrations": [
+        "PostgreSQL, MySQL, MongoDB database connections",
+        "REST API and GraphQL endpoints",
+        "Google Sheets integration (app/client/cypress/e2e/GSheet/)",
+        "AWS S3 for file storage (@aws-sdk/client-s3 in package.json)",
+        "Redis for caching and session management",
+        "SMTP for email notifications",
+        "Google Maps API (@googlemaps/react-wrapper in package.json)"
+      ],
+      "api_endpoints": [
+        {
+          "method": "GET",
+          "path": "/api/v1/applications",
+          "summary": "List applications (app/server/appsmith-server/src/main/java/com/appsmith/server/controllers/ApplicationController.java)"
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/datasources",
+          "summary": "Create datasource connection (app/server/appsmith-server/src/main/java/com/appsmith/server/controllers/DatasourceController.java)"
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/actions",
+          "summary": "Execute database queries or API calls (app/server/appsmith-server/src/main/java/com/appsmith/server/controllers/ActionController.java)"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/pages",
+          "summary": "Retrieve application pages (app/server/appsmith-server/src/main/java/com/appsmith/server/controllers/PageController.java)"
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/users/login",
+          "summary": "User authentication (app/server/appsmith-server/src/main/java/com/appsmith/server/controllers/UserController.java)"
+        }
+      ],
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      },
+      "target_audience": "Developers",
+      "category": "Open Source Software",
+      "deployment": "Self-hosted",
+      "underlying_algorithm": {
+        "problem_type": "",
+        "pattern": ""
+      },
+      "evidence_tracking": {
+        "confidence_level": "High",
+        "technical_facts": [
+          "Provides a visual application builder with drag-and-drop UI widgets and components (app/client/src/widgets/)",
+          "Connects to multiple data sources including databases, REST APIs, and cloud services (app/server/appsmith-server/src/main/java/com/appsmith/server/datasources/)",
+          "Executes JavaScript code and queries within the application context (app/client/src/workers/)",
+          "Manages user authentication and authorization with multiple providers (app/server/appsmith-server/src/main/java/com/appsmith/server/authentication/)",
+          "Deploys applications with containerized infrastructure (Dockerfile, docker-compose.yml)",
+          "Provides real-time collaboration features for multi-user application development (app/client/src/sagas/)",
+          "Supports custom theming and branding through design system components (app/client/packages/design-system/)"
+        ],
+        "information_gaps": []
+      },
+      "architecture_patterns": [
+        "microservices",
+        "Concurrency: async - React frontend with Redux-Saga for side effects, Spring WebFlux reactive backend with non-blocking I/O"
+      ],
+      "auth_methods": [
+        "OAuth2 (Google, GitHub, OIDC providers)",
+        "SAML",
+        "LDAP",
+        "Form-based authentication",
+        "JWT tokens"
+      ],
+      "sdk_languages": [],
+      "dependencies": [
+        "React, Redux, TypeScript (frontend)",
+        "Spring Boot, Spring WebFlux, Spring Security (backend)",
+        "MongoDB driver, Redis client",
+        "@aws-sdk/client-s3, @googlemaps/react-wrapper",
+        "Infrastructure: MongoDB database",
+        "Infrastructure: Redis cache",
+        "Infrastructure: Nginx reverse proxy",
+        "Infrastructure: Docker runtime"
+      ],
+      "deployment_options": [
+        "Containerized (Docker)",
+        "CI/CD: GitHub Actions"
+      ]
+    },
+    "extracted_data": {},
+    "source": "local_repo",
+    "source_confidence": "high",
+    "timestamp": "2026-03-25T12:31:07.672957"
+  },
+  "step2": {
+    "step1_data": {
+      "product_name": "appsmith",
+      "url": "https://github.com/appsmithorg/appsmith.git",
+      "analysis": {
+        "summary": "Appsmith is a full-stack low-code platform that enables users to build custom internal applications like dashboards and admin panels through a visual interface with drag-and-drop widgets, database connections, and API integrations.",
+        "capabilities": [
+          "Provides a visual application builder with drag-and-drop UI widgets and components (app/client/src/widgets/)",
+          "Connects to multiple data sources including databases, REST APIs, and cloud services (app/server/appsmith-server/src/main/java/com/appsmith/server/datasources/)",
+          "Executes JavaScript code and queries within the application context (app/client/src/workers/)",
+          "Manages user authentication and authorization with multiple providers (app/server/appsmith-server/src/main/java/com/appsmith/server/authentication/)",
+          "Deploys applications with containerized infrastructure (Dockerfile, docker-compose.yml)",
+          "Provides real-time collaboration features for multi-user application development (app/client/src/sagas/)",
+          "Supports custom theming and branding through design system components (app/client/packages/design-system/)"
+        ],
+        "use_cases": [],
+        "technical_stack": [
+          "React (TypeScript frontend - app/client/package.json)",
+          "Spring Boot (Java backend - app/server/appsmith-server/pom.xml)",
+          "MongoDB (database - docker-compose.yml)",
+          "Redis (caching - docker-compose.yml)",
+          "Nginx (reverse proxy - deploy/docker/fs/)",
+          "Docker (containerization - Dockerfile)",
+          "Node.js (build tooling - app/client/package.json)",
+          "Webpack (bundling - app/client/config/webpack.config.js)",
+          "Cypress (E2E testing - app/client/cypress/)"
+        ],
+        "integrations": [
+          "PostgreSQL, MySQL, MongoDB database connections",
+          "REST API and GraphQL endpoints",
+          "Google Sheets integration (app/client/cypress/e2e/GSheet/)",
+          "AWS S3 for file storage (@aws-sdk/client-s3 in package.json)",
+          "Redis for caching and session management",
+          "SMTP for email notifications",
+          "Google Maps API (@googlemaps/react-wrapper in package.json)"
+        ],
+        "api_endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/v1/applications",
+            "summary": "List applications (app/server/appsmith-server/src/main/java/com/appsmith/server/controllers/ApplicationController.java)"
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/datasources",
+            "summary": "Create datasource connection (app/server/appsmith-server/src/main/java/com/appsmith/server/controllers/DatasourceController.java)"
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/actions",
+            "summary": "Execute database queries or API calls (app/server/appsmith-server/src/main/java/com/appsmith/server/controllers/ActionController.java)"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/pages",
+            "summary": "Retrieve application pages (app/server/appsmith-server/src/main/java/com/appsmith/server/controllers/PageController.java)"
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/users/login",
+            "summary": "User authentication (app/server/appsmith-server/src/main/java/com/appsmith/server/controllers/UserController.java)"
+          }
+        ],
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        },
+        "target_audience": "Developers",
+        "category": "Open Source Software",
+        "deployment": "Self-hosted",
+        "underlying_algorithm": {
+          "problem_type": "",
+          "pattern": ""
+        },
+        "evidence_tracking": {
+          "confidence_level": "High",
+          "technical_facts": [
+            "Provides a visual application builder with drag-and-drop UI widgets and components (app/client/src/widgets/)",
+            "Connects to multiple data sources including databases, REST APIs, and cloud services (app/server/appsmith-server/src/main/java/com/appsmith/server/datasources/)",
+            "Executes JavaScript code and queries within the application context (app/client/src/workers/)",
+            "Manages user authentication and authorization with multiple providers (app/server/appsmith-server/src/main/java/com/appsmith/server/authentication/)",
+            "Deploys applications with containerized infrastructure (Dockerfile, docker-compose.yml)",
+            "Provides real-time collaboration features for multi-user application development (app/client/src/sagas/)",
+            "Supports custom theming and branding through design system components (app/client/packages/design-system/)"
+          ],
+          "information_gaps": []
+        },
+        "architecture_patterns": [
+          "microservices",
+          "Concurrency: async - React frontend with Redux-Saga for side effects, Spring WebFlux reactive backend with non-blocking I/O"
+        ],
+        "auth_methods": [
+          "OAuth2 (Google, GitHub, OIDC providers)",
+          "SAML",
+          "LDAP",
+          "Form-based authentication",
+          "JWT tokens"
+        ],
+        "sdk_languages": [],
+        "dependencies": [
+          "React, Redux, TypeScript (frontend)",
+          "Spring Boot, Spring WebFlux, Spring Security (backend)",
+          "MongoDB driver, Redis client",
+          "@aws-sdk/client-s3, @googlemaps/react-wrapper",
+          "Infrastructure: MongoDB database",
+          "Infrastructure: Redis cache",
+          "Infrastructure: Nginx reverse proxy",
+          "Infrastructure: Docker runtime"
+        ],
+        "deployment_options": [
+          "Containerized (Docker)",
+          "CI/CD: GitHub Actions"
+        ]
+      },
+      "extracted_data": {},
+      "source": "local_repo",
+      "source_confidence": "high",
+      "timestamp": "2026-03-25T12:31:07.672957"
+    },
+    "generalization": {
+      "functional_dna": {
+        "logic_archetype": "Stateful Orchestrator",
+        "logic_archetype_evidence": "Manages application state across UI widgets, data sources, and user sessions with persistent storage in MongoDB. Evidence: 'app/client/src/widgets/', 'app/server/appsmith-server/src/main/java/com/appsmith/server/datasources/', MongoDB database configuration",
+        "data_contract_strictness": "Moderately Structured",
+        "data_contract_evidence": "Uses TypeScript for frontend type safety and Spring Boot with Java for backend structure, but allows flexible JSON data through MongoDB and API integrations. Evidence: 'React (TypeScript frontend)', 'Spring Boot (Java backend)', 'MongoDB (database)'",
+        "core_algorithmic_class": "CRUD Operations",
+        "core_algorithmic_evidence": "Primary operations are Create, Read, Update, Delete for applications, data sources, actions, and pages. Evidence: API endpoints '/api/v1/applications', '/api/v1/datasources', '/api/v1/actions', '/api/v1/pages' with GET/POST methods",
+        "concurrency_requirements": "Eventually Consistent",
+        "concurrency_evidence": "Uses Redis for caching and session management with real-time collaboration features. Evidence: 'Redis (caching)', 'Provides real-time collaboration features for multi-user application development (app/client/src/sagas/)'",
+        "repurposing_confidence": 8,
+        "repurposing_reasoning": "High confidence due to generic visual builder architecture, database-agnostic design, and REST API patterns. The drag-and-drop UI framework and data source abstraction layer are highly reusable for any domain requiring custom application development."
+      },
+      "evidence_claims": [
+        {
+          "claim": "Visual drag-and-drop application builder",
+          "evidence": "Provides a visual application builder with drag-and-drop UI widgets and components (app/client/src/widgets/)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Multi-database connectivity",
+          "evidence": "Connects to multiple data sources including databases, REST APIs, and cloud services (app/server/appsmith-server/src/main/java/com/appsmith/server/datasources/)",
+          "confidence": "High"
+        },
+        {
+          "claim": "JavaScript execution runtime",
+          "evidence": "Executes JavaScript code and queries within the application context (app/client/src/workers/)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Enterprise authentication support",
+          "evidence": "OAuth2 (Google, GitHub, OIDC providers), SAML, LDAP, Form-based authentication, JWT tokens",
+          "confidence": "High"
+        },
+        {
+          "claim": "Containerized deployment",
+          "evidence": "Deploys applications with containerized infrastructure (Dockerfile, docker-compose.yml)",
+          "confidence": "High"
+        }
+      ],
+      "market_reach": {
+        "primary_industry": "Software Development Tools",
+        "cross_industry_applications": [
+          "Healthcare",
+          "Finance",
+          "Manufacturing",
+          "Retail",
+          "Government",
+          "Education",
+          "Real Estate"
+        ],
+        "utility_score": 9,
+        "market_potential": "High"
+      },
+      "friction_report": {
+        "difficulty": "Medium",
+        "estimated_hours": 120,
+        "required_technologies": [
+          "React/TypeScript frontend skills",
+          "Spring Boot/Java backend skills",
+          "MongoDB database",
+          "Docker containerization",
+          "Redis caching"
+        ],
+        "complexity_factors": [
+          "Multi-tier architecture",
+          "Real-time collaboration system",
+          "Custom widget framework",
+          "Multiple authentication providers",
+          "Database abstraction layer"
+        ],
+        "risk_level": "Medium"
+      },
+      "interface_map": {
+        "adapter_schema": {
+          "input": {
+            "format": "JSON",
+            "required_fields": [
+              "application_definition",
+              "data_sources",
+              "ui_components"
+            ]
+          },
+          "output": {
+            "format": "JSON"
+          },
+          "authentication": {
+            "type": "JWT",
+            "method": "Bearer token"
+          }
+        },
+        "standardization_level": "High"
+      },
+      "information_gaps": [
+        "Specific widget types and customization capabilities",
+        "Performance benchmarks for concurrent users",
+        "Data source connection limits and throughput",
+        "JavaScript runtime security sandbox details",
+        "Backup and disaster recovery mechanisms"
+      ]
+    },
+    "timestamp": "2026-03-25T12:31:23.588583"
+  },
+  "errors": []
+}

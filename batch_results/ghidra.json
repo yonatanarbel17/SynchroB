@@ -1,0 +1,280 @@
+{
+  "url": "https://github.com/NationalSecurityAgency/ghidra.git",
+  "repo_name": "ghidra",
+  "timestamp": "2026-03-25T12:37:44.936103",
+  "step1": {
+    "product_name": "ghidra",
+    "url": "https://github.com/NationalSecurityAgency/ghidra.git",
+    "analysis": {
+      "summary": "Ghidra is a comprehensive software reverse engineering framework that disassembles, decompiles, and analyzes compiled binaries across multiple processor architectures and executable formats. It provides both interactive GUI tools and automated analysis capabilities through Java and Python APIs.",
+      "capabilities": [
+        "Disassembles compiled binaries into assembly language (Ghidra/Features/Base/src/main/java/ghidra/app/plugin/core/disassembler)",
+        "Decompiles machine code into high-level C-like pseudocode (Ghidra/Features/Decompiler)",
+        "Analyzes executable formats including PE, ELF, Mach-O (Ghidra/Features/Base/src/main/java/ghidra/app/util/bin)",
+        "Supports multiple processor architectures through sleigh specification language (Ghidra/Processors)",
+        "Provides collaborative analysis through multi-user server architecture (Ghidra/Features/GhidraServer)",
+        "Executes user scripts in Java and Python for automated analysis (Ghidra/Features/Python, scripting directories)",
+        "Debugs live processes through various debugger integrations (Ghidra/Debug/Debugger-agent-*)",
+        "Parses and analyzes file system formats including DMG (GPL/DMG/src/dmg/java)",
+        "Demangles C++ and other mangled symbols (GPL/DemanglerGnu/src/demangler_gnu_v*)",
+        "Provides REST API for headless analysis operations (Ghidra/Features/Base/src/main/java/ghidra/framework/main/headless)"
+      ],
+      "use_cases": [],
+      "technical_stack": [
+        "Java (primary language, 15369 files)",
+        "Python (scripting and debugger agents, 138 files with pyproject.toml dependencies)",
+        "C/C++ (native components, 123 files)",
+        "Gradle (build system, multiple build.gradle files)",
+        "Swing (GUI framework, evident from Java GUI classes)",
+        "ANTLR (parser generation, sleigh language specs)",
+        "JNI (Java Native Interface for C integration)",
+        "Haskell (minimal usage, 1 file)"
+      ],
+      "integrations": [
+        "GDB debugger (Ghidra/Debug/Debugger-agent-gdb)",
+        "LLDB debugger (Ghidra/Debug/Debugger-agent-lldb)",
+        "Windows DbgEng debugger (Ghidra/Debug/Debugger-agent-dbgeng)",
+        "drgn debugger (Ghidra/Debug/Debugger-agent-drgn)",
+        "GNU binutils for disassembly (GPL/GnuDisassembler)",
+        "Various file format parsers (ELF, PE, Mach-O, DMG)"
+      ],
+      "api_endpoints": [],
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      },
+      "target_audience": "Developers",
+      "category": "Open Source Software",
+      "deployment": "Self-hosted",
+      "underlying_algorithm": {
+        "problem_type": "",
+        "pattern": ""
+      },
+      "evidence_tracking": {
+        "confidence_level": "High",
+        "technical_facts": [
+          "Disassembles compiled binaries into assembly language (Ghidra/Features/Base/src/main/java/ghidra/app/plugin/core/disassembler)",
+          "Decompiles machine code into high-level C-like pseudocode (Ghidra/Features/Decompiler)",
+          "Analyzes executable formats including PE, ELF, Mach-O (Ghidra/Features/Base/src/main/java/ghidra/app/util/bin)",
+          "Supports multiple processor architectures through sleigh specification language (Ghidra/Processors)",
+          "Provides collaborative analysis through multi-user server architecture (Ghidra/Features/GhidraServer)",
+          "Executes user scripts in Java and Python for automated analysis (Ghidra/Features/Python, scripting directories)",
+          "Debugs live processes through various debugger integrations (Ghidra/Debug/Debugger-agent-*)",
+          "Parses and analyzes file system formats including DMG (GPL/DMG/src/dmg/java)",
+          "Demangles C++ and other mangled symbols (GPL/DemanglerGnu/src/demangler_gnu_v*)",
+          "Provides REST API for headless analysis operations (Ghidra/Features/Base/src/main/java/ghidra/framework/main/headless)"
+        ],
+        "information_gaps": []
+      },
+      "architecture_patterns": [
+        "modular desktop application with optional server component",
+        "Concurrency: Multi-threaded with background analysis tasks, event-driven GUI updates, separate processes for debugger agents"
+      ],
+      "auth_methods": [
+        "PKI certificates for server authentication (Ghidra/Features/GhidraServer)",
+        "User-based access control"
+      ],
+      "sdk_languages": [
+        "Java",
+        "Python"
+      ],
+      "dependencies": [
+        "JDK 21 (minimum runtime requirement)",
+        "Python 3.9-3.14 (for scripting)",
+        "ghidratrace==12.1 (debugger agent dependency)",
+        "pybag>=2.2.12 (Windows debugging)",
+        "Infrastructure: Optional: Ghidra Server for collaborative analysis"
+      ],
+      "deployment_options": []
+    },
+    "extracted_data": {},
+    "source": "local_repo",
+    "source_confidence": "high",
+    "timestamp": "2026-03-25T12:38:27.582867"
+  },
+  "step2": {
+    "step1_data": {
+      "product_name": "ghidra",
+      "url": "https://github.com/NationalSecurityAgency/ghidra.git",
+      "analysis": {
+        "summary": "Ghidra is a comprehensive software reverse engineering framework that disassembles, decompiles, and analyzes compiled binaries across multiple processor architectures and executable formats. It provides both interactive GUI tools and automated analysis capabilities through Java and Python APIs.",
+        "capabilities": [
+          "Disassembles compiled binaries into assembly language (Ghidra/Features/Base/src/main/java/ghidra/app/plugin/core/disassembler)",
+          "Decompiles machine code into high-level C-like pseudocode (Ghidra/Features/Decompiler)",
+          "Analyzes executable formats including PE, ELF, Mach-O (Ghidra/Features/Base/src/main/java/ghidra/app/util/bin)",
+          "Supports multiple processor architectures through sleigh specification language (Ghidra/Processors)",
+          "Provides collaborative analysis through multi-user server architecture (Ghidra/Features/GhidraServer)",
+          "Executes user scripts in Java and Python for automated analysis (Ghidra/Features/Python, scripting directories)",
+          "Debugs live processes through various debugger integrations (Ghidra/Debug/Debugger-agent-*)",
+          "Parses and analyzes file system formats including DMG (GPL/DMG/src/dmg/java)",
+          "Demangles C++ and other mangled symbols (GPL/DemanglerGnu/src/demangler_gnu_v*)",
+          "Provides REST API for headless analysis operations (Ghidra/Features/Base/src/main/java/ghidra/framework/main/headless)"
+        ],
+        "use_cases": [],
+        "technical_stack": [
+          "Java (primary language, 15369 files)",
+          "Python (scripting and debugger agents, 138 files with pyproject.toml dependencies)",
+          "C/C++ (native components, 123 files)",
+          "Gradle (build system, multiple build.gradle files)",
+          "Swing (GUI framework, evident from Java GUI classes)",
+          "ANTLR (parser generation, sleigh language specs)",
+          "JNI (Java Native Interface for C integration)",
+          "Haskell (minimal usage, 1 file)"
+        ],
+        "integrations": [
+          "GDB debugger (Ghidra/Debug/Debugger-agent-gdb)",
+          "LLDB debugger (Ghidra/Debug/Debugger-agent-lldb)",
+          "Windows DbgEng debugger (Ghidra/Debug/Debugger-agent-dbgeng)",
+          "drgn debugger (Ghidra/Debug/Debugger-agent-drgn)",
+          "GNU binutils for disassembly (GPL/GnuDisassembler)",
+          "Various file format parsers (ELF, PE, Mach-O, DMG)"
+        ],
+        "api_endpoints": [],
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        },
+        "target_audience": "Developers",
+        "category": "Open Source Software",
+        "deployment": "Self-hosted",
+        "underlying_algorithm": {
+          "problem_type": "",
+          "pattern": ""
+        },
+        "evidence_tracking": {
+          "confidence_level": "High",
+          "technical_facts": [
+            "Disassembles compiled binaries into assembly language (Ghidra/Features/Base/src/main/java/ghidra/app/plugin/core/disassembler)",
+            "Decompiles machine code into high-level C-like pseudocode (Ghidra/Features/Decompiler)",
+            "Analyzes executable formats including PE, ELF, Mach-O (Ghidra/Features/Base/src/main/java/ghidra/app/util/bin)",
+            "Supports multiple processor architectures through sleigh specification language (Ghidra/Processors)",
+            "Provides collaborative analysis through multi-user server architecture (Ghidra/Features/GhidraServer)",
+            "Executes user scripts in Java and Python for automated analysis (Ghidra/Features/Python, scripting directories)",
+            "Debugs live processes through various debugger integrations (Ghidra/Debug/Debugger-agent-*)",
+            "Parses and analyzes file system formats including DMG (GPL/DMG/src/dmg/java)",
+            "Demangles C++ and other mangled symbols (GPL/DemanglerGnu/src/demangler_gnu_v*)",
+            "Provides REST API for headless analysis operations (Ghidra/Features/Base/src/main/java/ghidra/framework/main/headless)"
+          ],
+          "information_gaps": []
+        },
+        "architecture_patterns": [
+          "modular desktop application with optional server component",
+          "Concurrency: Multi-threaded with background analysis tasks, event-driven GUI updates, separate processes for debugger agents"
+        ],
+        "auth_methods": [
+          "PKI certificates for server authentication (Ghidra/Features/GhidraServer)",
+          "User-based access control"
+        ],
+        "sdk_languages": [
+          "Java",
+          "Python"
+        ],
+        "dependencies": [
+          "JDK 21 (minimum runtime requirement)",
+          "Python 3.9-3.14 (for scripting)",
+          "ghidratrace==12.1 (debugger agent dependency)",
+          "pybag>=2.2.12 (Windows debugging)",
+          "Infrastructure: Optional: Ghidra Server for collaborative analysis"
+        ],
+        "deployment_options": []
+      },
+      "extracted_data": {},
+      "source": "local_repo",
+      "source_confidence": "high",
+      "timestamp": "2026-03-25T12:38:27.582867"
+    },
+    "generalization": {
+      "functional_dna": {
+        "logic_archetype": "Stateful Orchestrator",
+        "logic_archetype_evidence": "Multi-threaded with background analysis tasks, event-driven GUI updates, separate processes for debugger agents - manages complex state across disassembly, decompilation, and debugging workflows",
+        "data_contract_strictness": "Highly Structured",
+        "data_contract_evidence": "Analyzes executable formats including PE, ELF, Mach-O and uses sleigh specification language for processor architectures - requires strict binary format parsing",
+        "core_algorithmic_class": "Graph Algorithms",
+        "core_algorithmic_evidence": "Disassembles compiled binaries into assembly language and decompiles machine code into high-level C-like pseudocode - requires control flow graph analysis and data flow analysis",
+        "concurrency_requirements": "Eventually Consistent",
+        "concurrency_evidence": "Multi-user server architecture for collaborative analysis and multi-threaded background analysis tasks - supports eventual consistency across collaborative sessions",
+        "repurposing_confidence": 8,
+        "repurposing_reasoning": "High confidence due to modular architecture with clear separation between parsing, analysis, and visualization components. The sleigh specification language and plugin system make it highly adaptable to different binary formats and analysis needs."
+      },
+      "evidence_claims": [
+        {
+          "claim": "Performs binary disassembly and decompilation",
+          "evidence": "Disassembles compiled binaries into assembly language (Ghidra/Features/Base/src/main/java/ghidra/app/plugin/core/disassembler), Decompiles machine code into high-level C-like pseudocode (Ghidra/Features/Decompiler)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Supports multiple processor architectures",
+          "evidence": "Supports multiple processor architectures through sleigh specification language (Ghidra/Processors)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Provides collaborative analysis capabilities",
+          "evidence": "Provides collaborative analysis through multi-user server architecture (Ghidra/Features/GhidraServer)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Extensible through scripting",
+          "evidence": "Executes user scripts in Java and Python for automated analysis (Ghidra/Features/Python, scripting directories)",
+          "confidence": "High"
+        }
+      ],
+      "market_reach": {
+        "primary_industry": "Cybersecurity",
+        "cross_industry_applications": [
+          "Software Development",
+          "Digital Forensics",
+          "Malware Analysis",
+          "Embedded Systems",
+          "Gaming",
+          "Academic Research"
+        ],
+        "utility_score": 9,
+        "market_potential": "High"
+      },
+      "friction_report": {
+        "difficulty": "High",
+        "estimated_hours": 200,
+        "required_technologies": [
+          "JDK 21",
+          "Python 3.9-3.14",
+          "Gradle build system",
+          "Swing GUI framework"
+        ],
+        "complexity_factors": [
+          "Complex decompilation algorithms",
+          "Multi-architecture support",
+          "Native code integration via JNI",
+          "Collaborative server architecture"
+        ],
+        "risk_level": "Medium"
+      },
+      "interface_map": {
+        "adapter_schema": {
+          "input": {
+            "format": "Binary executable files",
+            "required_fields": [
+              "executable_format",
+              "processor_architecture"
+            ]
+          },
+          "output": {
+            "format": "Structured analysis data"
+          },
+          "authentication": {
+            "type": "PKI certificates",
+            "method": "server authentication"
+          }
+        },
+        "standardization_level": "High"
+      },
+      "information_gaps": [
+        "Specific API endpoint documentation for REST interface",
+        "Performance benchmarks and scalability limits",
+        "Detailed plugin architecture specifications",
+        "Memory and compute resource requirements"
+      ]
+    },
+    "timestamp": "2026-03-25T12:38:41.728796"
+  },
+  "errors": []
+}

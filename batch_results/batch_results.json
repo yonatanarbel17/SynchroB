@@ -1,112 +1,81 @@
 {
-  "batch_timestamp": "2026-03-21T19:44:47.168139",
-  "total_repos": 1,
-  "successful": 1,
+  "batch_timestamp": "2026-03-25T12:40:40.296406",
+  "total_repos": 4,
+  "successful": 4,
   "failed": 0,
   "results": [
     {
-      "url": "https://github.com/go-gitea/gitea.git",
-      "repo_name": "gitea",
-      "timestamp": "2026-03-21T19:43:51.042206",
+      "url": "https://github.com/magento/magento2.git",
+      "repo_name": "magento2",
+      "timestamp": "2026-03-25T12:33:26.470024",
       "step1": {
-        "product_name": "gitea",
-        "url": "https://github.com/go-gitea/gitea.git",
+        "product_name": "magento2",
+        "url": "https://github.com/magento/magento2.git",
         "analysis": {
-          "summary": "Gitea is a self-hosted Git service platform that provides web-based Git repository hosting, issue tracking, pull requests, and collaboration features. It processes Git operations, serves a web interface, manages users and organizations, and integrates with external services for CI/CD and authentication.",
+          "summary": "Magento Open Source is a comprehensive PHP-based eCommerce platform that processes online transactions, manages product catalogs, and handles customer interactions through a modular architecture with over 200 integrated modules for storefront and admin functionality.",
           "capabilities": [
-            "Hosts and manages Git repositories with web interface (cmd/web.go, routers/web/web.go)",
-            "Processes Git operations via SSH and HTTP protocols (cmd/serv.go, services/repository/)",
-            "Manages user authentication and authorization with multiple backends (services/auth/)",
-            "Provides issue tracking and project management (models/issues/, routers/web/repo/issue.go)",
-            "Handles pull requests and code review workflows (models/pull/, services/pull/)",
-            "Serves REST and GraphQL APIs for external integrations (routers/api/, routers/web/api/)",
-            "Processes webhook events and notifications (services/webhook/)",
-            "Manages organizations, teams, and user permissions (models/organization/, models/user/)",
-            "Provides CI/CD integration with Gitea Actions (services/actions/)",
-            "Handles package registry functionality (routers/api/packages/)",
-            "Processes markdown and other markup formats (modules/markup/)",
-            "Manages database migrations and administrative tasks (cmd/admin.go, cmd/migrate.go)"
+            "Processes eCommerce transactions and order management (app/code/Magento/Sales/)",
+            "Manages product catalogs with inventory tracking (app/code/Magento/Catalog/, app/code/Magento/CatalogInventory/)",
+            "Handles customer registration and authentication (app/code/Magento/Customer/)",
+            "Provides admin dashboard and backend management (app/code/Magento/Backend/)",
+            "Processes payment transactions through multiple gateways (app/code/Magento/Payment/)",
+            "Manages content pages and blocks (app/code/Magento/Cms/)",
+            "Handles advanced search functionality (app/code/Magento/AdvancedSearch/, app/code/Magento/CatalogSearch/)",
+            "Supports multi-store and multi-currency operations (app/code/Magento/Store/, app/code/Magento/Directory/)",
+            "Manages shipping and tax calculations (app/code/Magento/Shipping/, app/code/Magento/Tax/)",
+            "Provides import/export capabilities for product data (app/code/Magento/ImportExport/)",
+            "Handles message queuing for asynchronous operations (app/code/Magento/AsynchronousOperations/, app/code/Magento/Amqp/)",
+            "Manages user roles and permissions (app/code/Magento/Authorization/, app/code/Magento/User/)",
+            "Processes analytics and reporting (app/code/Magento/Analytics/, app/code/Magento/Reports/)"
           ],
           "use_cases": [],
           "technical_stack": [
-            "Go 1.26+ (go.mod)",
-            "TypeScript/JavaScript frontend (package.json, webpack)",
-            "SQLite, PostgreSQL, MySQL, MSSQL database support (go.mod: xorm, database drivers)",
-            "Redis for caching and sessions (go.mod: github.com/redis/go-redis)",
-            "LDAP authentication support (go.mod: github.com/go-ldap/ldap)",
-            "OAuth2 provider and client (go.mod: github.com/golang-jwt/jwt, golang.org/x/oauth2)",
-            "Git binary integration (modules/git/)",
-            "S3-compatible object storage (go.mod: github.com/minio/minio-go)",
-            "Elasticsearch integration (go.mod: github.com/olivere/elastic)",
-            "Docker containerization (Dockerfile)",
-            "Webpack for frontend asset bundling (package.json)",
-            "Chart.js for data visualization (package.json)",
-            "Monaco Editor for code editing (package.json)",
-            "Mermaid for diagram rendering (package.json)"
+            "PHP 8.3-8.5 (composer.json files)",
+            "MySQL/MariaDB (db_schema.xml files throughout modules)",
+            "Redis (app/code/Magento/Cache/)",
+            "Elasticsearch/OpenSearch (app/code/Magento/Elasticsearch/)",
+            "RabbitMQ/AMQP (app/code/Magento/Amqp/)",
+            "Varnish HTTP Cache (app/code/Magento/PageCache/)",
+            "AWS S3 (app/code/Magento/AwsS3/)",
+            "JavaScript/RequireJS (Gruntfile.js.sample, requirejs-config.js files)",
+            "XML for configuration and layout (etc/ directories)",
+            "Zend Framework components (legacy dependency)"
           ],
           "integrations": [
-            "GitHub (migration)",
-            "GitLab (migration)",
-            "Bitbucket (migration)",
-            "Discord webhooks",
-            "Slack webhooks",
-            "DingTalk webhooks",
-            "Microsoft Teams webhooks",
-            "S3-compatible storage",
-            "Elasticsearch",
-            "LDAP servers",
-            "SMTP servers"
+            "PayPal",
+            "Amazon S3",
+            "Google Analytics",
+            "New Relic",
+            "USPS",
+            "UPS",
+            "FedEx",
+            "DHL"
           ],
           "api_endpoints": [
             {
               "method": "GET",
-              "path": "/api/v1/repos",
-              "summary": "List repositories (routers/api/v1/api.go)"
+              "path": "/rest/V1/*",
+              "summary": "REST API endpoints (webapi.xml files)"
             },
             {
               "method": "POST",
-              "path": "/api/v1/repos",
-              "summary": "Create repository (routers/api/v1/repo/repo.go)"
+              "path": "/rest/V1/*",
+              "summary": "REST API endpoints (webapi.xml files)"
             },
             {
-              "method": "GET",
-              "path": "/api/v1/user",
-              "summary": "Get authenticated user (routers/api/v1/user/user.go)"
+              "method": "PUT",
+              "path": "/rest/V1/*",
+              "summary": "REST API endpoints (webapi.xml files)"
             },
             {
-              "method": "GET",
-              "path": "/api/v1/users/{username}",
-              "summary": "Get user info (routers/api/v1/user/user.go)"
-            },
-            {
-              "method": "POST",
-              "path": "/api/v1/repos/{owner}/{repo}/issues",
-              "summary": "Create issue (routers/api/v1/repo/issue.go)"
-            },
-            {
-              "method": "GET",
-              "path": "/api/v1/repos/{owner}/{repo}/pulls",
-              "summary": "List pull requests (routers/api/v1/repo/pull.go)"
+              "method": "DELETE",
+              "path": "/rest/V1/*",
+              "summary": "REST API endpoints (webapi.xml files)"
             },
             {
               "method": "POST",
-              "path": "/api/v1/repos/{owner}/{repo}/hooks",
-              "summary": "Create webhook (routers/api/v1/repo/hook.go)"
-            },
-            {
-              "method": "GET",
-              "path": "/api/v1/orgs",
-              "summary": "List organizations (routers/api/v1/org/org.go)"
-            },
-            {
-              "method": "POST",
-              "path": "/api/v1/admin/users",
-              "summary": "Admin create user (routers/api/v1/admin/user.go)"
-            },
-            {
-              "method": "GET",
-              "path": "/api/v1/version",
-              "summary": "Get version info (routers/api/v1/misc/version.go)"
+              "path": "/soap/V1/*",
+              "summary": "SOAP API endpoints (webapi.xml files)"
             }
           ],
           "pricing": {
@@ -123,161 +92,121 @@
           "evidence_tracking": {
             "confidence_level": "High",
             "technical_facts": [
-              "Hosts and manages Git repositories with web interface (cmd/web.go, routers/web/web.go)",
-              "Processes Git operations via SSH and HTTP protocols (cmd/serv.go, services/repository/)",
-              "Manages user authentication and authorization with multiple backends (services/auth/)",
-              "Provides issue tracking and project management (models/issues/, routers/web/repo/issue.go)",
-              "Handles pull requests and code review workflows (models/pull/, services/pull/)",
-              "Serves REST and GraphQL APIs for external integrations (routers/api/, routers/web/api/)",
-              "Processes webhook events and notifications (services/webhook/)",
-              "Manages organizations, teams, and user permissions (models/organization/, models/user/)",
-              "Provides CI/CD integration with Gitea Actions (services/actions/)",
-              "Handles package registry functionality (routers/api/packages/)"
+              "Processes eCommerce transactions and order management (app/code/Magento/Sales/)",
+              "Manages product catalogs with inventory tracking (app/code/Magento/Catalog/, app/code/Magento/CatalogInventory/)",
+              "Handles customer registration and authentication (app/code/Magento/Customer/)",
+              "Provides admin dashboard and backend management (app/code/Magento/Backend/)",
+              "Processes payment transactions through multiple gateways (app/code/Magento/Payment/)",
+              "Manages content pages and blocks (app/code/Magento/Cms/)",
+              "Handles advanced search functionality (app/code/Magento/AdvancedSearch/, app/code/Magento/CatalogSearch/)",
+              "Supports multi-store and multi-currency operations (app/code/Magento/Store/, app/code/Magento/Directory/)",
+              "Manages shipping and tax calculations (app/code/Magento/Shipping/, app/code/Magento/Tax/)",
+              "Provides import/export capabilities for product data (app/code/Magento/ImportExport/)"
             ],
             "information_gaps": []
           },
           "architecture_patterns": [
             "monolith",
-            "Concurrency: goroutines with context-based cancellation, background task queues, HTTP request pooling"
+            "Concurrency: synchronous with asynchronous message queue processing via RabbitMQ/AMQP for bulk operations"
           ],
           "auth_methods": [
-            "JWT tokens",
-            "OAuth2",
-            "LDAP",
-            "SAML",
-            "OpenID Connect",
-            "PAM",
-            "SMTP",
-            "API keys",
-            "SSH keys"
+            "OAuth 1.0/2.0",
+            "Token-based authentication",
+            "Admin session authentication",
+            "Customer session authentication"
           ],
           "sdk_languages": [
-            "Go"
+            "PHP"
           ],
           "dependencies": [
-            "github.com/go-chi/chi/v5",
-            "xorm.io/xorm",
-            "github.com/urfave/cli/v3",
-            "github.com/golang-jwt/jwt/v5",
-            "github.com/go-git/go-git/v5",
-            "github.com/redis/go-redis/v9",
-            "github.com/minio/minio-go/v7",
-            "Infrastructure: Git binary",
-            "Infrastructure: Database (SQLite/PostgreSQL/MySQL/MSSQL)",
-            "Infrastructure: Redis (optional)",
-            "Infrastructure: S3-compatible storage (optional)",
-            "Infrastructure: SMTP server (optional)"
+            "php 8.3-8.5",
+            "magento/framework",
+            "lib-libxml",
+            "various magento modules",
+            "Infrastructure: MySQL/MariaDB",
+            "Infrastructure: Redis",
+            "Infrastructure: Elasticsearch/OpenSearch",
+            "Infrastructure: RabbitMQ",
+            "Infrastructure: Web server (Apache/Nginx)"
           ],
           "deployment_options": [
-            "Containerized (Docker)",
-            "CI/CD: GitHub Actions"
+            "CI/CD: GitHub Actions (implied from repository structure)"
           ]
         },
         "extracted_data": {},
         "source": "local_repo",
         "source_confidence": "high",
-        "timestamp": "2026-03-21T19:44:29.204291"
+        "timestamp": "2026-03-25T12:34:10.166599"
       },
       "step2": {
         "step1_data": {
-          "product_name": "gitea",
-          "url": "https://github.com/go-gitea/gitea.git",
+          "product_name": "magento2",
+          "url": "https://github.com/magento/magento2.git",
           "analysis": {
-            "summary": "Gitea is a self-hosted Git service platform that provides web-based Git repository hosting, issue tracking, pull requests, and collaboration features. It processes Git operations, serves a web interface, manages users and organizations, and integrates with external services for CI/CD and authentication.",
+            "summary": "Magento Open Source is a comprehensive PHP-based eCommerce platform that processes online transactions, manages product catalogs, and handles customer interactions through a modular architecture with over 200 integrated modules for storefront and admin functionality.",
             "capabilities": [
-              "Hosts and manages Git repositories with web interface (cmd/web.go, routers/web/web.go)",
-              "Processes Git operations via SSH and HTTP protocols (cmd/serv.go, services/repository/)",
-              "Manages user authentication and authorization with multiple backends (services/auth/)",
-              "Provides issue tracking and project management (models/issues/, routers/web/repo/issue.go)",
-              "Handles pull requests and code review workflows (models/pull/, services/pull/)",
-              "Serves REST and GraphQL APIs for external integrations (routers/api/, routers/web/api/)",
-              "Processes webhook events and notifications (services/webhook/)",
-              "Manages organizations, teams, and user permissions (models/organization/, models/user/)",
-              "Provides CI/CD integration with Gitea Actions (services/actions/)",
-              "Handles package registry functionality (routers/api/packages/)",
-              "Processes markdown and other markup formats (modules/markup/)",
-              "Manages database migrations and administrative tasks (cmd/admin.go, cmd/migrate.go)"
+              "Processes eCommerce transactions and order management (app/code/Magento/Sales/)",
+              "Manages product catalogs with inventory tracking (app/code/Magento/Catalog/, app/code/Magento/CatalogInventory/)",
+              "Handles customer registration and authentication (app/code/Magento/Customer/)",
+              "Provides admin dashboard and backend management (app/code/Magento/Backend/)",
+              "Processes payment transactions through multiple gateways (app/code/Magento/Payment/)",
+              "Manages content pages and blocks (app/code/Magento/Cms/)",
+              "Handles advanced search functionality (app/code/Magento/AdvancedSearch/, app/code/Magento/CatalogSearch/)",
+              "Supports multi-store and multi-currency operations (app/code/Magento/Store/, app/code/Magento/Directory/)",
+              "Manages shipping and tax calculations (app/code/Magento/Shipping/, app/code/Magento/Tax/)",
+              "Provides import/export capabilities for product data (app/code/Magento/ImportExport/)",
+              "Handles message queuing for asynchronous operations (app/code/Magento/AsynchronousOperations/, app/code/Magento/Amqp/)",
+              "Manages user roles and permissions (app/code/Magento/Authorization/, app/code/Magento/User/)",
+              "Processes analytics and reporting (app/code/Magento/Analytics/, app/code/Magento/Reports/)"
             ],
             "use_cases": [],
             "technical_stack": [
-              "Go 1.26+ (go.mod)",
-              "TypeScript/JavaScript frontend (package.json, webpack)",
-              "SQLite, PostgreSQL, MySQL, MSSQL database support (go.mod: xorm, database drivers)",
-              "Redis for caching and sessions (go.mod: github.com/redis/go-redis)",
-              "LDAP authentication support (go.mod: github.com/go-ldap/ldap)",
-              "OAuth2 provider and client (go.mod: github.com/golang-jwt/jwt, golang.org/x/oauth2)",
-              "Git binary integration (modules/git/)",
-              "S3-compatible object storage (go.mod: github.com/minio/minio-go)",
-              "Elasticsearch integration (go.mod: github.com/olivere/elastic)",
-              "Docker containerization (Dockerfile)",
-              "Webpack for frontend asset bundling (package.json)",
-              "Chart.js for data visualization (package.json)",
-              "Monaco Editor for code editing (package.json)",
-              "Mermaid for diagram rendering (package.json)"
+              "PHP 8.3-8.5 (composer.json files)",
+              "MySQL/MariaDB (db_schema.xml files throughout modules)",
+              "Redis (app/code/Magento/Cache/)",
+              "Elasticsearch/OpenSearch (app/code/Magento/Elasticsearch/)",
+              "RabbitMQ/AMQP (app/code/Magento/Amqp/)",
+              "Varnish HTTP Cache (app/code/Magento/PageCache/)",
+              "AWS S3 (app/code/Magento/AwsS3/)",
+              "JavaScript/RequireJS (Gruntfile.js.sample, requirejs-config.js files)",
+              "XML for configuration and layout (etc/ directories)",
+              "Zend Framework components (legacy dependency)"
             ],
             "integrations": [
-              "GitHub (migration)",
-              "GitLab (migration)",
-              "Bitbucket (migration)",
-              "Discord webhooks",
-              "Slack webhooks",
-              "DingTalk webhooks",
-              "Microsoft Teams webhooks",
-              "S3-compatible storage",
-              "Elasticsearch",
-              "LDAP servers",
-              "SMTP servers"
+              "PayPal",
+              "Amazon S3",
+              "Google Analytics",
+              "New Relic",
+              "USPS",
+              "UPS",
+              "FedEx",
+              "DHL"
             ],
             "api_endpoints": [
               {
                 "method": "GET",
-                "path": "/api/v1/repos",
-                "summary": "List repositories (routers/api/v1/api.go)"
+                "path": "/rest/V1/*",
+                "summary": "REST API endpoints (webapi.xml files)"
               },
               {
                 "method": "POST",
-                "path": "/api/v1/repos",
-                "summary": "Create repository (routers/api/v1/repo/repo.go)"
+                "path": "/rest/V1/*",
+                "summary": "REST API endpoints (webapi.xml files)"
               },
               {
-                "method": "GET",
-                "path": "/api/v1/user",
-                "summary": "Get authenticated user (routers/api/v1/user/user.go)"
+                "method": "PUT",
+                "path": "/rest/V1/*",
+                "summary": "REST API endpoints (webapi.xml files)"
               },
               {
-                "method": "GET",
-                "path": "/api/v1/users/{username}",
-                "summary": "Get user info (routers/api/v1/user/user.go)"
-              },
-              {
-                "method": "POST",
-                "path": "/api/v1/repos/{owner}/{repo}/issues",
-                "summary": "Create issue (routers/api/v1/repo/issue.go)"
-              },
-              {
-                "method": "GET",
-                "path": "/api/v1/repos/{owner}/{repo}/pulls",
-                "summary": "List pull requests (routers/api/v1/repo/pull.go)"
+                "method": "DELETE",
+                "path": "/rest/V1/*",
+                "summary": "REST API endpoints (webapi.xml files)"
               },
               {
                 "method": "POST",
-                "path": "/api/v1/repos/{owner}/{repo}/hooks",
-                "summary": "Create webhook (routers/api/v1/repo/hook.go)"
-              },
-              {
-                "method": "GET",
-                "path": "/api/v1/orgs",
-                "summary": "List organizations (routers/api/v1/org/org.go)"
-              },
-              {
-                "method": "POST",
-                "path": "/api/v1/admin/users",
-                "summary": "Admin create user (routers/api/v1/admin/user.go)"
-              },
-              {
-                "method": "GET",
-                "path": "/api/v1/version",
-                "summary": "Get version info (routers/api/v1/misc/version.go)"
+                "path": "/soap/V1/*",
+                "summary": "SOAP API endpoints (webapi.xml files)"
               }
             ],
             "pricing": {
@@ -294,125 +223,121 @@
             "evidence_tracking": {
               "confidence_level": "High",
               "technical_facts": [
-                "Hosts and manages Git repositories with web interface (cmd/web.go, routers/web/web.go)",
-                "Processes Git operations via SSH and HTTP protocols (cmd/serv.go, services/repository/)",
-                "Manages user authentication and authorization with multiple backends (services/auth/)",
-                "Provides issue tracking and project management (models/issues/, routers/web/repo/issue.go)",
-                "Handles pull requests and code review workflows (models/pull/, services/pull/)",
-                "Serves REST and GraphQL APIs for external integrations (routers/api/, routers/web/api/)",
-                "Processes webhook events and notifications (services/webhook/)",
-                "Manages organizations, teams, and user permissions (models/organization/, models/user/)",
-                "Provides CI/CD integration with Gitea Actions (services/actions/)",
-                "Handles package registry functionality (routers/api/packages/)"
+                "Processes eCommerce transactions and order management (app/code/Magento/Sales/)",
+                "Manages product catalogs with inventory tracking (app/code/Magento/Catalog/, app/code/Magento/CatalogInventory/)",
+                "Handles customer registration and authentication (app/code/Magento/Customer/)",
+                "Provides admin dashboard and backend management (app/code/Magento/Backend/)",
+                "Processes payment transactions through multiple gateways (app/code/Magento/Payment/)",
+                "Manages content pages and blocks (app/code/Magento/Cms/)",
+                "Handles advanced search functionality (app/code/Magento/AdvancedSearch/, app/code/Magento/CatalogSearch/)",
+                "Supports multi-store and multi-currency operations (app/code/Magento/Store/, app/code/Magento/Directory/)",
+                "Manages shipping and tax calculations (app/code/Magento/Shipping/, app/code/Magento/Tax/)",
+                "Provides import/export capabilities for product data (app/code/Magento/ImportExport/)"
               ],
               "information_gaps": []
             },
             "architecture_patterns": [
               "monolith",
-              "Concurrency: goroutines with context-based cancellation, background task queues, HTTP request pooling"
+              "Concurrency: synchronous with asynchronous message queue processing via RabbitMQ/AMQP for bulk operations"
             ],
             "auth_methods": [
-              "JWT tokens",
-              "OAuth2",
-              "LDAP",
-              "SAML",
-              "OpenID Connect",
-              "PAM",
-              "SMTP",
-              "API keys",
-              "SSH keys"
+              "OAuth 1.0/2.0",
+              "Token-based authentication",
+              "Admin session authentication",
+              "Customer session authentication"
             ],
             "sdk_languages": [
-              "Go"
+              "PHP"
             ],
             "dependencies": [
-              "github.com/go-chi/chi/v5",
-              "xorm.io/xorm",
-              "github.com/urfave/cli/v3",
-              "github.com/golang-jwt/jwt/v5",
-              "github.com/go-git/go-git/v5",
-              "github.com/redis/go-redis/v9",
-              "github.com/minio/minio-go/v7",
-              "Infrastructure: Git binary",
-              "Infrastructure: Database (SQLite/PostgreSQL/MySQL/MSSQL)",
-              "Infrastructure: Redis (optional)",
-              "Infrastructure: S3-compatible storage (optional)",
-              "Infrastructure: SMTP server (optional)"
+              "php 8.3-8.5",
+              "magento/framework",
+              "lib-libxml",
+              "various magento modules",
+              "Infrastructure: MySQL/MariaDB",
+              "Infrastructure: Redis",
+              "Infrastructure: Elasticsearch/OpenSearch",
+              "Infrastructure: RabbitMQ",
+              "Infrastructure: Web server (Apache/Nginx)"
             ],
             "deployment_options": [
-              "Containerized (Docker)",
-              "CI/CD: GitHub Actions"
+              "CI/CD: GitHub Actions (implied from repository structure)"
             ]
           },
           "extracted_data": {},
           "source": "local_repo",
           "source_confidence": "high",
-          "timestamp": "2026-03-21T19:44:29.204291"
+          "timestamp": "2026-03-25T12:34:10.166599"
         },
         "generalization": {
           "functional_dna": {
             "logic_archetype": "Stateful Orchestrator",
-            "logic_archetype_evidence": "Gitea orchestrates complex workflows between Git operations, web interface, authentication, webhooks, CI/CD actions, and user management - maintaining state across repository data, user sessions, pull request workflows, and issue tracking (cmd/web.go, services/repository/, services/actions/, models/issues/)",
+            "logic_archetype_evidence": "Manages complex eCommerce workflows including order processing (app/code/Magento/Sales/), customer sessions (app/code/Magento/Customer/), inventory tracking (app/code/Magento/CatalogInventory/), and multi-store operations requiring state persistence across transactions",
             "data_contract_strictness": "Highly Structured",
-            "data_contract_evidence": "Uses XORM for structured database operations with defined models (models/issues/, models/pull/, models/user/), strict API schemas (routers/api/), and Git protocol compliance requirements",
-            "core_algorithmic_class": "Graph Algorithms",
-            "core_algorithmic_evidence": "Git repository management inherently uses directed acyclic graphs for commit history, branch relationships, and merge operations (services/repository/, models/pull/), plus organizational hierarchies for users/teams/permissions",
+            "data_contract_evidence": "Uses XML schemas for configuration (etc/ directories), db_schema.xml files throughout modules for database structure, and REST/SOAP API endpoints with defined schemas (webapi.xml files)",
+            "core_algorithmic_class": "CRUD Operations",
+            "core_algorithmic_evidence": "Primary operations involve Create, Read, Update, Delete for products (app/code/Magento/Catalog/), orders (app/code/Magento/Sales/), customers (app/code/Magento/Customer/), and content management (app/code/Magento/Cms/)",
             "concurrency_requirements": "ACID Compliance Required",
-            "concurrency_evidence": "Database operations using XORM with support for PostgreSQL/MySQL/MSSQL requiring transactional integrity for repository operations, user management, and issue tracking (go.mod: xorm, database drivers)",
-            "repurposing_confidence": 8,
-            "repurposing_reasoning": "High reusability due to generic patterns: REST API framework, authentication systems, webhook processing, and workflow orchestration are broadly applicable. Git-specific components limit some use cases but core infrastructure is domain-agnostic."
+            "concurrency_evidence": "eCommerce transactions require ACID compliance for order processing, payment handling (app/code/Magento/Payment/), inventory management (app/code/Magento/CatalogInventory/), and financial calculations (app/code/Magento/Tax/, app/code/Magento/Shipping/)",
+            "repurposing_confidence": 7,
+            "repurposing_reasoning": "High modularity with 200+ modules and well-defined APIs makes components reusable, but deep eCommerce domain coupling (sales, shipping, tax calculations) limits direct application to other domains without significant modification"
           },
           "evidence_claims": [
             {
-              "claim": "Implements comprehensive authentication with multiple backends",
-              "evidence": "services/auth/, OAuth2 provider and client (go.mod: github.com/golang-jwt/jwt, golang.org/x/oauth2), LDAP authentication support (go.mod: github.com/go-ldap/ldap)",
+              "claim": "Uses PHP 8.3-8.5 runtime",
+              "evidence": "composer.json files throughout the codebase specify PHP version requirements",
               "confidence": "High"
             },
             {
-              "claim": "Provides REST API framework with routing",
-              "evidence": "Serves REST and GraphQL APIs for external integrations (routers/api/, routers/web/api/), github.com/go-chi/chi/v5 router dependency",
+              "claim": "Implements MySQL/MariaDB data persistence",
+              "evidence": "db_schema.xml files throughout modules define database structure",
               "confidence": "High"
             },
             {
-              "claim": "Implements webhook processing system",
-              "evidence": "Processes webhook events and notifications (services/webhook/), Discord/Slack/Teams webhook integrations listed",
+              "claim": "Provides REST and SOAP API interfaces",
+              "evidence": "webapi.xml files define REST API endpoints at /rest/V1/* and SOAP endpoints at /soap/V1/*",
               "confidence": "High"
             },
             {
-              "claim": "Uses database abstraction layer",
-              "evidence": "xorm.io/xorm dependency, SQLite, PostgreSQL, MySQL, MSSQL database support (go.mod: xorm, database drivers)",
+              "claim": "Supports asynchronous processing",
+              "evidence": "app/code/Magento/AsynchronousOperations/ and app/code/Magento/Amqp/ modules for message queuing",
+              "confidence": "High"
+            },
+            {
+              "claim": "Implements search capabilities",
+              "evidence": "app/code/Magento/AdvancedSearch/ and app/code/Magento/CatalogSearch/ modules with Elasticsearch integration (app/code/Magento/Elasticsearch/)",
               "confidence": "High"
             }
           ],
           "market_reach": {
-            "primary_industry": "Software Development Tools",
+            "primary_industry": "eCommerce/Retail",
             "cross_industry_applications": [
-              "Enterprise Software",
+              "Content Management",
+              "Customer Relationship Management",
+              "Inventory Management",
               "Financial Services",
-              "Healthcare",
-              "Government",
-              "Education",
-              "Manufacturing"
+              "Digital Asset Management"
             ],
-            "utility_score": 9,
+            "utility_score": 8,
             "market_potential": "High"
           },
           "friction_report": {
-            "difficulty": "Medium",
-            "estimated_hours": 120,
+            "difficulty": "High",
+            "estimated_hours": 200,
             "required_technologies": [
-              "Go runtime",
-              "Database system",
-              "Git binary",
-              "Redis (optional)",
-              "Frontend build tools"
+              "PHP 8.3-8.5",
+              "MySQL/MariaDB",
+              "Redis",
+              "Elasticsearch/OpenSearch",
+              "RabbitMQ",
+              "Web server (Apache/Nginx)"
             ],
             "complexity_factors": [
-              "Git protocol integration",
-              "Multi-database support",
-              "Authentication backend integration",
-              "Webhook processing",
-              "CI/CD orchestration"
+              "200+ interconnected modules",
+              "Complex dependency management",
+              "eCommerce-specific business logic",
+              "Multi-layer architecture",
+              "Legacy Zend Framework components"
             ],
             "risk_level": "Medium"
           },
@@ -422,29 +347,1036 @@
                 "format": "JSON",
                 "required_fields": [
                   "authentication_token",
-                  "repository_context",
-                  "operation_type"
+                  "store_id",
+                  "entity_type",
+                  "operation"
                 ]
               },
               "output": {
                 "format": "JSON"
               },
               "authentication": {
-                "type": "Multiple",
-                "method": "JWT/OAuth2/API_Keys/LDAP"
+                "type": "OAuth/Token",
+                "method": "Bearer token or OAuth 1.0/2.0"
               }
             },
             "standardization_level": "High"
           },
           "information_gaps": [
-            "Database schema details",
-            "Performance benchmarks and scaling limits",
-            "Memory and CPU usage patterns",
-            "Specific webhook payload formats",
-            "CI/CD pipeline configuration syntax"
+            "Specific database schema definitions for core entities",
+            "Performance benchmarks and scalability limits",
+            "Detailed API rate limiting and throttling policies",
+            "Security implementation details beyond authentication methods",
+            "Specific version compatibility matrices for dependencies"
           ]
         },
-        "timestamp": "2026-03-21T19:44:47.163410"
+        "timestamp": "2026-03-25T12:34:26.473333"
+      },
+      "errors": []
+    },
+    {
+      "url": "https://github.com/getsentry/sentry.git",
+      "repo_name": "sentry",
+      "timestamp": "2026-03-25T12:35:36.563394",
+      "step1": {
+        "product_name": "sentry",
+        "url": "https://github.com/getsentry/sentry.git",
+        "analysis": {
+          "summary": "Sentry is an error tracking and performance monitoring platform built with Django/React that ingests, aggregates, and analyzes error events and performance data from client applications across multiple programming languages.",
+          "capabilities": [
+            "Ingests and processes error events from client SDKs across multiple languages (src/sentry/receivers/, src/sentry/models/event.py)",
+            "Aggregates errors into issues with deduplication and grouping logic (src/sentry/grouping/, src/sentry/models/group.py)",
+            "Provides REST API for querying events, issues, projects, and organizations (src/sentry/api/endpoints/)",
+            "Renders React-based web interface for error analysis and project management (static/app/)",
+            "Processes and stores release deployments and source maps (src/sentry/models/release.py)",
+            "Manages user authentication and organization-based access control (src/sentry/auth/, src/sentry/models/organization.py)",
+            "Integrates with external services like Slack, GitHub, Jira for notifications (src/sentry/integrations/)",
+            "Supports SCIM provisioning for enterprise identity management (src/sentry/scim/)",
+            "Processes distributed tracing data for performance monitoring (src/sentry/spans/, src/sentry/traces/)",
+            "Generates alerts and notifications based on error patterns (src/sentry/rules/, src/sentry/notifications/)"
+          ],
+          "use_cases": [],
+          "technical_stack": [
+            "Django 5.2.11 (pyproject.toml, web framework)",
+            "Django REST Framework 3.16.1 (pyproject.toml, API layer)",
+            "React 18+ (package.json, frontend UI)",
+            "TypeScript (package.json, frontend type safety)",
+            "Emotion CSS-in-JS (package.json, styling)",
+            "PostgreSQL (docker-compose configurations, primary database)",
+            "Redis (pyproject.toml redis dependency, caching/queues)",
+            "Celery (pyproject.toml celery dependency, task processing)",
+            "Kafka (confluent-kafka in pyproject.toml, event streaming)",
+            "ClickHouse (clickhouse-driver in pyproject.toml, analytics database)",
+            "Google Cloud services (google-cloud-* dependencies, infrastructure)",
+            "Boto3 (pyproject.toml, AWS services)"
+          ],
+          "integrations": [
+            "Slack (src/sentry/integrations/slack/)",
+            "GitHub (src/sentry/integrations/github/)",
+            "GitLab (src/sentry/integrations/gitlab/)",
+            "Jira (src/sentry/integrations/jira/)",
+            "PagerDuty (src/sentry/integrations/pagerduty/)",
+            "Vercel (src/sentry/integrations/vercel/)",
+            "AWS (boto3 dependency, src/sentry/integrations/aws/)",
+            "Google Cloud Platform (google-cloud-* dependencies)",
+            "Datadog (datadog dependency, metrics)"
+          ],
+          "api_endpoints": [
+            {
+              "method": "GET",
+              "path": "/api/0/organizations/{organization_id_or_slug}/repos/",
+              "summary": "List organization repositories (api-docs/openapi.json)"
+            },
+            {
+              "method": "GET",
+              "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/files/dsyms/",
+              "summary": "List debug symbols (api-docs/openapi.json)"
+            },
+            {
+              "method": "GET",
+              "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/users/",
+              "summary": "List project users (api-docs/openapi.json)"
+            },
+            {
+              "method": "GET",
+              "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/tags/{key}/values/",
+              "summary": "Get tag values (api-docs/openapi.json)"
+            },
+            {
+              "method": "GET",
+              "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/stats/",
+              "summary": "Project statistics (api-docs/openapi.json)"
+            },
+            {
+              "method": "POST",
+              "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/user-feedback/",
+              "summary": "Submit user feedback (api-docs/openapi.json)"
+            },
+            {
+              "method": "GET",
+              "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/hooks/",
+              "summary": "List service hooks (api-docs/openapi.json)"
+            }
+          ],
+          "pricing": {
+            "model": "open-source",
+            "free_tier": "true"
+          },
+          "target_audience": "Developers",
+          "category": "Open Source Software",
+          "deployment": "Self-hosted",
+          "underlying_algorithm": {
+            "problem_type": "",
+            "pattern": ""
+          },
+          "evidence_tracking": {
+            "confidence_level": "High",
+            "technical_facts": [
+              "Ingests and processes error events from client SDKs across multiple languages (src/sentry/receivers/, src/sentry/models/event.py)",
+              "Aggregates errors into issues with deduplication and grouping logic (src/sentry/grouping/, src/sentry/models/group.py)",
+              "Provides REST API for querying events, issues, projects, and organizations (src/sentry/api/endpoints/)",
+              "Renders React-based web interface for error analysis and project management (static/app/)",
+              "Processes and stores release deployments and source maps (src/sentry/models/release.py)",
+              "Manages user authentication and organization-based access control (src/sentry/auth/, src/sentry/models/organization.py)",
+              "Integrates with external services like Slack, GitHub, Jira for notifications (src/sentry/integrations/)",
+              "Supports SCIM provisioning for enterprise identity management (src/sentry/scim/)",
+              "Processes distributed tracing data for performance monitoring (src/sentry/spans/, src/sentry/traces/)",
+              "Generates alerts and notifications based on error patterns (src/sentry/rules/, src/sentry/notifications/)"
+            ],
+            "information_gaps": []
+          },
+          "architecture_patterns": [
+            "monolith",
+            "Concurrency: async with Celery task queues for background processing, Django ASGI for async request handling"
+          ],
+          "auth_methods": [
+            "Session authentication (Django sessions)",
+            "API token authentication (src/sentry/auth/)",
+            "OAuth2 (pyproject.toml oauthlib dependency)",
+            "SAML2 (python3-saml in pyproject.toml)",
+            "SCIM provisioning (src/sentry/scim/)",
+            "GitHub OAuth (src/sentry/auth/providers/github/)",
+            "Google OAuth (src/sentry/auth/providers/google/)"
+          ],
+          "sdk_languages": [
+            "JavaScript",
+            "Electron",
+            "React-Native",
+            "Python",
+            "Ruby",
+            "PHP",
+            "Laravel",
+            "Go",
+            "Rust",
+            "Java",
+            "Kotlin",
+            "Swift",
+            "Objective-C",
+            "C#",
+            "F#",
+            "C",
+            "C++",
+            "Dart",
+            "Flutter",
+            "Perl",
+            "Clojure",
+            "Elixir",
+            "Unity",
+            "Unreal Engine",
+            "Godot Engine",
+            "PowerShell"
+          ],
+          "dependencies": [
+            "django>=5.2.11",
+            "djangorestframework>=3.16.1",
+            "celery>=5.4.0",
+            "redis>=5.2.0",
+            "psycopg2>=2.9.5",
+            "clickhouse-driver>=0.2.6",
+            "confluent-kafka>=2.8.0",
+            "boto3>=1.34.128",
+            "Infrastructure: PostgreSQL",
+            "Infrastructure: Redis",
+            "Infrastructure: ClickHouse",
+            "Infrastructure: Kafka",
+            "Infrastructure: Memcached"
+          ],
+          "deployment_options": [
+            "Containerized (Docker)",
+            "CI/CD: GitHub Actions"
+          ]
+        },
+        "extracted_data": {},
+        "source": "local_repo",
+        "source_confidence": "high",
+        "timestamp": "2026-03-25T12:36:21.155076"
+      },
+      "step2": {
+        "step1_data": {
+          "product_name": "sentry",
+          "url": "https://github.com/getsentry/sentry.git",
+          "analysis": {
+            "summary": "Sentry is an error tracking and performance monitoring platform built with Django/React that ingests, aggregates, and analyzes error events and performance data from client applications across multiple programming languages.",
+            "capabilities": [
+              "Ingests and processes error events from client SDKs across multiple languages (src/sentry/receivers/, src/sentry/models/event.py)",
+              "Aggregates errors into issues with deduplication and grouping logic (src/sentry/grouping/, src/sentry/models/group.py)",
+              "Provides REST API for querying events, issues, projects, and organizations (src/sentry/api/endpoints/)",
+              "Renders React-based web interface for error analysis and project management (static/app/)",
+              "Processes and stores release deployments and source maps (src/sentry/models/release.py)",
+              "Manages user authentication and organization-based access control (src/sentry/auth/, src/sentry/models/organization.py)",
+              "Integrates with external services like Slack, GitHub, Jira for notifications (src/sentry/integrations/)",
+              "Supports SCIM provisioning for enterprise identity management (src/sentry/scim/)",
+              "Processes distributed tracing data for performance monitoring (src/sentry/spans/, src/sentry/traces/)",
+              "Generates alerts and notifications based on error patterns (src/sentry/rules/, src/sentry/notifications/)"
+            ],
+            "use_cases": [],
+            "technical_stack": [
+              "Django 5.2.11 (pyproject.toml, web framework)",
+              "Django REST Framework 3.16.1 (pyproject.toml, API layer)",
+              "React 18+ (package.json, frontend UI)",
+              "TypeScript (package.json, frontend type safety)",
+              "Emotion CSS-in-JS (package.json, styling)",
+              "PostgreSQL (docker-compose configurations, primary database)",
+              "Redis (pyproject.toml redis dependency, caching/queues)",
+              "Celery (pyproject.toml celery dependency, task processing)",
+              "Kafka (confluent-kafka in pyproject.toml, event streaming)",
+              "ClickHouse (clickhouse-driver in pyproject.toml, analytics database)",
+              "Google Cloud services (google-cloud-* dependencies, infrastructure)",
+              "Boto3 (pyproject.toml, AWS services)"
+            ],
+            "integrations": [
+              "Slack (src/sentry/integrations/slack/)",
+              "GitHub (src/sentry/integrations/github/)",
+              "GitLab (src/sentry/integrations/gitlab/)",
+              "Jira (src/sentry/integrations/jira/)",
+              "PagerDuty (src/sentry/integrations/pagerduty/)",
+              "Vercel (src/sentry/integrations/vercel/)",
+              "AWS (boto3 dependency, src/sentry/integrations/aws/)",
+              "Google Cloud Platform (google-cloud-* dependencies)",
+              "Datadog (datadog dependency, metrics)"
+            ],
+            "api_endpoints": [
+              {
+                "method": "GET",
+                "path": "/api/0/organizations/{organization_id_or_slug}/repos/",
+                "summary": "List organization repositories (api-docs/openapi.json)"
+              },
+              {
+                "method": "GET",
+                "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/files/dsyms/",
+                "summary": "List debug symbols (api-docs/openapi.json)"
+              },
+              {
+                "method": "GET",
+                "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/users/",
+                "summary": "List project users (api-docs/openapi.json)"
+              },
+              {
+                "method": "GET",
+                "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/tags/{key}/values/",
+                "summary": "Get tag values (api-docs/openapi.json)"
+              },
+              {
+                "method": "GET",
+                "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/stats/",
+                "summary": "Project statistics (api-docs/openapi.json)"
+              },
+              {
+                "method": "POST",
+                "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/user-feedback/",
+                "summary": "Submit user feedback (api-docs/openapi.json)"
+              },
+              {
+                "method": "GET",
+                "path": "/api/0/projects/{organization_id_or_slug}/{project_id_or_slug}/hooks/",
+                "summary": "List service hooks (api-docs/openapi.json)"
+              }
+            ],
+            "pricing": {
+              "model": "open-source",
+              "free_tier": "true"
+            },
+            "target_audience": "Developers",
+            "category": "Open Source Software",
+            "deployment": "Self-hosted",
+            "underlying_algorithm": {
+              "problem_type": "",
+              "pattern": ""
+            },
+            "evidence_tracking": {
+              "confidence_level": "High",
+              "technical_facts": [
+                "Ingests and processes error events from client SDKs across multiple languages (src/sentry/receivers/, src/sentry/models/event.py)",
+                "Aggregates errors into issues with deduplication and grouping logic (src/sentry/grouping/, src/sentry/models/group.py)",
+                "Provides REST API for querying events, issues, projects, and organizations (src/sentry/api/endpoints/)",
+                "Renders React-based web interface for error analysis and project management (static/app/)",
+                "Processes and stores release deployments and source maps (src/sentry/models/release.py)",
+                "Manages user authentication and organization-based access control (src/sentry/auth/, src/sentry/models/organization.py)",
+                "Integrates with external services like Slack, GitHub, Jira for notifications (src/sentry/integrations/)",
+                "Supports SCIM provisioning for enterprise identity management (src/sentry/scim/)",
+                "Processes distributed tracing data for performance monitoring (src/sentry/spans/, src/sentry/traces/)",
+                "Generates alerts and notifications based on error patterns (src/sentry/rules/, src/sentry/notifications/)"
+              ],
+              "information_gaps": []
+            },
+            "architecture_patterns": [
+              "monolith",
+              "Concurrency: async with Celery task queues for background processing, Django ASGI for async request handling"
+            ],
+            "auth_methods": [
+              "Session authentication (Django sessions)",
+              "API token authentication (src/sentry/auth/)",
+              "OAuth2 (pyproject.toml oauthlib dependency)",
+              "SAML2 (python3-saml in pyproject.toml)",
+              "SCIM provisioning (src/sentry/scim/)",
+              "GitHub OAuth (src/sentry/auth/providers/github/)",
+              "Google OAuth (src/sentry/auth/providers/google/)"
+            ],
+            "sdk_languages": [
+              "JavaScript",
+              "Electron",
+              "React-Native",
+              "Python",
+              "Ruby",
+              "PHP",
+              "Laravel",
+              "Go",
+              "Rust",
+              "Java",
+              "Kotlin",
+              "Swift",
+              "Objective-C",
+              "C#",
+              "F#",
+              "C",
+              "C++",
+              "Dart",
+              "Flutter",
+              "Perl",
+              "Clojure",
+              "Elixir",
+              "Unity",
+              "Unreal Engine",
+              "Godot Engine",
+              "PowerShell"
+            ],
+            "dependencies": [
+              "django>=5.2.11",
+              "djangorestframework>=3.16.1",
+              "celery>=5.4.0",
+              "redis>=5.2.0",
+              "psycopg2>=2.9.5",
+              "clickhouse-driver>=0.2.6",
+              "confluent-kafka>=2.8.0",
+              "boto3>=1.34.128",
+              "Infrastructure: PostgreSQL",
+              "Infrastructure: Redis",
+              "Infrastructure: ClickHouse",
+              "Infrastructure: Kafka",
+              "Infrastructure: Memcached"
+            ],
+            "deployment_options": [
+              "Containerized (Docker)",
+              "CI/CD: GitHub Actions"
+            ]
+          },
+          "extracted_data": {},
+          "source": "local_repo",
+          "source_confidence": "high",
+          "timestamp": "2026-03-25T12:36:21.155076"
+        },
+        "generalization": {
+          "functional_dna": {
+            "logic_archetype": "Stream Processor",
+            "logic_archetype_evidence": "Ingests and processes error events from client SDKs across multiple languages (src/sentry/receivers/, src/sentry/models/event.py) - continuous event ingestion and real-time processing of error streams",
+            "data_contract_strictness": "Moderately Structured",
+            "data_contract_evidence": "REST API endpoints with defined paths and parameters (api-docs/openapi.json) but flexible event data structure to support multiple programming languages",
+            "core_algorithmic_class": "Statistical Models",
+            "core_algorithmic_evidence": "Aggregates errors into issues with deduplication and grouping logic (src/sentry/grouping/, src/sentry/models/group.py) - pattern recognition and statistical grouping algorithms",
+            "concurrency_requirements": "Eventually Consistent",
+            "concurrency_evidence": "Celery (pyproject.toml celery dependency, task processing) and Kafka (confluent-kafka in pyproject.toml, event streaming) - asynchronous processing architecture",
+            "repurposing_confidence": 8,
+            "repurposing_reasoning": "High confidence due to generic event ingestion, aggregation, and alerting patterns that apply to many monitoring domains. Core streaming architecture is domain-agnostic."
+          },
+          "evidence_claims": [
+            {
+              "claim": "Real-time event stream processing capability",
+              "evidence": "Ingests and processes error events from client SDKs across multiple languages (src/sentry/receivers/, src/sentry/models/event.py)",
+              "confidence": "High"
+            },
+            {
+              "claim": "Pattern recognition and deduplication algorithms",
+              "evidence": "Aggregates errors into issues with deduplication and grouping logic (src/sentry/grouping/, src/sentry/models/group.py)",
+              "confidence": "High"
+            },
+            {
+              "claim": "Multi-protocol integration framework",
+              "evidence": "Integrates with external services like Slack, GitHub, Jira for notifications (src/sentry/integrations/)",
+              "confidence": "High"
+            },
+            {
+              "claim": "Distributed tracing capabilities",
+              "evidence": "Processes distributed tracing data for performance monitoring (src/sentry/spans/, src/sentry/traces/)",
+              "confidence": "High"
+            }
+          ],
+          "market_reach": {
+            "primary_industry": "Software Development",
+            "cross_industry_applications": [
+              "IT Operations",
+              "DevOps",
+              "System Monitoring",
+              "IoT Event Processing",
+              "Financial Transaction Monitoring",
+              "Healthcare System Monitoring"
+            ],
+            "utility_score": 9,
+            "market_potential": "High"
+          },
+          "friction_report": {
+            "difficulty": "Medium",
+            "estimated_hours": 120,
+            "required_technologies": [
+              "Django 5.2.11 (pyproject.toml)",
+              "PostgreSQL (docker-compose configurations)",
+              "Redis (pyproject.toml redis dependency)",
+              "Kafka (confluent-kafka in pyproject.toml)"
+            ],
+            "complexity_factors": [
+              "Multi-database architecture with PostgreSQL and ClickHouse",
+              "Complex event grouping algorithms",
+              "Real-time streaming requirements",
+              "Multi-tenant organization structure"
+            ],
+            "risk_level": "Medium"
+          },
+          "interface_map": {
+            "adapter_schema": {
+              "input": {
+                "format": "JSON",
+                "required_fields": [
+                  "event_id",
+                  "timestamp",
+                  "level",
+                  "message"
+                ]
+              },
+              "output": {
+                "format": "JSON"
+              },
+              "authentication": {
+                "type": "API Token",
+                "method": "API token authentication (src/sentry/auth/)"
+              }
+            },
+            "standardization_level": "High"
+          },
+          "information_gaps": [
+            "Specific event processing latency requirements",
+            "Data retention policies",
+            "Horizontal scaling architecture details",
+            "Performance benchmarks for event throughput"
+          ]
+        },
+        "timestamp": "2026-03-25T12:36:34.923274"
+      },
+      "errors": []
+    },
+    {
+      "url": "https://github.com/NationalSecurityAgency/ghidra.git",
+      "repo_name": "ghidra",
+      "timestamp": "2026-03-25T12:37:44.936103",
+      "step1": {
+        "product_name": "ghidra",
+        "url": "https://github.com/NationalSecurityAgency/ghidra.git",
+        "analysis": {
+          "summary": "Ghidra is a comprehensive software reverse engineering framework that disassembles, decompiles, and analyzes compiled binaries across multiple processor architectures and executable formats. It provides both interactive GUI tools and automated analysis capabilities through Java and Python APIs.",
+          "capabilities": [
+            "Disassembles compiled binaries into assembly language (Ghidra/Features/Base/src/main/java/ghidra/app/plugin/core/disassembler)",
+            "Decompiles machine code into high-level C-like pseudocode (Ghidra/Features/Decompiler)",
+            "Analyzes executable formats including PE, ELF, Mach-O (Ghidra/Features/Base/src/main/java/ghidra/app/util/bin)",
+            "Supports multiple processor architectures through sleigh specification language (Ghidra/Processors)",
+            "Provides collaborative analysis through multi-user server architecture (Ghidra/Features/GhidraServer)",
+            "Executes user scripts in Java and Python for automated analysis (Ghidra/Features/Python, scripting directories)",
+            "Debugs live processes through various debugger integrations (Ghidra/Debug/Debugger-agent-*)",
+            "Parses and analyzes file system formats including DMG (GPL/DMG/src/dmg/java)",
+            "Demangles C++ and other mangled symbols (GPL/DemanglerGnu/src/demangler_gnu_v*)",
+            "Provides REST API for headless analysis operations (Ghidra/Features/Base/src/main/java/ghidra/framework/main/headless)"
+          ],
+          "use_cases": [],
+          "technical_stack": [
+            "Java (primary language, 15369 files)",
+            "Python (scripting and debugger agents, 138 files with pyproject.toml dependencies)",
+            "C/C++ (native components, 123 files)",
+            "Gradle (build system, multiple build.gradle files)",
+            "Swing (GUI framework, evident from Java GUI classes)",
+            "ANTLR (parser generation, sleigh language specs)",
+            "JNI (Java Native Interface for C integration)",
+            "Haskell (minimal usage, 1 file)"
+          ],
+          "integrations": [
+            "GDB debugger (Ghidra/Debug/Debugger-agent-gdb)",
+            "LLDB debugger (Ghidra/Debug/Debugger-agent-lldb)",
+            "Windows DbgEng debugger (Ghidra/Debug/Debugger-agent-dbgeng)",
+            "drgn debugger (Ghidra/Debug/Debugger-agent-drgn)",
+            "GNU binutils for disassembly (GPL/GnuDisassembler)",
+            "Various file format parsers (ELF, PE, Mach-O, DMG)"
+          ],
+          "api_endpoints": [],
+          "pricing": {
+            "model": "open-source",
+            "free_tier": "true"
+          },
+          "target_audience": "Developers",
+          "category": "Open Source Software",
+          "deployment": "Self-hosted",
+          "underlying_algorithm": {
+            "problem_type": "",
+            "pattern": ""
+          },
+          "evidence_tracking": {
+            "confidence_level": "High",
+            "technical_facts": [
+              "Disassembles compiled binaries into assembly language (Ghidra/Features/Base/src/main/java/ghidra/app/plugin/core/disassembler)",
+              "Decompiles machine code into high-level C-like pseudocode (Ghidra/Features/Decompiler)",
+              "Analyzes executable formats including PE, ELF, Mach-O (Ghidra/Features/Base/src/main/java/ghidra/app/util/bin)",
+              "Supports multiple processor architectures through sleigh specification language (Ghidra/Processors)",
+              "Provides collaborative analysis through multi-user server architecture (Ghidra/Features/GhidraServer)",
+              "Executes user scripts in Java and Python for automated analysis (Ghidra/Features/Python, scripting directories)",
+              "Debugs live processes through various debugger integrations (Ghidra/Debug/Debugger-agent-*)",
+              "Parses and analyzes file system formats including DMG (GPL/DMG/src/dmg/java)",
+              "Demangles C++ and other mangled symbols (GPL/DemanglerGnu/src/demangler_gnu_v*)",
+              "Provides REST API for headless analysis operations (Ghidra/Features/Base/src/main/java/ghidra/framework/main/headless)"
+            ],
+            "information_gaps": []
+          },
+          "architecture_patterns": [
+            "modular desktop application with optional server component",
+            "Concurrency: Multi-threaded with background analysis tasks, event-driven GUI updates, separate processes for debugger agents"
+          ],
+          "auth_methods": [
+            "PKI certificates for server authentication (Ghidra/Features/GhidraServer)",
+            "User-based access control"
+          ],
+          "sdk_languages": [
+            "Java",
+            "Python"
+          ],
+          "dependencies": [
+            "JDK 21 (minimum runtime requirement)",
+            "Python 3.9-3.14 (for scripting)",
+            "ghidratrace==12.1 (debugger agent dependency)",
+            "pybag>=2.2.12 (Windows debugging)",
+            "Infrastructure: Optional: Ghidra Server for collaborative analysis"
+          ],
+          "deployment_options": []
+        },
+        "extracted_data": {},
+        "source": "local_repo",
+        "source_confidence": "high",
+        "timestamp": "2026-03-25T12:38:27.582867"
+      },
+      "step2": {
+        "step1_data": {
+          "product_name": "ghidra",
+          "url": "https://github.com/NationalSecurityAgency/ghidra.git",
+          "analysis": {
+            "summary": "Ghidra is a comprehensive software reverse engineering framework that disassembles, decompiles, and analyzes compiled binaries across multiple processor architectures and executable formats. It provides both interactive GUI tools and automated analysis capabilities through Java and Python APIs.",
+            "capabilities": [
+              "Disassembles compiled binaries into assembly language (Ghidra/Features/Base/src/main/java/ghidra/app/plugin/core/disassembler)",
+              "Decompiles machine code into high-level C-like pseudocode (Ghidra/Features/Decompiler)",
+              "Analyzes executable formats including PE, ELF, Mach-O (Ghidra/Features/Base/src/main/java/ghidra/app/util/bin)",
+              "Supports multiple processor architectures through sleigh specification language (Ghidra/Processors)",
+              "Provides collaborative analysis through multi-user server architecture (Ghidra/Features/GhidraServer)",
+              "Executes user scripts in Java and Python for automated analysis (Ghidra/Features/Python, scripting directories)",
+              "Debugs live processes through various debugger integrations (Ghidra/Debug/Debugger-agent-*)",
+              "Parses and analyzes file system formats including DMG (GPL/DMG/src/dmg/java)",
+              "Demangles C++ and other mangled symbols (GPL/DemanglerGnu/src/demangler_gnu_v*)",
+              "Provides REST API for headless analysis operations (Ghidra/Features/Base/src/main/java/ghidra/framework/main/headless)"
+            ],
+            "use_cases": [],
+            "technical_stack": [
+              "Java (primary language, 15369 files)",
+              "Python (scripting and debugger agents, 138 files with pyproject.toml dependencies)",
+              "C/C++ (native components, 123 files)",
+              "Gradle (build system, multiple build.gradle files)",
+              "Swing (GUI framework, evident from Java GUI classes)",
+              "ANTLR (parser generation, sleigh language specs)",
+              "JNI (Java Native Interface for C integration)",
+              "Haskell (minimal usage, 1 file)"
+            ],
+            "integrations": [
+              "GDB debugger (Ghidra/Debug/Debugger-agent-gdb)",
+              "LLDB debugger (Ghidra/Debug/Debugger-agent-lldb)",
+              "Windows DbgEng debugger (Ghidra/Debug/Debugger-agent-dbgeng)",
+              "drgn debugger (Ghidra/Debug/Debugger-agent-drgn)",
+              "GNU binutils for disassembly (GPL/GnuDisassembler)",
+              "Various file format parsers (ELF, PE, Mach-O, DMG)"
+            ],
+            "api_endpoints": [],
+            "pricing": {
+              "model": "open-source",
+              "free_tier": "true"
+            },
+            "target_audience": "Developers",
+            "category": "Open Source Software",
+            "deployment": "Self-hosted",
+            "underlying_algorithm": {
+              "problem_type": "",
+              "pattern": ""
+            },
+            "evidence_tracking": {
+              "confidence_level": "High",
+              "technical_facts": [
+                "Disassembles compiled binaries into assembly language (Ghidra/Features/Base/src/main/java/ghidra/app/plugin/core/disassembler)",
+                "Decompiles machine code into high-level C-like pseudocode (Ghidra/Features/Decompiler)",
+                "Analyzes executable formats including PE, ELF, Mach-O (Ghidra/Features/Base/src/main/java/ghidra/app/util/bin)",
+                "Supports multiple processor architectures through sleigh specification language (Ghidra/Processors)",
+                "Provides collaborative analysis through multi-user server architecture (Ghidra/Features/GhidraServer)",
+                "Executes user scripts in Java and Python for automated analysis (Ghidra/Features/Python, scripting directories)",
+                "Debugs live processes through various debugger integrations (Ghidra/Debug/Debugger-agent-*)",
+                "Parses and analyzes file system formats including DMG (GPL/DMG/src/dmg/java)",
+                "Demangles C++ and other mangled symbols (GPL/DemanglerGnu/src/demangler_gnu_v*)",
+                "Provides REST API for headless analysis operations (Ghidra/Features/Base/src/main/java/ghidra/framework/main/headless)"
+              ],
+              "information_gaps": []
+            },
+            "architecture_patterns": [
+              "modular desktop application with optional server component",
+              "Concurrency: Multi-threaded with background analysis tasks, event-driven GUI updates, separate processes for debugger agents"
+            ],
+            "auth_methods": [
+              "PKI certificates for server authentication (Ghidra/Features/GhidraServer)",
+              "User-based access control"
+            ],
+            "sdk_languages": [
+              "Java",
+              "Python"
+            ],
+            "dependencies": [
+              "JDK 21 (minimum runtime requirement)",
+              "Python 3.9-3.14 (for scripting)",
+              "ghidratrace==12.1 (debugger agent dependency)",
+              "pybag>=2.2.12 (Windows debugging)",
+              "Infrastructure: Optional: Ghidra Server for collaborative analysis"
+            ],
+            "deployment_options": []
+          },
+          "extracted_data": {},
+          "source": "local_repo",
+          "source_confidence": "high",
+          "timestamp": "2026-03-25T12:38:27.582867"
+        },
+        "generalization": {
+          "functional_dna": {
+            "logic_archetype": "Stateful Orchestrator",
+            "logic_archetype_evidence": "Multi-threaded with background analysis tasks, event-driven GUI updates, separate processes for debugger agents - manages complex state across disassembly, decompilation, and debugging workflows",
+            "data_contract_strictness": "Highly Structured",
+            "data_contract_evidence": "Analyzes executable formats including PE, ELF, Mach-O and uses sleigh specification language for processor architectures - requires strict binary format parsing",
+            "core_algorithmic_class": "Graph Algorithms",
+            "core_algorithmic_evidence": "Disassembles compiled binaries into assembly language and decompiles machine code into high-level C-like pseudocode - requires control flow graph analysis and data flow analysis",
+            "concurrency_requirements": "Eventually Consistent",
+            "concurrency_evidence": "Multi-user server architecture for collaborative analysis and multi-threaded background analysis tasks - supports eventual consistency across collaborative sessions",
+            "repurposing_confidence": 8,
+            "repurposing_reasoning": "High confidence due to modular architecture with clear separation between parsing, analysis, and visualization components. The sleigh specification language and plugin system make it highly adaptable to different binary formats and analysis needs."
+          },
+          "evidence_claims": [
+            {
+              "claim": "Performs binary disassembly and decompilation",
+              "evidence": "Disassembles compiled binaries into assembly language (Ghidra/Features/Base/src/main/java/ghidra/app/plugin/core/disassembler), Decompiles machine code into high-level C-like pseudocode (Ghidra/Features/Decompiler)",
+              "confidence": "High"
+            },
+            {
+              "claim": "Supports multiple processor architectures",
+              "evidence": "Supports multiple processor architectures through sleigh specification language (Ghidra/Processors)",
+              "confidence": "High"
+            },
+            {
+              "claim": "Provides collaborative analysis capabilities",
+              "evidence": "Provides collaborative analysis through multi-user server architecture (Ghidra/Features/GhidraServer)",
+              "confidence": "High"
+            },
+            {
+              "claim": "Extensible through scripting",
+              "evidence": "Executes user scripts in Java and Python for automated analysis (Ghidra/Features/Python, scripting directories)",
+              "confidence": "High"
+            }
+          ],
+          "market_reach": {
+            "primary_industry": "Cybersecurity",
+            "cross_industry_applications": [
+              "Software Development",
+              "Digital Forensics",
+              "Malware Analysis",
+              "Embedded Systems",
+              "Gaming",
+              "Academic Research"
+            ],
+            "utility_score": 9,
+            "market_potential": "High"
+          },
+          "friction_report": {
+            "difficulty": "High",
+            "estimated_hours": 200,
+            "required_technologies": [
+              "JDK 21",
+              "Python 3.9-3.14",
+              "Gradle build system",
+              "Swing GUI framework"
+            ],
+            "complexity_factors": [
+              "Complex decompilation algorithms",
+              "Multi-architecture support",
+              "Native code integration via JNI",
+              "Collaborative server architecture"
+            ],
+            "risk_level": "Medium"
+          },
+          "interface_map": {
+            "adapter_schema": {
+              "input": {
+                "format": "Binary executable files",
+                "required_fields": [
+                  "executable_format",
+                  "processor_architecture"
+                ]
+              },
+              "output": {
+                "format": "Structured analysis data"
+              },
+              "authentication": {
+                "type": "PKI certificates",
+                "method": "server authentication"
+              }
+            },
+            "standardization_level": "High"
+          },
+          "information_gaps": [
+            "Specific API endpoint documentation for REST interface",
+            "Performance benchmarks and scalability limits",
+            "Detailed plugin architecture specifications",
+            "Memory and compute resource requirements"
+          ]
+        },
+        "timestamp": "2026-03-25T12:38:41.728796"
+      },
+      "errors": []
+    },
+    {
+      "url": "https://github.com/keycloak/keycloak.git",
+      "repo_name": "keycloak",
+      "timestamp": "2026-03-25T12:39:51.814327",
+      "step1": {
+        "product_name": "keycloak",
+        "url": "https://github.com/keycloak/keycloak.git",
+        "analysis": {
+          "summary": "Keycloak is an open-source identity and access management server that provides user authentication, authorization, and federation services. It processes authentication requests, manages user identities, and integrates with applications via SAML, OAuth2/OIDC protocols.",
+          "capabilities": [
+            "Processes SAML authentication requests and generates responses (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/SamlAuthenticator.java)",
+            "Manages user sessions and session stores (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/SamlSessionStore.java)",
+            "Provides role mapping and authorization services (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/RoleMappingsProvider.java)",
+            "Handles single sign-on (SSO) and single logout (SLO) flows (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/profile/webbrowsersso/WebBrowserSsoAuthenticationHandler.java)",
+            "Parses and validates SAML configuration and metadata (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/config/parsers/KeycloakSamlAdapterParser.java)",
+            "Implements cryptographic key rotation and management (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/rotation/SamlDescriptorPublicKeyLocator.java)",
+            "Provides client adapters for Java EE/Jakarta EE applications (adapters/saml/wildfly-elytron/src/main/java/org/keycloak/adapters/saml/elytron/ElytronSamlAuthenticator.java)"
+          ],
+          "use_cases": [],
+          "technical_stack": [
+            "Java (primary language - 7630 .java files)",
+            "TypeScript/React (595 .tsx, 382 .ts files for admin console)",
+            "Maven (build system - pom.xml files throughout)",
+            "WildFly/JBoss (server runtime - wildfly integration modules)",
+            "Apache HTTP Client (adapters/saml/core/src/main/java/org/keycloak/adapters/cloned/HttpClientBuilder.java)",
+            "SAML 2.0 Protocol Implementation"
+          ],
+          "integrations": [
+            "WildFly/JBoss EAP application server",
+            "JBoss Elytron security framework",
+            "LDAP/Active Directory (user federation)",
+            "Database systems (user storage)",
+            "External identity providers via SAML metadata"
+          ],
+          "api_endpoints": [],
+          "pricing": {
+            "model": "open-source",
+            "free_tier": "true"
+          },
+          "target_audience": "Developers",
+          "category": "Open Source Software",
+          "deployment": "Self-hosted",
+          "underlying_algorithm": {
+            "problem_type": "",
+            "pattern": ""
+          },
+          "evidence_tracking": {
+            "confidence_level": "High",
+            "technical_facts": [
+              "Processes SAML authentication requests and generates responses (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/SamlAuthenticator.java)",
+              "Manages user sessions and session stores (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/SamlSessionStore.java)",
+              "Provides role mapping and authorization services (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/RoleMappingsProvider.java)",
+              "Handles single sign-on (SSO) and single logout (SLO) flows (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/profile/webbrowsersso/WebBrowserSsoAuthenticationHandler.java)",
+              "Parses and validates SAML configuration and metadata (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/config/parsers/KeycloakSamlAdapterParser.java)",
+              "Implements cryptographic key rotation and management (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/rotation/SamlDescriptorPublicKeyLocator.java)",
+              "Provides client adapters for Java EE/Jakarta EE applications (adapters/saml/wildfly-elytron/src/main/java/org/keycloak/adapters/saml/elytron/ElytronSamlAuthenticator.java)"
+            ],
+            "information_gaps": []
+          },
+          "architecture_patterns": [
+            "monolith",
+            "Concurrency: multi-threaded Java server with synchronous request processing"
+          ],
+          "auth_methods": [
+            "SAML 2.0",
+            "OAuth2/OIDC",
+            "JWT tokens",
+            "X.509 certificates (PEM format support in adapters/saml/core/src/main/java/org/keycloak/adapters/saml/config/PemUtils.java)"
+          ],
+          "sdk_languages": [
+            "Java"
+          ],
+          "dependencies": [
+            "Maven parent POM dependencies (specific versions truncated in extraction)",
+            "Infrastructure: Database system",
+            "Infrastructure: Application server (WildFly/JBoss)",
+            "Infrastructure: Load balancer (clustering support)"
+          ],
+          "deployment_options": [
+            "Containerized (Docker)",
+            "CI/CD: GitHub Actions (inferred from .github directory)"
+          ]
+        },
+        "extracted_data": {},
+        "source": "local_repo",
+        "source_confidence": "high",
+        "timestamp": "2026-03-25T12:40:24.874456"
+      },
+      "step2": {
+        "step1_data": {
+          "product_name": "keycloak",
+          "url": "https://github.com/keycloak/keycloak.git",
+          "analysis": {
+            "summary": "Keycloak is an open-source identity and access management server that provides user authentication, authorization, and federation services. It processes authentication requests, manages user identities, and integrates with applications via SAML, OAuth2/OIDC protocols.",
+            "capabilities": [
+              "Processes SAML authentication requests and generates responses (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/SamlAuthenticator.java)",
+              "Manages user sessions and session stores (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/SamlSessionStore.java)",
+              "Provides role mapping and authorization services (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/RoleMappingsProvider.java)",
+              "Handles single sign-on (SSO) and single logout (SLO) flows (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/profile/webbrowsersso/WebBrowserSsoAuthenticationHandler.java)",
+              "Parses and validates SAML configuration and metadata (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/config/parsers/KeycloakSamlAdapterParser.java)",
+              "Implements cryptographic key rotation and management (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/rotation/SamlDescriptorPublicKeyLocator.java)",
+              "Provides client adapters for Java EE/Jakarta EE applications (adapters/saml/wildfly-elytron/src/main/java/org/keycloak/adapters/saml/elytron/ElytronSamlAuthenticator.java)"
+            ],
+            "use_cases": [],
+            "technical_stack": [
+              "Java (primary language - 7630 .java files)",
+              "TypeScript/React (595 .tsx, 382 .ts files for admin console)",
+              "Maven (build system - pom.xml files throughout)",
+              "WildFly/JBoss (server runtime - wildfly integration modules)",
+              "Apache HTTP Client (adapters/saml/core/src/main/java/org/keycloak/adapters/cloned/HttpClientBuilder.java)",
+              "SAML 2.0 Protocol Implementation"
+            ],
+            "integrations": [
+              "WildFly/JBoss EAP application server",
+              "JBoss Elytron security framework",
+              "LDAP/Active Directory (user federation)",
+              "Database systems (user storage)",
+              "External identity providers via SAML metadata"
+            ],
+            "api_endpoints": [],
+            "pricing": {
+              "model": "open-source",
+              "free_tier": "true"
+            },
+            "target_audience": "Developers",
+            "category": "Open Source Software",
+            "deployment": "Self-hosted",
+            "underlying_algorithm": {
+              "problem_type": "",
+              "pattern": ""
+            },
+            "evidence_tracking": {
+              "confidence_level": "High",
+              "technical_facts": [
+                "Processes SAML authentication requests and generates responses (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/SamlAuthenticator.java)",
+                "Manages user sessions and session stores (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/SamlSessionStore.java)",
+                "Provides role mapping and authorization services (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/RoleMappingsProvider.java)",
+                "Handles single sign-on (SSO) and single logout (SLO) flows (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/profile/webbrowsersso/WebBrowserSsoAuthenticationHandler.java)",
+                "Parses and validates SAML configuration and metadata (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/config/parsers/KeycloakSamlAdapterParser.java)",
+                "Implements cryptographic key rotation and management (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/rotation/SamlDescriptorPublicKeyLocator.java)",
+                "Provides client adapters for Java EE/Jakarta EE applications (adapters/saml/wildfly-elytron/src/main/java/org/keycloak/adapters/saml/elytron/ElytronSamlAuthenticator.java)"
+              ],
+              "information_gaps": []
+            },
+            "architecture_patterns": [
+              "monolith",
+              "Concurrency: multi-threaded Java server with synchronous request processing"
+            ],
+            "auth_methods": [
+              "SAML 2.0",
+              "OAuth2/OIDC",
+              "JWT tokens",
+              "X.509 certificates (PEM format support in adapters/saml/core/src/main/java/org/keycloak/adapters/saml/config/PemUtils.java)"
+            ],
+            "sdk_languages": [
+              "Java"
+            ],
+            "dependencies": [
+              "Maven parent POM dependencies (specific versions truncated in extraction)",
+              "Infrastructure: Database system",
+              "Infrastructure: Application server (WildFly/JBoss)",
+              "Infrastructure: Load balancer (clustering support)"
+            ],
+            "deployment_options": [
+              "Containerized (Docker)",
+              "CI/CD: GitHub Actions (inferred from .github directory)"
+            ]
+          },
+          "extracted_data": {},
+          "source": "local_repo",
+          "source_confidence": "high",
+          "timestamp": "2026-03-25T12:40:24.874456"
+        },
+        "generalization": {
+          "functional_dna": {
+            "logic_archetype": "Authentication/Authorization Service",
+            "logic_archetype_evidence": "Processes SAML authentication requests and generates responses (SamlAuthenticator.java), provides role mapping and authorization services (RoleMappingsProvider.java), handles single sign-on (SSO) and single logout (SLO) flows",
+            "data_contract_strictness": "Highly Structured",
+            "data_contract_evidence": "SAML 2.0 Protocol Implementation with strict XML schema validation, parses and validates SAML configuration and metadata (KeycloakSamlAdapterParser.java)",
+            "core_algorithmic_class": "CRUD Operations",
+            "core_algorithmic_evidence": "Manages user sessions and session stores (SamlSessionStore.java), user identity management with database storage, session lifecycle operations",
+            "concurrency_requirements": "Eventually Consistent",
+            "concurrency_evidence": "Multi-threaded Java server with synchronous request processing, clustering support mentioned, session management across distributed instances",
+            "repurposing_confidence": 8,
+            "repurposing_reasoning": "High confidence due to standard protocol implementations (SAML, OAuth2/OIDC) and modular adapter architecture. The authentication/authorization patterns are universally applicable across industries, with well-defined interfaces and extensible plugin system."
+          },
+          "evidence_claims": [
+            {
+              "claim": "Implements SAML 2.0 authentication protocol",
+              "evidence": "Processes SAML authentication requests and generates responses (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/SamlAuthenticator.java)",
+              "confidence": "High"
+            },
+            {
+              "claim": "Provides session management capabilities",
+              "evidence": "Manages user sessions and session stores (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/SamlSessionStore.java)",
+              "confidence": "High"
+            },
+            {
+              "claim": "Supports role-based authorization",
+              "evidence": "Provides role mapping and authorization services (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/RoleMappingsProvider.java)",
+              "confidence": "High"
+            },
+            {
+              "claim": "Built on Java technology stack",
+              "evidence": "Java (primary language - 7630 .java files)",
+              "confidence": "High"
+            },
+            {
+              "claim": "Supports cryptographic operations",
+              "evidence": "Implements cryptographic key rotation and management (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/rotation/SamlDescriptorPublicKeyLocator.java)",
+              "confidence": "High"
+            }
+          ],
+          "market_reach": {
+            "primary_industry": "Enterprise Software / Identity Management",
+            "cross_industry_applications": [
+              "Financial Services",
+              "Healthcare",
+              "Government",
+              "Education",
+              "E-commerce",
+              "SaaS Platforms",
+              "Manufacturing",
+              "Telecommunications"
+            ],
+            "utility_score": 9,
+            "market_potential": "High"
+          },
+          "friction_report": {
+            "difficulty": "Medium",
+            "estimated_hours": 160,
+            "required_technologies": [
+              "Java runtime environment",
+              "Database system",
+              "Application server (WildFly/JBoss)",
+              "Maven build system"
+            ],
+            "complexity_factors": [
+              "Protocol compliance requirements",
+              "Security certificate management",
+              "Database schema migration",
+              "Integration adapter development"
+            ],
+            "risk_level": "Medium"
+          },
+          "interface_map": {
+            "adapter_schema": {
+              "input": {
+                "format": "SAML XML",
+                "required_fields": [
+                  "AuthnRequest",
+                  "Assertion",
+                  "NameID"
+                ]
+              },
+              "output": {
+                "format": "SAML XML"
+              },
+              "authentication": {
+                "type": "Protocol-based",
+                "method": "SAML 2.0, OAuth2/OIDC, X.509 certificates"
+              }
+            },
+            "standardization_level": "High"
+          },
+          "information_gaps": [
+            "Specific database schema requirements",
+            "Performance benchmarks and scalability limits",
+            "Specific OAuth2/OIDC implementation details",
+            "API endpoint specifications",
+            "Memory and CPU resource requirements",
+            "Backup and disaster recovery capabilities"
+          ]
+        },
+        "timestamp": "2026-03-25T12:40:40.294256"
       },
       "errors": []
     }

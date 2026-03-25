@@ -1,0 +1,335 @@
+{
+  "url": "https://github.com/neovim/neovim.git",
+  "repo_name": "neovim",
+  "timestamp": "2026-03-25T12:26:21.914715",
+  "step1": {
+    "product_name": "neovim",
+    "url": "https://github.com/neovim/neovim.git",
+    "analysis": {
+      "summary": "Neovim is a text editor that refactors Vim's core architecture, built in C with Lua scripting support, providing an RPC API for external clients and advanced terminal-based text editing capabilities.",
+      "capabilities": [
+        "Processes API method calls through remote procedure call (RPC) interface (src/nvim/api/private/dispatch.c)",
+        "Manages text buffer operations including line manipulation and buffer updates (src/nvim/api/buffer.c)",
+        "Handles autocmd events and pattern matching for buffer/editor events (src/nvim/api/autocmd.c)",
+        "Executes Lua scripts and provides Lua callback mechanisms (src/nvim/lua/executor.c references)",
+        "Renders text-based user interface with terminal emulation capabilities (runtime/autoload/ files)",
+        "Parses and processes Vim script commands and expressions (src/nvim/ C files)",
+        "Manages file I/O operations including reading, writing, and monitoring file changes (src/nvim/memline.c references)",
+        "Provides syntax highlighting and text parsing through tree-sitter integration (cmake.deps/cmake/BuildTreesitter.cmake)"
+      ],
+      "use_cases": [],
+      "technical_stack": [
+        "C (core implementation - 217 .c files, CMakeLists.txt)",
+        "Lua (scripting and configuration - 775 .lua files)",
+        "CMake (build system - CMakeLists.txt, cmake/ directory)",
+        "Libuv (async I/O - cmake.deps/cmake/BuildLibuv.cmake)",
+        "Tree-sitter (syntax parsing - cmake.deps/cmake/BuildTreesitter.cmake)",
+        "LuaJIT (Lua runtime - cmake.deps/cmake/BuildLuajit.cmake)",
+        "UTF8proc (Unicode handling - cmake.deps/cmake/BuildUTF8proc.cmake)",
+        "Unibilium (terminal capabilities - cmake.deps/cmake/BuildUnibilium.cmake)",
+        "Gettext (internationalization - cmake.deps/cmake/BuildGettext.cmake)"
+      ],
+      "integrations": [
+        "Terminal emulators (embedded terminal support mentioned in README)",
+        "External GUI clients through RPC API (README mentions modern GUIs)",
+        "Language servers and external tools via job control (README mentions asynchronous job control)"
+      ],
+      "api_endpoints": [
+        {
+          "method": null,
+          "path": "nvim_get_autocmds - Gets autocommands matching criteria (src/nvim/api/autocmd.c:82)",
+          "summary": null
+        },
+        {
+          "method": null,
+          "path": "nvim_buf_line_count - Returns number of lines in buffer (src/nvim/api/buffer.c:108)",
+          "summary": null
+        },
+        {
+          "method": null,
+          "path": "nvim_buf_attach - Activates buffer update events (src/nvim/api/buffer.c:132)",
+          "summary": null
+        }
+      ],
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      },
+      "target_audience": "Developers",
+      "category": "Open Source Software",
+      "deployment": "Self-hosted",
+      "underlying_algorithm": {
+        "problem_type": "",
+        "pattern": ""
+      },
+      "evidence_tracking": {
+        "confidence_level": "High",
+        "technical_facts": [
+          "Processes API method calls through remote procedure call (RPC) interface (src/nvim/api/private/dispatch.c)",
+          "Manages text buffer operations including line manipulation and buffer updates (src/nvim/api/buffer.c)",
+          "Handles autocmd events and pattern matching for buffer/editor events (src/nvim/api/autocmd.c)",
+          "Executes Lua scripts and provides Lua callback mechanisms (src/nvim/lua/executor.c references)",
+          "Renders text-based user interface with terminal emulation capabilities (runtime/autoload/ files)",
+          "Parses and processes Vim script commands and expressions (src/nvim/ C files)",
+          "Manages file I/O operations including reading, writing, and monitoring file changes (src/nvim/memline.c references)",
+          "Provides syntax highlighting and text parsing through tree-sitter integration (cmake.deps/cmake/BuildTreesitter.cmake)"
+        ],
+        "information_gaps": []
+      },
+      "architecture_patterns": [
+        "monolith",
+        "Concurrency: async with libuv event loop for I/O operations, single-threaded core with async job control"
+      ],
+      "auth_methods": [],
+      "sdk_languages": [
+        "C/C++",
+        "C#",
+        "Clojure",
+        "D",
+        "Elixir",
+        "Go",
+        "Haskell",
+        "Java/Kotlin",
+        "JavaScript/Node.js",
+        "Julia",
+        "Lisp",
+        "Lua",
+        "Perl",
+        "Python",
+        "Racket",
+        "Ruby",
+        "Rust"
+      ],
+      "dependencies": [
+        "libuv",
+        "luajit",
+        "tree-sitter",
+        "utf8proc",
+        "unibilium",
+        "gettext",
+        "libiconv"
+      ],
+      "deployment_options": []
+    },
+    "extracted_data": {},
+    "source": "local_repo",
+    "source_confidence": "high",
+    "timestamp": "2026-03-25T12:26:55.821691"
+  },
+  "step2": {
+    "step1_data": {
+      "product_name": "neovim",
+      "url": "https://github.com/neovim/neovim.git",
+      "analysis": {
+        "summary": "Neovim is a text editor that refactors Vim's core architecture, built in C with Lua scripting support, providing an RPC API for external clients and advanced terminal-based text editing capabilities.",
+        "capabilities": [
+          "Processes API method calls through remote procedure call (RPC) interface (src/nvim/api/private/dispatch.c)",
+          "Manages text buffer operations including line manipulation and buffer updates (src/nvim/api/buffer.c)",
+          "Handles autocmd events and pattern matching for buffer/editor events (src/nvim/api/autocmd.c)",
+          "Executes Lua scripts and provides Lua callback mechanisms (src/nvim/lua/executor.c references)",
+          "Renders text-based user interface with terminal emulation capabilities (runtime/autoload/ files)",
+          "Parses and processes Vim script commands and expressions (src/nvim/ C files)",
+          "Manages file I/O operations including reading, writing, and monitoring file changes (src/nvim/memline.c references)",
+          "Provides syntax highlighting and text parsing through tree-sitter integration (cmake.deps/cmake/BuildTreesitter.cmake)"
+        ],
+        "use_cases": [],
+        "technical_stack": [
+          "C (core implementation - 217 .c files, CMakeLists.txt)",
+          "Lua (scripting and configuration - 775 .lua files)",
+          "CMake (build system - CMakeLists.txt, cmake/ directory)",
+          "Libuv (async I/O - cmake.deps/cmake/BuildLibuv.cmake)",
+          "Tree-sitter (syntax parsing - cmake.deps/cmake/BuildTreesitter.cmake)",
+          "LuaJIT (Lua runtime - cmake.deps/cmake/BuildLuajit.cmake)",
+          "UTF8proc (Unicode handling - cmake.deps/cmake/BuildUTF8proc.cmake)",
+          "Unibilium (terminal capabilities - cmake.deps/cmake/BuildUnibilium.cmake)",
+          "Gettext (internationalization - cmake.deps/cmake/BuildGettext.cmake)"
+        ],
+        "integrations": [
+          "Terminal emulators (embedded terminal support mentioned in README)",
+          "External GUI clients through RPC API (README mentions modern GUIs)",
+          "Language servers and external tools via job control (README mentions asynchronous job control)"
+        ],
+        "api_endpoints": [
+          {
+            "method": null,
+            "path": "nvim_get_autocmds - Gets autocommands matching criteria (src/nvim/api/autocmd.c:82)",
+            "summary": null
+          },
+          {
+            "method": null,
+            "path": "nvim_buf_line_count - Returns number of lines in buffer (src/nvim/api/buffer.c:108)",
+            "summary": null
+          },
+          {
+            "method": null,
+            "path": "nvim_buf_attach - Activates buffer update events (src/nvim/api/buffer.c:132)",
+            "summary": null
+          }
+        ],
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        },
+        "target_audience": "Developers",
+        "category": "Open Source Software",
+        "deployment": "Self-hosted",
+        "underlying_algorithm": {
+          "problem_type": "",
+          "pattern": ""
+        },
+        "evidence_tracking": {
+          "confidence_level": "High",
+          "technical_facts": [
+            "Processes API method calls through remote procedure call (RPC) interface (src/nvim/api/private/dispatch.c)",
+            "Manages text buffer operations including line manipulation and buffer updates (src/nvim/api/buffer.c)",
+            "Handles autocmd events and pattern matching for buffer/editor events (src/nvim/api/autocmd.c)",
+            "Executes Lua scripts and provides Lua callback mechanisms (src/nvim/lua/executor.c references)",
+            "Renders text-based user interface with terminal emulation capabilities (runtime/autoload/ files)",
+            "Parses and processes Vim script commands and expressions (src/nvim/ C files)",
+            "Manages file I/O operations including reading, writing, and monitoring file changes (src/nvim/memline.c references)",
+            "Provides syntax highlighting and text parsing through tree-sitter integration (cmake.deps/cmake/BuildTreesitter.cmake)"
+          ],
+          "information_gaps": []
+        },
+        "architecture_patterns": [
+          "monolith",
+          "Concurrency: async with libuv event loop for I/O operations, single-threaded core with async job control"
+        ],
+        "auth_methods": [],
+        "sdk_languages": [
+          "C/C++",
+          "C#",
+          "Clojure",
+          "D",
+          "Elixir",
+          "Go",
+          "Haskell",
+          "Java/Kotlin",
+          "JavaScript/Node.js",
+          "Julia",
+          "Lisp",
+          "Lua",
+          "Perl",
+          "Python",
+          "Racket",
+          "Ruby",
+          "Rust"
+        ],
+        "dependencies": [
+          "libuv",
+          "luajit",
+          "tree-sitter",
+          "utf8proc",
+          "unibilium",
+          "gettext",
+          "libiconv"
+        ],
+        "deployment_options": []
+      },
+      "extracted_data": {},
+      "source": "local_repo",
+      "source_confidence": "high",
+      "timestamp": "2026-03-25T12:26:55.821691"
+    },
+    "generalization": {
+      "functional_dna": {
+        "logic_archetype": "Stateful Orchestrator",
+        "logic_archetype_evidence": "Manages text buffer operations including line manipulation and buffer updates (src/nvim/api/buffer.c), handles autocmd events and pattern matching for buffer/editor events (src/nvim/api/autocmd.c), maintains file I/O operations including reading, writing, and monitoring file changes",
+        "data_contract_strictness": "Moderately Structured",
+        "data_contract_evidence": "RPC API with defined methods like nvim_get_autocmds, nvim_buf_line_count, nvim_buf_attach, but also supports flexible Lua scripting and configuration",
+        "core_algorithmic_class": "CRUD Operations",
+        "core_algorithmic_evidence": "Text buffer operations including line manipulation and buffer updates, file I/O operations including reading, writing, and monitoring file changes, buffer management through API endpoints",
+        "concurrency_requirements": "No Consistency Requirements",
+        "concurrency_evidence": "Async with libuv event loop for I/O operations, single-threaded core with async job control - designed for responsive user interaction rather than data consistency",
+        "repurposing_confidence": 8,
+        "repurposing_reasoning": "High repurposing potential due to generic text processing, RPC API architecture, event handling system, and plugin extensibility. Core buffer management, event system, and async I/O patterns are broadly applicable to document processing, content management, and interactive applications."
+      },
+      "evidence_claims": [
+        {
+          "claim": "Implements RPC-based API architecture",
+          "evidence": "Processes API method calls through remote procedure call (RPC) interface (src/nvim/api/private/dispatch.c)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Manages stateful text buffer operations",
+          "evidence": "Manages text buffer operations including line manipulation and buffer updates (src/nvim/api/buffer.c)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Provides event-driven programming model",
+          "evidence": "Handles autocmd events and pattern matching for buffer/editor events (src/nvim/api/autocmd.c)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Built with C core and Lua scripting",
+          "evidence": "C (core implementation - 217 .c files, CMakeLists.txt), Lua (scripting and configuration - 775 .lua files)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Uses asynchronous I/O architecture",
+          "evidence": "Libuv (async I/O - cmake.deps/cmake/BuildLibuv.cmake), async with libuv event loop for I/O operations",
+          "confidence": "High"
+        }
+      ],
+      "market_reach": {
+        "primary_industry": "Software Development Tools",
+        "cross_industry_applications": [
+          "Content Management",
+          "Document Processing",
+          "Interactive Applications",
+          "Real-time Collaboration",
+          "Text Analytics",
+          "Code Analysis"
+        ],
+        "utility_score": 8,
+        "market_potential": "High"
+      },
+      "friction_report": {
+        "difficulty": "Medium",
+        "estimated_hours": 120,
+        "required_technologies": [
+          "C programming",
+          "Lua scripting",
+          "RPC protocols",
+          "Event-driven architecture",
+          "CMake build system"
+        ],
+        "complexity_factors": [
+          "C codebase complexity",
+          "Event system integration",
+          "Buffer management abstractions",
+          "RPC API adaptation"
+        ],
+        "risk_level": "Medium"
+      },
+      "interface_map": {
+        "adapter_schema": {
+          "input": {
+            "format": "RPC",
+            "required_fields": [
+              "method",
+              "params"
+            ]
+          },
+          "output": {
+            "format": "RPC"
+          },
+          "authentication": {
+            "type": "None",
+            "method": "Direct API access"
+          }
+        },
+        "standardization_level": "High"
+      },
+      "information_gaps": [
+        "Specific performance characteristics and benchmarks",
+        "Memory usage patterns and optimization strategies",
+        "Plugin API detailed specifications",
+        "Error handling and recovery mechanisms",
+        "Scalability limits for buffer operations"
+      ]
+    },
+    "timestamp": "2026-03-25T12:27:10.154094"
+  },
+  "errors": []
+}
