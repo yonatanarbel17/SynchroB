@@ -108,6 +108,10 @@ class SourceResult(BaseModel):
     # Raw content for downstream analysis
     raw_content: Optional[str] = None
 
+    # Full LLM analysis JSON — preserves all rich fields from the LLM response
+    # that would otherwise be lost in the SourceResult → dict conversion
+    raw_llm_analysis: Optional[Dict[str, Any]] = None
+
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
 

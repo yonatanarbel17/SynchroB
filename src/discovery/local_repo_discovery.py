@@ -121,7 +121,11 @@ class LocalRepoDiscovery:
                     raw_content=llm_response[:2000],
                 )
 
-            return self._build_source_result(data, github_url, extraction)
+            source_result = self._build_source_result(data, github_url, extraction)
+            # Store the raw LLM analysis JSON so downstream can use the full
+            # rich output without lossy SourceResult conversion
+            source_result.raw_llm_analysis = data
+            return source_result
 
         except Exception as exc:
             logger.exception("LocalRepoDiscovery failed for %s", github_url)
@@ -284,10 +288,12 @@ Respond ONLY with valid JSON matching the schema described above. No additional 
             return self.claude_client.generate(
                 prompt,
                 system=(
-                    "You are a Technical Repository Analyzer. "
+                    "You are a Technical Repository Analyzer producing comprehensive, "
+                    "detailed JSON analyses. Fill every field thoroughly. "
+                    "Aim for 15-25 capabilities with file evidence. "
                     "Respond only with valid JSON."
                 ),
-                max_tokens=4096,
+                max_tokens=8192,
             )
         except Exception as exc:
             logger.warning("Claude query failed for repo analysis: %s", exc)
@@ -339,45 +345,87 @@ Respond ONLY with valid JSON matching the schema described above. No additional 
     def _format_extraction_for_llm(extraction: Dict[str, Any]) -> str:
         """
         Format the extraction dict into a readable text block for the LLM.
-        Keeps within reasonable token limits by truncating large sections.
+
+        Budget allocation (total ~60k chars):
+          - Directory structure + file tree:  4k
+          - Language distribution:             500
+          - README:                           6k
+          - Architecture/design docs:         6k
+          - Dependencies:                     4k
+          - OpenAPI specs:                    5k
+          - Config files:                     3k
+          - DB schemas:                       3k
+          - Source code samples:             20k  (the most important section)
+          - Test info:                        1k
+          - Git metadata:                     2k
+          - Plugin system:                    1k
+          - License + community health:       500
+          - Buffer:                           4k
         """
         parts = []
 
-        # File tree (truncate aggressively to stay within token limits)
+        # --- 1. Directory structure (3-level tree) ---
+        dir_structure = extraction.get("directory_structure")
+        if dir_structure:
+            parts.append("### Directory Structure (3-level)")
+            if isinstance(dir_structure, dict):
+                tree_str = json.dumps(dir_structure.get("directory_tree", dir_structure), indent=1)
+                parts.append(tree_str[:2000])
+            else:
+                parts.append(str(dir_structure)[:2000])
+
+        # --- 2. File tree ---
         file_tree = extraction.get("file_tree", [])
-        parts.append(f"### File Tree ({len(file_tree)} files)")
-        max_tree = min(100, len(file_tree))
+        parts.append(f"\n### File Tree ({len(file_tree)} files total)")
+        max_tree = min(300, len(file_tree))
         parts.append("\n".join(file_tree[:max_tree]))
         if len(file_tree) > max_tree:
             parts.append(f"... and {len(file_tree) - max_tree} more files")
 
-        # Language distribution
+        # --- 3. Language distribution ---
         lang_dist = extraction.get("language_distribution", {})
         if lang_dist:
             parts.append("\n### Language Distribution")
             for ext, count in lang_dist.items():
                 parts.append(f"  {ext}: {count} files")
 
-        # README (truncate to save tokens)
+        # --- 4. README ---
         readme = extraction.get("readme")
         if readme:
             parts.append("\n### README")
-            parts.append(readme[:3000])
+            parts.append(readme[:6000])
 
-        # Dependencies (compact)
+        # --- 5. Architecture / design docs ---
+        docs = extraction.get("docs", {})
+        if docs:
+            parts.append("\n### Architecture & Design Documentation")
+            doc_budget = 6000
+            for fpath, content in docs.items():
+                if doc_budget <= 0:
+                    break
+                chunk = content[:min(3000, doc_budget)]
+                parts.append(f"\n**{fpath}**:")
+                parts.append(chunk)
+                doc_budget -= len(chunk)
+
+        # --- 6. Dependencies ---
         deps = extraction.get("dependencies", {})
         if deps:
             parts.append("\n### Dependency Manifests")
+            dep_budget = 4000
             for fpath, dep_info in deps.items():
+                if dep_budget <= 0:
+                    break
                 parts.append(f"\n**{fpath}** ({dep_info.get('ecosystem', 'unknown')}):")
                 parsed = dep_info.get("parsed")
                 if parsed:
-                    parts.append(json.dumps(parsed, indent=2)[:1500])
+                    chunk = json.dumps(parsed, indent=2)[:min(2000, dep_budget)]
                 else:
-                    raw = dep_info.get("raw", "")
-                    parts.append(raw[:1000])
+                    chunk = dep_info.get("raw", "")[:min(1500, dep_budget)]
+                parts.append(chunk)
+                dep_budget -= len(chunk)
 
-        # OpenAPI specs
+        # --- 7. OpenAPI specs ---
         specs = extraction.get("openapi_specs", {})
         if specs:
             parts.append("\n### OpenAPI/Swagger Specs Found on Disk")
@@ -389,26 +437,107 @@ Respond ONLY with valid JSON matching the schema described above. No additional 
                 else:
                     parts.append(spec_info.get("raw", "")[:3000])
 
-        # Config files
+        # --- 8. Database schemas ---
+        db_schemas = extraction.get("db_schemas", {})
+        if db_schemas:
+            migrations = db_schemas.get("migration_files", [])
+            models = db_schemas.get("orm_models", [])
+            samples = db_schemas.get("samples", {})
+            if migrations or models or samples:
+                parts.append("\n### Database Schemas & Migrations")
+                if migrations:
+                    parts.append(f"Migration files found: {len(migrations)}")
+                    parts.append(", ".join(migrations[:10]))
+                if models:
+                    parts.append(f"ORM model files: {len(models)}")
+                    parts.append(", ".join(models[:10]))
+                for fpath, content in samples.items():
+                    parts.append(f"\n**{fpath}**:")
+                    parts.append(f"```\n{content}\n```")
+
+        # --- 9. Config files ---
         configs = extraction.get("config_files", {})
         if configs:
             parts.append("\n### Configuration Files")
+            config_budget = 3000
             for fpath, content in configs.items():
+                if config_budget <= 0:
+                    break
+                chunk = content[:min(1500, config_budget)]
                 parts.append(f"\n**{fpath}**:")
-                parts.append(content[:2000])
+                parts.append(chunk)
+                config_budget -= len(chunk)
 
-        # Source samples (the most important part)
-        samples = extraction.get("source_samples", {})
-        if samples:
-            parts.append(f"\n### Source Code Samples ({len(samples)} files)")
-            for fpath, content in samples.items():
+        # --- 10. Source code samples (LARGEST BUDGET — most important) ---
+        source_samples = extraction.get("source_samples", {})
+        if source_samples:
+            parts.append(f"\n### Source Code Samples ({len(source_samples)} files)")
+            source_budget = 20000
+            for fpath, content in source_samples.items():
+                if source_budget <= 0:
+                    break
+                chunk = content[:min(4000, source_budget)]
                 parts.append(f"\n**{fpath}**:")
-                parts.append(f"```\n{content}\n```")
+                parts.append(f"```\n{chunk}\n```")
+                source_budget -= len(chunk)
+
+        # --- 11. Test info ---
+        test_info = extraction.get("test_info", {})
+        if test_info:
+            parts.append("\n### Test Infrastructure")
+            parts.append(f"Test files: {test_info.get('test_file_count', 0)}")
+            frameworks = test_info.get("frameworks", [])
+            if frameworks:
+                parts.append(f"Test frameworks: {', '.join(frameworks)}")
+            sample_paths = test_info.get("sample_paths", [])
+            if sample_paths:
+                parts.append(f"Sample test files: {', '.join(sample_paths[:5])}")
+
+        # --- 12. Git metadata ---
+        git_meta = extraction.get("git_metadata", {})
+        if git_meta:
+            parts.append("\n### Git Metadata")
+            if git_meta.get("total_commits"):
+                parts.append(f"Total commits: {git_meta['total_commits']}")
+            if git_meta.get("created_date"):
+                parts.append(f"Repository created: {git_meta['created_date']}")
+            contributors = git_meta.get("top_contributors", [])
+            if contributors:
+                parts.append(f"Top contributors ({len(contributors)}):")
+                for c in contributors[:10]:
+                    parts.append(f"  {c}")
+            recent = git_meta.get("recent_commits", [])
+            if recent:
+                parts.append(f"Recent commits ({len(recent)}):")
+                for c in recent[:15]:
+                    parts.append(f"  {c}")
+
+        # --- 13. Plugin system ---
+        plugin_sys = extraction.get("plugin_system", {})
+        if plugin_sys and plugin_sys.get("has_plugin_system"):
+            parts.append("\n### Plugin/Extension System")
+            plugin_dirs = plugin_sys.get("plugin_directories", [])
+            if plugin_dirs:
+                parts.append(f"Plugin directories: {', '.join(plugin_dirs[:10])}")
+            patterns = plugin_sys.get("hook_patterns", [])
+            if patterns:
+                parts.append(f"Hook/event patterns: {', '.join(patterns[:5])}")
+
+        # --- 14. License & community health ---
+        license_info = extraction.get("license")
+        if license_info:
+            parts.append(f"\n### License: {license_info}")
+
+        community = extraction.get("community_health", {})
+        if community:
+            present = [k for k, v in community.items() if v]
+            if present:
+                parts.append(f"\n### Community Health: {', '.join(present)}")
 
         result = "\n".join(parts)
-        # Hard cap at ~20k chars to stay within API token limits
-        if len(result) > 20000:
-            result = result[:20000] + "\n\n... [truncated to fit token limit]"
+        # Hard cap at 60k chars — well within Claude's context window
+        if len(result) > 60000:
+            result = result[:60000] + "\n\n... [truncated to fit token limit]"
         return result
 
     # ------------------------------------------------------------------

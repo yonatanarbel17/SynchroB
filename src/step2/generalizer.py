@@ -1120,88 +1120,99 @@ Respond ONLY with valid JSON, no additional text."""
         analysis = step1_data.get("analysis", {})
         evidence_tracking = analysis.get("evidence_tracking", {})
 
-        prompt = f"""You are a Technical Architect performing Logic Abstraction with EVIDENCE-BASED inference.
+        # Pass the FULL analysis to Claude — it's much richer now with the enhanced extraction
+        analysis_json = json.dumps(analysis, indent=2)
+        # Cap at 12k chars to leave room for prompt + response
+        if len(analysis_json) > 12000:
+            analysis_json = analysis_json[:12000] + "\n... [truncated]"
 
-TWO-PASS REASONING REQUIRED:
+        prompt = f"""You are a Technical Architect performing deep Functional DNA extraction.
 
-PASS 1: Technical Audit
-- List ONLY explicit technical facts from Step 1
-- Cite evidence for each fact
-- Identify information gaps
+Your goal: Transform a detailed technical analysis into an abstract, product-agnostic
+"Functional DNA" that captures the computational essence of this system. This DNA will be
+used to find cross-industry matches — products in completely different domains that solve
+structurally similar problems.
 
-PASS 2: Abstraction
-- Map facts to Logic Archetype (choose from strict list)
-- Identify Core Algorithmic Class
-- Assess Repurposing Confidence (1-10)
+REASONING PROCESS:
 
-FORBIDDEN:
-- Inferring technologies not in Step 1 evidence
-- Making claims without evidence quotes
-- Using marketing language
-- Hallucinating technical details
-
-REQUIRED:
-- Every claim must have: Claim + Evidence + Confidence
-- Use strict schema fields only
+1. TECHNICAL AUDIT: Extract every concrete technical fact from the analysis
+2. PATTERN RECOGNITION: Identify the abstract computational patterns (not the domain)
+3. ARCHITECTURE ABSTRACTION: Describe the system's shape without naming the product
+4. CROSS-DOMAIN MAPPING: What other industries face structurally similar problems?
+5. REUSABILITY ASSESSMENT: How much of this system could be repurposed vs. is domain-locked?
 
 Product Analysis:
-{json.dumps(analysis, indent=2)[:6000]}
+{analysis_json}
 
 Evidence Tracking:
-{json.dumps(evidence_tracking, indent=2)[:1000]}
+{json.dumps(evidence_tracking, indent=2)[:2000]}
 
-Provide a JSON response with this STRICT structure:
+Produce a JSON response with this structure:
 {{
     "functional_dna": {{
-        "logic_archetype": "MUST choose from: Stream Processor, Batch Optimizer, Stateful Orchestrator, Stateless Transformer, Matching Engine, Search/Index Engine, Recommendation Engine, Authentication/Authorization Service, Data Aggregator, API Gateway",
-        "logic_archetype_evidence": "Quote or reference supporting this choice",
-        "data_contract_strictness": "Highly Structured / Moderately Structured / Schema-less / Unknown",
-        "data_contract_evidence": "Evidence for contract strictness",
-        "core_algorithmic_class": "Graph Algorithms / Combinatorial Optimization / Time-Series Processing / Linear Algebra / Distributed Consensus / Search Algorithms / Statistical Models / Neural Networks / CRUD Operations / Unknown",
-        "core_algorithmic_evidence": "Evidence for algorithmic class",
-        "concurrency_requirements": "ACID Compliance Required / Eventually Consistent / No Consistency Requirements / Unknown",
-        "concurrency_evidence": "Evidence for concurrency requirements",
-        "repurposing_confidence": 1-10,
-        "repurposing_reasoning": "Why this confidence score? What makes it reusable or domain-specific?"
+        "logic_archetype": "Choose the BEST fit: Stream Processor | Batch Optimizer | Stateful Orchestrator | Stateless Transformer | Matching Engine | Search/Index Engine | Recommendation Engine | Authentication/Authorization Service | Data Aggregator | API Gateway | Event-Driven Reactor | Plugin Host | Document Processor | Compiler/Transpiler | Simulation Engine",
+        "logic_archetype_evidence": "2-3 sentences explaining why this archetype, referencing specific capabilities",
+        "data_contract_strictness": "Highly Structured | Moderately Structured | Schema-less | Mixed",
+        "data_contract_evidence": "Evidence: API specs, schema definitions, type systems observed",
+        "core_algorithmic_class": "Graph Algorithms | Combinatorial Optimization | Time-Series Processing | Linear Algebra | Distributed Consensus | Search Algorithms | Statistical Models | Neural Networks | CRUD Operations | Tree/AST Processing | Text Processing/NLP | Constraint Solving | State Machine | Event Processing",
+        "core_algorithmic_evidence": "Evidence from specific algorithms, data structures, or patterns observed in code",
+        "concurrency_requirements": "ACID Compliance Required | Eventually Consistent | No Consistency Requirements | Lock-Free/Wait-Free | Actor Model",
+        "concurrency_evidence": "Evidence from architecture, database choices, threading model",
+        "abstract_problem": "Describe the abstract computational problem in 1-2 sentences WITHOUT mentioning the product name or domain. e.g., 'Maintains a mutable ordered sequence of text with incremental re-parsing and multi-client synchronization'",
+        "data_flow_pattern": "Describe how data flows through the system abstractly: 'Request-Response with side-effect persistence' or 'Event stream → transform → aggregate → materialize' etc.",
+        "state_complexity": "Stateless | Session-scoped | Entity-scoped | Global mutable | Distributed",
+        "repurposing_confidence": "1-10 integer",
+        "repurposing_reasoning": "3-5 sentences: What makes this reusable or domain-locked? Which components are generic vs. specialized?"
     }},
     "evidence_claims": [
         {{
-            "claim": "Technical statement",
-            "evidence": "Quote or reference from Step 1",
-            "confidence": "High/Medium/Low"
+            "claim": "Specific technical claim about the system",
+            "evidence": "File path or capability text that supports this",
+            "confidence": "High | Medium | Low"
         }}
     ],
     "market_reach": {{
-        "primary_industry": "Current industry",
-        "cross_industry_applications": ["List of broader industry categories"],
-        "utility_score": 1-10,
-        "market_potential": "High/Medium/Low"
+        "primary_industry": "The current primary industry/vertical",
+        "cross_industry_applications": ["5-8 concrete industries where the Functional DNA patterns would apply, with reasoning"],
+        "utility_score": "1-10 integer — how broadly useful is the core pattern?",
+        "market_potential": "High | Medium | Low"
     }},
     "friction_report": {{
-        "difficulty": "Low/Medium/High",
-        "estimated_hours": int,
-        "required_technologies": ["List with evidence"],
-        "complexity_factors": ["List"],
-        "risk_level": "Low/Medium/High"
+        "difficulty": "Low | Medium | High",
+        "estimated_hours": "integer estimate to integrate/repurpose core functionality",
+        "required_technologies": ["Technologies needed, from the analysis evidence"],
+        "complexity_factors": ["Specific things that make integration complex"],
+        "risk_level": "Low | Medium | High",
+        "migration_path": "Brief description of how someone would repurpose this"
     }},
     "interface_map": {{
         "adapter_schema": {{
-            "input": {{"format": "JSON", "required_fields": []}},
-            "output": {{"format": "JSON"}},
-            "authentication": {{"type": "...", "method": "..."}}
+            "input": {{"format": "type", "required_fields": ["fields"], "protocols": ["HTTP/gRPC/WebSocket/CLI/etc"]}},
+            "output": {{"format": "type", "delivery": "sync/async/streaming"}},
+            "authentication": {{"type": "method", "method": "details"}}
         }},
-        "standardization_level": "High/Medium/Low"
+        "standardization_level": "High | Medium | Low",
+        "api_surface_area": "Small (<10 endpoints) | Medium (10-50) | Large (50+) | Library API"
     }},
-    "information_gaps": ["List of missing information that would improve analysis"]
+    "comparable_systems": ["3-5 structurally similar systems from DIFFERENT domains that solve analogous abstract problems"],
+    "information_gaps": ["Specific missing information that would improve the analysis"]
 }}
+
+IMPORTANT: The 'abstract_problem' and 'data_flow_pattern' fields are the most valuable outputs.
+They should be precise enough that someone could identify a structural match without knowing
+the product name. Think of them as the system's "computational fingerprint."
 
 Respond ONLY with valid JSON, no additional text."""
 
         try:
             return llm_client.generate_json(
                 prompt,
-                system="You are a Technical Architect. Respond only with valid JSON.",
-                max_tokens=4096,
+                system=(
+                    "You are a Technical Architect specializing in system abstraction and "
+                    "cross-domain pattern recognition. You produce precise, evidence-based "
+                    "Functional DNA extractions. Respond only with valid JSON."
+                ),
+                max_tokens=6144,
             )
         except Exception as e:
             raise Exception(f"Claude generalization failed: {str(e)}")

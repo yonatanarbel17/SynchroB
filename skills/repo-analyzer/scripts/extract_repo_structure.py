@@ -375,6 +375,445 @@ def count_files_by_extension(file_tree: List[str]) -> Dict[str, int]:
     return dict(sorted(counts.items(), key=lambda x: -x[1]))
 
 
+def extract_docs(repo_path: str, file_tree: List[str]) -> Dict[str, Any]:
+    """
+    Extract documentation files that contain architecture and design info.
+    Looks for CONTRIBUTING.md, ARCHITECTURE.md, DESIGN.md, HACKING.md, etc.
+    Limits each file to 8000 characters.
+    """
+    docs = {}
+    doc_filenames = {
+        "CONTRIBUTING.md", "ARCHITECTURE.md", "DESIGN.md", "HACKING.md",
+        "contributing.md", "architecture.md", "design.md", "hacking.md",
+        "docs/ARCHITECTURE.md", "docs/architecture.md", "docs/DESIGN.md",
+        "docs/design.md", "docs/CONTRIBUTING.md", "docs/contributing.md",
+    }
+
+    # Check for exact filename matches
+    for fpath in file_tree:
+        basename = os.path.basename(fpath)
+        dirname_basename = str(Path(fpath).parent / basename)
+
+        if basename in doc_filenames or fpath in doc_filenames:
+            full_path = os.path.join(repo_path, fpath)
+            content = read_file_safe(full_path, limit=8000)
+            if content:
+                docs[fpath] = content
+
+    # Also check case-insensitive pattern matching
+    for fpath in file_tree:
+        basename = os.path.basename(fpath).lower()
+        if any(basename == d.lower() for d in ["contributing.md", "architecture.md", "design.md", "hacking.md"]):
+            if fpath not in docs:
+                full_path = os.path.join(repo_path, fpath)
+                content = read_file_safe(full_path, limit=8000)
+                if content:
+                    docs[fpath] = content
+
+    return docs
+
+
+def detect_license(repo_path: str, file_tree: List[str]) -> Optional[str]:
+    """
+    Detect license type by reading LICENSE, LICENSE.md, COPYING files.
+    Returns the detected license type (MIT, Apache-2.0, GPL-3.0, etc.) or None.
+    """
+    license_filenames = {
+        "LICENSE", "LICENSE.md", "LICENSE.txt", "COPYING", "COPYING.md",
+        "license", "license.md", "license.txt", "copying", "copying.md",
+    }
+
+    license_content = None
+    for fpath in file_tree:
+        basename = os.path.basename(fpath)
+        if basename in license_filenames or basename.lower() in {f.lower() for f in license_filenames}:
+            full_path = os.path.join(repo_path, fpath)
+            content = read_file_safe(full_path, limit=5000)
+            if content:
+                license_content = content
+                break
+
+    if not license_content:
+        return None
+
+    # Check for common license strings
+    license_lower = license_content.lower()
+
+    # SPDX identifier patterns
+    if "mit license" in license_lower or "permission is hereby granted, free of charge" in license_lower:
+        return "MIT"
+    elif "apache license" in license_lower and "version 2.0" in license_lower:
+        return "Apache-2.0"
+    elif "gnu general public license" in license_lower and "version 3" in license_lower:
+        return "GPL-3.0"
+    elif "gnu general public license" in license_lower and "version 2" in license_lower:
+        return "GPL-2.0"
+    elif "bsd" in license_lower and "3-clause" in license_lower:
+        return "BSD-3-Clause"
+    elif "bsd" in license_lower and "2-clause" in license_lower:
+        return "BSD-2-Clause"
+    elif "bsd" in license_lower:
+        return "BSD"
+    elif "mozilla public license" in license_lower:
+        return "MPL-2.0"
+    elif "creative commons" in license_lower:
+        return "CC0-1.0"
+    elif "isc license" in license_lower or "isc" in license_lower and "permission" in license_lower:
+        return "ISC"
+    elif "agpl" in license_lower:
+        return "AGPL-3.0"
+    elif "unlicense" in license_lower:
+        return "Unlicense"
+
+    return "Custom/Other"
+
+
+def extract_git_metadata(repo_path: str) -> Dict[str, Any]:
+    """
+    Extract git metadata: recent commits, top contributors, total commit count,
+    and repo creation date.
+    """
+    metadata = {}
+
+    try:
+        # Check if this is a git repository
+        if not os.path.isdir(os.path.join(repo_path, ".git")):
+            return metadata
+    except (OSError, subprocess.CalledProcessError):
+        return metadata
+
+    try:
+        # Get recent commits
+        result = subprocess.run(
+            ["git", "-C", repo_path, "log", "--oneline", "-20"],
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+        if result.returncode == 0:
+            commits = result.stdout.strip().split("\n") if result.stdout.strip() else []
+            metadata["recent_commits"] = commits
+    except (subprocess.TimeoutExpired, FileNotFoundError, OSError):
+        pass
+
+    try:
+        # Get top contributors
+        result = subprocess.run(
+            ["git", "-C", repo_path, "log", "--format=%aN"],
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+        if result.returncode == 0:
+            authors = result.stdout.strip().split("\n") if result.stdout.strip() else []
+            # Count occurrences
+            author_counts: Dict[str, int] = {}
+            for author in authors:
+                if author.strip():
+                    author_counts[author.strip()] = author_counts.get(author.strip(), 0) + 1
+            # Sort by count descending
+            top_authors = sorted(author_counts.items(), key=lambda x: -x[1])[:10]
+            metadata["top_contributors"] = [{"name": name, "commits": count} for name, count in top_authors]
+    except (subprocess.TimeoutExpired, FileNotFoundError, OSError):
+        pass
+
+    try:
+        # Get total commit count
+        result = subprocess.run(
+            ["git", "-C", repo_path, "rev-list", "--count", "HEAD"],
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+        if result.returncode == 0:
+            metadata["total_commits"] = int(result.stdout.strip())
+    except (subprocess.TimeoutExpired, FileNotFoundError, OSError, ValueError):
+        pass
+
+    try:
+        # Get repo creation date
+        result = subprocess.run(
+            ["git", "-C", repo_path, "log", "--reverse", "--format=%ci"],
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+        if result.returncode == 0:
+            dates = result.stdout.strip().split("\n") if result.stdout.strip() else []
+            if dates and dates[0]:
+                metadata["creation_date"] = dates[0]
+    except (subprocess.TimeoutExpired, FileNotFoundError, OSError):
+        pass
+
+    return metadata
+
+
+def extract_test_info(repo_path: str, file_tree: List[str]) -> Dict[str, Any]:
+    """
+    Extract test information: test file locations, frameworks detected, test count.
+    Looks for test/ tests/ spec/ __tests__/ and files matching test patterns.
+    """
+    test_info = {
+        "test_files": [],
+        "test_frameworks": [],
+        "test_file_count": 0,
+    }
+
+    # Test directory patterns
+    test_dirs = {"test", "tests", "spec", "__tests__"}
+    test_patterns = [
+        r"_test\.py$", r"_test\.go$",
+        r"^test_.*\.py$", r"test.*\.java$",
+        r"\.test\.ts$", r"\.test\.js$",
+        r"\.spec\.ts$", r"\.spec\.js$",
+    ]
+
+    test_files = []
+    for fpath in file_tree:
+        parts = Path(fpath).parts
+        # Check if in test directory
+        if any(part in test_dirs for part in parts):
+            test_files.append(fpath)
+        else:
+            # Check filename patterns
+            for pattern in test_patterns:
+                if re.search(pattern, fpath):
+                    test_files.append(fpath)
+                    break
+
+    test_info["test_files"] = test_files[:3]  # Sample 2-3 test file paths
+    test_info["test_file_count"] = len(test_files)
+
+    # Detect test frameworks from package.json and imports
+    test_frameworks = set()
+
+    # Check package.json for test scripts and dependencies
+    for fpath in file_tree:
+        if os.path.basename(fpath) == "package.json":
+            full_path = os.path.join(repo_path, fpath)
+            content = read_file_safe(full_path, limit=20000)
+            if content:
+                try:
+                    parsed = json.loads(content)
+                    # Check test scripts
+                    scripts = parsed.get("scripts", {})
+                    for script_name, script_content in scripts.items():
+                        if "jest" in script_content.lower():
+                            test_frameworks.add("Jest")
+                        if "mocha" in script_content.lower():
+                            test_frameworks.add("Mocha")
+                        if "vitest" in script_content.lower():
+                            test_frameworks.add("Vitest")
+                        if "cypress" in script_content.lower():
+                            test_frameworks.add("Cypress")
+
+                    # Check dependencies
+                    deps = {**parsed.get("dependencies", {}), **parsed.get("devDependencies", {})}
+                    if "jest" in deps:
+                        test_frameworks.add("Jest")
+                    if "mocha" in deps:
+                        test_frameworks.add("Mocha")
+                    if "vitest" in deps:
+                        test_frameworks.add("Vitest")
+                    if "cypress" in deps:
+                        test_frameworks.add("Cypress")
+                    if "@testing-library/react" in deps or "@testing-library/vue" in deps:
+                        test_frameworks.add("Testing Library")
+                except json.JSONDecodeError:
+                    pass
+
+    # Check for pytest, unittest, nose in Python files
+    if any(".py" in f for f in file_tree):
+        for fpath in test_files[:5]:
+            if fpath.endswith(".py"):
+                full_path = os.path.join(repo_path, fpath)
+                content = read_file_safe(full_path, limit=2000)
+                if content:
+                    if "import pytest" in content or "from pytest" in content:
+                        test_frameworks.add("pytest")
+                    if "import unittest" in content or "from unittest" in content:
+                        test_frameworks.add("unittest")
+                    if "import nose" in content:
+                        test_frameworks.add("nose")
+
+    # Check for Go testing
+    if any(".go" in f for f in test_files):
+        test_frameworks.add("Go testing")
+
+    # Check for Rust testing
+    if any(".rs" in f for f in test_files):
+        test_frameworks.add("Rust testing")
+
+    test_info["test_frameworks"] = list(test_frameworks)
+
+    return test_info
+
+
+def detect_plugin_system(repo_path: str, file_tree: List[str]) -> Dict[str, Any]:
+    """
+    Detect plugin/extension architecture patterns.
+    Looks for plugins/, extensions/, addons/ directories and related patterns.
+    """
+    plugin_info = {
+        "has_plugin_system": False,
+        "plugin_indicators": [],
+        "plugin_directories": [],
+    }
+
+    plugin_dirs = {"plugins", "extensions", "addons", "middleware", "modules"}
+    hook_patterns = [
+        r"hook", r"event.*emitter", r"publish.*subscribe",
+        r"observer.*pattern", r"handler", r"middleware",
+    ]
+
+    # Check for plugin directories
+    for fpath in file_tree:
+        parts = Path(fpath).parts
+        if any(part in plugin_dirs for part in parts):
+            plugin_info["has_plugin_system"] = True
+            dir_path = str(Path(fpath).parent)
+            if dir_path not in plugin_info["plugin_directories"]:
+                plugin_info["plugin_directories"].append(dir_path)
+
+    # Check for hook/event patterns in source files
+    hook_files = []
+    for fpath in file_tree:
+        if any(fpath.endswith(ext) for ext in SOURCE_EXTENSIONS):
+            for pattern in hook_patterns:
+                if re.search(pattern, fpath, re.IGNORECASE):
+                    hook_files.append(fpath)
+                    break
+
+    if hook_files:
+        plugin_info["has_plugin_system"] = True
+        plugin_info["plugin_indicators"].extend(hook_files[:3])
+
+    # Look for common plugin interface patterns in code
+    for fpath in hook_files[:3]:
+        full_path = os.path.join(repo_path, fpath)
+        content = read_file_safe(full_path, limit=3000)
+        if content:
+            if "interface" in content.lower() or "abstract" in content.lower():
+                if "plugin" not in plugin_info["plugin_indicators"]:
+                    plugin_info["plugin_indicators"].append(f"Found plugin-like interfaces in {fpath}")
+
+    return plugin_info
+
+
+def extract_db_schemas(repo_path: str, file_tree: List[str]) -> Dict[str, Any]:
+    """
+    Extract database schema information from migrations, ORM models, and SQL files.
+    Looks for migrations/, alembic/, db/migrate/ and model files.
+    Reads up to 3 files, max 3000 chars each.
+    """
+    db_info = {
+        "migration_files": [],
+        "orm_models": [],
+        "sql_schemas": [],
+        "migration_samples": {},
+    }
+
+    migration_dirs = {"migrations", "alembic", "migrate"}
+    migration_extensions = {".sql", ".py"}
+    orm_patterns = [
+        r"models?[/\\].*\.(py|js|ts|java|go|rs)$",
+        r"entities?[/\\].*\.(py|js|ts|java|go|rs)$",
+    ]
+
+    # Find migration files
+    for fpath in file_tree:
+        parts = Path(fpath).parts
+        # Check if in migration directory
+        if any(part in migration_dirs for part in parts):
+            db_info["migration_files"].append(fpath)
+        # Check for SQL schema files
+        elif fpath.endswith(".sql") and any(
+            part in {"db", "schema", "sql", "database"} for part in parts[:2]
+        ):
+            db_info["sql_schemas"].append(fpath)
+
+    # Find ORM models
+    orm_files = find_matching_files(file_tree, orm_patterns)
+    db_info["orm_models"] = orm_files[:3]
+
+    # Read samples from migration and schema files
+    all_schema_files = db_info["migration_files"] + db_info["sql_schemas"] + db_info["orm_models"]
+    for fpath in all_schema_files[:3]:
+        full_path = os.path.join(repo_path, fpath)
+        content = read_file_safe(full_path, limit=3000)
+        if content:
+            db_info["migration_samples"][fpath] = content
+
+    return db_info
+
+
+def summarize_directory_structure(file_tree: List[str]) -> Dict[str, Any]:
+    """
+    Generate a 3-level deep directory tree structure for architecture overview.
+    Similar to 'tree -L 3 -d'.
+    """
+    tree_dict: Dict[str, Any] = {}
+
+    # Build directory tree up to 3 levels
+    for fpath in file_tree:
+        parts = Path(fpath).parts
+        if len(parts) > 3:
+            parts = parts[:3]
+
+        current = tree_dict
+        for i, part in enumerate(parts[:-1]):  # Exclude filename
+            if part not in current:
+                current[part] = {}
+            current = current[part]
+
+    return {"directory_tree": tree_dict, "depth_limit": 3}
+
+
+def extract_community_health(repo_path: str, file_tree: List[str]) -> Dict[str, bool]:
+    """
+    Check for community health signals:
+    CODE_OF_CONDUCT.md, SECURITY.md, issue templates, PR templates, FUNDING.yml
+    """
+    health = {
+        "has_code_of_conduct": False,
+        "has_security_policy": False,
+        "has_issue_templates": False,
+        "has_pr_templates": False,
+        "has_funding_file": False,
+        "files_found": [],
+    }
+
+    health_files = {
+        "CODE_OF_CONDUCT.md", "CODE_OF_CONDUCT.txt", "code_of_conduct.md",
+        "SECURITY.md", "security.md", "SECURITY.txt",
+        ".github/ISSUE_TEMPLATE/", ".github/PULL_REQUEST_TEMPLATE/",
+        ".github/FUNDING.yml", ".github/funding.yml",
+    }
+
+    for fpath in file_tree:
+        basename = os.path.basename(fpath)
+
+        if "CODE_OF_CONDUCT" in basename.upper():
+            health["has_code_of_conduct"] = True
+            health["files_found"].append(fpath)
+        elif "SECURITY" in basename.upper():
+            health["has_security_policy"] = True
+            health["files_found"].append(fpath)
+        elif "ISSUE_TEMPLATE" in fpath.upper():
+            health["has_issue_templates"] = True
+            if fpath not in health["files_found"]:
+                health["files_found"].append(fpath)
+        elif "PULL_REQUEST_TEMPLATE" in fpath.upper():
+            health["has_pr_templates"] = True
+            if fpath not in health["files_found"]:
+                health["files_found"].append(fpath)
+        elif "FUNDING" in basename.upper() and fpath.startswith(".github"):
+            health["has_funding_file"] = True
+            health["files_found"].append(fpath)
+
+    return health
+
+
 # ---------------------------------------------------------------------------
 # Main extraction
 # ---------------------------------------------------------------------------
@@ -402,6 +841,14 @@ def extract_repo(repo_path: str) -> Dict[str, Any]:
         "openapi_specs": extract_openapi_specs(repo_path, file_tree),
         "config_files": extract_config_files(repo_path, file_tree),
         "source_samples": select_source_samples(repo_path, file_tree),
+        "docs": extract_docs(repo_path, file_tree),
+        "license": detect_license(repo_path, file_tree),
+        "git_metadata": extract_git_metadata(repo_path),
+        "test_info": extract_test_info(repo_path, file_tree),
+        "plugin_system": detect_plugin_system(repo_path, file_tree),
+        "db_schemas": extract_db_schemas(repo_path, file_tree),
+        "directory_structure": summarize_directory_structure(file_tree),
+        "community_health": extract_community_health(repo_path, file_tree),
     }
 
     return extraction

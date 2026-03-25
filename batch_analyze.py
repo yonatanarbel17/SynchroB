@@ -127,42 +127,63 @@ def _source_result_to_step1_dict(source_result) -> Dict[str, Any]:
     Convert a SourceResult (from local repo analysis) into the dict format
     that Step 2 expects as Step 1 output.
 
-    This bridges the gap between the new discovery pipeline's data model
-    and the existing Step 1 → Step 2 interface.
+    If the SourceResult carries a raw_llm_analysis (the full LLM JSON),
+    we use it directly — this preserves all the rich fields (use_cases,
+    category, target_audience, architecture, data_model, security_model,
+    project_health, algorithms, etc.) that would otherwise be lost in the
+    lossy SourceResult → dict conversion.
     """
-    analysis = {
-        "summary": source_result.description or "",
-        "capabilities": [f.value for f in source_result.capabilities],
-        "use_cases": [],
-        "technical_stack": [f.value for f in source_result.technical_stack],
-        "integrations": [f.value for f in source_result.integrations],
-        "api_endpoints": [
-            {
-                "method": ep.method,
-                "path": ep.path,
-                "summary": ep.summary,
-            }
-            for ep in source_result.api_endpoints
-        ],
-        "pricing": {"model": "open-source", "free_tier": "true"},
-        "target_audience": "Developers",
-        "category": "Open Source Software",
-        "deployment": "Self-hosted",
-        "underlying_algorithm": {
-            "problem_type": "",
-            "pattern": "",
-        },
-        "evidence_tracking": {
+    # Prefer the raw LLM analysis if available — it has the full richness
+    raw = getattr(source_result, "raw_llm_analysis", None)
+    if raw and isinstance(raw, dict):
+        analysis = dict(raw)  # copy so we don't mutate the original
+        # Ensure required fields exist for Step 2 compatibility
+        analysis.setdefault("summary", source_result.description or "")
+        analysis.setdefault("capabilities", [f.value for f in source_result.capabilities])
+        analysis.setdefault("use_cases", [])
+        analysis.setdefault("technical_stack", [f.value for f in source_result.technical_stack])
+        analysis.setdefault("integrations", [f.value for f in source_result.integrations])
+        analysis.setdefault("pricing", {"model": "open-source", "free_tier": "true"})
+        analysis.setdefault("evidence_tracking", {
             "confidence_level": "High",
-            "technical_facts": [f.value for f in source_result.capabilities[:10]],
+            "technical_facts": analysis.get("capabilities", [])[:10],
             "information_gaps": [],
-        },
-        "architecture_patterns": [f.value for f in source_result.architecture_patterns],
-        "auth_methods": [f.value for f in source_result.auth_methods],
-        "sdk_languages": [f.value for f in source_result.sdk_languages],
-        "dependencies": [f.value for f in source_result.dependencies],
-        "deployment_options": [f.value for f in source_result.deployment_options],
-    }
+        })
+    else:
+        # Fallback: reconstruct from SourceResult fields (lossy)
+        analysis = {
+            "summary": source_result.description or "",
+            "capabilities": [f.value for f in source_result.capabilities],
+            "use_cases": [],
+            "technical_stack": [f.value for f in source_result.technical_stack],
+            "integrations": [f.value for f in source_result.integrations],
+            "api_endpoints": [
+                {
+                    "method": ep.method,
+                    "path": ep.path,
+                    "summary": ep.summary,
+                }
+                for ep in source_result.api_endpoints
+            ],
+            "pricing": {"model": "open-source", "free_tier": "true"},
+            "target_audience": "Developers",
+            "category": "Open Source Software",
+            "deployment": "Self-hosted",
+            "underlying_algorithm": {
+                "problem_type": "",
+                "pattern": "",
+            },
+            "evidence_tracking": {
+                "confidence_level": "High",
+                "technical_facts": [f.value for f in source_result.capabilities[:10]],
+                "information_gaps": [],
+            },
+            "architecture_patterns": [f.value for f in source_result.architecture_patterns],
+            "auth_methods": [f.value for f in source_result.auth_methods],
+            "sdk_languages": [f.value for f in source_result.sdk_languages],
+            "dependencies": [f.value for f in source_result.dependencies],
+            "deployment_options": [f.value for f in source_result.deployment_options],
+        }
 
     return {
         "product_name": source_result.product_name or "",
