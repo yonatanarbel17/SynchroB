@@ -1,220 +1,219 @@
 {
   "url": "https://github.com/NationalSecurityAgency/ghidra.git",
   "repo_name": "ghidra",
-  "timestamp": "2026-03-25T18:53:50.179509",
+  "timestamp": "2026-04-09T15:25:34.180563",
   "step1": {
     "product_name": "ghidra",
     "url": "https://github.com/NationalSecurityAgency/ghidra.git",
     "analysis": {
-      "summary": "Ghidra is a comprehensive software reverse engineering framework developed by NSA that processes binary executables through disassembly, decompilation, and analysis capabilities. It implements a modular plugin-based architecture with extensive processor support, graphical analysis tools, and both GUI and headless operation modes. The system features a collaborative multi-user architecture with shared project capabilities and extensive scripting support via Java and Python APIs.",
+      "summary": "Ghidra is a comprehensive software reverse engineering framework developed by the NSA that provides disassembly, decompilation, and analysis capabilities for compiled binaries. It implements a plugin-based architecture with extensive Java and Python support, featuring a collaborative server-client model for team-based analysis. The system supports multiple processor architectures and executable formats through modular language processors and includes advanced debugging capabilities via multiple debugger agent integrations.",
       "capabilities": [
-        "Disassembles binary executables for multiple processor architectures (Ghidra/Processors/ contains ARM, x86, MIPS, PowerPC, etc.)",
-        "Decompiles machine code to high-level C-like pseudocode (Ghidra/Features/Decompiler/)",
-        "Performs automated program analysis and function identification (Ghidra/Features/Base/src/main/java/ghidra/app/services/)",
-        "Provides interactive GUI for binary analysis with graphical program flow visualization (Ghidra/Features/Base/)",
-        "Supports headless batch processing for automated analysis workflows (Ghidra/Features/PyGhidra/)",
-        "Implements multi-user collaborative project sharing with version control (Ghidra/Framework/Project/)",
-        "Manages binary file format parsing for PE, ELF, Mach-O, and other executable formats (Ghidra/Features/Base/src/main/java/ghidra/app/util/bin/)",
-        "Executes user scripts in Java and Python for custom analysis automation (Ghidra/Features/Python/, PyGhidra integration)",
-        "Provides debugging integration with GDB, LLDB, WinDbg, and other debuggers (Ghidra/Debug/)",
-        "Performs dynamic analysis through emulation and trace recording (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerEmulationService.java)",
-        "Supports plugin development with extensive API framework (Ghidra/Framework/Generic/src/main/java/ghidra/framework/)",
-        "Implements symbol name demangling for C++ and other mangled languages (GPL/DemanglerGnu/)",
-        "Provides cross-reference analysis and program flow graphing capabilities (Ghidra/Features/Base/)",
-        "Supports custom processor module development for new architectures (Ghidra/Processors/)",
-        "Manages program databases with transaction-based modification tracking (Ghidra/Framework/DB/)",
-        "Implements pattern matching for signature-based malware detection (Ghidra/Features/BSim/)",
-        "Provides diff and comparison tools for binary version analysis (Ghidra/Features/VersionTracking/)",
-        "Supports extension loading and custom tool development (GhidraBuild/EclipsePlugins/)",
-        "Implements advanced data type analysis and structure recovery (Ghidra/Features/Base/src/main/java/ghidra/app/util/datatype/)",
-        "Provides assembly and patching capabilities for binary modification (Ghidra/Features/BytePatterns/)",
-        "Supports collaborative annotation and commenting system (Ghidra/Framework/Project/)",
-        "Implements sophisticated memory layout analysis and mapping (Ghidra/Features/Base/src/main/java/ghidra/program/model/mem/)",
-        "Provides comprehensive search and filtering across program elements (Ghidra/Features/Base/src/main/java/ghidra/features/base/memsearch/)",
-        "Supports import/export of analysis results and metadata (Ghidra/Features/Base/src/main/java/ghidra/app/util/exporter/)"
+        "Disassembles executable files for multiple processor architectures using modular language processors (Ghidra/Processors/)",
+        "Decompiles assembly code back to high-level C-like representations using the Decompiler framework (Ghidra/Features/Decompiler/)",
+        "Provides interactive GUI-based reverse engineering interface through the CodeBrowser tool (Ghidra/Configurations/Public_Release/src/main/resources/defaultTools/CodeBrowser.tool)",
+        "Supports collaborative analysis through Ghidra Server with multi-user project sharing and version control (Ghidra/Framework/)",
+        "Executes Python and Java scripts for automated analysis tasks (Ghidra/Features/Python/, Ghidra/RuntimeScripts/)",
+        "Integrates with multiple debuggers including GDB, LLDB, and Windows DbgEng through Python agents (Ghidra/Debug/Debugger-agent-gdb/, Ghidra/Debug/Debugger-agent-dbgeng/)",
+        "Manages debug sessions with trace recording and emulation capabilities (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerEmulationService.java)",
+        "Analyzes program structure through function identification and control flow analysis (Ghidra/Features/Base/)",
+        "Handles multiple executable formats including ELF, PE, Mach-O, and embedded firmware formats (Ghidra/Features/Base/)",
+        "Provides extensible plugin architecture with service-based component communication (Ghidra/Framework/)",
+        "Supports custom processor definition through SLEIGH language specifications (Ghidra/Processors/)",
+        "Implements graph visualization for program flow and data relationships (Ghidra/Features/GraphServices/)",
+        "Manages symbol tables, data types, and program annotations with persistence (Ghidra/Framework/SoftwareModeling/)",
+        "Processes debug information including DWARF and PDB symbols (Ghidra/Features/PDB/)",
+        "Supports headless analysis mode for batch processing and automation (Ghidra/Features/HeadlessAnalyzer/)",
+        "Implements file system browser for analyzing disk images and archives (GPL/DMG/, Ghidra/Features/FileFormats/)",
+        "Provides Python bridge (PyGhidra) for direct API access from Python scripts (Ghidra/Features/PyGhidra/)",
+        "Handles demangling of C++ and other mangled symbol names (GPL/DemanglerGnu/)",
+        "Implements memory mapping and address space management for complex binaries (Ghidra/Framework/SoftwareModeling/)",
+        "Supports GNU disassembler integration for additional architecture coverage (GPL/GnuDisassembler/)",
+        "Provides extension development support through Eclipse and VSCode integrations (GhidraBuild/EclipsePlugins/)",
+        "Implements trace-based debugging with timeline navigation and state comparison (Ghidra/Debug/)",
+        "Supports emulation of program execution for dynamic analysis (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerEmulationService.java)",
+        "Manages project data with hierarchical folder organization and version tracking (Ghidra/Framework/Project/)",
+        "Provides comprehensive help system and documentation framework (GhidraDocs/, help/ directories)"
       ],
       "use_cases": [
-        "Malware analysts use this to reverse engineer suspicious binaries and identify malicious behavior patterns",
-        "Security researchers use this to discover vulnerabilities in software by analyzing compiled code",
-        "Firmware engineers use this to analyze embedded system binaries and understand hardware-software interactions",
-        "Digital forensics investigators use this to examine evidence from seized computing devices",
-        "Software developers use this to understand legacy code without source availability"
+        "Malware analysts use it to reverse engineer malicious software and understand attack vectors",
+        "Security researchers analyze firmware and embedded systems for vulnerability research",
+        "Software engineers examine legacy code without source availability for maintenance or porting",
+        "Incident responders analyze compromised binaries to understand attack mechanisms",
+        "Academic researchers study program analysis techniques and develop new reverse engineering methods",
+        "Government agencies perform cybersecurity analysis and threat assessment",
+        "Vulnerability researchers identify security flaws in commercial software products"
       ],
-      "category": "Reverse Engineering Framework",
-      "target_audience": "Security researchers, malware analysts, firmware engineers, digital forensics investigators, reverse engineers",
+      "category": "Software Reverse Engineering Framework",
+      "target_audience": "Security researchers, malware analysts, vulnerability researchers, software engineers, cybersecurity professionals, academic researchers",
       "technical_stack": [
-        "Java 21 (JDK requirement from README.md)",
-        "Gradle 8.5+ (build system from README.md)",
-        "Python 3.9-3.14 (PyGhidra integration from README.md)",
-        "Eclipse IDE (development environment from README.md)",
-        "Apache License 2.0 (Ghidra/Framework/Generic/src/main/java/ghidra/framework/Application.java)",
-        "GCC/Clang (native compilation from README.md)",
-        "Microsoft Visual Studio 2017+ (Windows builds from README.md)",
-        "Bison parser generator (Ghidra/Features/Decompiler/src/decompile/cpp/Makefile)",
-        "BFD library (binary format support from Makefile)",
-        "Z library compression (native dependencies from Makefile)"
+        "Java 21+ (build requirements in README.md and build scripts)",
+        "Python 3.9-3.14 (Ghidra/Features/PyGhidra/src/main/py/pyproject.toml, debugger agents)",
+        "Gradle 8.5+ (build.gradle files throughout, gradle wrapper)",
+        "SLEIGH language specification system (Ghidra/Processors/)",
+        "Eclipse RCP for plugin development (GhidraBuild/EclipsePlugins/)",
+        "Swing/AWT for GUI components (Java source files)",
+        "C/C++ for native components (GPL/DemanglerGnu/, Ghidra/Features/Decompiler/)",
+        "GNU Binutils integration (GPL/GnuDisassembler/)",
+        "Microsoft Visual Studio 2017+ for Windows builds (README.md)",
+        "Docker containerization support (docker/ directory)"
       ],
       "api_endpoints": [
-        "DebuggerAutoMappingService.setAutoMapSpec(AutoMapSpec) \u2014 Configure automatic memory mapping (ghidra/app/services/DebuggerAutoMappingService.java)",
-        "DebuggerConsoleService.log(Icon, String) \u2014 Log messages to debug console (ghidra/app/services/DebuggerConsoleService.java)",
-        "DebuggerControlService.setVariable(Address, byte[]) \u2014 Modify target program state (ghidra/app/services/DebuggerControlService.java)",
-        "DebuggerEmulationService.emulate() \u2014 Run emulated execution analysis (ghidra/app/services/DebuggerEmulationService.java)",
-        "Application.initializeApplication(ApplicationLayout, ApplicationConfiguration) \u2014 Initialize framework (ghidra/framework/Application.java)",
-        "pyghidra.run_script() \u2014 Execute Python analysis scripts (pyghidra/__main__.py)",
-        "pyghidra.HeadlessPyGhidraLauncher.start() \u2014 Launch headless analysis mode (pyghidra/__main__.py)"
+        "DebuggerAutoMappingService.setAutoMapSpec(AutoMapSpec) \u2014 Set auto-mapping configuration (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerAutoMappingService.java)",
+        "DebuggerConsoleService.log(Icon, String) \u2014 Log messages to debug console (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerConsoleService.java)",
+        "DebuggerControlService.createStateEditor(DebuggerCoordinates) \u2014 Create state editor for debugging (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerControlService.java)",
+        "DebuggerEmulationService.getCachedEmulator(Trace) \u2014 Access managed emulator instances (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerEmulationService.java)",
+        "Application.initializeApplication(ApplicationLayout, ApplicationConfiguration) \u2014 Initialize Ghidra framework (Ghidra/Framework/Generic/src/main/java/ghidra/framework/Application.java)",
+        "pyghidra.run_script(binary_path, script_path) \u2014 Execute Python scripts via PyGhidra (Ghidra/Features/PyGhidra/src/main/py/src/pyghidra/__main__.py)"
       ],
       "sdk_languages": [
-        "Java (native API with extensive framework classes)",
-        "Python (PyGhidra integration with full API bindings)",
-        "JavaScript (limited scripting support)"
+        "Java",
+        "Python"
       ],
       "auth_methods": [
-        "Multi-user project authentication (Ghidra/Framework/Project/ contains user management)",
-        "File-based project access control",
-        "Network-based collaborative project sharing"
+        "File-based project permissions",
+        "Multi-user server authentication (Ghidra Server)",
+        "User access controls for collaborative projects"
       ],
       "integrations": [
-        "GDB debugger integration (Ghidra/Debug/Debugger-agent-gdb/)",
-        "LLDB debugger integration (Ghidra/Debug/Debugger-agent-lldb/)",
-        "WinDbg/DbgEng integration (Ghidra/Debug/Debugger-agent-dbgeng/)",
-        "Eclipse IDE integration (GhidraBuild/EclipsePlugins/)",
-        "Visual Studio Code integration (README mentions VSCode project creation)",
-        "GNU binutils integration (GPL/GnuDisassembler/)",
-        "GNU demangler integration (GPL/DemanglerGnu/)",
-        "DMG file system support (GPL/DMG/)",
-        "QEMU emulation support (Ghidra/Debug/Debugger-agent-gdb/data/debugger-launchers/qemu-gdb.sh)",
-        "SSH remote debugging support (multiple launcher scripts)",
-        "Wine Windows emulation support (Ghidra/Debug/Debugger-agent-gdb/data/debugger-launchers/wine-gdb.sh)"
+        "GDB debugger via Python agent (Ghidra/Debug/Debugger-agent-gdb/src/main/py/src/ghidragdb/)",
+        "LLDB debugger via Python agent (Ghidra/Debug/Debugger-agent-lldb/)",
+        "Windows DbgEng via Python COM interface (Ghidra/Debug/Debugger-agent-dbgeng/src/main/py/src/ghidradbg/dbgmodel/)",
+        "drgn debugger for Linux kernel debugging (Ghidra/Debug/Debugger-agent-drgn/)",
+        "GNU Binutils for additional disassembly support (GPL/GnuDisassembler/)",
+        "Eclipse IDE for plugin development (GhidraBuild/EclipsePlugins/)",
+        "Visual Studio Code for script editing (mentioned in README.md)",
+        "DWARF debug information parsing (Ghidra/Configurations/Public_Release/data/DWARF.debuginfod_urls)",
+        "PDB symbol server integration (Ghidra/Configurations/Public_Release/data/PDB_SYMBOL_SERVER_URLS.pdburl)"
       ],
       "architecture": {
-        "pattern": "plugin-based framework with modular components",
+        "pattern": "plugin-based with service-oriented architecture",
         "components": [
-          "Framework core (Ghidra/Framework/) - foundational services and APIs",
-          "Analysis features (Ghidra/Features/) - disassembly, decompilation, graphing",
-          "Debug subsystem (Ghidra/Debug/) - dynamic analysis and emulation",
-          "Processor modules (Ghidra/Processors/) - architecture-specific disassemblers",
-          "Extension system (Ghidra/Extensions/) - third-party plugin support",
-          "Build system (GhidraBuild/) - development and packaging tools"
+          "Framework core providing application lifecycle and plugin management",
+          "SoftwareModeling layer for program representation and analysis",
+          "Feature plugins for specific analysis capabilities (disassembly, decompilation, debugging)",
+          "Debug framework with trace recording and emulation services",
+          "Language processors for architecture-specific instruction handling",
+          "GUI framework built on Swing with docking window system",
+          "Extension system supporting Java and Python plugins",
+          "Project management system with collaborative server support"
         ],
         "entry_points": [
-          "Ghidra/RuntimeScripts/Linux/ghidraRun (GUI launcher)",
-          "Ghidra/Features/PyGhidra/src/main/py/src/pyghidra/__main__.py (Python interface)",
-          "ghidra.framework.Application (Java framework initialization)"
+          "ghidraRun - Main GUI application launcher",
+          "support/pyGhidraRun - Python bridge launcher",
+          "Ghidra/Framework/Generic/src/main/java/ghidra/framework/Application.java - Core framework initialization"
         ],
-        "data_flow": "Binary files are loaded through format parsers, processed by analysis engines that populate a program database, with results displayed through GUI components or accessed via scripting APIs. Debug integration allows real-time target interaction with trace recording to the database.",
-        "persistence": "Custom database format with transaction support, project-based storage, version control integration",
-        "concurrency_model": "Multi-threaded with task monitoring framework, supports background analysis with cancellation (TaskMonitor usage throughout)",
-        "communication_patterns": "Service-oriented architecture with plugin communication via service interfaces, event-driven UI updates, RPC for multi-user collaboration",
-        "plugin_extension_model": "Java-based plugin system with service interfaces, Python scripting integration, Eclipse plugin development support"
+        "data_flow": "Binary files are loaded into projects, analyzed by language processors to create program representations, processed by analysis plugins for function identification and typing, stored in project database with version tracking, and presented through GUI or accessed via scripting APIs",
+        "persistence": "Custom binary database format for project storage, file-based configuration, XML-based language specifications, trace databases for debugging sessions",
+        "concurrency_model": "Multi-threaded with Swing EDT for GUI, background analysis tasks, concurrent debugging sessions, plugin service isolation",
+        "communication_patterns": "Service-based architecture with event notification, plugin-to-plugin communication via services, debugger agents use TCP/named pipes for external tool integration",
+        "plugin_extension_model": "Plugin interface with service registration, extension points for new file formats and processors, scripting interface for automation, GhidraDev Eclipse plugin for development"
       },
       "data_model": {
         "primary_entities": [
-          "Program (binary executable representation)",
-          "Function (analyzed code functions)",
-          "Instruction (disassembled machine instructions)",
-          "Symbol (named program elements)",
-          "Memory (program address space)",
-          "DataType (type system)",
-          "Reference (cross-references between program elements)",
-          "Trace (debug execution history)"
+          "Program - represents analyzed binary with instructions, functions, data",
+          "Project - container for related programs and analysis data",
+          "Trace - debugging session recording with memory states over time",
+          "Language - processor architecture definition with instruction semantics",
+          "Function - identified code blocks with parameters and local variables",
+          "Symbol - named addresses including functions, labels, and variables",
+          "DataType - type information for variables and function signatures"
         ],
         "storage_backends": [
-          "Custom database format",
-          "File system project storage",
-          "Network-based collaborative storage"
+          "Custom binary database format",
+          "File system for project structure",
+          "XML for configuration and language specs",
+          "Temporary files for analysis cache"
         ],
-        "schema_patterns": "Object-relational mapping with transaction support, hierarchical program representation, versioned analysis data",
-        "migration_strategy": "Framework handles database versioning and migration automatically"
+        "schema_patterns": "Object-oriented with hierarchical program structure, versioned project data, graph-based control flow representation",
+        "migration_strategy": "Version-aware database schema with automatic migration, backward compatibility for project formats"
       },
       "algorithms": {
-        "problem_type": "Software reverse engineering through static and dynamic analysis of compiled binary code",
+        "problem_type": "Static and dynamic analysis of compiled binary code with reverse engineering, control flow recovery, and semantic understanding",
         "core_patterns": [
-          "Service Provider pattern (extensive service interface usage)",
-          "Plugin pattern (modular extension system)",
-          "Observer pattern (event-driven UI updates)",
-          "Factory pattern (processor module instantiation)",
-          "Command pattern (undoable operations)",
-          "Strategy pattern (multiple analysis algorithms)"
+          "Observer pattern for plugin event notification",
+          "Service locator for plugin communication",
+          "Factory pattern for language processors",
+          "Command pattern for undoable operations",
+          "Strategy pattern for different analysis approaches",
+          "Plugin architecture with extension points"
         ],
-        "complexity_indicators": "Large-scale system with 15,369 Java files, complex multi-architecture support, sophisticated analysis algorithms requiring extensive processor-specific knowledge",
+        "complexity_indicators": "Large codebase with 15,403 Java files, complex plugin dependency management, multi-architecture support requiring extensive processor definitions",
         "key_algorithms": [
-          "Control flow analysis for function boundary detection",
-          "Data flow analysis for variable tracking",
-          "Tree-sitter parsing for syntax analysis",
-          "Decompilation via intermediate representation",
-          "Pattern matching for signature detection",
-          "Graph algorithms for program visualization"
+          "Control flow graph construction and analysis",
+          "Data flow analysis for type propagation",
+          "Function signature analysis and parameter identification",
+          "Symbol table construction and resolution",
+          "Instruction disassembly with multiple architecture support",
+          "Decompilation algorithms for high-level code recovery"
         ],
-        "evidence": "Ghidra/Features/Decompiler/ contains C++ decompilation engine, Ghidra/Features/Base/ contains analysis algorithms, processor-specific modules implement architecture-dependent disassembly"
+        "evidence": "Ghidra/Features/Decompiler/ contains C++ decompilation engine, Ghidra/Framework/SoftwareModeling/ implements program analysis algorithms, Ghidra/Processors/ contains architecture-specific instruction handling"
       },
       "security_model": {
-        "authentication": "Multi-user project authentication with user credentials",
-        "authorization": "Project-based access control with read/write permissions",
-        "data_protection": "Local project encryption support, secure multi-user collaboration",
-        "security_headers": "Not applicable - desktop application framework",
-        "vulnerability_handling": "Security advisories mentioned in README, responsible disclosure process"
+        "authentication": "User-based authentication for Ghidra Server collaborative projects",
+        "authorization": "Project-level access controls, read-only vs read-write permissions",
+        "data_protection": "Local project encryption options, secure communication for server mode",
+        "security_headers": "Not applicable for desktop application",
+        "vulnerability_handling": "Security advisories mentioned in README.md, responsible disclosure process"
       },
       "dependencies": {
         "runtime": [
-          "JDK 21 64-bit (required runtime)",
-          "Python 3.9-3.14 with pip (PyGhidra support)",
+          "JDK 21 64-bit (minimum runtime requirement)",
+          "Python 3.9-3.14 for PyGhidra and debugger agents",
           "Native libraries for decompiler engine"
         ],
         "dev": [
-          "Gradle 8.5+ (build system)",
-          "Eclipse IDE for Java Developers",
-          "GCC or Clang compiler",
-          "Microsoft Visual Studio 2017+ (Windows)",
-          "Bison parser generator"
+          "Gradle 8.5+ for build system",
+          "Eclipse IDE for plugin development",
+          "Microsoft Visual Studio 2017+ or Build Tools (Windows)",
+          "GCC or Clang compiler (Linux/macOS)",
+          "Python development tools and pip"
         ],
         "infrastructure": [
-          "File system storage",
-          "Network infrastructure for collaboration",
-          "Git for source control"
+          "File system for project storage",
+          "Network connectivity for Ghidra Server mode",
+          "External debuggers (GDB, LLDB, DbgEng) for debugging features"
         ]
       },
       "deployment": {
         "containerized": true,
-        "container_orchestration": "Docker (docker/ directory present)",
-        "ci_cd": "none observed",
-        "environment_config": "Configuration files in Ghidra/Configurations/, application.properties, launch scripts with environment variables",
-        "scaling_model": "Single-instance desktop application, multi-user server collaboration"
+        "container_orchestration": "Docker support with provided Dockerfile",
+        "ci_cd": "None observed in repository",
+        "environment_config": "Environment variables for installation paths, Java system properties for configuration, XML-based tool and language configuration files",
+        "scaling_model": "Single-user desktop application, multi-user via Ghidra Server for collaborative analysis"
       },
       "code_quality_signals": {
         "has_tests": true,
-        "test_framework": "JUnit (inferred from Java codebase structure)",
-        "test_count_estimate": "2031 test files found",
+        "test_framework": "JUnit (Java), pytest patterns in Python components",
+        "test_count_estimate": "2037 test files found",
         "has_linting": false,
-        "has_type_hints": false,
+        "has_type_hints": true,
         "documentation_quality": "well-documented",
-        "code_style": "Standard Java formatting, comprehensive inline documentation"
+        "code_style": "Java coding standards enforced, comprehensive inline documentation"
       },
       "project_health": {
         "license": "Apache-2.0",
         "total_commits": "1",
         "top_contributors": "1",
-        "recent_activity": "Active maintenance with merge from Ghidra_12.1 branch",
-        "community_signals": "CONTRIBUTING.md present, security policy referenced, professional NSA backing"
+        "recent_activity": "Recent merge of GhidraDev Eclipse plugin improvements",
+        "community_signals": "CONTRIBUTING.md present, security policy referenced, NSA-maintained open source project"
       },
       "evidence_tracking": {
         "files_analyzed": [
           "README.md",
           "CONTRIBUTING.md",
+          "build.gradle files",
           "Ghidra/Framework/Generic/src/main/java/ghidra/framework/Application.java",
           "Ghidra/Features/PyGhidra/src/main/py/src/pyghidra/__main__.py",
-          "Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/",
-          "GPL/DMG/build.gradle",
-          "GPL/DemanglerGnu/build.gradle",
-          "GPL/GnuDisassembler/build.gradle",
-          "Ghidra/Features/Decompiler/src/decompile/cpp/Makefile",
-          "Directory structure and file tree analysis"
+          "Ghidra/Debug/Debugger-api service interfaces",
+          "GPL module source code and build files",
+          "Directory structure analysis",
+          "Language distribution statistics"
         ],
         "confidence_level": "High",
         "information_gaps": [
-          "Exact API endpoint specifications (no OpenAPI found)",
-          "Database schema details (custom format)",
-          "Network protocol specifications for collaboration",
-          "Performance characteristics and scalability limits"
+          "Limited git history (only 1 commit visible)",
+          "Internal NSA development processes not visible",
+          "Complete dependency version information not available from build files alone"
         ]
       },
       "pricing": {
@@ -225,222 +224,221 @@
     "extracted_data": {},
     "source": "local_repo",
     "source_confidence": "high",
-    "timestamp": "2026-03-25T18:55:59.704714"
+    "timestamp": "2026-04-09T15:27:15.760753"
   },
   "step2": {
     "step1_data": {
       "product_name": "ghidra",
       "url": "https://github.com/NationalSecurityAgency/ghidra.git",
       "analysis": {
-        "summary": "Ghidra is a comprehensive software reverse engineering framework developed by NSA that processes binary executables through disassembly, decompilation, and analysis capabilities. It implements a modular plugin-based architecture with extensive processor support, graphical analysis tools, and both GUI and headless operation modes. The system features a collaborative multi-user architecture with shared project capabilities and extensive scripting support via Java and Python APIs.",
+        "summary": "Ghidra is a comprehensive software reverse engineering framework developed by the NSA that provides disassembly, decompilation, and analysis capabilities for compiled binaries. It implements a plugin-based architecture with extensive Java and Python support, featuring a collaborative server-client model for team-based analysis. The system supports multiple processor architectures and executable formats through modular language processors and includes advanced debugging capabilities via multiple debugger agent integrations.",
         "capabilities": [
-          "Disassembles binary executables for multiple processor architectures (Ghidra/Processors/ contains ARM, x86, MIPS, PowerPC, etc.)",
-          "Decompiles machine code to high-level C-like pseudocode (Ghidra/Features/Decompiler/)",
-          "Performs automated program analysis and function identification (Ghidra/Features/Base/src/main/java/ghidra/app/services/)",
-          "Provides interactive GUI for binary analysis with graphical program flow visualization (Ghidra/Features/Base/)",
-          "Supports headless batch processing for automated analysis workflows (Ghidra/Features/PyGhidra/)",
-          "Implements multi-user collaborative project sharing with version control (Ghidra/Framework/Project/)",
-          "Manages binary file format parsing for PE, ELF, Mach-O, and other executable formats (Ghidra/Features/Base/src/main/java/ghidra/app/util/bin/)",
-          "Executes user scripts in Java and Python for custom analysis automation (Ghidra/Features/Python/, PyGhidra integration)",
-          "Provides debugging integration with GDB, LLDB, WinDbg, and other debuggers (Ghidra/Debug/)",
-          "Performs dynamic analysis through emulation and trace recording (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerEmulationService.java)",
-          "Supports plugin development with extensive API framework (Ghidra/Framework/Generic/src/main/java/ghidra/framework/)",
-          "Implements symbol name demangling for C++ and other mangled languages (GPL/DemanglerGnu/)",
-          "Provides cross-reference analysis and program flow graphing capabilities (Ghidra/Features/Base/)",
-          "Supports custom processor module development for new architectures (Ghidra/Processors/)",
-          "Manages program databases with transaction-based modification tracking (Ghidra/Framework/DB/)",
-          "Implements pattern matching for signature-based malware detection (Ghidra/Features/BSim/)",
-          "Provides diff and comparison tools for binary version analysis (Ghidra/Features/VersionTracking/)",
-          "Supports extension loading and custom tool development (GhidraBuild/EclipsePlugins/)",
-          "Implements advanced data type analysis and structure recovery (Ghidra/Features/Base/src/main/java/ghidra/app/util/datatype/)",
-          "Provides assembly and patching capabilities for binary modification (Ghidra/Features/BytePatterns/)",
-          "Supports collaborative annotation and commenting system (Ghidra/Framework/Project/)",
-          "Implements sophisticated memory layout analysis and mapping (Ghidra/Features/Base/src/main/java/ghidra/program/model/mem/)",
-          "Provides comprehensive search and filtering across program elements (Ghidra/Features/Base/src/main/java/ghidra/features/base/memsearch/)",
-          "Supports import/export of analysis results and metadata (Ghidra/Features/Base/src/main/java/ghidra/app/util/exporter/)"
+          "Disassembles executable files for multiple processor architectures using modular language processors (Ghidra/Processors/)",
+          "Decompiles assembly code back to high-level C-like representations using the Decompiler framework (Ghidra/Features/Decompiler/)",
+          "Provides interactive GUI-based reverse engineering interface through the CodeBrowser tool (Ghidra/Configurations/Public_Release/src/main/resources/defaultTools/CodeBrowser.tool)",
+          "Supports collaborative analysis through Ghidra Server with multi-user project sharing and version control (Ghidra/Framework/)",
+          "Executes Python and Java scripts for automated analysis tasks (Ghidra/Features/Python/, Ghidra/RuntimeScripts/)",
+          "Integrates with multiple debuggers including GDB, LLDB, and Windows DbgEng through Python agents (Ghidra/Debug/Debugger-agent-gdb/, Ghidra/Debug/Debugger-agent-dbgeng/)",
+          "Manages debug sessions with trace recording and emulation capabilities (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerEmulationService.java)",
+          "Analyzes program structure through function identification and control flow analysis (Ghidra/Features/Base/)",
+          "Handles multiple executable formats including ELF, PE, Mach-O, and embedded firmware formats (Ghidra/Features/Base/)",
+          "Provides extensible plugin architecture with service-based component communication (Ghidra/Framework/)",
+          "Supports custom processor definition through SLEIGH language specifications (Ghidra/Processors/)",
+          "Implements graph visualization for program flow and data relationships (Ghidra/Features/GraphServices/)",
+          "Manages symbol tables, data types, and program annotations with persistence (Ghidra/Framework/SoftwareModeling/)",
+          "Processes debug information including DWARF and PDB symbols (Ghidra/Features/PDB/)",
+          "Supports headless analysis mode for batch processing and automation (Ghidra/Features/HeadlessAnalyzer/)",
+          "Implements file system browser for analyzing disk images and archives (GPL/DMG/, Ghidra/Features/FileFormats/)",
+          "Provides Python bridge (PyGhidra) for direct API access from Python scripts (Ghidra/Features/PyGhidra/)",
+          "Handles demangling of C++ and other mangled symbol names (GPL/DemanglerGnu/)",
+          "Implements memory mapping and address space management for complex binaries (Ghidra/Framework/SoftwareModeling/)",
+          "Supports GNU disassembler integration for additional architecture coverage (GPL/GnuDisassembler/)",
+          "Provides extension development support through Eclipse and VSCode integrations (GhidraBuild/EclipsePlugins/)",
+          "Implements trace-based debugging with timeline navigation and state comparison (Ghidra/Debug/)",
+          "Supports emulation of program execution for dynamic analysis (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerEmulationService.java)",
+          "Manages project data with hierarchical folder organization and version tracking (Ghidra/Framework/Project/)",
+          "Provides comprehensive help system and documentation framework (GhidraDocs/, help/ directories)"
         ],
         "use_cases": [
-          "Malware analysts use this to reverse engineer suspicious binaries and identify malicious behavior patterns",
-          "Security researchers use this to discover vulnerabilities in software by analyzing compiled code",
-          "Firmware engineers use this to analyze embedded system binaries and understand hardware-software interactions",
-          "Digital forensics investigators use this to examine evidence from seized computing devices",
-          "Software developers use this to understand legacy code without source availability"
+          "Malware analysts use it to reverse engineer malicious software and understand attack vectors",
+          "Security researchers analyze firmware and embedded systems for vulnerability research",
+          "Software engineers examine legacy code without source availability for maintenance or porting",
+          "Incident responders analyze compromised binaries to understand attack mechanisms",
+          "Academic researchers study program analysis techniques and develop new reverse engineering methods",
+          "Government agencies perform cybersecurity analysis and threat assessment",
+          "Vulnerability researchers identify security flaws in commercial software products"
         ],
-        "category": "Reverse Engineering Framework",
-        "target_audience": "Security researchers, malware analysts, firmware engineers, digital forensics investigators, reverse engineers",
+        "category": "Software Reverse Engineering Framework",
+        "target_audience": "Security researchers, malware analysts, vulnerability researchers, software engineers, cybersecurity professionals, academic researchers",
         "technical_stack": [
-          "Java 21 (JDK requirement from README.md)",
-          "Gradle 8.5+ (build system from README.md)",
-          "Python 3.9-3.14 (PyGhidra integration from README.md)",
-          "Eclipse IDE (development environment from README.md)",
-          "Apache License 2.0 (Ghidra/Framework/Generic/src/main/java/ghidra/framework/Application.java)",
-          "GCC/Clang (native compilation from README.md)",
-          "Microsoft Visual Studio 2017+ (Windows builds from README.md)",
-          "Bison parser generator (Ghidra/Features/Decompiler/src/decompile/cpp/Makefile)",
-          "BFD library (binary format support from Makefile)",
-          "Z library compression (native dependencies from Makefile)"
+          "Java 21+ (build requirements in README.md and build scripts)",
+          "Python 3.9-3.14 (Ghidra/Features/PyGhidra/src/main/py/pyproject.toml, debugger agents)",
+          "Gradle 8.5+ (build.gradle files throughout, gradle wrapper)",
+          "SLEIGH language specification system (Ghidra/Processors/)",
+          "Eclipse RCP for plugin development (GhidraBuild/EclipsePlugins/)",
+          "Swing/AWT for GUI components (Java source files)",
+          "C/C++ for native components (GPL/DemanglerGnu/, Ghidra/Features/Decompiler/)",
+          "GNU Binutils integration (GPL/GnuDisassembler/)",
+          "Microsoft Visual Studio 2017+ for Windows builds (README.md)",
+          "Docker containerization support (docker/ directory)"
         ],
         "api_endpoints": [
-          "DebuggerAutoMappingService.setAutoMapSpec(AutoMapSpec) \u2014 Configure automatic memory mapping (ghidra/app/services/DebuggerAutoMappingService.java)",
-          "DebuggerConsoleService.log(Icon, String) \u2014 Log messages to debug console (ghidra/app/services/DebuggerConsoleService.java)",
-          "DebuggerControlService.setVariable(Address, byte[]) \u2014 Modify target program state (ghidra/app/services/DebuggerControlService.java)",
-          "DebuggerEmulationService.emulate() \u2014 Run emulated execution analysis (ghidra/app/services/DebuggerEmulationService.java)",
-          "Application.initializeApplication(ApplicationLayout, ApplicationConfiguration) \u2014 Initialize framework (ghidra/framework/Application.java)",
-          "pyghidra.run_script() \u2014 Execute Python analysis scripts (pyghidra/__main__.py)",
-          "pyghidra.HeadlessPyGhidraLauncher.start() \u2014 Launch headless analysis mode (pyghidra/__main__.py)"
+          "DebuggerAutoMappingService.setAutoMapSpec(AutoMapSpec) \u2014 Set auto-mapping configuration (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerAutoMappingService.java)",
+          "DebuggerConsoleService.log(Icon, String) \u2014 Log messages to debug console (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerConsoleService.java)",
+          "DebuggerControlService.createStateEditor(DebuggerCoordinates) \u2014 Create state editor for debugging (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerControlService.java)",
+          "DebuggerEmulationService.getCachedEmulator(Trace) \u2014 Access managed emulator instances (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerEmulationService.java)",
+          "Application.initializeApplication(ApplicationLayout, ApplicationConfiguration) \u2014 Initialize Ghidra framework (Ghidra/Framework/Generic/src/main/java/ghidra/framework/Application.java)",
+          "pyghidra.run_script(binary_path, script_path) \u2014 Execute Python scripts via PyGhidra (Ghidra/Features/PyGhidra/src/main/py/src/pyghidra/__main__.py)"
         ],
         "sdk_languages": [
-          "Java (native API with extensive framework classes)",
-          "Python (PyGhidra integration with full API bindings)",
-          "JavaScript (limited scripting support)"
+          "Java",
+          "Python"
         ],
         "auth_methods": [
-          "Multi-user project authentication (Ghidra/Framework/Project/ contains user management)",
-          "File-based project access control",
-          "Network-based collaborative project sharing"
+          "File-based project permissions",
+          "Multi-user server authentication (Ghidra Server)",
+          "User access controls for collaborative projects"
         ],
         "integrations": [
-          "GDB debugger integration (Ghidra/Debug/Debugger-agent-gdb/)",
-          "LLDB debugger integration (Ghidra/Debug/Debugger-agent-lldb/)",
-          "WinDbg/DbgEng integration (Ghidra/Debug/Debugger-agent-dbgeng/)",
-          "Eclipse IDE integration (GhidraBuild/EclipsePlugins/)",
-          "Visual Studio Code integration (README mentions VSCode project creation)",
-          "GNU binutils integration (GPL/GnuDisassembler/)",
-          "GNU demangler integration (GPL/DemanglerGnu/)",
-          "DMG file system support (GPL/DMG/)",
-          "QEMU emulation support (Ghidra/Debug/Debugger-agent-gdb/data/debugger-launchers/qemu-gdb.sh)",
-          "SSH remote debugging support (multiple launcher scripts)",
-          "Wine Windows emulation support (Ghidra/Debug/Debugger-agent-gdb/data/debugger-launchers/wine-gdb.sh)"
+          "GDB debugger via Python agent (Ghidra/Debug/Debugger-agent-gdb/src/main/py/src/ghidragdb/)",
+          "LLDB debugger via Python agent (Ghidra/Debug/Debugger-agent-lldb/)",
+          "Windows DbgEng via Python COM interface (Ghidra/Debug/Debugger-agent-dbgeng/src/main/py/src/ghidradbg/dbgmodel/)",
+          "drgn debugger for Linux kernel debugging (Ghidra/Debug/Debugger-agent-drgn/)",
+          "GNU Binutils for additional disassembly support (GPL/GnuDisassembler/)",
+          "Eclipse IDE for plugin development (GhidraBuild/EclipsePlugins/)",
+          "Visual Studio Code for script editing (mentioned in README.md)",
+          "DWARF debug information parsing (Ghidra/Configurations/Public_Release/data/DWARF.debuginfod_urls)",
+          "PDB symbol server integration (Ghidra/Configurations/Public_Release/data/PDB_SYMBOL_SERVER_URLS.pdburl)"
         ],
         "architecture": {
-          "pattern": "plugin-based framework with modular components",
+          "pattern": "plugin-based with service-oriented architecture",
           "components": [
-            "Framework core (Ghidra/Framework/) - foundational services and APIs",
-            "Analysis features (Ghidra/Features/) - disassembly, decompilation, graphing",
-            "Debug subsystem (Ghidra/Debug/) - dynamic analysis and emulation",
-            "Processor modules (Ghidra/Processors/) - architecture-specific disassemblers",
-            "Extension system (Ghidra/Extensions/) - third-party plugin support",
-            "Build system (GhidraBuild/) - development and packaging tools"
+            "Framework core providing application lifecycle and plugin management",
+            "SoftwareModeling layer for program representation and analysis",
+            "Feature plugins for specific analysis capabilities (disassembly, decompilation, debugging)",
+            "Debug framework with trace recording and emulation services",
+            "Language processors for architecture-specific instruction handling",
+            "GUI framework built on Swing with docking window system",
+            "Extension system supporting Java and Python plugins",
+            "Project management system with collaborative server support"
           ],
           "entry_points": [
-            "Ghidra/RuntimeScripts/Linux/ghidraRun (GUI launcher)",
-            "Ghidra/Features/PyGhidra/src/main/py/src/pyghidra/__main__.py (Python interface)",
-            "ghidra.framework.Application (Java framework initialization)"
+            "ghidraRun - Main GUI application launcher",
+            "support/pyGhidraRun - Python bridge launcher",
+            "Ghidra/Framework/Generic/src/main/java/ghidra/framework/Application.java - Core framework initialization"
           ],
-          "data_flow": "Binary files are loaded through format parsers, processed by analysis engines that populate a program database, with results displayed through GUI components or accessed via scripting APIs. Debug integration allows real-time target interaction with trace recording to the database.",
-          "persistence": "Custom database format with transaction support, project-based storage, version control integration",
-          "concurrency_model": "Multi-threaded with task monitoring framework, supports background analysis with cancellation (TaskMonitor usage throughout)",
-          "communication_patterns": "Service-oriented architecture with plugin communication via service interfaces, event-driven UI updates, RPC for multi-user collaboration",
-          "plugin_extension_model": "Java-based plugin system with service interfaces, Python scripting integration, Eclipse plugin development support"
+          "data_flow": "Binary files are loaded into projects, analyzed by language processors to create program representations, processed by analysis plugins for function identification and typing, stored in project database with version tracking, and presented through GUI or accessed via scripting APIs",
+          "persistence": "Custom binary database format for project storage, file-based configuration, XML-based language specifications, trace databases for debugging sessions",
+          "concurrency_model": "Multi-threaded with Swing EDT for GUI, background analysis tasks, concurrent debugging sessions, plugin service isolation",
+          "communication_patterns": "Service-based architecture with event notification, plugin-to-plugin communication via services, debugger agents use TCP/named pipes for external tool integration",
+          "plugin_extension_model": "Plugin interface with service registration, extension points for new file formats and processors, scripting interface for automation, GhidraDev Eclipse plugin for development"
         },
         "data_model": {
           "primary_entities": [
-            "Program (binary executable representation)",
-            "Function (analyzed code functions)",
-            "Instruction (disassembled machine instructions)",
-            "Symbol (named program elements)",
-            "Memory (program address space)",
-            "DataType (type system)",
-            "Reference (cross-references between program elements)",
-            "Trace (debug execution history)"
+            "Program - represents analyzed binary with instructions, functions, data",
+            "Project - container for related programs and analysis data",
+            "Trace - debugging session recording with memory states over time",
+            "Language - processor architecture definition with instruction semantics",
+            "Function - identified code blocks with parameters and local variables",
+            "Symbol - named addresses including functions, labels, and variables",
+            "DataType - type information for variables and function signatures"
           ],
           "storage_backends": [
-            "Custom database format",
-            "File system project storage",
-            "Network-based collaborative storage"
+            "Custom binary database format",
+            "File system for project structure",
+            "XML for configuration and language specs",
+            "Temporary files for analysis cache"
           ],
-          "schema_patterns": "Object-relational mapping with transaction support, hierarchical program representation, versioned analysis data",
-          "migration_strategy": "Framework handles database versioning and migration automatically"
+          "schema_patterns": "Object-oriented with hierarchical program structure, versioned project data, graph-based control flow representation",
+          "migration_strategy": "Version-aware database schema with automatic migration, backward compatibility for project formats"
         },
         "algorithms": {
-          "problem_type": "Software reverse engineering through static and dynamic analysis of compiled binary code",
+          "problem_type": "Static and dynamic analysis of compiled binary code with reverse engineering, control flow recovery, and semantic understanding",
           "core_patterns": [
-            "Service Provider pattern (extensive service interface usage)",
-            "Plugin pattern (modular extension system)",
-            "Observer pattern (event-driven UI updates)",
-            "Factory pattern (processor module instantiation)",
-            "Command pattern (undoable operations)",
-            "Strategy pattern (multiple analysis algorithms)"
+            "Observer pattern for plugin event notification",
+            "Service locator for plugin communication",
+            "Factory pattern for language processors",
+            "Command pattern for undoable operations",
+            "Strategy pattern for different analysis approaches",
+            "Plugin architecture with extension points"
           ],
-          "complexity_indicators": "Large-scale system with 15,369 Java files, complex multi-architecture support, sophisticated analysis algorithms requiring extensive processor-specific knowledge",
+          "complexity_indicators": "Large codebase with 15,403 Java files, complex plugin dependency management, multi-architecture support requiring extensive processor definitions",
           "key_algorithms": [
-            "Control flow analysis for function boundary detection",
-            "Data flow analysis for variable tracking",
-            "Tree-sitter parsing for syntax analysis",
-            "Decompilation via intermediate representation",
-            "Pattern matching for signature detection",
-            "Graph algorithms for program visualization"
+            "Control flow graph construction and analysis",
+            "Data flow analysis for type propagation",
+            "Function signature analysis and parameter identification",
+            "Symbol table construction and resolution",
+            "Instruction disassembly with multiple architecture support",
+            "Decompilation algorithms for high-level code recovery"
           ],
-          "evidence": "Ghidra/Features/Decompiler/ contains C++ decompilation engine, Ghidra/Features/Base/ contains analysis algorithms, processor-specific modules implement architecture-dependent disassembly"
+          "evidence": "Ghidra/Features/Decompiler/ contains C++ decompilation engine, Ghidra/Framework/SoftwareModeling/ implements program analysis algorithms, Ghidra/Processors/ contains architecture-specific instruction handling"
         },
         "security_model": {
-          "authentication": "Multi-user project authentication with user credentials",
-          "authorization": "Project-based access control with read/write permissions",
-          "data_protection": "Local project encryption support, secure multi-user collaboration",
-          "security_headers": "Not applicable - desktop application framework",
-          "vulnerability_handling": "Security advisories mentioned in README, responsible disclosure process"
+          "authentication": "User-based authentication for Ghidra Server collaborative projects",
+          "authorization": "Project-level access controls, read-only vs read-write permissions",
+          "data_protection": "Local project encryption options, secure communication for server mode",
+          "security_headers": "Not applicable for desktop application",
+          "vulnerability_handling": "Security advisories mentioned in README.md, responsible disclosure process"
         },
         "dependencies": {
           "runtime": [
-            "JDK 21 64-bit (required runtime)",
-            "Python 3.9-3.14 with pip (PyGhidra support)",
+            "JDK 21 64-bit (minimum runtime requirement)",
+            "Python 3.9-3.14 for PyGhidra and debugger agents",
             "Native libraries for decompiler engine"
           ],
           "dev": [
-            "Gradle 8.5+ (build system)",
-            "Eclipse IDE for Java Developers",
-            "GCC or Clang compiler",
-            "Microsoft Visual Studio 2017+ (Windows)",
-            "Bison parser generator"
+            "Gradle 8.5+ for build system",
+            "Eclipse IDE for plugin development",
+            "Microsoft Visual Studio 2017+ or Build Tools (Windows)",
+            "GCC or Clang compiler (Linux/macOS)",
+            "Python development tools and pip"
           ],
           "infrastructure": [
-            "File system storage",
-            "Network infrastructure for collaboration",
-            "Git for source control"
+            "File system for project storage",
+            "Network connectivity for Ghidra Server mode",
+            "External debuggers (GDB, LLDB, DbgEng) for debugging features"
           ]
         },
         "deployment": {
           "containerized": true,
-          "container_orchestration": "Docker (docker/ directory present)",
-          "ci_cd": "none observed",
-          "environment_config": "Configuration files in Ghidra/Configurations/, application.properties, launch scripts with environment variables",
-          "scaling_model": "Single-instance desktop application, multi-user server collaboration"
+          "container_orchestration": "Docker support with provided Dockerfile",
+          "ci_cd": "None observed in repository",
+          "environment_config": "Environment variables for installation paths, Java system properties for configuration, XML-based tool and language configuration files",
+          "scaling_model": "Single-user desktop application, multi-user via Ghidra Server for collaborative analysis"
         },
         "code_quality_signals": {
           "has_tests": true,
-          "test_framework": "JUnit (inferred from Java codebase structure)",
-          "test_count_estimate": "2031 test files found",
+          "test_framework": "JUnit (Java), pytest patterns in Python components",
+          "test_count_estimate": "2037 test files found",
           "has_linting": false,
-          "has_type_hints": false,
+          "has_type_hints": true,
           "documentation_quality": "well-documented",
-          "code_style": "Standard Java formatting, comprehensive inline documentation"
+          "code_style": "Java coding standards enforced, comprehensive inline documentation"
         },
         "project_health": {
           "license": "Apache-2.0",
           "total_commits": "1",
           "top_contributors": "1",
-          "recent_activity": "Active maintenance with merge from Ghidra_12.1 branch",
-          "community_signals": "CONTRIBUTING.md present, security policy referenced, professional NSA backing"
+          "recent_activity": "Recent merge of GhidraDev Eclipse plugin improvements",
+          "community_signals": "CONTRIBUTING.md present, security policy referenced, NSA-maintained open source project"
         },
         "evidence_tracking": {
           "files_analyzed": [
             "README.md",
             "CONTRIBUTING.md",
+            "build.gradle files",
             "Ghidra/Framework/Generic/src/main/java/ghidra/framework/Application.java",
             "Ghidra/Features/PyGhidra/src/main/py/src/pyghidra/__main__.py",
-            "Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/",
-            "GPL/DMG/build.gradle",
-            "GPL/DemanglerGnu/build.gradle",
-            "GPL/GnuDisassembler/build.gradle",
-            "Ghidra/Features/Decompiler/src/decompile/cpp/Makefile",
-            "Directory structure and file tree analysis"
+            "Ghidra/Debug/Debugger-api service interfaces",
+            "GPL module source code and build files",
+            "Directory structure analysis",
+            "Language distribution statistics"
           ],
           "confidence_level": "High",
           "information_gaps": [
-            "Exact API endpoint specifications (no OpenAPI found)",
-            "Database schema details (custom format)",
-            "Network protocol specifications for collaboration",
-            "Performance characteristics and scalability limits"
+            "Limited git history (only 1 commit visible)",
+            "Internal NSA development processes not visible",
+            "Complete dependency version information not available from build files alone"
           ]
         },
         "pricing": {
@@ -451,122 +449,124 @@
       "extracted_data": {},
       "source": "local_repo",
       "source_confidence": "high",
-      "timestamp": "2026-03-25T18:55:59.704714"
+      "timestamp": "2026-04-09T15:27:15.760753"
     },
     "generalization": {
       "functional_dna": {
-        "logic_archetype": "Batch Optimizer",
-        "logic_archetype_evidence": "Found keywords: ['batch']",
-        "data_contract_strictness": "Moderately Structured",
-        "data_contract_evidence": "Found 7 API endpoints with documented patterns",
-        "core_algorithmic_class": "Unknown",
-        "core_algorithmic_evidence": "No clear algorithmic class identified from evidence",
-        "concurrency_requirements": "ACID Compliance Required",
-        "concurrency_evidence": "Found keywords: ['transaction']",
-        "repurposing_confidence": 6,
-        "repurposing_reasoning": "Logic Archetype: Batch Optimizer (some domain specificity). Algorithmic Class: Unknown (reusable).",
-        "abstract_problem": "Unknown",
-        "core_algorithm": "Graph Algorithm",
-        "complexity": "Unknown",
-        "input_output_contract": {
-          "input_types": [
-            "Request Object",
-            "Configuration Parameters"
-          ],
-          "output_types": [
-            "Response Object",
-            "Status Code"
-          ],
-          "required_parameters": [],
-          "optional_parameters": []
-        },
-        "state_management": "Persistent Database State",
-        "scalability_pattern": "Vertical Scaling / Monolithic",
-        "data_flow": "Request-Response / Synchronous API",
-        "concurrency_model": "Multi-process / Worker Pool",
-        "error_handling": "Transactional / ACID Compliance",
-        "performance_characteristics": {
-          "time_complexity": "Unknown",
-          "space_complexity": "Unknown",
-          "latency_profile": "Batch / Scheduled Processing",
-          "throughput_capability": "Standard / Moderate Throughput",
-          "optimization_strategies": [
-            "Compression"
-          ]
-        },
-        "dependencies": {
-          "runtime_dependencies": [
-            "Python",
-            "Java"
-          ],
-          "infrastructure_dependencies": [],
-          "service_dependencies": [
-            "GDB debugger integration (Ghidra/Debug/Debugger-agent-gdb/)",
-            "LLDB debugger integration (Ghidra/Debug/Debugger-agent-lldb/)",
-            "WinDbg/DbgEng integration (Ghidra/Debug/Debugger-agent-dbgeng/)",
-            "Eclipse IDE integration (GhidraBuild/EclipsePlugins/)",
-            "Visual Studio Code integration (README mentions VSCode project creation)",
-            "GNU binutils integration (GPL/GnuDisassembler/)",
-            "GNU demangler integration (GPL/DemanglerGnu/)",
-            "DMG file system support (GPL/DMG/)",
-            "QEMU emulation support (Ghidra/Debug/Debugger-agent-gdb/data/debugger-launchers/qemu-gdb.sh)",
-            "SSH remote debugging support (multiple launcher scripts)",
-            "Wine Windows emulation support (Ghidra/Debug/Debugger-agent-gdb/data/debugger-launchers/wine-gdb.sh)"
-          ],
-          "deployment_requirements": [
-            "Standard Deployment Environment"
-          ]
-        },
-        "language_agnostic_pattern": "Strategy Pattern / Algorithm Selection",
-        "mathematical_model": "Graph Theory / Network Analysis"
+        "logic_archetype": "Plugin Host",
+        "logic_archetype_evidence": "Ghidra implements a comprehensive plugin-based architecture with service-oriented communication patterns, extensive extension points for new file formats and processors, and a framework that manages plugin lifecycle and inter-plugin dependencies. The system provides a core framework that hosts specialized analysis plugins while maintaining isolation and communication through service interfaces.",
+        "data_contract_strictness": "Highly Structured",
+        "data_contract_evidence": "Evidence: Strong Java type system with defined service interfaces, SLEIGH language specifications for processor definitions, structured XML configurations, and well-defined API endpoints with specific parameter types and return values across the debugging and analysis services.",
+        "core_algorithmic_class": "Graph Algorithms",
+        "core_algorithmic_evidence": "Evidence from control flow graph construction and analysis, data flow analysis for type propagation, graph visualization for program flow relationships, and tree/AST processing for decompilation algorithms. The system heavily relies on graph traversal and analysis patterns for understanding program structure.",
+        "concurrency_requirements": "Eventually Consistent",
+        "concurrency_evidence": "Evidence from multi-threaded architecture with background analysis tasks, collaborative server support with version control, concurrent debugging sessions, and plugin service isolation patterns that suggest eventual consistency rather than strict ACID compliance.",
+        "abstract_problem": "Transforms complex structured artifacts into interpretable representations through pluggable analysis modules, maintaining collaborative workspaces with version control while providing extensible automation interfaces for custom processing workflows.",
+        "data_flow_pattern": "Artifact ingestion \u2192 modular transformation pipeline \u2192 persistent workspace storage \u2192 collaborative synchronization with interactive query/manipulation interfaces",
+        "state_complexity": "Entity-scoped",
+        "repurposing_confidence": 8,
+        "repurposing_reasoning": "The plugin architecture, service-oriented design, and collaborative workspace patterns are highly generic and could be repurposed for any domain requiring complex artifact analysis. The core framework, project management, plugin communication, and extension systems are domain-agnostic. However, the specific analysis algorithms and language processors are specialized for binary analysis, requiring significant domain expertise to adapt."
       },
+      "evidence_claims": [
+        {
+          "claim": "System implements comprehensive plugin architecture with service communication",
+          "evidence": "Ghidra/Framework/ directory structure with plugin management, service-based component communication mentioned in architecture description",
+          "confidence": "High"
+        },
+        {
+          "claim": "Supports collaborative multi-user analysis with version control",
+          "evidence": "Ghidra Server with multi-user project sharing and version control capabilities listed in summary",
+          "confidence": "High"
+        },
+        {
+          "claim": "Provides extensible automation through scripting interfaces",
+          "evidence": "Python and Java script support in Ghidra/Features/Python/, PyGhidra bridge for API access",
+          "confidence": "High"
+        },
+        {
+          "claim": "Implements graph-based analysis algorithms",
+          "evidence": "Graph visualization for program flow and data relationships, control flow analysis mentioned in capabilities",
+          "confidence": "High"
+        }
+      ],
       "market_reach": {
-        "primary_industry": "Reverse Engineering Framework",
+        "primary_industry": "Cybersecurity/Software Analysis",
         "cross_industry_applications": [
-          "Enterprise Software",
-          "SaaS & Cloud Services",
-          "B2B Integrations",
-          "Internal Tools & Automation",
-          "Developer Tools & Platforms"
+          "Legal document analysis - structured document processing with collaborative annotation and version tracking",
+          "Medical imaging analysis - complex artifact interpretation with specialized processing modules and collaborative diagnosis",
+          "Financial data forensics - transaction pattern analysis with pluggable detection algorithms and audit trails",
+          "Scientific data analysis - research dataset processing with extensible analysis pipelines and collaborative workspaces",
+          "Manufacturing quality control - product inspection with modular analysis components and defect tracking",
+          "Content moderation platforms - media analysis with pluggable detection modules and collaborative review workflows",
+          "Architectural/engineering design review - technical drawing analysis with specialized interpretation modules",
+          "Academic research platforms - complex dataset analysis with extensible processing capabilities and collaborative features"
         ],
-        "utility_score": 7,
-        "market_potential": "Medium"
+        "utility_score": 8,
+        "market_potential": "High"
       },
       "friction_report": {
-        "difficulty": "Low",
-        "estimated_hours": 16,
-        "required_technologies": [],
-        "complexity_factors": [
-          "Multiple third-party dependencies"
+        "difficulty": "High",
+        "estimated_hours": 2000,
+        "required_technologies": [
+          "Java 21+",
+          "Python 3.9-3.14",
+          "Gradle 8.5+",
+          "Swing/AWT",
+          "Custom binary database format"
         ],
-        "risk_level": "Low"
+        "complexity_factors": [
+          "Complex plugin dependency management",
+          "Extensive codebase with 15,403 Java files",
+          "Custom binary database format",
+          "Multi-architecture abstraction layer",
+          "Deep integration between GUI and analysis components"
+        ],
+        "risk_level": "High",
+        "migration_path": "Extract the core plugin framework and service architecture, replace domain-specific analysis modules with target domain processors, adapt the project/workspace management system, and rebuild UI components for the new domain while maintaining the collaborative and extensibility patterns."
       },
       "interface_map": {
         "adapter_schema": {
           "input": {
-            "format": "JSON",
+            "format": "Java API/Python scripts",
             "required_fields": [
-              "Endpoint: DebuggerAutoMappingService.setAutoMapSpec(AutoMapSpec) \u2014 Configure automatic memory mapping (ghidra/app/services/DebuggerAutoMappingService.java)",
-              "Endpoint: DebuggerConsoleService.log(Icon, String) \u2014 Log messages to debug console (ghidra/app/services/DebuggerConsoleService.java)",
-              "Endpoint: DebuggerControlService.setVariable(Address, byte[]) \u2014 Modify target program state (ghidra/app/services/DebuggerControlService.java)",
-              "Endpoint: DebuggerEmulationService.emulate() \u2014 Run emulated execution analysis (ghidra/app/services/DebuggerEmulationService.java)",
-              "Endpoint: Application.initializeApplication(ApplicationLayout, ApplicationConfiguration) \u2014 Initialize framework (ghidra/framework/Application.java)"
+              "binary_path",
+              "analysis_config"
             ],
-            "optional_fields": []
+            "protocols": [
+              "Java API",
+              "Python API",
+              "CLI",
+              "TCP for debugging"
+            ]
           },
           "output": {
-            "format": "JSON",
-            "response_structure": {}
+            "format": "structured analysis results",
+            "delivery": "sync with persistent storage"
           },
           "authentication": {
-            "type": "Unknown",
-            "method": "API Key"
+            "type": "file-based + server auth",
+            "method": "project permissions and multi-user server authentication"
           }
         },
-        "standardization_level": "Medium"
-      }
+        "standardization_level": "Medium",
+        "api_surface_area": "Library API"
+      },
+      "comparable_systems": [
+        "Eclipse IDE platform - plugin-based extensible development environment with collaborative features",
+        "Blender 3D modeling suite - complex artifact manipulation with extensible addon architecture and scripting",
+        "QGIS geographic analysis - spatial data processing with plugin ecosystem and collaborative project management",
+        "ImageJ scientific imaging - extensible image analysis platform with plugin architecture and automation",
+        "Jupyter ecosystem - collaborative analysis notebooks with extensible kernel and extension architecture"
+      ],
+      "information_gaps": [
+        "Complete plugin dependency resolution mechanisms",
+        "Detailed collaborative conflict resolution strategies",
+        "Performance characteristics under high concurrency",
+        "Specific database schema evolution patterns",
+        "Plugin sandboxing and security isolation details"
+      ]
     },
-    "timestamp": "2026-03-25T18:56:00.131566"
+    "timestamp": "2026-04-09T15:27:46.723499"
   },
   "errors": []
 }

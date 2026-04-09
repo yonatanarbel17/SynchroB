@@ -1,10 +1,632 @@
 {
   "url": "https://github.com/keycloak/keycloak.git",
   "repo_name": "keycloak",
-  "timestamp": "2026-03-25T18:57:10.208774",
-  "step1": null,
-  "step2": null,
-  "errors": [
-    "Local repo discovery failed: LLM analysis failed \u2014 no response from any client"
-  ]
+  "timestamp": "2026-04-09T15:22:56.092632",
+  "step1": {
+    "product_name": "keycloak",
+    "url": "https://github.com/keycloak/keycloak.git",
+    "analysis": {
+      "summary": "Keycloak is an enterprise-grade identity and access management (IAM) server built on Quarkus that provides single sign-on (SSO), user federation, authentication, and authorization services. It implements OpenID Connect, OAuth 2.0, and SAML protocols for securing applications and services. The system follows a modular architecture with separate layers for authentication providers, user storage, policy engines, and protocol adapters.",
+      "capabilities": [
+        "Processes OpenID Connect authentication flows including authorization code, implicit, and device flows (services/src/main/java/org/keycloak/protocol/oidc/)",
+        "Implements SAML 2.0 identity provider and service provider functionality with metadata parsing (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/)",
+        "Manages user authentication sessions with configurable timeouts and single sign-out (services/src/main/java/org/keycloak/services/managers/AuthenticationSessionManager.java)",
+        "Provides user federation with LDAP and Kerberos integration for external user stores (federation/ldap/, federation/kerberos/)",
+        "Implements fine-grained role-based access control (RBAC) with realm and client-level roles (services/src/main/java/org/keycloak/services/resources/admin/RoleResource.java)",
+        "Executes JavaScript-based authorization policies with sandboxed evaluation (authz/policy/common/src/main/java/org/keycloak/authorization/policy/provider/js/)",
+        "Manages OAuth 2.0 scopes and consent screens with customizable user approval flows (services/src/main/java/org/keycloak/services/resources/OAuthGrantResource.java)",
+        "Processes multi-factor authentication with TOTP, WebAuthn, and SMS verification (services/src/main/java/org/keycloak/authentication/authenticators/)",
+        "Implements database-agnostic persistence layer with JPA/Hibernate and Infinispan caching (model/jpa/, model/infinispan/)",
+        "Provides REST API for administrative operations with comprehensive CRUD operations (rest/admin-ui-ext/, rest/admin-v2/)",
+        "Generates and validates JWT tokens with configurable signing algorithms and claims (services/src/main/java/org/keycloak/protocol/oidc/TokenManager.java)",
+        "Implements user registration and password reset workflows with email verification (services/src/main/java/org/keycloak/services/resources/LoginActionsService.java)",
+        "Manages client certificates and key stores for mutual TLS authentication (services/src/main/java/org/keycloak/services/x509/)",
+        "Executes authentication flows with configurable execution chains and conditions (services/src/main/java/org/keycloak/authentication/)",
+        "Provides theme customization engine with FreeMarker templating for UI rendering (services/src/main/java/org/keycloak/theme/)",
+        "Implements event logging and auditing with configurable event listeners (server-spi/src/main/java/org/keycloak/events/)",
+        "Processes user profile management with custom attributes and validation (services/src/main/java/org/keycloak/userprofile/)",
+        "Manages realm configurations with hierarchical settings and inheritance (services/src/main/java/org/keycloak/services/resources/admin/RealmAdminResource.java)",
+        "Implements protocol mappers for token customization and claim transformation (services/src/main/java/org/keycloak/protocol/ProtocolMapper.java)",
+        "Provides client adapter libraries for Java applications with SAML and OpenID Connect support (adapters/)",
+        "Executes database migrations with Liquibase for schema versioning (model/jpa/src/main/resources/META-INF/jpa-changelog-master.xml)",
+        "Implements clustering support with Infinispan distributed caching for high availability (model/infinispan/src/main/java/org/keycloak/cluster/infinispan/)",
+        "Processes SCIM 2.0 protocol for user provisioning and synchronization (scim/)",
+        "Provides operator for Kubernetes deployments with custom resource definitions (operator/src/main/java/org/keycloak/operator/)",
+        "Implements WebAuthn/FIDO2 authentication with passkey support (services/src/main/java/org/keycloak/authentication/authenticators/browser/WebAuthnAuthenticator.java)"
+      ],
+      "use_cases": [
+        "Enterprise IT teams use Keycloak to implement single sign-on across web applications and microservices with centralized user management",
+        "DevOps engineers deploy Keycloak as an identity provider for securing APIs and services with OAuth 2.0 and OpenID Connect",
+        "Application developers integrate Keycloak adapters to add authentication and authorization to Java web applications",
+        "Security architects implement zero-trust security models using Keycloak's fine-grained authorization policies and multi-factor authentication",
+        "Platform teams use the Keycloak Operator to manage identity services in Kubernetes environments with automated scaling and updates"
+      ],
+      "category": "Identity and Access Management (IAM) Server",
+      "target_audience": "Enterprise architects, DevOps engineers, Java developers, Security engineers, Platform engineers",
+      "technical_stack": [
+        "Java 21 (pom.xml maven.compiler.release=21)",
+        "Quarkus (quarkus/runtime/pom.xml)",
+        "Hibernate/JPA (model/jpa/pom.xml)",
+        "Infinispan distributed caching (model/infinispan/pom.xml)",
+        "RESTEasy JAX-RS (dependencies in pom.xml)",
+        "React 18.2+ (js/apps/admin-ui/package.json)",
+        "PatternFly 4 UI components (js/apps/admin-ui/package.json)",
+        "TypeScript 5+ (js/apps/admin-ui/package.json)",
+        "Vite build tool (js/apps/admin-ui/vite.config.ts)",
+        "Maven build system (pom.xml)",
+        "Docker containerization (quarkus/container/Dockerfile)",
+        "Kubernetes Operator SDK (operator/pom.xml)",
+        "PostgreSQL, MySQL, MariaDB support (test-framework/db-*/)",
+        "Liquibase database migrations (model/jpa/src/main/resources/META-INF/)"
+      ],
+      "api_endpoints": [
+        "GET /realms/{realm}/protocol/openid-connect/auth \u2014 OpenID Connect authorization endpoint",
+        "POST /realms/{realm}/protocol/openid-connect/token \u2014 Token endpoint for OAuth 2.0/OIDC",
+        "GET /realms/{realm}/protocol/openid-connect/userinfo \u2014 User info endpoint",
+        "POST /realms/{realm}/protocol/openid-connect/logout \u2014 Logout endpoint",
+        "GET /realms/{realm}/protocol/saml \u2014 SAML authentication endpoint",
+        "POST /realms/{realm}/protocol/saml \u2014 SAML assertion consumer service",
+        "GET /admin/realms/{realm}/users \u2014 Admin API for user management",
+        "POST /admin/realms/{realm}/users \u2014 Create new user via admin API",
+        "GET /admin/realms/{realm}/clients \u2014 List clients in realm",
+        "POST /admin/realms/{realm}/clients \u2014 Create new client",
+        "GET /admin/realms/{realm}/roles \u2014 List roles in realm",
+        "GET /realms/{realm}/.well-known/openid-configuration \u2014 OIDC discovery endpoint",
+        "GET /realms/{realm}/protocol/saml/descriptor \u2014 SAML metadata endpoint"
+      ],
+      "sdk_languages": [
+        "Java (adapters/saml/core/, adapters/spi/)",
+        "JavaScript/TypeScript (js/libs/keycloak-admin-client/, js/libs/keycloak-js/)",
+        "Node.js (js/libs/keycloak-admin-client/)"
+      ],
+      "auth_methods": [
+        "OpenID Connect with authorization code, implicit, and device flows (services/src/main/java/org/keycloak/protocol/oidc/)",
+        "OAuth 2.0 with client credentials and refresh token flows (services/src/main/java/org/keycloak/protocol/oidc/)",
+        "SAML 2.0 identity provider and service provider (services/src/main/java/org/keycloak/protocol/saml/)",
+        "Multi-factor authentication with TOTP, WebAuthn, and SMS (services/src/main/java/org/keycloak/authentication/authenticators/)",
+        "JWT bearer token authentication with configurable signing algorithms (services/src/main/java/org/keycloak/protocol/oidc/TokenManager.java)",
+        "Kerberos/SPNEGO authentication for enterprise environments (federation/kerberos/)",
+        "X.509 client certificate authentication (services/src/main/java/org/keycloak/services/x509/)",
+        "Role-based access control (RBAC) with realm and client roles (services/src/main/java/org/keycloak/services/resources/admin/RoleResource.java)"
+      ],
+      "integrations": [
+        "LDAP and Active Directory for user federation (federation/ldap/src/main/java/org/keycloak/storage/ldap/)",
+        "Kerberos for single sign-on in Windows environments (federation/kerberos/)",
+        "PostgreSQL, MySQL, MariaDB, Oracle databases via JPA/Hibernate (model/jpa/)",
+        "Infinispan for distributed caching and session replication (model/infinispan/)",
+        "SMTP email servers for user verification and notifications (services/src/main/java/org/keycloak/email/)",
+        "Social identity providers (Google, Facebook, GitHub, etc.) via OpenID Connect (services/src/main/java/org/keycloak/broker/)",
+        "SCIM 2.0 for user provisioning and synchronization (scim/)",
+        "Kubernetes via custom operator for cloud-native deployments (operator/)",
+        "Vault for secret management and key storage (services/src/main/java/org/keycloak/vault/)",
+        "Prometheus for metrics and monitoring (services/src/main/java/org/keycloak/services/managers/UserSessionManager.java)"
+      ],
+      "architecture": {
+        "pattern": "monolith with plugin-based extensibility",
+        "components": [
+          "Authentication Services - handles login flows and multi-factor authentication (services/src/main/java/org/keycloak/authentication/)",
+          "Protocol Handlers - implements OIDC, OAuth 2.0, and SAML protocols (services/src/main/java/org/keycloak/protocol/)",
+          "User Storage SPI - provides pluggable user federation (server-spi/src/main/java/org/keycloak/storage/)",
+          "Authorization Engine - evaluates policies and permissions (authz/)",
+          "Admin Console - React-based management UI (js/apps/admin-ui/)",
+          "Account Console - React-based user self-service UI (js/apps/account-ui/)",
+          "Theme Engine - customizable UI templates (services/src/main/java/org/keycloak/theme/)",
+          "Event System - auditing and logging framework (server-spi/src/main/java/org/keycloak/events/)",
+          "Clustering Layer - distributed session management (model/infinispan/)"
+        ],
+        "entry_points": [
+          "quarkus/server/src/main/java/org/keycloak/quarkus/runtime/KeycloakMain.java - main application entry point",
+          "js/apps/admin-ui/src/index.ts - admin UI entry point",
+          "js/apps/account-ui/src/index.ts - account UI entry point"
+        ],
+        "data_flow": "HTTP requests flow through JAX-RS resources to service managers, which interact with the storage layer (JPA/Infinispan). Authentication flows execute through configurable execution chains, while authorization decisions are evaluated by the policy engine. Session data is cached in Infinispan for performance and distributed across cluster nodes.",
+        "persistence": "JPA/Hibernate for relational data with Liquibase migrations, Infinispan for caching and session storage, supports PostgreSQL, MySQL, MariaDB, Oracle, H2",
+        "concurrency_model": "async with Quarkus reactive extensions and traditional thread-per-request for JAX-RS endpoints",
+        "communication_patterns": "HTTP REST APIs for admin and user interfaces, OpenID Connect/OAuth 2.0/SAML protocols for client communication, JPA for database access, Infinispan for inter-node communication",
+        "plugin_extension_model": "Service Provider Interface (SPI) pattern allows custom authentication flows, user storage providers, protocol mappers, event listeners, and themes"
+      },
+      "data_model": {
+        "primary_entities": [
+          "Realm - security domain containing users, roles, and clients",
+          "User - identity with credentials and attributes",
+          "Client - application or service requiring authentication",
+          "Role - permission assignment for users and clients",
+          "Group - user organization with hierarchical roles",
+          "Session - authentication state and context",
+          "Policy - authorization rules and conditions",
+          "Resource - protected asset requiring authorization"
+        ],
+        "storage_backends": [
+          "JPA/Hibernate for primary relational data",
+          "Infinispan for distributed caching and sessions",
+          "LDAP/Active Directory for federated users",
+          "File system for themes and configurations"
+        ],
+        "schema_patterns": "Relational model with JPA entities, normalized tables for users/roles/clients, denormalized session cache, hierarchical groups and policies",
+        "migration_strategy": "Liquibase changesets for database schema evolution with automatic migration on startup (model/jpa/src/main/resources/META-INF/jpa-changelog-master.xml)"
+      },
+      "algorithms": {
+        "problem_type": "Identity and access management with secure authentication, authorization policy evaluation, and distributed session management",
+        "core_patterns": [
+          "Chain of Responsibility for authentication flows",
+          "Strategy pattern for user storage providers and protocol handlers",
+          "Observer pattern for event listeners",
+          "Factory pattern for SPI implementations",
+          "Template Method for authentication flows",
+          "Decorator pattern for protocol mappers"
+        ],
+        "complexity_indicators": "Complex policy evaluation engine with JavaScript sandboxing, distributed session management across cluster nodes, protocol conversion between OIDC/OAuth2/SAML",
+        "key_algorithms": [
+          "JWT signing and validation with RSA/ECDSA algorithms",
+          "PBKDF2 and Argon2 password hashing",
+          "OAuth 2.0 authorization code flow with PKCE",
+          "SAML assertion processing and validation",
+          "Policy evaluation with JavaScript engine isolation"
+        ],
+        "evidence": "services/src/main/java/org/keycloak/protocol/oidc/TokenManager.java for JWT algorithms, services/src/main/java/org/keycloak/authentication/ for authentication flows, authz/policy/common/src/main/java/org/keycloak/authorization/policy/provider/js/ for policy evaluation"
+      },
+      "security_model": {
+        "authentication": "Multi-factor authentication with TOTP, WebAuthn, SMS; social login providers; certificate-based authentication; Kerberos/SPNEGO",
+        "authorization": "Fine-grained RBAC with realm and client roles, policy-based authorization with JavaScript rules, resource and scope-based permissions",
+        "data_protection": "JWT token signing with configurable algorithms, TLS/SSL for transport encryption, secure session management with httpOnly cookies",
+        "security_headers": "Configurable CORS policies, CSP headers, secure cookie attributes, rate limiting on authentication endpoints",
+        "vulnerability_handling": "SECURITY.md file present, dependency scanning in CI/CD, regular security updates and CVE tracking"
+      },
+      "dependencies": {
+        "runtime": [
+          "Quarkus 3.x framework",
+          "Hibernate ORM 6.x",
+          "RESTEasy JAX-RS implementation",
+          "Infinispan 14.x distributed cache",
+          "Jackson JSON processing",
+          "BouncyCastle cryptography",
+          "FreeMarker templating engine",
+          "Liquibase database migration"
+        ],
+        "dev": [
+          "JUnit 5 testing framework",
+          "Testcontainers for integration tests",
+          "Playwright for UI testing",
+          "Maven Surefire plugin",
+          "Arquillian testing platform"
+        ],
+        "infrastructure": [
+          "PostgreSQL, MySQL, MariaDB, Oracle databases",
+          "LDAP/Active Directory servers",
+          "SMTP email servers",
+          "Redis (optional for external caching)",
+          "Kubernetes (for operator deployment)"
+        ]
+      },
+      "deployment": {
+        "containerized": true,
+        "container_orchestration": "Docker and Kubernetes with custom operator",
+        "ci_cd": "GitHub Actions",
+        "environment_config": "Environment variables, system properties, configuration files, and database-stored realm settings",
+        "scaling_model": "Horizontal scaling with Infinispan clustering for session replication and load balancing"
+      },
+      "code_quality_signals": {
+        "has_tests": true,
+        "test_framework": "JUnit 5, Arquillian, Playwright, Testcontainers",
+        "test_count_estimate": "1000+ test files across test-framework/, */src/test/",
+        "has_linting": true,
+        "has_type_hints": true,
+        "documentation_quality": "well-documented",
+        "code_style": "Maven Checkstyle, ESLint for JavaScript/TypeScript, Prettier formatting"
+      },
+      "project_health": {
+        "license": "Apache-2.0",
+        "total_commits": "High activity with frequent commits",
+        "top_contributors": "Red Hat employees and community contributors",
+        "recent_activity": "Active development with regular releases, security updates, and feature additions",
+        "community_signals": "CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, issue templates, governance documentation"
+      },
+      "evidence_tracking": {
+        "files_analyzed": [
+          "pom.xml - Maven configuration and dependencies",
+          "js/apps/admin-ui/package.json - React UI dependencies",
+          "services/src/main/java/org/keycloak/protocol/oidc/ - OIDC implementation",
+          "services/src/main/java/org/keycloak/authentication/ - Authentication flows",
+          "model/jpa/src/main/resources/META-INF/jpa-changelog-master.xml - Database schema",
+          "quarkus/server/src/main/java/org/keycloak/quarkus/runtime/KeycloakMain.java - Application entry point",
+          "adapters/saml/core/ - SAML adapter implementation",
+          "operator/src/main/java/org/keycloak/operator/ - Kubernetes operator",
+          "authz/policy/common/ - Authorization policy providers",
+          "federation/ldap/ - LDAP integration"
+        ],
+        "confidence_level": "High",
+        "information_gaps": [
+          "Exact performance benchmarks and scalability limits",
+          "Complete list of supported social identity providers",
+          "Detailed FIPS compliance features"
+        ]
+      },
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      }
+    },
+    "extracted_data": {},
+    "source": "local_repo",
+    "source_confidence": "high",
+    "timestamp": "2026-04-09T15:24:53.408954"
+  },
+  "step2": {
+    "step1_data": {
+      "product_name": "keycloak",
+      "url": "https://github.com/keycloak/keycloak.git",
+      "analysis": {
+        "summary": "Keycloak is an enterprise-grade identity and access management (IAM) server built on Quarkus that provides single sign-on (SSO), user federation, authentication, and authorization services. It implements OpenID Connect, OAuth 2.0, and SAML protocols for securing applications and services. The system follows a modular architecture with separate layers for authentication providers, user storage, policy engines, and protocol adapters.",
+        "capabilities": [
+          "Processes OpenID Connect authentication flows including authorization code, implicit, and device flows (services/src/main/java/org/keycloak/protocol/oidc/)",
+          "Implements SAML 2.0 identity provider and service provider functionality with metadata parsing (adapters/saml/core/src/main/java/org/keycloak/adapters/saml/)",
+          "Manages user authentication sessions with configurable timeouts and single sign-out (services/src/main/java/org/keycloak/services/managers/AuthenticationSessionManager.java)",
+          "Provides user federation with LDAP and Kerberos integration for external user stores (federation/ldap/, federation/kerberos/)",
+          "Implements fine-grained role-based access control (RBAC) with realm and client-level roles (services/src/main/java/org/keycloak/services/resources/admin/RoleResource.java)",
+          "Executes JavaScript-based authorization policies with sandboxed evaluation (authz/policy/common/src/main/java/org/keycloak/authorization/policy/provider/js/)",
+          "Manages OAuth 2.0 scopes and consent screens with customizable user approval flows (services/src/main/java/org/keycloak/services/resources/OAuthGrantResource.java)",
+          "Processes multi-factor authentication with TOTP, WebAuthn, and SMS verification (services/src/main/java/org/keycloak/authentication/authenticators/)",
+          "Implements database-agnostic persistence layer with JPA/Hibernate and Infinispan caching (model/jpa/, model/infinispan/)",
+          "Provides REST API for administrative operations with comprehensive CRUD operations (rest/admin-ui-ext/, rest/admin-v2/)",
+          "Generates and validates JWT tokens with configurable signing algorithms and claims (services/src/main/java/org/keycloak/protocol/oidc/TokenManager.java)",
+          "Implements user registration and password reset workflows with email verification (services/src/main/java/org/keycloak/services/resources/LoginActionsService.java)",
+          "Manages client certificates and key stores for mutual TLS authentication (services/src/main/java/org/keycloak/services/x509/)",
+          "Executes authentication flows with configurable execution chains and conditions (services/src/main/java/org/keycloak/authentication/)",
+          "Provides theme customization engine with FreeMarker templating for UI rendering (services/src/main/java/org/keycloak/theme/)",
+          "Implements event logging and auditing with configurable event listeners (server-spi/src/main/java/org/keycloak/events/)",
+          "Processes user profile management with custom attributes and validation (services/src/main/java/org/keycloak/userprofile/)",
+          "Manages realm configurations with hierarchical settings and inheritance (services/src/main/java/org/keycloak/services/resources/admin/RealmAdminResource.java)",
+          "Implements protocol mappers for token customization and claim transformation (services/src/main/java/org/keycloak/protocol/ProtocolMapper.java)",
+          "Provides client adapter libraries for Java applications with SAML and OpenID Connect support (adapters/)",
+          "Executes database migrations with Liquibase for schema versioning (model/jpa/src/main/resources/META-INF/jpa-changelog-master.xml)",
+          "Implements clustering support with Infinispan distributed caching for high availability (model/infinispan/src/main/java/org/keycloak/cluster/infinispan/)",
+          "Processes SCIM 2.0 protocol for user provisioning and synchronization (scim/)",
+          "Provides operator for Kubernetes deployments with custom resource definitions (operator/src/main/java/org/keycloak/operator/)",
+          "Implements WebAuthn/FIDO2 authentication with passkey support (services/src/main/java/org/keycloak/authentication/authenticators/browser/WebAuthnAuthenticator.java)"
+        ],
+        "use_cases": [
+          "Enterprise IT teams use Keycloak to implement single sign-on across web applications and microservices with centralized user management",
+          "DevOps engineers deploy Keycloak as an identity provider for securing APIs and services with OAuth 2.0 and OpenID Connect",
+          "Application developers integrate Keycloak adapters to add authentication and authorization to Java web applications",
+          "Security architects implement zero-trust security models using Keycloak's fine-grained authorization policies and multi-factor authentication",
+          "Platform teams use the Keycloak Operator to manage identity services in Kubernetes environments with automated scaling and updates"
+        ],
+        "category": "Identity and Access Management (IAM) Server",
+        "target_audience": "Enterprise architects, DevOps engineers, Java developers, Security engineers, Platform engineers",
+        "technical_stack": [
+          "Java 21 (pom.xml maven.compiler.release=21)",
+          "Quarkus (quarkus/runtime/pom.xml)",
+          "Hibernate/JPA (model/jpa/pom.xml)",
+          "Infinispan distributed caching (model/infinispan/pom.xml)",
+          "RESTEasy JAX-RS (dependencies in pom.xml)",
+          "React 18.2+ (js/apps/admin-ui/package.json)",
+          "PatternFly 4 UI components (js/apps/admin-ui/package.json)",
+          "TypeScript 5+ (js/apps/admin-ui/package.json)",
+          "Vite build tool (js/apps/admin-ui/vite.config.ts)",
+          "Maven build system (pom.xml)",
+          "Docker containerization (quarkus/container/Dockerfile)",
+          "Kubernetes Operator SDK (operator/pom.xml)",
+          "PostgreSQL, MySQL, MariaDB support (test-framework/db-*/)",
+          "Liquibase database migrations (model/jpa/src/main/resources/META-INF/)"
+        ],
+        "api_endpoints": [
+          "GET /realms/{realm}/protocol/openid-connect/auth \u2014 OpenID Connect authorization endpoint",
+          "POST /realms/{realm}/protocol/openid-connect/token \u2014 Token endpoint for OAuth 2.0/OIDC",
+          "GET /realms/{realm}/protocol/openid-connect/userinfo \u2014 User info endpoint",
+          "POST /realms/{realm}/protocol/openid-connect/logout \u2014 Logout endpoint",
+          "GET /realms/{realm}/protocol/saml \u2014 SAML authentication endpoint",
+          "POST /realms/{realm}/protocol/saml \u2014 SAML assertion consumer service",
+          "GET /admin/realms/{realm}/users \u2014 Admin API for user management",
+          "POST /admin/realms/{realm}/users \u2014 Create new user via admin API",
+          "GET /admin/realms/{realm}/clients \u2014 List clients in realm",
+          "POST /admin/realms/{realm}/clients \u2014 Create new client",
+          "GET /admin/realms/{realm}/roles \u2014 List roles in realm",
+          "GET /realms/{realm}/.well-known/openid-configuration \u2014 OIDC discovery endpoint",
+          "GET /realms/{realm}/protocol/saml/descriptor \u2014 SAML metadata endpoint"
+        ],
+        "sdk_languages": [
+          "Java (adapters/saml/core/, adapters/spi/)",
+          "JavaScript/TypeScript (js/libs/keycloak-admin-client/, js/libs/keycloak-js/)",
+          "Node.js (js/libs/keycloak-admin-client/)"
+        ],
+        "auth_methods": [
+          "OpenID Connect with authorization code, implicit, and device flows (services/src/main/java/org/keycloak/protocol/oidc/)",
+          "OAuth 2.0 with client credentials and refresh token flows (services/src/main/java/org/keycloak/protocol/oidc/)",
+          "SAML 2.0 identity provider and service provider (services/src/main/java/org/keycloak/protocol/saml/)",
+          "Multi-factor authentication with TOTP, WebAuthn, and SMS (services/src/main/java/org/keycloak/authentication/authenticators/)",
+          "JWT bearer token authentication with configurable signing algorithms (services/src/main/java/org/keycloak/protocol/oidc/TokenManager.java)",
+          "Kerberos/SPNEGO authentication for enterprise environments (federation/kerberos/)",
+          "X.509 client certificate authentication (services/src/main/java/org/keycloak/services/x509/)",
+          "Role-based access control (RBAC) with realm and client roles (services/src/main/java/org/keycloak/services/resources/admin/RoleResource.java)"
+        ],
+        "integrations": [
+          "LDAP and Active Directory for user federation (federation/ldap/src/main/java/org/keycloak/storage/ldap/)",
+          "Kerberos for single sign-on in Windows environments (federation/kerberos/)",
+          "PostgreSQL, MySQL, MariaDB, Oracle databases via JPA/Hibernate (model/jpa/)",
+          "Infinispan for distributed caching and session replication (model/infinispan/)",
+          "SMTP email servers for user verification and notifications (services/src/main/java/org/keycloak/email/)",
+          "Social identity providers (Google, Facebook, GitHub, etc.) via OpenID Connect (services/src/main/java/org/keycloak/broker/)",
+          "SCIM 2.0 for user provisioning and synchronization (scim/)",
+          "Kubernetes via custom operator for cloud-native deployments (operator/)",
+          "Vault for secret management and key storage (services/src/main/java/org/keycloak/vault/)",
+          "Prometheus for metrics and monitoring (services/src/main/java/org/keycloak/services/managers/UserSessionManager.java)"
+        ],
+        "architecture": {
+          "pattern": "monolith with plugin-based extensibility",
+          "components": [
+            "Authentication Services - handles login flows and multi-factor authentication (services/src/main/java/org/keycloak/authentication/)",
+            "Protocol Handlers - implements OIDC, OAuth 2.0, and SAML protocols (services/src/main/java/org/keycloak/protocol/)",
+            "User Storage SPI - provides pluggable user federation (server-spi/src/main/java/org/keycloak/storage/)",
+            "Authorization Engine - evaluates policies and permissions (authz/)",
+            "Admin Console - React-based management UI (js/apps/admin-ui/)",
+            "Account Console - React-based user self-service UI (js/apps/account-ui/)",
+            "Theme Engine - customizable UI templates (services/src/main/java/org/keycloak/theme/)",
+            "Event System - auditing and logging framework (server-spi/src/main/java/org/keycloak/events/)",
+            "Clustering Layer - distributed session management (model/infinispan/)"
+          ],
+          "entry_points": [
+            "quarkus/server/src/main/java/org/keycloak/quarkus/runtime/KeycloakMain.java - main application entry point",
+            "js/apps/admin-ui/src/index.ts - admin UI entry point",
+            "js/apps/account-ui/src/index.ts - account UI entry point"
+          ],
+          "data_flow": "HTTP requests flow through JAX-RS resources to service managers, which interact with the storage layer (JPA/Infinispan). Authentication flows execute through configurable execution chains, while authorization decisions are evaluated by the policy engine. Session data is cached in Infinispan for performance and distributed across cluster nodes.",
+          "persistence": "JPA/Hibernate for relational data with Liquibase migrations, Infinispan for caching and session storage, supports PostgreSQL, MySQL, MariaDB, Oracle, H2",
+          "concurrency_model": "async with Quarkus reactive extensions and traditional thread-per-request for JAX-RS endpoints",
+          "communication_patterns": "HTTP REST APIs for admin and user interfaces, OpenID Connect/OAuth 2.0/SAML protocols for client communication, JPA for database access, Infinispan for inter-node communication",
+          "plugin_extension_model": "Service Provider Interface (SPI) pattern allows custom authentication flows, user storage providers, protocol mappers, event listeners, and themes"
+        },
+        "data_model": {
+          "primary_entities": [
+            "Realm - security domain containing users, roles, and clients",
+            "User - identity with credentials and attributes",
+            "Client - application or service requiring authentication",
+            "Role - permission assignment for users and clients",
+            "Group - user organization with hierarchical roles",
+            "Session - authentication state and context",
+            "Policy - authorization rules and conditions",
+            "Resource - protected asset requiring authorization"
+          ],
+          "storage_backends": [
+            "JPA/Hibernate for primary relational data",
+            "Infinispan for distributed caching and sessions",
+            "LDAP/Active Directory for federated users",
+            "File system for themes and configurations"
+          ],
+          "schema_patterns": "Relational model with JPA entities, normalized tables for users/roles/clients, denormalized session cache, hierarchical groups and policies",
+          "migration_strategy": "Liquibase changesets for database schema evolution with automatic migration on startup (model/jpa/src/main/resources/META-INF/jpa-changelog-master.xml)"
+        },
+        "algorithms": {
+          "problem_type": "Identity and access management with secure authentication, authorization policy evaluation, and distributed session management",
+          "core_patterns": [
+            "Chain of Responsibility for authentication flows",
+            "Strategy pattern for user storage providers and protocol handlers",
+            "Observer pattern for event listeners",
+            "Factory pattern for SPI implementations",
+            "Template Method for authentication flows",
+            "Decorator pattern for protocol mappers"
+          ],
+          "complexity_indicators": "Complex policy evaluation engine with JavaScript sandboxing, distributed session management across cluster nodes, protocol conversion between OIDC/OAuth2/SAML",
+          "key_algorithms": [
+            "JWT signing and validation with RSA/ECDSA algorithms",
+            "PBKDF2 and Argon2 password hashing",
+            "OAuth 2.0 authorization code flow with PKCE",
+            "SAML assertion processing and validation",
+            "Policy evaluation with JavaScript engine isolation"
+          ],
+          "evidence": "services/src/main/java/org/keycloak/protocol/oidc/TokenManager.java for JWT algorithms, services/src/main/java/org/keycloak/authentication/ for authentication flows, authz/policy/common/src/main/java/org/keycloak/authorization/policy/provider/js/ for policy evaluation"
+        },
+        "security_model": {
+          "authentication": "Multi-factor authentication with TOTP, WebAuthn, SMS; social login providers; certificate-based authentication; Kerberos/SPNEGO",
+          "authorization": "Fine-grained RBAC with realm and client roles, policy-based authorization with JavaScript rules, resource and scope-based permissions",
+          "data_protection": "JWT token signing with configurable algorithms, TLS/SSL for transport encryption, secure session management with httpOnly cookies",
+          "security_headers": "Configurable CORS policies, CSP headers, secure cookie attributes, rate limiting on authentication endpoints",
+          "vulnerability_handling": "SECURITY.md file present, dependency scanning in CI/CD, regular security updates and CVE tracking"
+        },
+        "dependencies": {
+          "runtime": [
+            "Quarkus 3.x framework",
+            "Hibernate ORM 6.x",
+            "RESTEasy JAX-RS implementation",
+            "Infinispan 14.x distributed cache",
+            "Jackson JSON processing",
+            "BouncyCastle cryptography",
+            "FreeMarker templating engine",
+            "Liquibase database migration"
+          ],
+          "dev": [
+            "JUnit 5 testing framework",
+            "Testcontainers for integration tests",
+            "Playwright for UI testing",
+            "Maven Surefire plugin",
+            "Arquillian testing platform"
+          ],
+          "infrastructure": [
+            "PostgreSQL, MySQL, MariaDB, Oracle databases",
+            "LDAP/Active Directory servers",
+            "SMTP email servers",
+            "Redis (optional for external caching)",
+            "Kubernetes (for operator deployment)"
+          ]
+        },
+        "deployment": {
+          "containerized": true,
+          "container_orchestration": "Docker and Kubernetes with custom operator",
+          "ci_cd": "GitHub Actions",
+          "environment_config": "Environment variables, system properties, configuration files, and database-stored realm settings",
+          "scaling_model": "Horizontal scaling with Infinispan clustering for session replication and load balancing"
+        },
+        "code_quality_signals": {
+          "has_tests": true,
+          "test_framework": "JUnit 5, Arquillian, Playwright, Testcontainers",
+          "test_count_estimate": "1000+ test files across test-framework/, */src/test/",
+          "has_linting": true,
+          "has_type_hints": true,
+          "documentation_quality": "well-documented",
+          "code_style": "Maven Checkstyle, ESLint for JavaScript/TypeScript, Prettier formatting"
+        },
+        "project_health": {
+          "license": "Apache-2.0",
+          "total_commits": "High activity with frequent commits",
+          "top_contributors": "Red Hat employees and community contributors",
+          "recent_activity": "Active development with regular releases, security updates, and feature additions",
+          "community_signals": "CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, issue templates, governance documentation"
+        },
+        "evidence_tracking": {
+          "files_analyzed": [
+            "pom.xml - Maven configuration and dependencies",
+            "js/apps/admin-ui/package.json - React UI dependencies",
+            "services/src/main/java/org/keycloak/protocol/oidc/ - OIDC implementation",
+            "services/src/main/java/org/keycloak/authentication/ - Authentication flows",
+            "model/jpa/src/main/resources/META-INF/jpa-changelog-master.xml - Database schema",
+            "quarkus/server/src/main/java/org/keycloak/quarkus/runtime/KeycloakMain.java - Application entry point",
+            "adapters/saml/core/ - SAML adapter implementation",
+            "operator/src/main/java/org/keycloak/operator/ - Kubernetes operator",
+            "authz/policy/common/ - Authorization policy providers",
+            "federation/ldap/ - LDAP integration"
+          ],
+          "confidence_level": "High",
+          "information_gaps": [
+            "Exact performance benchmarks and scalability limits",
+            "Complete list of supported social identity providers",
+            "Detailed FIPS compliance features"
+          ]
+        },
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        }
+      },
+      "extracted_data": {},
+      "source": "local_repo",
+      "source_confidence": "high",
+      "timestamp": "2026-04-09T15:24:53.408954"
+    },
+    "generalization": {
+      "functional_dna": {
+        "logic_archetype": "Authentication/Authorization Service",
+        "logic_archetype_evidence": "The system processes authentication flows with configurable execution chains, validates JWT tokens with signing algorithms, and executes JavaScript-based authorization policies with sandboxed evaluation. It implements multiple authentication protocols (OIDC, SAML, OAuth 2.0) and manages user sessions with configurable timeouts.",
+        "data_contract_strictness": "Highly Structured",
+        "data_contract_evidence": "Evidence: Strict JPA entity models, OpenID Connect/SAML protocol compliance, REST API with comprehensive CRUD operations, and Liquibase schema migrations indicate rigid data contracts and protocol adherence.",
+        "core_algorithmic_class": "State Machine",
+        "core_algorithmic_evidence": "Evidence from authentication flow execution chains with configurable conditions, session state management with timeouts and transitions, and policy evaluation engines that process rules through defined states and transitions.",
+        "concurrency_requirements": "Eventually Consistent",
+        "concurrency_evidence": "Evidence from Infinispan distributed caching for session replication across cluster nodes, JPA/Hibernate for database persistence, and Quarkus reactive extensions supporting both async and traditional threading models.",
+        "abstract_problem": "Maintains identity verification state and access permissions across distributed clients through protocol-agnostic token exchange with configurable policy evaluation and session lifecycle management.",
+        "data_flow_pattern": "Request \u2192 protocol validation \u2192 authentication flow execution \u2192 policy evaluation \u2192 token generation \u2192 session persistence \u2192 response with distributed cache synchronization",
+        "state_complexity": "Distributed",
+        "repurposing_confidence": 8,
+        "repurposing_reasoning": "The core SPI pattern and pluggable architecture make many components highly reusable. Authentication flows, session management, and policy engines are abstract enough for other domains. However, protocol handlers (OIDC, SAML) and user federation components are identity-specific. The distributed caching, REST API framework, and plugin system could be repurposed for any system requiring secure state management across multiple clients."
+      },
+      "evidence_claims": [
+        {
+          "claim": "Implements configurable authentication flow execution chains",
+          "evidence": "services/src/main/java/org/keycloak/authentication/ - Authentication flows",
+          "confidence": "High"
+        },
+        {
+          "claim": "Uses Service Provider Interface pattern for extensibility",
+          "evidence": "server-spi/src/main/java/org/keycloak/storage/ - User Storage SPI",
+          "confidence": "High"
+        },
+        {
+          "claim": "Employs distributed caching with Infinispan for session replication",
+          "evidence": "model/infinispan/src/main/java/org/keycloak/cluster/infinispan/ - clustering support",
+          "confidence": "High"
+        },
+        {
+          "claim": "Executes JavaScript-based policies in sandboxed environment",
+          "evidence": "authz/policy/common/src/main/java/org/keycloak/authorization/policy/provider/js/ - JS policy evaluation",
+          "confidence": "High"
+        },
+        {
+          "claim": "Built on Quarkus runtime with reactive extensions",
+          "evidence": "quarkus/runtime/pom.xml and async concurrency model documentation",
+          "confidence": "High"
+        }
+      ],
+      "market_reach": {
+        "primary_industry": "Enterprise Software/Identity Management",
+        "cross_industry_applications": [
+          "Healthcare Systems - Patient record access control with HIPAA compliance and audit trails",
+          "Financial Services - Multi-factor authentication for banking applications with fraud detection policies",
+          "Manufacturing IoT - Device authentication and authorization for industrial control systems",
+          "Educational Platforms - Student/faculty access management across learning management systems",
+          "Government/Public Sector - Citizen portal access with various authentication methods and security clearance levels",
+          "Gaming/Entertainment - Player authentication with social login integration and content access control",
+          "Supply Chain Management - Vendor/partner access control with role-based permissions across logistics systems",
+          "Telecommunications - Subscriber authentication and service authorization for network access control"
+        ],
+        "utility_score": 9,
+        "market_potential": "High"
+      },
+      "friction_report": {
+        "difficulty": "High",
+        "estimated_hours": 240,
+        "required_technologies": [
+          "Java 21",
+          "Quarkus",
+          "Hibernate/JPA",
+          "Infinispan",
+          "RESTEasy JAX-RS",
+          "React",
+          "TypeScript",
+          "PostgreSQL/MySQL"
+        ],
+        "complexity_factors": [
+          "Distributed session state management",
+          "Multiple protocol implementations",
+          "Complex authentication flow chains",
+          "JPA entity relationship mapping",
+          "Infinispan cluster configuration",
+          "SPI plugin architecture"
+        ],
+        "risk_level": "Medium",
+        "migration_path": "Extract core authentication flow engine and session management components, replace protocol handlers with domain-specific adapters, implement custom user storage providers, and adapt the admin UI for specific use case requirements."
+      },
+      "interface_map": {
+        "adapter_schema": {
+          "input": {
+            "format": "HTTP REST/Protocol-specific",
+            "required_fields": [
+              "user_credentials",
+              "client_id",
+              "realm",
+              "scope"
+            ],
+            "protocols": [
+              "HTTP",
+              "OIDC",
+              "SAML",
+              "OAuth 2.0"
+            ]
+          },
+          "output": {
+            "format": "JWT tokens/Protocol responses",
+            "delivery": "sync"
+          },
+          "authentication": {
+            "type": "Multi-modal",
+            "method": "Username/password, MFA, certificates, social providers"
+          }
+        },
+        "standardization_level": "High",
+        "api_surface_area": "Large (50+)"
+      },
+      "comparable_systems": [
+        "Istio Service Mesh - Policy enforcement and request routing with pluggable architecture",
+        "Kong API Gateway - Request processing pipelines with plugin extensibility and distributed configuration",
+        "HashiCorp Vault - Secret management with policy engines and multiple authentication backends",
+        "Apache Kafka Connect - Data pipeline orchestration with pluggable connectors and distributed coordination",
+        "Kubernetes RBAC - Resource access control with role-based policies and distributed state management"
+      ],
+      "information_gaps": [
+        "Exact scalability limits and performance benchmarks under load",
+        "Complete list of supported social identity providers and their configuration",
+        "Detailed FIPS compliance features and cryptographic implementations",
+        "Specific clustering topology requirements and network configurations"
+      ]
+    },
+    "timestamp": "2026-04-09T15:25:23.292266"
+  },
+  "errors": []
 }

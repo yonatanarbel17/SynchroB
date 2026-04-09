@@ -1,10 +1,636 @@
 {
   "url": "https://github.com/go-gitea/gitea.git",
   "repo_name": "gitea",
-  "timestamp": "2026-03-25T19:00:59.088131",
-  "step1": null,
-  "step2": null,
-  "errors": [
-    "Local repo discovery failed: LLM analysis failed \u2014 no response from any client"
-  ]
+  "timestamp": "2026-04-09T11:18:17.548908",
+  "step1": {
+    "product_name": "gitea",
+    "url": "https://github.com/go-gitea/gitea.git",
+    "analysis": {
+      "summary": "Gitea is a self-hosted Git service written in Go that provides web-based Git repository hosting, issue tracking, pull requests, and continuous integration. It implements a monolithic web application architecture with SQLite, PostgreSQL, MySQL, and MSSQL database support, featuring both web UI and REST API interfaces. The system uses a traditional MVC pattern with chi router for HTTP routing, XORM for database ORM, and includes built-in CI/CD capabilities through Gitea Actions.",
+      "capabilities": [
+        "Hosts Git repositories with web-based browsing and file editing (web_src/js/features/repo-editor.ts, models/repo/)",
+        "Manages user authentication with multiple backends including LDAP, OAuth2, SMTP, and WebAuthn (models/auth/, modules/auth/)",
+        "Provides issue tracking with labels, milestones, assignees, and project boards (models/issues/, web_src/js/features/repo-issue.ts)",
+        "Implements pull request workflow with reviews, approvals, and merge strategies (models/pull/, web_src/js/features/repo-issue.ts)",
+        "Executes CI/CD pipelines through Gitea Actions with runner support (models/actions/, cmd/actions.go)",
+        "Serves Git operations over HTTP and SSH protocols (cmd/serv.go, modules/ssh/)",
+        "Manages organizations with team-based access control (models/organization/, web_src/js/features/org-team.ts)",
+        "Provides webhook integration for external service notifications (models/webhook/, web_src/js/features/comp/WebHookEditor.ts)",
+        "Implements Git LFS (Large File Storage) support for binary file handling (modules/lfs/, modules/lfstransfer/)",
+        "Offers package registry functionality for multiple package types (models/packages/, modules/packages/)",
+        "Provides code search with indexing capabilities using Bleve or Elasticsearch (modules/indexer/)",
+        "Manages SSH and GPG key authentication for secure Git operations (models/asymkey/)",
+        "Implements repository mirroring for external Git repositories (models/repo/, cmd/migrate.go)",
+        "Provides admin interface for user, organization, and system management (cmd/admin.go, web_src/js/features/admin/)",
+        "Supports multiple database backends with migration system (models/db/, models/migrations/)",
+        "Implements markup rendering for Markdown, AsciiDoc, and other formats (modules/markup/)",
+        "Provides real-time notifications and activity feeds (models/activities/, web_src/js/features/notification.ts)",
+        "Offers code editor with syntax highlighting using CodeMirror (web_src/js/modules/codeeditor/)",
+        "Manages file uploads and attachments with configurable storage backends (modules/storage/)",
+        "Implements rate limiting and security headers for web requests (modules/web/middleware/)",
+        "Provides repository statistics and contribution graphs (web_src/js/features/heatmap.ts, web_src/js/features/contributors.ts)",
+        "Supports repository templates and initialization from external sources (modules/repository/)",
+        "Implements backup and restore functionality for repositories and data (cmd/dump.go, cmd/restore_repo.go)",
+        "Provides multi-language support with internationalization (options/locale/, web_src/js/modules/i18n.ts)",
+        "Manages session storage with configurable backends including Redis (modules/session/, gitea.com/go-chi/session)"
+      ],
+      "use_cases": [
+        "Software development teams use this to host private Git repositories with web-based collaboration features",
+        "Open source projects use this as an alternative to GitHub for self-hosted Git repository management",
+        "DevOps teams use this for CI/CD automation through integrated Gitea Actions workflows",
+        "Organizations use this to maintain control over source code hosting while providing GitHub-like features",
+        "Development teams use this for code review workflows with pull requests and inline commenting"
+      ],
+      "category": "Git Repository Management Platform",
+      "target_audience": "Software developers, DevOps engineers, System administrators, Open source maintainers",
+      "technical_stack": [
+        "Go 1.26.2 (go.mod)",
+        "Chi v5 HTTP router (github.com/go-chi/chi/v5 in go.mod)",
+        "XORM database ORM (xorm.io/xorm v1.3.9 in go.mod)",
+        "SQLite, PostgreSQL, MySQL, MSSQL database support (go.mod dependencies)",
+        "TypeScript 5.7.3 for frontend (package.json)",
+        "Fomantic-UI for CSS framework (web_src/fomantic/)",
+        "CodeMirror 6.x for code editing (package.json)",
+        "Docker containerization (Dockerfile, docker-compose support)",
+        "Prometheus metrics support (github.com/prometheus/client_golang in go.mod)",
+        "Redis for caching and sessions (github.com/redis/go-redis/v9 in go.mod)",
+        "Elasticsearch/Bleve for code indexing (github.com/blevesearch/bleve/v2 in go.mod)",
+        "Git operations via go-git (github.com/go-git/go-git/v5 in go.mod)",
+        "S3-compatible storage (AWS SDK, MinIO support in go.mod)",
+        "LDAP authentication (github.com/go-ldap/ldap/v3 in go.mod)"
+      ],
+      "api_endpoints": [
+        "GET /api/v1/repos/{owner}/{repo} \u2014 Get repository information",
+        "POST /api/v1/repos/{owner}/{repo}/issues \u2014 Create new issue",
+        "GET /api/v1/user/repos \u2014 List user repositories",
+        "POST /api/v1/orgs/{org}/repos \u2014 Create organization repository",
+        "GET /api/v1/repos/{owner}/{repo}/pulls \u2014 List pull requests",
+        "POST /api/v1/repos/{owner}/{repo}/hooks \u2014 Create webhook",
+        "GET /api/v1/user \u2014 Get authenticated user information",
+        "POST /api/v1/user/keys \u2014 Add SSH key to user account",
+        "GET /api/v1/repos/{owner}/{repo}/actions/runs \u2014 List action runs",
+        "POST /api/v1/repos/{owner}/{repo}/mirror-sync \u2014 Trigger mirror sync"
+      ],
+      "sdk_languages": [
+        "Go (code.gitea.io/sdk/gitea v0.24.1 - official SDK in go.mod)",
+        "CLI tool 'tea' for command-line interaction (mentioned in README)"
+      ],
+      "auth_methods": [
+        "Local user accounts with bcrypt password hashing (models/auth/)",
+        "LDAP/Active Directory integration (cmd/admin_auth_ldap.go, modules/auth/ldap/)",
+        "OAuth2 provider and client support (models/auth/oauth2.go)",
+        "SMTP authentication (cmd/admin_auth_smtp.go)",
+        "WebAuthn/FIDO2 for passwordless authentication (models/auth/webauthn.go)",
+        "SSH key authentication for Git operations (models/asymkey/ssh_key.go)",
+        "GPG key signing verification (models/asymkey/gpg_key.go)",
+        "API token authentication for REST API access (models/auth/access_token.go)"
+      ],
+      "integrations": [
+        "PostgreSQL database via lib/pq driver (github.com/lib/pq in go.mod)",
+        "MySQL/MariaDB via go-sql-driver (github.com/go-sql-driver/mysql in go.mod)",
+        "SQLite via modernc.org/sqlite (modernc.org/sqlite in go.mod)",
+        "Redis for caching and sessions (github.com/redis/go-redis/v9 in go.mod)",
+        "AWS S3 for object storage (github.com/aws/aws-sdk-go-v2 in go.mod)",
+        "MinIO S3-compatible storage (github.com/minio/minio-go/v7 in go.mod)",
+        "Azure Blob Storage (github.com/Azure/azure-sdk-for-go in go.mod)",
+        "Elasticsearch for code indexing (github.com/elastic/go-elasticsearch/v8 in go.mod)",
+        "LDAP directory services (github.com/go-ldap/ldap/v3 in go.mod)",
+        "SMTP email services for notifications (github.com/jordan-wright/email in go.mod)",
+        "Prometheus metrics collection (github.com/prometheus/client_golang in go.mod)",
+        "Discord webhook notifications (gitea.com/lunny/dingtalk_webhook in go.mod)"
+      ],
+      "architecture": {
+        "pattern": "monolith",
+        "components": [
+          "Web server with HTTP/HTTPS endpoints (cmd/web.go)",
+          "Git repository storage and operations (modules/git/)",
+          "Database layer with XORM ORM (models/db/)",
+          "Authentication and authorization system (models/auth/, modules/auth/)",
+          "CI/CD execution engine (models/actions/, modules/actions/)",
+          "Package registry (models/packages/, modules/packages/)",
+          "Search indexing service (modules/indexer/)",
+          "Background task queue processing (modules/queue/)",
+          "File storage abstraction layer (modules/storage/)",
+          "Markup rendering engine (modules/markup/)"
+        ],
+        "entry_points": [
+          "main.go",
+          "cmd/main.go"
+        ],
+        "data_flow": "HTTP requests flow through chi router middleware to handlers, which interact with XORM models for database operations. Git operations are handled through modules/git package interfacing with filesystem repositories. Background tasks are queued via modules/queue and processed asynchronously. File uploads go through storage abstraction to filesystem, S3, or other configured backends.",
+        "persistence": "XORM ORM with support for SQLite, PostgreSQL, MySQL, MSSQL. Database migrations in models/migrations/. Git repositories stored on filesystem. Optional Redis for sessions/cache. Configurable object storage backends.",
+        "concurrency_model": "Traditional Go goroutines with HTTP request handling. Background job processing via queue system. Database connection pooling through XORM.",
+        "communication_patterns": "HTTP REST API, WebSocket for real-time features, Git protocol over HTTP/SSH, webhook callbacks for external integrations",
+        "plugin_extension_model": "Modular architecture with pluggable authentication backends, storage providers, markup renderers, and queue implementations"
+      },
+      "data_model": {
+        "primary_entities": [
+          "User accounts and organizations (models/user/, models/organization/)",
+          "Git repositories with metadata (models/repo/)",
+          "Issues and pull requests (models/issues/, models/pull/)",
+          "CI/CD actions and runners (models/actions/)",
+          "Package registry artifacts (models/packages/)",
+          "SSH/GPG keys for authentication (models/asymkey/)",
+          "Webhooks and integrations (models/webhook/)",
+          "Access tokens and OAuth applications (models/auth/)"
+        ],
+        "storage_backends": [
+          "SQLite",
+          "PostgreSQL",
+          "MySQL",
+          "MSSQL",
+          "Filesystem",
+          "S3",
+          "Azure Blob",
+          "MinIO"
+        ],
+        "schema_patterns": "Relational database schema with foreign key relationships. Git repositories stored as filesystem directories. Binary files in object storage.",
+        "migration_strategy": "Versioned database migrations in models/migrations/ with automatic upgrade on startup"
+      },
+      "algorithms": {
+        "problem_type": "Git repository management, version control collaboration, and CI/CD automation",
+        "core_patterns": [
+          "Repository pattern for data access (models/ packages)",
+          "Middleware pattern for HTTP request processing (modules/web/middleware/)",
+          "Observer pattern for webhook notifications",
+          "Strategy pattern for authentication backends",
+          "Template pattern for markup rendering",
+          "Queue pattern for background job processing"
+        ],
+        "complexity_indicators": "Large codebase with 2878 Go files, complex database relationships, Git protocol implementation, multi-tenant organization support",
+        "key_algorithms": [
+          "Git diff algorithms for code comparison (modules/git/)",
+          "Tree-walking for repository browsing",
+          "Merkle tree verification for Git integrity",
+          "Full-text search indexing with Bleve/Elasticsearch",
+          "RBAC permission resolution for access control"
+        ],
+        "evidence": "modules/git/ contains Git protocol implementation, modules/indexer/ implements search algorithms, models/perm/ handles permission calculations"
+      },
+      "security_model": {
+        "authentication": "Multi-backend authentication: local accounts, LDAP, OAuth2, SMTP, WebAuthn. SSH/GPG key authentication for Git operations.",
+        "authorization": "Role-based access control with organization/team permissions, repository-level access controls, API token scoping",
+        "data_protection": "Configurable secret encryption, HTTPS/TLS support, secure session management, password hashing with bcrypt",
+        "security_headers": "CORS configuration, CSP headers, rate limiting middleware (modules/web/middleware/)",
+        "vulnerability_handling": "SECURITY.md file present, dependency scanning via GitHub Actions, private security reporting"
+      },
+      "dependencies": {
+        "runtime": [
+          "github.com/go-chi/chi/v5 v5.2.0",
+          "xorm.io/xorm v1.3.9",
+          "github.com/lib/pq v1.10.9",
+          "github.com/go-sql-driver/mysql v1.8.1",
+          "modernc.org/sqlite v1.34.4",
+          "github.com/redis/go-redis/v9 v9.7.0",
+          "github.com/blevesearch/bleve/v2 v2.5.0",
+          "github.com/aws/aws-sdk-go-v2 v1.32.8",
+          "github.com/ProtonMail/go-crypto v1.4.1"
+        ],
+        "dev": [
+          "@types/node 22.10.5",
+          "@typescript-eslint/eslint-plugin 8.19.1",
+          "eslint 9.16.0",
+          "prettier 3.4.2",
+          "vitest 3.0.5"
+        ],
+        "infrastructure": [
+          "Database (SQLite/PostgreSQL/MySQL/MSSQL)",
+          "Git filesystem storage",
+          "Optional Redis cache",
+          "Optional S3-compatible storage",
+          "SMTP server for emails"
+        ]
+      },
+      "deployment": {
+        "containerized": true,
+        "container_orchestration": "Docker Compose (docker-compose support evident from docker/ directory)",
+        "ci_cd": "GitHub Actions (workflows in .github/workflows/)",
+        "environment_config": "Configuration via app.ini file, environment variables, command line flags. Docker environment-to-ini script for container deployment.",
+        "scaling_model": "Single instance deployment with database as bottleneck. Horizontal scaling possible with shared database and storage."
+      },
+      "code_quality_signals": {
+        "has_tests": true,
+        "test_framework": "Go testing package with testify assertions",
+        "test_count_estimate": "1861 test files",
+        "has_linting": true,
+        "has_type_hints": true,
+        "documentation_quality": "well-documented",
+        "code_style": "gofmt, golangci-lint, prettier for frontend (Makefile targets)"
+      },
+      "project_health": {
+        "license": "MIT",
+        "total_commits": "1",
+        "top_contributors": "1",
+        "recent_activity": "Active development with frontend tooling updates (rollup to rolldown migration)",
+        "community_signals": "Code of conduct, security policy, issue templates, contributing guidelines, multilingual README"
+      },
+      "evidence_tracking": {
+        "files_analyzed": [
+          "go.mod",
+          "go.sum",
+          "package.json",
+          "main.go",
+          "cmd/main.go",
+          "Dockerfile",
+          "Makefile",
+          "models/actions/",
+          "models/auth/",
+          "modules/web/router.go",
+          "web_src/js/index.ts",
+          "CONTRIBUTING.md",
+          "docker/",
+          "models/migrations/",
+          "cmd/web.go"
+        ],
+        "confidence_level": "High",
+        "information_gaps": [
+          "Exact API endpoint definitions would require parsing routers/api/",
+          "Performance characteristics under load",
+          "Specific CI/CD pipeline syntax details"
+        ]
+      },
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      }
+    },
+    "extracted_data": {},
+    "source": "local_repo",
+    "source_confidence": "high",
+    "timestamp": "2026-04-09T15:21:16.572358"
+  },
+  "step2": {
+    "step1_data": {
+      "product_name": "gitea",
+      "url": "https://github.com/go-gitea/gitea.git",
+      "analysis": {
+        "summary": "Gitea is a self-hosted Git service written in Go that provides web-based Git repository hosting, issue tracking, pull requests, and continuous integration. It implements a monolithic web application architecture with SQLite, PostgreSQL, MySQL, and MSSQL database support, featuring both web UI and REST API interfaces. The system uses a traditional MVC pattern with chi router for HTTP routing, XORM for database ORM, and includes built-in CI/CD capabilities through Gitea Actions.",
+        "capabilities": [
+          "Hosts Git repositories with web-based browsing and file editing (web_src/js/features/repo-editor.ts, models/repo/)",
+          "Manages user authentication with multiple backends including LDAP, OAuth2, SMTP, and WebAuthn (models/auth/, modules/auth/)",
+          "Provides issue tracking with labels, milestones, assignees, and project boards (models/issues/, web_src/js/features/repo-issue.ts)",
+          "Implements pull request workflow with reviews, approvals, and merge strategies (models/pull/, web_src/js/features/repo-issue.ts)",
+          "Executes CI/CD pipelines through Gitea Actions with runner support (models/actions/, cmd/actions.go)",
+          "Serves Git operations over HTTP and SSH protocols (cmd/serv.go, modules/ssh/)",
+          "Manages organizations with team-based access control (models/organization/, web_src/js/features/org-team.ts)",
+          "Provides webhook integration for external service notifications (models/webhook/, web_src/js/features/comp/WebHookEditor.ts)",
+          "Implements Git LFS (Large File Storage) support for binary file handling (modules/lfs/, modules/lfstransfer/)",
+          "Offers package registry functionality for multiple package types (models/packages/, modules/packages/)",
+          "Provides code search with indexing capabilities using Bleve or Elasticsearch (modules/indexer/)",
+          "Manages SSH and GPG key authentication for secure Git operations (models/asymkey/)",
+          "Implements repository mirroring for external Git repositories (models/repo/, cmd/migrate.go)",
+          "Provides admin interface for user, organization, and system management (cmd/admin.go, web_src/js/features/admin/)",
+          "Supports multiple database backends with migration system (models/db/, models/migrations/)",
+          "Implements markup rendering for Markdown, AsciiDoc, and other formats (modules/markup/)",
+          "Provides real-time notifications and activity feeds (models/activities/, web_src/js/features/notification.ts)",
+          "Offers code editor with syntax highlighting using CodeMirror (web_src/js/modules/codeeditor/)",
+          "Manages file uploads and attachments with configurable storage backends (modules/storage/)",
+          "Implements rate limiting and security headers for web requests (modules/web/middleware/)",
+          "Provides repository statistics and contribution graphs (web_src/js/features/heatmap.ts, web_src/js/features/contributors.ts)",
+          "Supports repository templates and initialization from external sources (modules/repository/)",
+          "Implements backup and restore functionality for repositories and data (cmd/dump.go, cmd/restore_repo.go)",
+          "Provides multi-language support with internationalization (options/locale/, web_src/js/modules/i18n.ts)",
+          "Manages session storage with configurable backends including Redis (modules/session/, gitea.com/go-chi/session)"
+        ],
+        "use_cases": [
+          "Software development teams use this to host private Git repositories with web-based collaboration features",
+          "Open source projects use this as an alternative to GitHub for self-hosted Git repository management",
+          "DevOps teams use this for CI/CD automation through integrated Gitea Actions workflows",
+          "Organizations use this to maintain control over source code hosting while providing GitHub-like features",
+          "Development teams use this for code review workflows with pull requests and inline commenting"
+        ],
+        "category": "Git Repository Management Platform",
+        "target_audience": "Software developers, DevOps engineers, System administrators, Open source maintainers",
+        "technical_stack": [
+          "Go 1.26.2 (go.mod)",
+          "Chi v5 HTTP router (github.com/go-chi/chi/v5 in go.mod)",
+          "XORM database ORM (xorm.io/xorm v1.3.9 in go.mod)",
+          "SQLite, PostgreSQL, MySQL, MSSQL database support (go.mod dependencies)",
+          "TypeScript 5.7.3 for frontend (package.json)",
+          "Fomantic-UI for CSS framework (web_src/fomantic/)",
+          "CodeMirror 6.x for code editing (package.json)",
+          "Docker containerization (Dockerfile, docker-compose support)",
+          "Prometheus metrics support (github.com/prometheus/client_golang in go.mod)",
+          "Redis for caching and sessions (github.com/redis/go-redis/v9 in go.mod)",
+          "Elasticsearch/Bleve for code indexing (github.com/blevesearch/bleve/v2 in go.mod)",
+          "Git operations via go-git (github.com/go-git/go-git/v5 in go.mod)",
+          "S3-compatible storage (AWS SDK, MinIO support in go.mod)",
+          "LDAP authentication (github.com/go-ldap/ldap/v3 in go.mod)"
+        ],
+        "api_endpoints": [
+          "GET /api/v1/repos/{owner}/{repo} \u2014 Get repository information",
+          "POST /api/v1/repos/{owner}/{repo}/issues \u2014 Create new issue",
+          "GET /api/v1/user/repos \u2014 List user repositories",
+          "POST /api/v1/orgs/{org}/repos \u2014 Create organization repository",
+          "GET /api/v1/repos/{owner}/{repo}/pulls \u2014 List pull requests",
+          "POST /api/v1/repos/{owner}/{repo}/hooks \u2014 Create webhook",
+          "GET /api/v1/user \u2014 Get authenticated user information",
+          "POST /api/v1/user/keys \u2014 Add SSH key to user account",
+          "GET /api/v1/repos/{owner}/{repo}/actions/runs \u2014 List action runs",
+          "POST /api/v1/repos/{owner}/{repo}/mirror-sync \u2014 Trigger mirror sync"
+        ],
+        "sdk_languages": [
+          "Go (code.gitea.io/sdk/gitea v0.24.1 - official SDK in go.mod)",
+          "CLI tool 'tea' for command-line interaction (mentioned in README)"
+        ],
+        "auth_methods": [
+          "Local user accounts with bcrypt password hashing (models/auth/)",
+          "LDAP/Active Directory integration (cmd/admin_auth_ldap.go, modules/auth/ldap/)",
+          "OAuth2 provider and client support (models/auth/oauth2.go)",
+          "SMTP authentication (cmd/admin_auth_smtp.go)",
+          "WebAuthn/FIDO2 for passwordless authentication (models/auth/webauthn.go)",
+          "SSH key authentication for Git operations (models/asymkey/ssh_key.go)",
+          "GPG key signing verification (models/asymkey/gpg_key.go)",
+          "API token authentication for REST API access (models/auth/access_token.go)"
+        ],
+        "integrations": [
+          "PostgreSQL database via lib/pq driver (github.com/lib/pq in go.mod)",
+          "MySQL/MariaDB via go-sql-driver (github.com/go-sql-driver/mysql in go.mod)",
+          "SQLite via modernc.org/sqlite (modernc.org/sqlite in go.mod)",
+          "Redis for caching and sessions (github.com/redis/go-redis/v9 in go.mod)",
+          "AWS S3 for object storage (github.com/aws/aws-sdk-go-v2 in go.mod)",
+          "MinIO S3-compatible storage (github.com/minio/minio-go/v7 in go.mod)",
+          "Azure Blob Storage (github.com/Azure/azure-sdk-for-go in go.mod)",
+          "Elasticsearch for code indexing (github.com/elastic/go-elasticsearch/v8 in go.mod)",
+          "LDAP directory services (github.com/go-ldap/ldap/v3 in go.mod)",
+          "SMTP email services for notifications (github.com/jordan-wright/email in go.mod)",
+          "Prometheus metrics collection (github.com/prometheus/client_golang in go.mod)",
+          "Discord webhook notifications (gitea.com/lunny/dingtalk_webhook in go.mod)"
+        ],
+        "architecture": {
+          "pattern": "monolith",
+          "components": [
+            "Web server with HTTP/HTTPS endpoints (cmd/web.go)",
+            "Git repository storage and operations (modules/git/)",
+            "Database layer with XORM ORM (models/db/)",
+            "Authentication and authorization system (models/auth/, modules/auth/)",
+            "CI/CD execution engine (models/actions/, modules/actions/)",
+            "Package registry (models/packages/, modules/packages/)",
+            "Search indexing service (modules/indexer/)",
+            "Background task queue processing (modules/queue/)",
+            "File storage abstraction layer (modules/storage/)",
+            "Markup rendering engine (modules/markup/)"
+          ],
+          "entry_points": [
+            "main.go",
+            "cmd/main.go"
+          ],
+          "data_flow": "HTTP requests flow through chi router middleware to handlers, which interact with XORM models for database operations. Git operations are handled through modules/git package interfacing with filesystem repositories. Background tasks are queued via modules/queue and processed asynchronously. File uploads go through storage abstraction to filesystem, S3, or other configured backends.",
+          "persistence": "XORM ORM with support for SQLite, PostgreSQL, MySQL, MSSQL. Database migrations in models/migrations/. Git repositories stored on filesystem. Optional Redis for sessions/cache. Configurable object storage backends.",
+          "concurrency_model": "Traditional Go goroutines with HTTP request handling. Background job processing via queue system. Database connection pooling through XORM.",
+          "communication_patterns": "HTTP REST API, WebSocket for real-time features, Git protocol over HTTP/SSH, webhook callbacks for external integrations",
+          "plugin_extension_model": "Modular architecture with pluggable authentication backends, storage providers, markup renderers, and queue implementations"
+        },
+        "data_model": {
+          "primary_entities": [
+            "User accounts and organizations (models/user/, models/organization/)",
+            "Git repositories with metadata (models/repo/)",
+            "Issues and pull requests (models/issues/, models/pull/)",
+            "CI/CD actions and runners (models/actions/)",
+            "Package registry artifacts (models/packages/)",
+            "SSH/GPG keys for authentication (models/asymkey/)",
+            "Webhooks and integrations (models/webhook/)",
+            "Access tokens and OAuth applications (models/auth/)"
+          ],
+          "storage_backends": [
+            "SQLite",
+            "PostgreSQL",
+            "MySQL",
+            "MSSQL",
+            "Filesystem",
+            "S3",
+            "Azure Blob",
+            "MinIO"
+          ],
+          "schema_patterns": "Relational database schema with foreign key relationships. Git repositories stored as filesystem directories. Binary files in object storage.",
+          "migration_strategy": "Versioned database migrations in models/migrations/ with automatic upgrade on startup"
+        },
+        "algorithms": {
+          "problem_type": "Git repository management, version control collaboration, and CI/CD automation",
+          "core_patterns": [
+            "Repository pattern for data access (models/ packages)",
+            "Middleware pattern for HTTP request processing (modules/web/middleware/)",
+            "Observer pattern for webhook notifications",
+            "Strategy pattern for authentication backends",
+            "Template pattern for markup rendering",
+            "Queue pattern for background job processing"
+          ],
+          "complexity_indicators": "Large codebase with 2878 Go files, complex database relationships, Git protocol implementation, multi-tenant organization support",
+          "key_algorithms": [
+            "Git diff algorithms for code comparison (modules/git/)",
+            "Tree-walking for repository browsing",
+            "Merkle tree verification for Git integrity",
+            "Full-text search indexing with Bleve/Elasticsearch",
+            "RBAC permission resolution for access control"
+          ],
+          "evidence": "modules/git/ contains Git protocol implementation, modules/indexer/ implements search algorithms, models/perm/ handles permission calculations"
+        },
+        "security_model": {
+          "authentication": "Multi-backend authentication: local accounts, LDAP, OAuth2, SMTP, WebAuthn. SSH/GPG key authentication for Git operations.",
+          "authorization": "Role-based access control with organization/team permissions, repository-level access controls, API token scoping",
+          "data_protection": "Configurable secret encryption, HTTPS/TLS support, secure session management, password hashing with bcrypt",
+          "security_headers": "CORS configuration, CSP headers, rate limiting middleware (modules/web/middleware/)",
+          "vulnerability_handling": "SECURITY.md file present, dependency scanning via GitHub Actions, private security reporting"
+        },
+        "dependencies": {
+          "runtime": [
+            "github.com/go-chi/chi/v5 v5.2.0",
+            "xorm.io/xorm v1.3.9",
+            "github.com/lib/pq v1.10.9",
+            "github.com/go-sql-driver/mysql v1.8.1",
+            "modernc.org/sqlite v1.34.4",
+            "github.com/redis/go-redis/v9 v9.7.0",
+            "github.com/blevesearch/bleve/v2 v2.5.0",
+            "github.com/aws/aws-sdk-go-v2 v1.32.8",
+            "github.com/ProtonMail/go-crypto v1.4.1"
+          ],
+          "dev": [
+            "@types/node 22.10.5",
+            "@typescript-eslint/eslint-plugin 8.19.1",
+            "eslint 9.16.0",
+            "prettier 3.4.2",
+            "vitest 3.0.5"
+          ],
+          "infrastructure": [
+            "Database (SQLite/PostgreSQL/MySQL/MSSQL)",
+            "Git filesystem storage",
+            "Optional Redis cache",
+            "Optional S3-compatible storage",
+            "SMTP server for emails"
+          ]
+        },
+        "deployment": {
+          "containerized": true,
+          "container_orchestration": "Docker Compose (docker-compose support evident from docker/ directory)",
+          "ci_cd": "GitHub Actions (workflows in .github/workflows/)",
+          "environment_config": "Configuration via app.ini file, environment variables, command line flags. Docker environment-to-ini script for container deployment.",
+          "scaling_model": "Single instance deployment with database as bottleneck. Horizontal scaling possible with shared database and storage."
+        },
+        "code_quality_signals": {
+          "has_tests": true,
+          "test_framework": "Go testing package with testify assertions",
+          "test_count_estimate": "1861 test files",
+          "has_linting": true,
+          "has_type_hints": true,
+          "documentation_quality": "well-documented",
+          "code_style": "gofmt, golangci-lint, prettier for frontend (Makefile targets)"
+        },
+        "project_health": {
+          "license": "MIT",
+          "total_commits": "1",
+          "top_contributors": "1",
+          "recent_activity": "Active development with frontend tooling updates (rollup to rolldown migration)",
+          "community_signals": "Code of conduct, security policy, issue templates, contributing guidelines, multilingual README"
+        },
+        "evidence_tracking": {
+          "files_analyzed": [
+            "go.mod",
+            "go.sum",
+            "package.json",
+            "main.go",
+            "cmd/main.go",
+            "Dockerfile",
+            "Makefile",
+            "models/actions/",
+            "models/auth/",
+            "modules/web/router.go",
+            "web_src/js/index.ts",
+            "CONTRIBUTING.md",
+            "docker/",
+            "models/migrations/",
+            "cmd/web.go"
+          ],
+          "confidence_level": "High",
+          "information_gaps": [
+            "Exact API endpoint definitions would require parsing routers/api/",
+            "Performance characteristics under load",
+            "Specific CI/CD pipeline syntax details"
+          ]
+        },
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        }
+      },
+      "extracted_data": {},
+      "source": "local_repo",
+      "source_confidence": "high",
+      "timestamp": "2026-04-09T15:21:16.572358"
+    },
+    "generalization": {
+      "functional_dna": {
+        "logic_archetype": "Stateful Orchestrator",
+        "logic_archetype_evidence": "The system orchestrates complex multi-step workflows across Git operations, issue tracking, pull request reviews, and CI/CD pipelines while maintaining state across all interactions. It manages persistent entity relationships and coordinates between multiple subsystems with complex state transitions.",
+        "data_contract_strictness": "Highly Structured",
+        "data_contract_evidence": "Evidence: Strict database schema with foreign key relationships (models/migrations/), strongly typed Go structs throughout models/, TypeScript interfaces in frontend, and formal REST API contracts with versioned endpoints (/api/v1/)",
+        "core_algorithmic_class": "Graph Algorithms",
+        "core_algorithmic_evidence": "Evidence from Git DAG operations (modules/git/), dependency resolution in CI/CD pipelines, permission inheritance through organization hierarchies, and tree-walking for repository browsing and diff calculations",
+        "concurrency_requirements": "ACID Compliance Required",
+        "concurrency_evidence": "Evidence from XORM database transactions, foreign key constraints in schema, database migration system for consistency, and support for ACID-compliant databases (PostgreSQL, MySQL, MSSQL)",
+        "abstract_problem": "Orchestrates collaborative workflows around versioned document trees with branching/merging semantics, managing complex approval processes, automated task execution, and maintaining audit trails across multiple concurrent modification streams.",
+        "data_flow_pattern": "Event-driven state transitions with persistent audit logging: User actions \u2192 validation \u2192 state mutation \u2192 notification broadcast \u2192 background task scheduling \u2192 external webhook delivery",
+        "state_complexity": "Entity-scoped",
+        "repurposing_confidence": 8,
+        "repurposing_reasoning": "The core patterns are highly reusable: workflow orchestration, approval processes, versioned document management, and collaborative review systems. The Git-specific components (modules/git/) are domain-locked, but the broader orchestration patterns, authentication systems, notification mechanisms, and workflow engines are generic. The modular architecture with pluggable backends makes it adaptable to different storage and authentication systems."
+      },
+      "evidence_claims": [
+        {
+          "claim": "System implements sophisticated workflow orchestration with state management",
+          "evidence": "models/pull/ for pull request workflows, models/actions/ for CI/CD orchestration, models/issues/ for issue state transitions",
+          "confidence": "High"
+        },
+        {
+          "claim": "Supports pluggable authentication backends for multi-tenant scenarios",
+          "evidence": "modules/auth/ with LDAP, OAuth2, SMTP, WebAuthn support, models/auth/ for token management",
+          "confidence": "High"
+        },
+        {
+          "claim": "Implements comprehensive audit logging and notification system",
+          "evidence": "models/activities/ for activity feeds, models/webhook/ for external notifications, web_src/js/features/notification.ts",
+          "confidence": "High"
+        },
+        {
+          "claim": "Uses graph algorithms for dependency and relationship management",
+          "evidence": "Git DAG operations in modules/git/, organization hierarchy in models/organization/, permission inheritance patterns",
+          "confidence": "Medium"
+        }
+      ],
+      "market_reach": {
+        "primary_industry": "Software Development Tools",
+        "cross_industry_applications": [
+          "Legal Document Management - collaborative review, version control, approval workflows for contracts",
+          "Academic Research Collaboration - paper drafts, peer review, version tracking, institutional access control",
+          "Manufacturing Process Control - change management workflows, approval chains, audit trails for specifications",
+          "Medical Records Systems - collaborative patient care, approval workflows, audit logging, role-based access",
+          "Financial Compliance Systems - document review workflows, approval processes, audit trails, regulatory reporting",
+          "Content Management Platforms - editorial workflows, review processes, publishing pipelines, contributor management",
+          "Architectural/Engineering Design - collaborative design review, change approval, version control for blueprints",
+          "Regulatory Affairs Management - submission workflows, review processes, compliance tracking, multi-stakeholder coordination"
+        ],
+        "utility_score": 9,
+        "market_potential": "High"
+      },
+      "friction_report": {
+        "difficulty": "Medium",
+        "estimated_hours": 120,
+        "required_technologies": [
+          "Go 1.26+",
+          "Database (PostgreSQL/MySQL/SQLite)",
+          "Redis",
+          "Object Storage (S3-compatible)",
+          "Docker"
+        ],
+        "complexity_factors": [
+          "Complex database schema with 100+ tables",
+          "Git protocol implementation deeply integrated",
+          "Multi-tenant permission system",
+          "Background job processing architecture"
+        ],
+        "risk_level": "Medium",
+        "migration_path": "Extract core workflow orchestration patterns and authentication systems while replacing Git-specific components with domain-appropriate document/entity management. Retain notification, webhook, and approval workflow subsystems."
+      },
+      "interface_map": {
+        "adapter_schema": {
+          "input": {
+            "format": "REST JSON + Git Protocol",
+            "required_fields": [
+              "authentication",
+              "repository_context",
+              "action_type"
+            ],
+            "protocols": [
+              "HTTP",
+              "SSH",
+              "WebSocket"
+            ]
+          },
+          "output": {
+            "format": "JSON API responses + webhook callbacks",
+            "delivery": "sync for API, async for webhooks"
+          },
+          "authentication": {
+            "type": "multi-modal",
+            "method": "OAuth2, LDAP, SSH keys, WebAuthn, API tokens"
+          }
+        },
+        "standardization_level": "High",
+        "api_surface_area": "Large (50+)"
+      },
+      "comparable_systems": [
+        "SharePoint - collaborative document management with approval workflows and role-based access control",
+        "Jira - issue tracking with complex workflows, state transitions, and approval processes",
+        "Confluence - collaborative content creation with review cycles and permission hierarchies",
+        "Box/Dropbox Business - file collaboration with version control and approval workflows",
+        "Adobe Creative Cloud - collaborative creative asset management with review and approval processes"
+      ],
+      "information_gaps": [
+        "Specific performance characteristics under concurrent load",
+        "Detailed CI/CD pipeline execution engine architecture",
+        "Real-time collaboration features implementation details",
+        "Horizontal scaling patterns and limitations"
+      ]
+    },
+    "timestamp": "2026-04-09T15:21:46.009166"
+  },
+  "errors": []
 }
