@@ -1,0 +1,577 @@
+{
+  "url": "https://github.com/PipedreamHQ/pipedream.git",
+  "repo_name": "pipedream",
+  "timestamp": "2026-04-10T16:36:29.606278",
+  "step1": {
+    "product_name": "pipedream",
+    "url": "https://github.com/PipedreamHQ/pipedream.git",
+    "analysis": {
+      "summary": "Pipedream is a serverless integration platform that enables developers to build event-driven workflows by connecting over 1,000 applications through pre-built components, custom code (Node.js, Python, Go, Bash), and various triggers (HTTP, timers, webhooks). The system follows a component-based architecture with modular actions and sources that can be chained together to create complex automation workflows.",
+      "capabilities": [
+        "Executes event-driven workflows triggered by HTTP requests, webhooks, or timers (platform/lib/index.ts)",
+        "Provides pre-built components for 1,000+ applications through modular actions and sources (components directory structure)",
+        "Supports custom code execution in Node.js, Python, Go, and Bash within workflow steps (README.md)",
+        "Implements OAuth and API key authentication for connected apps (@pipedream/platform dependencies)",
+        "Manages workflow state and data flow between steps with export/import mechanism (packages/sdk/src/shared/index.ts)",
+        "Processes HTTP requests with configurable methods, headers, and authentication (platform/lib/axios.ts)",
+        "Handles file uploads and streaming with metadata extraction (platform/lib/file-stream.ts)",
+        "Provides SQL database connectivity with query execution and schema introspection (platform/lib/sql-prop.ts)",
+        "Implements webhook registration and event routing for real-time integrations (components/activecampaign/sources/common/webhook.mjs)",
+        "Supports scheduled task execution with AWS Step Functions integration (components/aws/sources/new-scheduled-tasks/swagger.yaml)",
+        "Enables browser-based account connection through Pipedream Connect SDK (packages/sdk/src/browser/index.ts)",
+        "Manages external user authentication and token-based access control (packages/sdk/src/server/index.ts)",
+        "Provides component configuration with dynamic prop options and validation (packages/sdk/src/shared/component.ts)",
+        "Implements email sending capabilities with HTML/text content support (platform/lib/index.ts SendConfigEmail)",
+        "Supports S3 file storage operations with bucket and prefix configuration (platform/lib/index.ts)",
+        "Handles event emission and streaming through Server-Sent Events (SSE) (platform/lib/index.ts SendConfigSSE)",
+        "Processes form data and file uploads with multipart support (components/_2markdown dependencies)",
+        "Implements rate limiting and error handling for API requests (platform/lib/errors.ts)",
+        "Provides React components for building integration UIs (packages/connect-react/src/index.ts)",
+        "Supports AI-powered workflow generation and component scaffolding (packages/prompts/src/index.ts)",
+        "Manages component packaging and validation through GitHub Actions (.github/actions)",
+        "Implements proxy API requests through authenticated connections (packages/sdk/src/server/index.ts ProxyApiOpts)",
+        "Supports TypeScript component development with strict type definitions (packages/sdk/src/shared/component.ts)",
+        "Handles OAuth 2.0 flows with PKCE and token refresh mechanisms (packages/sdk/src/server/index.ts oauth4webapi)",
+        "Provides MCP (Model Context Protocol) server integration (modelcontextprotocol/.env.example)"
+      ],
+      "use_cases": [
+        "Backend developers use this to build API integrations and automate data workflows between SaaS applications",
+        "DevOps teams use this to create CI/CD pipelines and infrastructure automation workflows",
+        "Data engineers use this to build ETL pipelines with real-time event processing from various data sources",
+        "Product teams use this to create customer onboarding flows and notification systems",
+        "Integration developers use this to build custom connectors and middleware for enterprise applications"
+      ],
+      "category": "Integration Platform as a Service (iPaaS)",
+      "target_audience": "Backend developers, Integration developers, DevOps engineers, Data engineers, Product teams",
+      "technical_stack": [
+        "Node.js (TypeScript/JavaScript runtime environment)",
+        "@pipedream/platform ^3.2.5 (core platform SDK)",
+        "axios (HTTP client library for API requests)",
+        "io-ts (TypeScript runtime type checking)",
+        "oauth4webapi (OAuth 2.0 client implementation)",
+        "React (UI component library for Connect interface)",
+        "@actions/core ^1.10.1 (GitHub Actions toolkit)",
+        "@supabase/supabase-js ^2.48.1 (Supabase client)",
+        "TypeScript (primary development language - 596 .ts files)",
+        "form-data ^4.0.4 (multipart form data handling)",
+        "OpenAI API (AI-powered component generation)"
+      ],
+      "api_endpoints": [
+        "POST /cancel - Cancel a scheduled task (components/aws/sources/new-scheduled-tasks/swagger.yaml)",
+        "POST /schedule - Schedule a new task (components/aws/sources/new-scheduled-tasks/swagger.yaml)",
+        "HTTP interface for workflow triggers (packages/sdk/src/shared/index.ts HTTPResponse)",
+        "Connect API endpoints for account management (packages/sdk/src/server/index.ts)",
+        "Proxy API for authenticated requests to external services (packages/sdk/src/server/index.ts ProxyApiOpts)",
+        "Component configuration endpoints with dynamic options (packages/sdk/src/shared/index.ts ConfigureComponentResponse)",
+        "Token creation endpoint for Connect authentication (packages/sdk/src/server/index.ts ConnectTokenCreateOpts)"
+      ],
+      "sdk_languages": [
+        "JavaScript/TypeScript (primary SDK with browser and server clients)",
+        "React (UI components for integration interfaces)"
+      ],
+      "auth_methods": [
+        "OAuth 2.0 with PKCE support (packages/sdk/src/server/index.ts oauth4webapi)",
+        "API key authentication (components show various API key patterns)",
+        "Token-based authentication with external user mapping (packages/sdk/src/server/index.ts)",
+        "JWT tokens for Connect SDK (packages/sdk/src/browser/index.ts)",
+        "Basic HTTP authentication (platform/lib/axios.ts transformConfigForOauth)"
+      ],
+      "integrations": [
+        "ActiveCampaign for CRM and email marketing (components/activecampaign)",
+        "AWS services including Step Functions for scheduled tasks (components/aws)",
+        "Google services integration (components directory structure)",
+        "Slack for messaging and notifications (components directory structure)",
+        "Airtable for database operations (components directory structure)",
+        "GitHub for version control webhooks (components directory structure)",
+        "Supabase for database operations (@supabase/supabase-js dependency)",
+        "OpenAI for AI-powered features (packages/ai/.env.example)",
+        "Over 1,000 pre-built app integrations (components directory with 25,000+ files)"
+      ],
+      "architecture": {
+        "pattern": "microservices with component-based plugin architecture",
+        "components": [
+          "Event Sources - trigger workflows from external events (sources directories)",
+          "Actions - pre-built code steps for common operations (actions directories)",
+          "Platform SDK - core runtime and utilities (@pipedream/platform)",
+          "Browser SDK - client-side Connect interface (packages/sdk/src/browser)",
+          "Server SDK - backend API and authentication (packages/sdk/src/server)",
+          "React Components - UI building blocks (packages/connect-react)",
+          "AI Prompts - component generation system (packages/prompts)"
+        ],
+        "entry_points": [
+          "packages/sdk/src/browser/index.ts - browser SDK entry",
+          "packages/sdk/src/server/index.ts - server SDK entry",
+          "platform/lib/index.ts - platform utilities entry",
+          "packages/connect-react/src/index.ts - React components entry"
+        ],
+        "data_flow": "Events trigger workflows through sources, data flows through sequential steps (actions or custom code), each step can transform data and pass it to the next step via export/import mechanism, with final output sent to destinations or external APIs",
+        "persistence": "Component state managed through Pipedream platform, external data stored in connected services (databases, APIs), temporary workflow data passed between steps",
+        "concurrency_model": "async/await pattern with Promise-based execution (TypeScript async functions throughout)",
+        "communication_patterns": "HTTP REST APIs for external integrations, webhooks for real-time events, Server-Sent Events for streaming, OAuth 2.0 for authentication flows",
+        "plugin_extension_model": "Component-based architecture where each app has its own directory with actions and sources, components extend base classes and implement standard interfaces"
+      },
+      "data_model": {
+        "primary_entities": [
+          "Workflows - sequences of steps triggered by events",
+          "Components - reusable actions and sources for app integrations",
+          "Accounts - authenticated connections to external services",
+          "Events - data objects that flow through workflows",
+          "Props - configuration parameters for components"
+        ],
+        "storage_backends": [
+          "Supabase for registry data storage",
+          "External service APIs for integration data",
+          "Temporary workflow state in Pipedream platform"
+        ],
+        "schema_patterns": "TypeScript interfaces define component contracts, JSON schemas for configuration validation, flexible event data structure",
+        "migration_strategy": "Component versioning through package.json, backward compatibility maintained through interface contracts"
+      },
+      "algorithms": {
+        "problem_type": "Event-driven workflow orchestration and API integration automation",
+        "core_patterns": [
+          "Observer pattern for event sources and triggers",
+          "Chain of Responsibility for workflow step execution",
+          "Strategy pattern for authentication methods",
+          "Factory pattern for component instantiation",
+          "Proxy pattern for external API requests"
+        ],
+        "complexity_indicators": "25,000+ component files suggest massive integration surface, TypeScript type safety, async/await concurrency",
+        "key_algorithms": [
+          "OAuth 2.0 PKCE flow implementation (oauth4webapi)",
+          "Event-driven workflow execution engine",
+          "Component dependency resolution and packaging",
+          "Real-time webhook event routing"
+        ],
+        "evidence": "packages/sdk/src/server/index.ts (OAuth flows), platform/lib/index.ts (workflow execution), components structure (integration patterns)"
+      },
+      "security_model": {
+        "authentication": "OAuth 2.0 with PKCE, API keys, JWT tokens for different contexts",
+        "authorization": "Token-based access control with external user mapping and project-level permissions",
+        "data_protection": "Secure credential storage, token-based authentication, HTTPS for all API communication",
+        "security_headers": "CORS support for browser SDK, secure token handling",
+        "vulnerability_handling": "SECURITY.md present, dependency scanning through GitHub Actions"
+      },
+      "dependencies": {
+        "runtime": [
+          "@pipedream/platform ^3.2.5",
+          "axios (HTTP client)",
+          "io-ts (runtime type checking)",
+          "oauth4webapi (OAuth 2.0 client)",
+          "@supabase/supabase-js ^2.48.1",
+          "form-data ^4.0.4"
+        ],
+        "dev": [
+          "@actions/core ^1.10.1",
+          "@actions/github ^6.0.0",
+          "@vercel/ncc ^0.34.0",
+          "TypeScript (596 .ts files indicate heavy usage)"
+        ],
+        "infrastructure": [
+          "AWS Step Functions (for scheduled tasks)",
+          "Supabase (for data storage)",
+          "GitHub Actions (for CI/CD)",
+          "External APIs and databases through 1,000+ integrations"
+        ]
+      },
+      "deployment": {
+        "containerized": false,
+        "container_orchestration": "none observed",
+        "ci_cd": "GitHub Actions with custom actions for validation and publishing",
+        "environment_config": "Environment variables for API keys, project IDs, and service configurations (.env.example files)",
+        "scaling_model": "Serverless platform scaling with hosted execution environment"
+      },
+      "code_quality_signals": {
+        "has_tests": true,
+        "test_framework": "Not explicitly visible but test files present",
+        "test_count_estimate": "5 test files found",
+        "has_linting": true,
+        "has_type_hints": true,
+        "documentation_quality": "well-documented",
+        "code_style": "TypeScript strict typing, consistent component patterns"
+      },
+      "project_health": {
+        "license": "Custom/Other",
+        "total_commits": "1",
+        "top_contributors": "1 (Jake Armstrong)",
+        "recent_activity": "Recent commit fixes Freshdesk integration bug, indicating active maintenance",
+        "community_signals": "Security policy present, contributing guidelines, community forum, Slack support"
+      },
+      "evidence_tracking": {
+        "files_analyzed": [
+          "README.md",
+          "CONTRIBUTING.md",
+          "packages/sdk/src/browser/index.ts",
+          "packages/sdk/src/server/index.ts",
+          "packages/sdk/src/shared/index.ts",
+          "platform/lib/index.ts",
+          "components directory structure",
+          "package.json files across components",
+          ".env.example files",
+          "components/aws/sources/new-scheduled-tasks/swagger.yaml"
+        ],
+        "confidence_level": "High",
+        "information_gaps": [
+          "Exact deployment architecture and infrastructure details",
+          "Performance metrics and scaling characteristics",
+          "Database schema details beyond component interfaces"
+        ]
+      },
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      }
+    },
+    "extracted_data": {},
+    "source": "local_repo",
+    "source_confidence": "high",
+    "timestamp": "2026-04-10T16:37:49.062304"
+  },
+  "step2": {
+    "step1_data": {
+      "product_name": "pipedream",
+      "url": "https://github.com/PipedreamHQ/pipedream.git",
+      "analysis": {
+        "summary": "Pipedream is a serverless integration platform that enables developers to build event-driven workflows by connecting over 1,000 applications through pre-built components, custom code (Node.js, Python, Go, Bash), and various triggers (HTTP, timers, webhooks). The system follows a component-based architecture with modular actions and sources that can be chained together to create complex automation workflows.",
+        "capabilities": [
+          "Executes event-driven workflows triggered by HTTP requests, webhooks, or timers (platform/lib/index.ts)",
+          "Provides pre-built components for 1,000+ applications through modular actions and sources (components directory structure)",
+          "Supports custom code execution in Node.js, Python, Go, and Bash within workflow steps (README.md)",
+          "Implements OAuth and API key authentication for connected apps (@pipedream/platform dependencies)",
+          "Manages workflow state and data flow between steps with export/import mechanism (packages/sdk/src/shared/index.ts)",
+          "Processes HTTP requests with configurable methods, headers, and authentication (platform/lib/axios.ts)",
+          "Handles file uploads and streaming with metadata extraction (platform/lib/file-stream.ts)",
+          "Provides SQL database connectivity with query execution and schema introspection (platform/lib/sql-prop.ts)",
+          "Implements webhook registration and event routing for real-time integrations (components/activecampaign/sources/common/webhook.mjs)",
+          "Supports scheduled task execution with AWS Step Functions integration (components/aws/sources/new-scheduled-tasks/swagger.yaml)",
+          "Enables browser-based account connection through Pipedream Connect SDK (packages/sdk/src/browser/index.ts)",
+          "Manages external user authentication and token-based access control (packages/sdk/src/server/index.ts)",
+          "Provides component configuration with dynamic prop options and validation (packages/sdk/src/shared/component.ts)",
+          "Implements email sending capabilities with HTML/text content support (platform/lib/index.ts SendConfigEmail)",
+          "Supports S3 file storage operations with bucket and prefix configuration (platform/lib/index.ts)",
+          "Handles event emission and streaming through Server-Sent Events (SSE) (platform/lib/index.ts SendConfigSSE)",
+          "Processes form data and file uploads with multipart support (components/_2markdown dependencies)",
+          "Implements rate limiting and error handling for API requests (platform/lib/errors.ts)",
+          "Provides React components for building integration UIs (packages/connect-react/src/index.ts)",
+          "Supports AI-powered workflow generation and component scaffolding (packages/prompts/src/index.ts)",
+          "Manages component packaging and validation through GitHub Actions (.github/actions)",
+          "Implements proxy API requests through authenticated connections (packages/sdk/src/server/index.ts ProxyApiOpts)",
+          "Supports TypeScript component development with strict type definitions (packages/sdk/src/shared/component.ts)",
+          "Handles OAuth 2.0 flows with PKCE and token refresh mechanisms (packages/sdk/src/server/index.ts oauth4webapi)",
+          "Provides MCP (Model Context Protocol) server integration (modelcontextprotocol/.env.example)"
+        ],
+        "use_cases": [
+          "Backend developers use this to build API integrations and automate data workflows between SaaS applications",
+          "DevOps teams use this to create CI/CD pipelines and infrastructure automation workflows",
+          "Data engineers use this to build ETL pipelines with real-time event processing from various data sources",
+          "Product teams use this to create customer onboarding flows and notification systems",
+          "Integration developers use this to build custom connectors and middleware for enterprise applications"
+        ],
+        "category": "Integration Platform as a Service (iPaaS)",
+        "target_audience": "Backend developers, Integration developers, DevOps engineers, Data engineers, Product teams",
+        "technical_stack": [
+          "Node.js (TypeScript/JavaScript runtime environment)",
+          "@pipedream/platform ^3.2.5 (core platform SDK)",
+          "axios (HTTP client library for API requests)",
+          "io-ts (TypeScript runtime type checking)",
+          "oauth4webapi (OAuth 2.0 client implementation)",
+          "React (UI component library for Connect interface)",
+          "@actions/core ^1.10.1 (GitHub Actions toolkit)",
+          "@supabase/supabase-js ^2.48.1 (Supabase client)",
+          "TypeScript (primary development language - 596 .ts files)",
+          "form-data ^4.0.4 (multipart form data handling)",
+          "OpenAI API (AI-powered component generation)"
+        ],
+        "api_endpoints": [
+          "POST /cancel - Cancel a scheduled task (components/aws/sources/new-scheduled-tasks/swagger.yaml)",
+          "POST /schedule - Schedule a new task (components/aws/sources/new-scheduled-tasks/swagger.yaml)",
+          "HTTP interface for workflow triggers (packages/sdk/src/shared/index.ts HTTPResponse)",
+          "Connect API endpoints for account management (packages/sdk/src/server/index.ts)",
+          "Proxy API for authenticated requests to external services (packages/sdk/src/server/index.ts ProxyApiOpts)",
+          "Component configuration endpoints with dynamic options (packages/sdk/src/shared/index.ts ConfigureComponentResponse)",
+          "Token creation endpoint for Connect authentication (packages/sdk/src/server/index.ts ConnectTokenCreateOpts)"
+        ],
+        "sdk_languages": [
+          "JavaScript/TypeScript (primary SDK with browser and server clients)",
+          "React (UI components for integration interfaces)"
+        ],
+        "auth_methods": [
+          "OAuth 2.0 with PKCE support (packages/sdk/src/server/index.ts oauth4webapi)",
+          "API key authentication (components show various API key patterns)",
+          "Token-based authentication with external user mapping (packages/sdk/src/server/index.ts)",
+          "JWT tokens for Connect SDK (packages/sdk/src/browser/index.ts)",
+          "Basic HTTP authentication (platform/lib/axios.ts transformConfigForOauth)"
+        ],
+        "integrations": [
+          "ActiveCampaign for CRM and email marketing (components/activecampaign)",
+          "AWS services including Step Functions for scheduled tasks (components/aws)",
+          "Google services integration (components directory structure)",
+          "Slack for messaging and notifications (components directory structure)",
+          "Airtable for database operations (components directory structure)",
+          "GitHub for version control webhooks (components directory structure)",
+          "Supabase for database operations (@supabase/supabase-js dependency)",
+          "OpenAI for AI-powered features (packages/ai/.env.example)",
+          "Over 1,000 pre-built app integrations (components directory with 25,000+ files)"
+        ],
+        "architecture": {
+          "pattern": "microservices with component-based plugin architecture",
+          "components": [
+            "Event Sources - trigger workflows from external events (sources directories)",
+            "Actions - pre-built code steps for common operations (actions directories)",
+            "Platform SDK - core runtime and utilities (@pipedream/platform)",
+            "Browser SDK - client-side Connect interface (packages/sdk/src/browser)",
+            "Server SDK - backend API and authentication (packages/sdk/src/server)",
+            "React Components - UI building blocks (packages/connect-react)",
+            "AI Prompts - component generation system (packages/prompts)"
+          ],
+          "entry_points": [
+            "packages/sdk/src/browser/index.ts - browser SDK entry",
+            "packages/sdk/src/server/index.ts - server SDK entry",
+            "platform/lib/index.ts - platform utilities entry",
+            "packages/connect-react/src/index.ts - React components entry"
+          ],
+          "data_flow": "Events trigger workflows through sources, data flows through sequential steps (actions or custom code), each step can transform data and pass it to the next step via export/import mechanism, with final output sent to destinations or external APIs",
+          "persistence": "Component state managed through Pipedream platform, external data stored in connected services (databases, APIs), temporary workflow data passed between steps",
+          "concurrency_model": "async/await pattern with Promise-based execution (TypeScript async functions throughout)",
+          "communication_patterns": "HTTP REST APIs for external integrations, webhooks for real-time events, Server-Sent Events for streaming, OAuth 2.0 for authentication flows",
+          "plugin_extension_model": "Component-based architecture where each app has its own directory with actions and sources, components extend base classes and implement standard interfaces"
+        },
+        "data_model": {
+          "primary_entities": [
+            "Workflows - sequences of steps triggered by events",
+            "Components - reusable actions and sources for app integrations",
+            "Accounts - authenticated connections to external services",
+            "Events - data objects that flow through workflows",
+            "Props - configuration parameters for components"
+          ],
+          "storage_backends": [
+            "Supabase for registry data storage",
+            "External service APIs for integration data",
+            "Temporary workflow state in Pipedream platform"
+          ],
+          "schema_patterns": "TypeScript interfaces define component contracts, JSON schemas for configuration validation, flexible event data structure",
+          "migration_strategy": "Component versioning through package.json, backward compatibility maintained through interface contracts"
+        },
+        "algorithms": {
+          "problem_type": "Event-driven workflow orchestration and API integration automation",
+          "core_patterns": [
+            "Observer pattern for event sources and triggers",
+            "Chain of Responsibility for workflow step execution",
+            "Strategy pattern for authentication methods",
+            "Factory pattern for component instantiation",
+            "Proxy pattern for external API requests"
+          ],
+          "complexity_indicators": "25,000+ component files suggest massive integration surface, TypeScript type safety, async/await concurrency",
+          "key_algorithms": [
+            "OAuth 2.0 PKCE flow implementation (oauth4webapi)",
+            "Event-driven workflow execution engine",
+            "Component dependency resolution and packaging",
+            "Real-time webhook event routing"
+          ],
+          "evidence": "packages/sdk/src/server/index.ts (OAuth flows), platform/lib/index.ts (workflow execution), components structure (integration patterns)"
+        },
+        "security_model": {
+          "authentication": "OAuth 2.0 with PKCE, API keys, JWT tokens for different contexts",
+          "authorization": "Token-based access control with external user mapping and project-level permissions",
+          "data_protection": "Secure credential storage, token-based authentication, HTTPS for all API communication",
+          "security_headers": "CORS support for browser SDK, secure token handling",
+          "vulnerability_handling": "SECURITY.md present, dependency scanning through GitHub Actions"
+        },
+        "dependencies": {
+          "runtime": [
+            "@pipedream/platform ^3.2.5",
+            "axios (HTTP client)",
+            "io-ts (runtime type checking)",
+            "oauth4webapi (OAuth 2.0 client)",
+            "@supabase/supabase-js ^2.48.1",
+            "form-data ^4.0.4"
+          ],
+          "dev": [
+            "@actions/core ^1.10.1",
+            "@actions/github ^6.0.0",
+            "@vercel/ncc ^0.34.0",
+            "TypeScript (596 .ts files indicate heavy usage)"
+          ],
+          "infrastructure": [
+            "AWS Step Functions (for scheduled tasks)",
+            "Supabase (for data storage)",
+            "GitHub Actions (for CI/CD)",
+            "External APIs and databases through 1,000+ integrations"
+          ]
+        },
+        "deployment": {
+          "containerized": false,
+          "container_orchestration": "none observed",
+          "ci_cd": "GitHub Actions with custom actions for validation and publishing",
+          "environment_config": "Environment variables for API keys, project IDs, and service configurations (.env.example files)",
+          "scaling_model": "Serverless platform scaling with hosted execution environment"
+        },
+        "code_quality_signals": {
+          "has_tests": true,
+          "test_framework": "Not explicitly visible but test files present",
+          "test_count_estimate": "5 test files found",
+          "has_linting": true,
+          "has_type_hints": true,
+          "documentation_quality": "well-documented",
+          "code_style": "TypeScript strict typing, consistent component patterns"
+        },
+        "project_health": {
+          "license": "Custom/Other",
+          "total_commits": "1",
+          "top_contributors": "1 (Jake Armstrong)",
+          "recent_activity": "Recent commit fixes Freshdesk integration bug, indicating active maintenance",
+          "community_signals": "Security policy present, contributing guidelines, community forum, Slack support"
+        },
+        "evidence_tracking": {
+          "files_analyzed": [
+            "README.md",
+            "CONTRIBUTING.md",
+            "packages/sdk/src/browser/index.ts",
+            "packages/sdk/src/server/index.ts",
+            "packages/sdk/src/shared/index.ts",
+            "platform/lib/index.ts",
+            "components directory structure",
+            "package.json files across components",
+            ".env.example files",
+            "components/aws/sources/new-scheduled-tasks/swagger.yaml"
+          ],
+          "confidence_level": "High",
+          "information_gaps": [
+            "Exact deployment architecture and infrastructure details",
+            "Performance metrics and scaling characteristics",
+            "Database schema details beyond component interfaces"
+          ]
+        },
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        }
+      },
+      "extracted_data": {},
+      "source": "local_repo",
+      "source_confidence": "high",
+      "timestamp": "2026-04-10T16:37:49.062304"
+    },
+    "generalization": {
+      "functional_dna": {
+        "logic_archetype": "Plugin Host",
+        "logic_archetype_evidence": "The system provides a component-based architecture where 25,000+ modular components can be dynamically loaded and chained together to create custom workflows. It acts as a runtime environment that manages component lifecycle, data flow between components, and provides shared services like authentication and HTTP handling.",
+        "data_contract_strictness": "Moderately Structured",
+        "data_contract_evidence": "TypeScript interfaces define component contracts (packages/sdk/src/shared/component.ts), JSON schemas for configuration validation, but flexible event data structure allows varied payloads to flow through workflows",
+        "core_algorithmic_class": "Event Processing",
+        "core_algorithmic_evidence": "Observer pattern for event sources, Chain of Responsibility for workflow step execution, real-time webhook event routing, and async/await workflow orchestration engine (platform/lib/index.ts, event-driven architecture throughout)",
+        "concurrency_requirements": "Eventually Consistent",
+        "concurrency_evidence": "Serverless execution model with async/await patterns, event-driven workflows that can run independently, no ACID requirements mentioned, relies on external service consistency",
+        "abstract_problem": "Orchestrates sequences of composable computational units triggered by external events, where each unit can transform data and pass results to subsequent units in a chain, with dynamic component loading and shared runtime services.",
+        "data_flow_pattern": "Event trigger \u2192 component chain execution \u2192 data transformation between steps \u2192 side-effect persistence to external systems",
+        "state_complexity": "Session-scoped",
+        "repurposing_confidence": 8,
+        "repurposing_reasoning": "The core orchestration engine, component architecture, and data flow patterns are highly generic and could apply to many domains. The authentication framework, HTTP handling, and plugin system are reusable infrastructure. However, the 25,000+ pre-built components are domain-specific to API integrations. The most valuable reusable parts are the workflow engine, component lifecycle management, and event processing patterns."
+      },
+      "evidence_claims": [
+        {
+          "claim": "Component-based plugin architecture with 25,000+ modules",
+          "evidence": "components directory structure with massive file count, modular actions and sources pattern",
+          "confidence": "High"
+        },
+        {
+          "claim": "Event-driven workflow orchestration engine",
+          "evidence": "platform/lib/index.ts workflow execution, event sources trigger workflows, sequential step processing",
+          "confidence": "High"
+        },
+        {
+          "claim": "Multi-language runtime support",
+          "evidence": "README.md mentions Node.js, Python, Go, Bash execution within workflows",
+          "confidence": "High"
+        },
+        {
+          "claim": "OAuth 2.0 with PKCE authentication framework",
+          "evidence": "packages/sdk/src/server/index.ts oauth4webapi dependency, PKCE implementation",
+          "confidence": "High"
+        },
+        {
+          "claim": "TypeScript-first development with strict typing",
+          "evidence": "596 .ts files, packages/sdk/src/shared/component.ts interfaces, io-ts runtime checking",
+          "confidence": "High"
+        }
+      ],
+      "market_reach": {
+        "primary_industry": "Software Integration/DevOps Automation",
+        "cross_industry_applications": [
+          "Manufacturing IoT - sensor event processing and equipment automation workflows",
+          "Financial Services - transaction processing pipelines and compliance automation",
+          "Healthcare - patient data workflow orchestration between systems",
+          "Media/Entertainment - content processing pipelines and distribution automation",
+          "Supply Chain - inventory tracking and logistics event processing",
+          "Smart Cities - infrastructure monitoring and automated response systems",
+          "E-commerce - order processing and fulfillment automation",
+          "Energy/Utilities - grid monitoring and automated demand response"
+        ],
+        "utility_score": 9,
+        "market_potential": "High"
+      },
+      "friction_report": {
+        "difficulty": "Medium",
+        "estimated_hours": 120,
+        "required_technologies": [
+          "Node.js/TypeScript",
+          "HTTP/REST APIs",
+          "OAuth 2.0",
+          "Event-driven architecture",
+          "Component packaging system"
+        ],
+        "complexity_factors": [
+          "Large codebase with 25,000+ files",
+          "Complex component lifecycle management",
+          "Multi-language runtime integration",
+          "Authentication across multiple protocols",
+          "Real-time event processing requirements"
+        ],
+        "risk_level": "Medium",
+        "migration_path": "Extract core workflow engine and component architecture, rebuild domain-specific components for target industry, implement authentication layer for target services, adapt event sources for industry-specific triggers"
+      },
+      "interface_map": {
+        "adapter_schema": {
+          "input": {
+            "format": "JSON events",
+            "required_fields": [
+              "event_type",
+              "data",
+              "metadata"
+            ],
+            "protocols": [
+              "HTTP",
+              "WebSocket",
+              "Webhooks"
+            ]
+          },
+          "output": {
+            "format": "JSON responses",
+            "delivery": "async/streaming"
+          },
+          "authentication": {
+            "type": "OAuth 2.0 + API Keys",
+            "method": "PKCE flow with token refresh"
+          }
+        },
+        "standardization_level": "High",
+        "api_surface_area": "Large (50+)"
+      },
+      "comparable_systems": [
+        "Apache Airflow - workflow orchestration with DAG-based task scheduling",
+        "Kubernetes Operators - plugin-based infrastructure automation with custom resources",
+        "Jenkins Plugin Ecosystem - extensible CI/CD with thousands of community plugins",
+        "Apache Kafka Connect - connector-based data streaming with source/sink plugins",
+        "Grafana Plugin System - visualization platform with modular data source connectors"
+      ],
+      "information_gaps": [
+        "Exact workflow execution engine implementation details",
+        "Performance characteristics and scaling limits",
+        "Component dependency resolution mechanisms",
+        "Error handling and retry strategies across component chains",
+        "Resource usage patterns and memory management"
+      ]
+    },
+    "timestamp": "2026-04-10T16:38:16.077118"
+  },
+  "errors": []
+}

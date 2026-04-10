@@ -568,6 +568,113 @@
     }
   },
   {
+    "id": "brave-browser",
+    "product_name": "brave-browser",
+    "url": "https://github.com/brave/brave-browser.git",
+    "category": "Meta Repository",
+    "summary": "Brave Browser is a privacy-focused web browser that serves as a public-facing repository for issue tracking, releases, and documentation. This repository is a meta-repository that does not contain the actual browser source code, which resides in the brave-core repository. It functions as a centralized hub for community interaction, release management, and project coordination.",
+    "target_audience": "Open source contributors, Brave Browser users, community managers, and release coordinators",
+    "technical_stack": [
+      "Git for version control",
+      "GitHub for hosting and issue tracking",
+      "Markdown for documentation",
+      "Node.js ecosystem",
+      "Npm package management"
+    ],
+    "sdk_languages": [],
+    "capabilities": [
+      "Manages release documentation and changelogs for multiple platforms (CHANGELOG_ANDROID.md, CHANGELOG_DESKTOP.md, CHANGELOG_iOS.md)",
+      "Provides centralized issue tracking for the Brave Browser project (README.md references GitHub issues)",
+      "Serves as a public entry point for contributors and users (README.md)",
+      "Maintains version information through npm package structure (package.json version 1.91.34)",
+      "Coordinates cross-platform browser releases for Android, iOS, Linux, macOS, and Windows (package.json description)",
+      "Hosts community guidelines and documentation links (README.md)",
+      "Manages security policy coordination (README.md references SECURITY.md in brave-core)",
+      "Provides translation coordination through Transifex integration (README.md)",
+      "Maintains licensing information under Mozilla Public License 2.0 (package-lock.json)",
+      "Facilitates community engagement through Slack and Q&A platform links (README.md)",
+      "Archives historical release information (CHANGELOG_DESKTOP_ARCHIVE.md)",
+      "Provides download coordination by directing users to official website (README.md)",
+      "Manages build versioning through automated commit system (Git metadata shows brave-builds user)",
+      "Coordinates social media presence through Twitter handle reference (README.md)",
+      "Maintains wiki documentation hosting (README.md references GitHub wiki)"
+    ],
+    "use_cases": [
+      "Open source contributors use this repository to find contribution guidelines and navigate to the actual source code repository",
+      "Users access release notes and changelogs to understand browser updates across different platforms",
+      "Community members use this as a central hub to report issues and participate in discussions about Brave Browser features",
+      "Translators coordinate localization efforts through the linked Transifex platform",
+      "Release managers use this repository to coordinate version releases across multiple platforms"
+    ],
+    "auth_methods": [],
+    "integrations": [
+      "GitHub for issue tracking and wiki hosting (README.md references)",
+      "Transifex for translation management (README.md mentions explore.transifex.com/brave/brave_en/)",
+      "Slack for community communication (README.md mentions bravesoftware.slack.com)",
+      "Twitter for announcements (README.md references @brave handle)",
+      "Brave Community platform for Q&A (README.md references community.brave.app)"
+    ],
+    "logic_archetype": "API Gateway",
+    "abstract_problem": "Coordinates distributed project information by serving as a public gateway that routes stakeholders to appropriate resources while maintaining centralized documentation, version tracking, and community communication channels across multiple platforms.",
+    "data_flow_pattern": "Static content serving with external routing: Users access central hub \u2192 retrieve information/links \u2192 get redirected to specialized backend systems (core repository, download sites, community platforms)",
+    "state_complexity": "Entity-scoped",
+    "containerized": false,
+    "scaling_model": "GitHub's infrastructure handles scaling",
+    "ci_cd": "Automated builds via brave-builds user account",
+    "integration_difficulty": "Low",
+    "estimated_integration_hours": 16,
+    "required_technologies": [
+      "Git",
+      "GitHub or equivalent hosting",
+      "Markdown",
+      "npm/package management"
+    ],
+    "complexity_factors": [
+      "Setting up external service integrations",
+      "Customizing platform-specific documentation structure",
+      "Configuring automated build coordination"
+    ],
+    "risk_level": "Low",
+    "migration_path": "Clone repository structure, replace domain-specific documentation with new content, update external service links, configure automated build system for version coordination",
+    "api_surface_area": "Small (<10 endpoints)",
+    "standardization_level": "High",
+    "adapter_schema": {
+      "input": {
+        "format": "Git commits",
+        "required_fields": [
+          "version",
+          "documentation"
+        ],
+        "protocols": [
+          "Git",
+          "HTTP"
+        ]
+      },
+      "output": {
+        "format": "Static files",
+        "delivery": "sync"
+      },
+      "authentication": {
+        "type": "GitHub-based",
+        "method": "Repository permissions"
+      }
+    },
+    "comparable_systems": [
+      "Kubernetes project coordination hub managing multiple component repositories",
+      "Apache Foundation project umbrellas coordinating documentation across subprojects",
+      "Enterprise software release portals coordinating multiple product line documentation",
+      "Open source foundation landing pages routing to specialized development repositories",
+      "Corporate documentation hubs managing multi-regional compliance and release information"
+    ],
+    "license": "Unknown",
+    "project_health": {
+      "stars": 0,
+      "contributors": 0,
+      "last_commit": "",
+      "activity_level": "Unknown"
+    }
+  },
+  {
     "id": "core",
     "product_name": "core",
     "url": "https://github.com/home-assistant/core.git",
@@ -708,6 +815,142 @@
       "Apache Kafka Connect - event streaming with pluggable connectors and state management",
       "Grafana - plugin-based monitoring with alerting rules and real-time dashboards",
       "Node-RED - visual flow-based programming with device integrations and automation"
+    ],
+    "license": "Unknown",
+    "project_health": {
+      "stars": 0,
+      "contributors": 0,
+      "last_commit": "",
+      "activity_level": "Unknown"
+    }
+  },
+  {
+    "id": "dbeaver",
+    "product_name": "dbeaver",
+    "url": "https://github.com/dbeaver/dbeaver.git",
+    "category": "Database Management Tool",
+    "summary": "DBeaver is a Java-based universal database tool built on Eclipse RCP platform with OSGI plugin architecture, providing database connectivity through JDBC drivers, SQL editing capabilities, data visualization, and administrative functions. The system processes database metadata, manages connections through a connection pool, and renders UI components through Eclipse workbench framework. It implements a modular plugin system supporting over 100 database drivers and extensible functionality through OSGI bundles.",
+    "target_audience": "Database administrators, SQL developers, data analysts, database developers, and system integrators",
+    "technical_stack": [
+      "ANTLR4",
+      "Apache POI",
+      "Eclipse RCP platform",
+      "JDBC",
+      "JFreeChart",
+      "JSQLParser",
+      "JTS",
+      "Java",
+      "Maven",
+      "OSGI framework",
+      "SSHJ",
+      "SWT/JFace"
+    ],
+    "sdk_languages": [
+      "Java"
+    ],
+    "capabilities": [
+      "Manages database connections with JDBC drivers and connection pooling (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/datasource/DataSourceConnectHandler.java)",
+      "Provides SQL query execution and management through query managers (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/qm/QueryManagerView.java)",
+      "Renders database schema browser and metadata navigation (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/BaseBrowserView.java)",
+      "Handles database transaction management including commit and rollback operations (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/datasource/DataSourceCommitHandler.java)",
+      "Processes database output and console logging (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/DatabaseOutputView.java)",
+      "Manages external process execution and shell commands (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/process/ShellProcessView.java)",
+      "Implements connection wizards for database setup and configuration (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/dialogs/connection/ConnectionWizard.java)",
+      "Provides data export and import functionality through transfer wizards (plugins/org.jkiss.dbeaver.data.transfer/src/org/jkiss/dbeaver/tools/transfer/DataTransferWizard.java)",
+      "Handles Geographic Information System (GIS) data visualization (plugins/org.jkiss.dbeaver.data.gis/src/org/jkiss/dbeaver/model/gis/DBGeometry.java)",
+      "Supports Office document format integration for data handling (plugins/org.jkiss.dbeaver.data.office/)",
+      "Implements simple database object comparison tools (plugins/org.jkiss.dbeaver.cmp.simple/src/org/jkiss/dbeaver/tools/compare/simple/CompareObjectsExecutor.java)",
+      "Manages project configuration import and export (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/tools/project/ProjectExportWizard.java)",
+      "Provides debugging capabilities for database procedures (plugins/org.jkiss.dbeaver.debug.core/)",
+      "Handles user authentication and connection credentials (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/dialogs/connection/PasswordChangeDialog.java)",
+      "Implements network tunneling and proxy support for database connections (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/dialogs/connection/ConnectionPageNetworkHandler.java)",
+      "Manages database driver configurations and installations (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/dialogs/connection/ConnectionPageDriver.java)",
+      "Processes SQL script execution and management (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/tools/scripts/ScriptsImportWizard.java)",
+      "Provides data visualization through charts and graphs (evident from JFreeChart dependency mentioned in README)",
+      "Implements Eclipse workbench integration with perspectives and views (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/perspective/DBeaverPerspective.java)",
+      "Handles internationalization and localization support (multiple bundle_*.properties files across plugins)",
+      "Manages bookmark functionality for database objects (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/common/AddBookmarkHandler.java)",
+      "Provides preference management and configuration persistence (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/preferences/)",
+      "Implements EULA and license management (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/eula/EULAHandler.java)",
+      "Supports custom toolbar configuration and UI customization (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/ToolBarConfigurationRegistry.java)",
+      "Handles database-specific extensions for various vendors (100+ database driver plugins)"
+    ],
+    "use_cases": [
+      "Database administrators use this to manage database connections, monitor transactions, and perform administrative tasks across multiple database platforms",
+      "SQL developers use this to write, execute, and debug SQL queries with syntax highlighting and auto-completion features",
+      "Data analysts use this to visualize data through charts, export data to various formats, and browse database schemas",
+      "Database developers use this to design ER diagrams, compare database objects, and manage database migrations",
+      "System integrators use this to connect to over 100 different database types through standardized JDBC interfaces"
+    ],
+    "auth_methods": [
+      "JDBC authentication",
+      "SSH tunneling",
+      "Proxy authentication",
+      "SSL/TLS connections"
+    ],
+    "integrations": [
+      "JDBC drivers for 100+ database types (evident from extensive database driver plugins)",
+      "SSH tunneling for secure connections (SSHJ library mentioned in README)",
+      "Eclipse platform integration (Eclipse RCP framework)",
+      "GIS data support through JTS library (plugins/org.jkiss.dbeaver.data.gis/)",
+      "Office document formats via Apache POI (mentioned in README)",
+      "Git integration for version control (plugins/org.jkiss.dbeaver.git.feature/)"
+    ],
+    "logic_archetype": "Plugin Host",
+    "abstract_problem": "Provides a unified interface layer over heterogeneous external systems with pluggable adapters, enabling standardized operations across vendor-specific implementations while maintaining connection lifecycle and metadata introspection.",
+    "data_flow_pattern": "Request-Response with connection pooling \u2192 vendor-specific adapter translation \u2192 external system interaction \u2192 metadata caching \u2192 UI state synchronization",
+    "state_complexity": "Entity-scoped",
+    "containerized": false,
+    "scaling_model": "Desktop application - single instance per user",
+    "ci_cd": "none observed",
+    "integration_difficulty": "Medium",
+    "estimated_integration_hours": 160,
+    "required_technologies": [
+      "Java",
+      "OSGI framework",
+      "Eclipse RCP platform",
+      "Maven build system",
+      "Vendor-specific adapter libraries"
+    ],
+    "complexity_factors": [
+      "Eclipse RCP learning curve",
+      "OSGI bundle configuration complexity",
+      "Plugin dependency management",
+      "Desktop UI framework constraints",
+      "Multi-threaded connection handling"
+    ],
+    "risk_level": "Medium",
+    "migration_path": "Extract core plugin host and connection management components, replace JDBC adapters with target domain adapters, adapt Eclipse RCP UI components or replace with web/mobile interface, maintain OSGI plugin architecture for extensibility",
+    "api_surface_area": "Large (50+)",
+    "standardization_level": "High",
+    "adapter_schema": {
+      "input": {
+        "format": "Plugin extension points",
+        "required_fields": [
+          "connection_parameters",
+          "metadata_schema",
+          "operation_handlers"
+        ],
+        "protocols": [
+          "OSGI service registry",
+          "Eclipse extension points"
+        ]
+      },
+      "output": {
+        "format": "UI events and data streams",
+        "delivery": "async"
+      },
+      "authentication": {
+        "type": "pluggable",
+        "method": "vendor-specific authentication handlers"
+      }
+    },
+    "comparable_systems": [
+      "Postman API Client - unified interface for testing heterogeneous REST APIs with collection management",
+      "Kubernetes Dashboard - standardized management interface for diverse container workloads and cluster resources",
+      "VMware vSphere Client - unified management of heterogeneous virtualization infrastructure with plugin extensions",
+      "Grafana - pluggable data source architecture for diverse monitoring and metrics systems",
+      "Jenkins - plugin-based automation platform supporting heterogeneous build tools and deployment targets"
     ],
     "license": "Unknown",
     "project_health": {
@@ -2562,6 +2805,287 @@
     }
   },
   {
+    "id": "pipedream",
+    "product_name": "pipedream",
+    "url": "https://github.com/PipedreamHQ/pipedream.git",
+    "category": "Integration Platform as a Service (iPaaS)",
+    "summary": "Pipedream is a serverless integration platform that enables developers to build event-driven workflows by connecting over 1,000 applications through pre-built components, custom code (Node.js, Python, Go, Bash), and various triggers (HTTP, timers, webhooks). The system follows a component-based architecture with modular actions and sources that can be chained together to create complex automation workflows.",
+    "target_audience": "Backend developers, Integration developers, DevOps engineers, Data engineers, Product teams",
+    "technical_stack": [
+      "@actions/core ^1.10.1",
+      "@pipedream/platform ^3.2.5",
+      "@supabase/supabase-js ^2.48.1",
+      "Axios",
+      "Form-data ^4.0.4",
+      "Io-ts",
+      "Node.js",
+      "Oauth4webapi",
+      "OpenAI API",
+      "React",
+      "TypeScript"
+    ],
+    "sdk_languages": [
+      "JavaScript/TypeScript",
+      "React"
+    ],
+    "capabilities": [
+      "Executes event-driven workflows triggered by HTTP requests, webhooks, or timers (platform/lib/index.ts)",
+      "Provides pre-built components for 1,000+ applications through modular actions and sources (components directory structure)",
+      "Supports custom code execution in Node.js, Python, Go, and Bash within workflow steps (README.md)",
+      "Implements OAuth and API key authentication for connected apps (@pipedream/platform dependencies)",
+      "Manages workflow state and data flow between steps with export/import mechanism (packages/sdk/src/shared/index.ts)",
+      "Processes HTTP requests with configurable methods, headers, and authentication (platform/lib/axios.ts)",
+      "Handles file uploads and streaming with metadata extraction (platform/lib/file-stream.ts)",
+      "Provides SQL database connectivity with query execution and schema introspection (platform/lib/sql-prop.ts)",
+      "Implements webhook registration and event routing for real-time integrations (components/activecampaign/sources/common/webhook.mjs)",
+      "Supports scheduled task execution with AWS Step Functions integration (components/aws/sources/new-scheduled-tasks/swagger.yaml)",
+      "Enables browser-based account connection through Pipedream Connect SDK (packages/sdk/src/browser/index.ts)",
+      "Manages external user authentication and token-based access control (packages/sdk/src/server/index.ts)",
+      "Provides component configuration with dynamic prop options and validation (packages/sdk/src/shared/component.ts)",
+      "Implements email sending capabilities with HTML/text content support (platform/lib/index.ts SendConfigEmail)",
+      "Supports S3 file storage operations with bucket and prefix configuration (platform/lib/index.ts)",
+      "Handles event emission and streaming through Server-Sent Events (SSE) (platform/lib/index.ts SendConfigSSE)",
+      "Processes form data and file uploads with multipart support (components/_2markdown dependencies)",
+      "Implements rate limiting and error handling for API requests (platform/lib/errors.ts)",
+      "Provides React components for building integration UIs (packages/connect-react/src/index.ts)",
+      "Supports AI-powered workflow generation and component scaffolding (packages/prompts/src/index.ts)",
+      "Manages component packaging and validation through GitHub Actions (.github/actions)",
+      "Implements proxy API requests through authenticated connections (packages/sdk/src/server/index.ts ProxyApiOpts)",
+      "Supports TypeScript component development with strict type definitions (packages/sdk/src/shared/component.ts)",
+      "Handles OAuth 2.0 flows with PKCE and token refresh mechanisms (packages/sdk/src/server/index.ts oauth4webapi)",
+      "Provides MCP (Model Context Protocol) server integration (modelcontextprotocol/.env.example)"
+    ],
+    "use_cases": [
+      "Backend developers use this to build API integrations and automate data workflows between SaaS applications",
+      "DevOps teams use this to create CI/CD pipelines and infrastructure automation workflows",
+      "Data engineers use this to build ETL pipelines with real-time event processing from various data sources",
+      "Product teams use this to create customer onboarding flows and notification systems",
+      "Integration developers use this to build custom connectors and middleware for enterprise applications"
+    ],
+    "auth_methods": [
+      "OAuth 2.0 with PKCE support (packages/sdk/src/server/index.ts oauth4webapi)",
+      "API key authentication (components show various API key patterns)",
+      "Token-based authentication with external user mapping (packages/sdk/src/server/index.ts)",
+      "JWT tokens for Connect SDK (packages/sdk/src/browser/index.ts)",
+      "Basic HTTP authentication (platform/lib/axios.ts transformConfigForOauth)"
+    ],
+    "integrations": [
+      "ActiveCampaign for CRM and email marketing (components/activecampaign)",
+      "AWS services including Step Functions for scheduled tasks (components/aws)",
+      "Google services integration (components directory structure)",
+      "Slack for messaging and notifications (components directory structure)",
+      "Airtable for database operations (components directory structure)",
+      "GitHub for version control webhooks (components directory structure)",
+      "Supabase for database operations (@supabase/supabase-js dependency)",
+      "OpenAI for AI-powered features (packages/ai/.env.example)",
+      "Over 1,000 pre-built app integrations (components directory with 25,000+ files)"
+    ],
+    "logic_archetype": "Plugin Host",
+    "abstract_problem": "Orchestrates sequences of composable computational units triggered by external events, where each unit can transform data and pass results to subsequent units in a chain, with dynamic component loading and shared runtime services.",
+    "data_flow_pattern": "Event trigger \u2192 component chain execution \u2192 data transformation between steps \u2192 side-effect persistence to external systems",
+    "state_complexity": "Session-scoped",
+    "containerized": false,
+    "scaling_model": "Serverless platform scaling with hosted execution environment",
+    "ci_cd": "GitHub Actions with custom actions for validation and publishing",
+    "integration_difficulty": "Medium",
+    "estimated_integration_hours": 120,
+    "required_technologies": [
+      "Node.js/TypeScript",
+      "HTTP/REST APIs",
+      "OAuth 2.0",
+      "Event-driven architecture",
+      "Component packaging system"
+    ],
+    "complexity_factors": [
+      "Large codebase with 25,000+ files",
+      "Complex component lifecycle management",
+      "Multi-language runtime integration",
+      "Authentication across multiple protocols",
+      "Real-time event processing requirements"
+    ],
+    "risk_level": "Medium",
+    "migration_path": "Extract core workflow engine and component architecture, rebuild domain-specific components for target industry, implement authentication layer for target services, adapt event sources for industry-specific triggers",
+    "api_surface_area": "Large (50+)",
+    "standardization_level": "High",
+    "adapter_schema": {
+      "input": {
+        "format": "JSON events",
+        "required_fields": [
+          "event_type",
+          "data",
+          "metadata"
+        ],
+        "protocols": [
+          "HTTP",
+          "WebSocket",
+          "Webhooks"
+        ]
+      },
+      "output": {
+        "format": "JSON responses",
+        "delivery": "async/streaming"
+      },
+      "authentication": {
+        "type": "OAuth 2.0 + API Keys",
+        "method": "PKCE flow with token refresh"
+      }
+    },
+    "comparable_systems": [
+      "Apache Airflow - workflow orchestration with DAG-based task scheduling",
+      "Kubernetes Operators - plugin-based infrastructure automation with custom resources",
+      "Jenkins Plugin Ecosystem - extensible CI/CD with thousands of community plugins",
+      "Apache Kafka Connect - connector-based data streaming with source/sink plugins",
+      "Grafana Plugin System - visualization platform with modular data source connectors"
+    ],
+    "license": "Unknown",
+    "project_health": {
+      "stars": 0,
+      "contributors": 0,
+      "last_commit": "",
+      "activity_level": "Unknown"
+    }
+  },
+  {
+    "id": "prometheus",
+    "product_name": "prometheus",
+    "url": "https://github.com/prometheus/prometheus.git",
+    "category": "Monitoring System",
+    "summary": "Prometheus is a systems and service monitoring time-series database written in Go that collects metrics via HTTP pull model, stores them in a custom TSDB, and provides PromQL query language for analysis. It implements a comprehensive monitoring stack with service discovery, alerting, and federation capabilities, designed for cloud-native environments with autonomous single-node architecture.",
+    "target_audience": "DevOps engineers, Site reliability engineers, Platform engineers, System administrators",
+    "technical_stack": [
+      "Docker and Docker Compose for containerization",
+      "Go",
+      "Grafana regexp library v0.0.0-20250905093917-f7b3be9d1853",
+      "Kingpin v2.4.0 for CLI parsing",
+      "Kubernetes client-go for Kubernetes service discovery",
+      "OpenTelemetry for distributed tracing",
+      "Prometheus client libraries for metrics exposition",
+      "Protocol Buffers for remote write protocol",
+      "React/TypeScript for web UI",
+      "Snappy compression v1.0.0"
+    ],
+    "sdk_languages": [
+      "Go"
+    ],
+    "capabilities": [
+      "Scrapes metrics from HTTP endpoints with configurable intervals and timeout handling (scrape/scrape.go)",
+      "Stores time-series data in a custom TSDB with WAL and compression support (tsdb/db.go, tsdb/head.go)",
+      "Executes PromQL queries for time-series analysis and aggregation (promql/engine.go, promql/functions.go)",
+      "Provides service discovery for 25+ platforms including Kubernetes, AWS EC2, Consul, DNS (discovery/ directory)",
+      "Manages alerting rules evaluation and notification routing to Alertmanager (rules/manager.go, notifier/notifier.go)",
+      "Handles remote write/read protocols for external storage integration (storage/remote/write.go, storage/remote/read.go)",
+      "Implements label-based relabeling and metric transformation (model/relabel/relabel.go)",
+      "Supports federation for hierarchical Prometheus deployments (web/federate.go)",
+      "Manages TSDB compaction and retention policies (tsdb/compact.go, tsdb/retention.go)",
+      "Processes exemplars for trace correlation with metrics (model/exemplar/exemplar.go)",
+      "Handles native histograms and classic histogram conversion (model/histogram/convert.go)",
+      "Provides web UI and HTTP API for query and configuration management (web/web.go, web/api/v1/api.go)",
+      "Implements configuration hot-reloading without service restart (config/reload.go)",
+      "Supports agent mode for metrics forwarding without local storage (tsdb/agent/db.go)",
+      "Manages WAL (Write-Ahead Log) for durability and crash recovery (tsdb/wlog/wlog.go)",
+      "Implements chunk encoding with multiple compression algorithms (tsdb/chunkenc/chunk.go)",
+      "Handles target group management for service discovery (discovery/targetgroup/targetgroup.go)",
+      "Provides templating engine for alert annotations and labels (template/template.go)",
+      "Implements distributed tracing integration with OpenTelemetry (tracing/tracing.go)",
+      "Manages TSDB snapshots and backup/restore operations (tsdb/db.go snapshot methods)",
+      "Handles HTTP-based configuration and rule file validation (cmd/promtool/main.go)",
+      "Implements concurrent query execution with resource limiting (promql/engine.go)",
+      "Provides metrics exposition format parsing for Prometheus and OpenMetrics (model/textparse/)",
+      "Manages plugin system for extending functionality (plugins/ directory)",
+      "Handles authentication and authorization via various methods (web/authentication.go)"
+    ],
+    "use_cases": [
+      "DevOps teams use this to monitor infrastructure and application metrics with alerting capabilities",
+      "SRE engineers use this for observability, SLI/SLO tracking, and incident response automation",
+      "Platform teams use this to provide centralized monitoring infrastructure for microservices architectures",
+      "Data engineers use this for time-series data collection and analysis in data pipelines",
+      "Cloud-native developers use this for Kubernetes monitoring with auto-discovery of services and pods"
+    ],
+    "auth_methods": [
+      "HTTP Basic Authentication (web/authentication.go)",
+      "Bearer Token authentication (config/config.go)",
+      "TLS mutual authentication (config/config.go)",
+      "OAuth2 authentication (config/config.go)"
+    ],
+    "integrations": [
+      "Kubernetes API server for service discovery (discovery/kubernetes/)",
+      "AWS EC2 API for instance discovery (discovery/aws/)",
+      "Consul API for service discovery (discovery/consul/)",
+      "DNS for SRV record discovery (discovery/dns/)",
+      "Alertmanager for alert routing (notifier/notifier.go)",
+      "Remote storage systems via remote write/read protocols (storage/remote/)",
+      "OpenTelemetry for distributed tracing (tracing/tracing.go)",
+      "Grafana for visualization dashboards",
+      "InfluxDB via remote storage adapter (documentation/examples/remote_storage/)",
+      "Graphite via remote storage adapter (documentation/examples/remote_storage/)"
+    ],
+    "logic_archetype": "Data Aggregator",
+    "abstract_problem": "Continuously aggregates timestamped measurements from distributed sources into a queryable time-series repository with retention management and multi-dimensional indexing for temporal pattern analysis.",
+    "data_flow_pattern": "Periodic pull collection \u2192 WAL persistence \u2192 chunk compression \u2192 indexed storage \u2192 query engine \u2192 API response, with parallel rule evaluation generating derived metrics and alerts",
+    "state_complexity": "Global mutable",
+    "containerized": true,
+    "scaling_model": "Horizontal scaling via federation, vertical scaling for single instances",
+    "ci_cd": "GitHub Actions (visible in workflows)",
+    "integration_difficulty": "Medium",
+    "estimated_integration_hours": 120,
+    "required_technologies": [
+      "Go 1.25.0",
+      "Protocol Buffers",
+      "HTTP/REST APIs",
+      "Time-series database concepts",
+      "Query language design"
+    ],
+    "complexity_factors": [
+      "Custom TSDB implementation requires deep understanding",
+      "PromQL query engine complexity",
+      "Service discovery abstraction layer",
+      "WAL and compaction logic",
+      "Multi-dimensional indexing system"
+    ],
+    "risk_level": "Medium",
+    "migration_path": "Extract TSDB engine and query components, replace metrics exposition format with domain-specific data model, adapt service discovery to domain-specific sources, modify query language for domain terminology",
+    "api_surface_area": "Medium (10-50)",
+    "standardization_level": "High",
+    "adapter_schema": {
+      "input": {
+        "format": "HTTP endpoints, Protocol Buffers",
+        "required_fields": [
+          "timestamp",
+          "metric_name",
+          "value",
+          "labels"
+        ],
+        "protocols": [
+          "HTTP pull",
+          "HTTP push (remote write)",
+          "HTTP API"
+        ]
+      },
+      "output": {
+        "format": "JSON, Protocol Buffers, Prometheus exposition format",
+        "delivery": "sync HTTP responses, streaming for federation"
+      },
+      "authentication": {
+        "type": "multiple",
+        "method": "HTTP Basic Auth, Bearer tokens, mutual TLS, OAuth2"
+      }
+    },
+    "comparable_systems": [
+      "Apache Kafka - Event stream aggregation with retention and temporal querying across distributed topics",
+      "ElasticSearch - Document aggregation with time-based indices and query DSL for temporal analysis",
+      "InfluxDB - Purpose-built time-series database with continuous queries and retention policies",
+      "Apache Druid - Real-time analytics database with time-partitioned data and aggregation queries",
+      "Grafana Loki - Log aggregation system with label-based indexing and temporal query capabilities"
+    ],
+    "license": "Unknown",
+    "project_health": {
+      "stars": 0,
+      "contributors": 0,
+      "last_commit": "",
+      "activity_level": "Unknown"
+    }
+  },
+  {
     "id": "sentry",
     "product_name": "sentry",
     "url": "https://github.com/getsentry/sentry.git",
@@ -2712,6 +3236,144 @@
       "Prometheus/Grafana - Metrics collection and alerting system for infrastructure and application monitoring",
       "Elastic Stack - Search and analytics platform with real-time data ingestion and visualization",
       "AWS CloudWatch - Cloud resource monitoring with automated alerting and event-driven responses"
+    ],
+    "license": "Unknown",
+    "project_health": {
+      "stars": 0,
+      "contributors": 0,
+      "last_commit": "",
+      "activity_level": "Unknown"
+    }
+  },
+  {
+    "id": "strapi",
+    "product_name": "strapi",
+    "url": "https://github.com/strapi/strapi.git",
+    "category": "Headless Content Management System",
+    "summary": "Strapi is an open-source headless content management system (CMS) built with Node.js and TypeScript that provides a REST and GraphQL API for content management. It features a plugin-based architecture with a React-based admin panel, supports multiple databases (PostgreSQL, MySQL, MariaDB, SQLite), and offers flexible content modeling through a visual content type builder. The system implements role-based access control, internationalization, and data transfer capabilities while providing both self-hosted and cloud deployment options.",
+    "target_audience": "Full-stack developers, content creators, DevOps teams, and enterprise development teams",
+    "technical_stack": [
+      "Docker for containerization",
+      "Koa.js for HTTP server",
+      "MariaDB",
+      "MySQL",
+      "Node.js",
+      "PostgreSQL",
+      "React",
+      "SQLite",
+      "Styled Components",
+      "TypeScript",
+      "Webpack for asset bundling"
+    ],
+    "sdk_languages": [
+      "JavaScript",
+      "TypeScript"
+    ],
+    "capabilities": [
+      "Generates REST and GraphQL APIs automatically from content type definitions (packages/core/strapi/src/core-api)",
+      "Provides visual content type builder for creating custom data models (packages/core/content-type-builder)",
+      "Implements role-based access control (RBAC) with granular permissions (packages/core/admin/admin/src/pages/Settings/pages/Users)",
+      "Manages content through React-based admin panel with real-time editing (packages/core/admin/admin/src/pages/App)",
+      "Supports internationalization (i18n) for multi-language content management (packages/plugins/i18n)",
+      "Handles file uploads and media library management (packages/core/upload)",
+      "Provides plugin system for extending functionality (packages/core/strapi/src/core/loaders/plugins)",
+      "Implements database migrations and schema management (packages/core/database/src/migrations)",
+      "Supports multiple database backends through unified ORM layer (packages/core/database)",
+      "Provides CLI tools for project scaffolding and management (packages/cli/create-strapi-app)",
+      "Implements content versioning and draft/publish workflows (packages/core/content-manager)",
+      "Handles webhook events for external integrations (packages/core/strapi/src/core/webhooks)",
+      "Provides data transfer and import/export capabilities (packages/core/data-transfer)",
+      "Implements JWT-based authentication and API token management (packages/core/admin/server/src/services/auth)",
+      "Supports custom field types and validation rules (packages/core/content-type-builder/server/src/services/field-types)",
+      "Provides email notification system (packages/plugins/email)",
+      "Implements cron job scheduling for automated tasks (examples/getstarted/config/server.js)",
+      "Handles content releases and publishing scheduling (packages/core/content-releases)",
+      "Provides OpenAPI documentation generation (packages/core/documentation)",
+      "Implements audit logging for enterprise features (docs/docs/docs/01-core/admin/01-ee/02-audit-logs.md)",
+      "Supports review workflows for content approval processes (packages/core/review-workflows)",
+      "Provides telemetry and usage analytics (packages/core/strapi/src/core/telemetry)",
+      "Implements content history and version tracking (packages/core/content-manager/server/src/history)",
+      "Handles dynamic zones for flexible content layouts (packages/core/content-manager/server/src/services/dynamic-zones)",
+      "Provides cloud deployment and management integration (packages/cli/cloud)"
+    ],
+    "use_cases": [
+      "Content creators and marketing teams use it to manage websites, blogs, and digital content through the visual admin interface",
+      "Developers use it as a backend API for mobile apps, web applications, and JAMstack sites with automatic REST/GraphQL endpoints",
+      "Enterprise teams use it for multi-site content management with role-based permissions and approval workflows",
+      "E-commerce businesses use it to manage product catalogs, inventory, and content across multiple channels",
+      "Media organizations use it for digital asset management and multi-language content publishing"
+    ],
+    "auth_methods": [
+      "JWT tokens for API access",
+      "Session-based authentication for admin panel",
+      "API tokens for programmatic access",
+      "Role-based access control (RBAC) with granular permissions"
+    ],
+    "integrations": [
+      "PostgreSQL via database configuration (examples/complex/config/database.ts)",
+      "MySQL via mysql2 driver (examples/complex/package.json)",
+      "AWS S3 for file storage via upload providers (packages/providers/upload-aws-s3)",
+      "Cloudinary for media management (packages/providers/upload-cloudinary)",
+      "SendGrid for email delivery (packages/providers/email-sendgrid)",
+      "Redis for caching and sessions (packages/core/admin/server/src/services/auth)",
+      "Webhook integrations for external systems (packages/core/strapi/src/core/webhooks)",
+      "GraphQL endpoint generation (packages/plugins/graphql)"
+    ],
+    "logic_archetype": "Plugin Host",
+    "abstract_problem": "Maintains a registry of extensible data schemas with automated API generation, while providing granular access control and multi-layered plugin architecture for functionality extension.",
+    "data_flow_pattern": "HTTP request \u2192 middleware chain \u2192 permission validation \u2192 schema-validated CRUD operation \u2192 database transaction \u2192 API response with plugin hooks at each stage",
+    "state_complexity": "Entity-scoped",
+    "containerized": true,
+    "scaling_model": "Horizontal scaling supported, database connection pooling, CDN integration for media",
+    "ci_cd": "GitHub Actions",
+    "integration_difficulty": "Medium",
+    "estimated_integration_hours": 120,
+    "required_technologies": [
+      "Node.js",
+      "TypeScript",
+      "React",
+      "Database (PostgreSQL/MySQL)",
+      "HTTP framework"
+    ],
+    "complexity_factors": [
+      "Plugin system integration",
+      "Permission model customization",
+      "Database migration strategy",
+      "Admin UI replacement for different domains"
+    ],
+    "risk_level": "Medium",
+    "migration_path": "Extract core plugin host and schema generation components, replace domain-specific UI components, adapt permission model to target domain, integrate with existing database infrastructure",
+    "api_surface_area": "Large (50+)",
+    "standardization_level": "High",
+    "adapter_schema": {
+      "input": {
+        "format": "HTTP JSON",
+        "required_fields": [
+          "content-type",
+          "data",
+          "permissions"
+        ],
+        "protocols": [
+          "HTTP REST",
+          "GraphQL",
+          "WebSocket"
+        ]
+      },
+      "output": {
+        "format": "JSON/GraphQL",
+        "delivery": "sync"
+      },
+      "authentication": {
+        "type": "JWT + RBAC",
+        "method": "Bearer tokens with role-based permissions"
+      }
+    },
+    "comparable_systems": [
+      "Kubernetes API Server - Schema-driven resource management with RBAC and extension points",
+      "Salesforce Platform - Custom object modeling with automated APIs and permission systems",
+      "ServiceNow Platform - IT service schema management with workflow automation and access control",
+      "Drupal Entity System - Content type definitions with field management and user permissions",
+      "Firebase Firestore - Document schema validation with real-time APIs and security rules"
     ],
     "license": "Unknown",
     "project_health": {

@@ -1,0 +1,560 @@
+{
+  "url": "https://github.com/dbeaver/dbeaver.git",
+  "repo_name": "dbeaver",
+  "timestamp": "2026-04-10T16:38:22.398415",
+  "step1": {
+    "product_name": "dbeaver",
+    "url": "https://github.com/dbeaver/dbeaver.git",
+    "analysis": {
+      "summary": "DBeaver is a Java-based universal database tool built on Eclipse RCP platform with OSGI plugin architecture, providing database connectivity through JDBC drivers, SQL editing capabilities, data visualization, and administrative functions. The system processes database metadata, manages connections through a connection pool, and renders UI components through Eclipse workbench framework. It implements a modular plugin system supporting over 100 database drivers and extensible functionality through OSGI bundles.",
+      "capabilities": [
+        "Manages database connections with JDBC drivers and connection pooling (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/datasource/DataSourceConnectHandler.java)",
+        "Provides SQL query execution and management through query managers (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/qm/QueryManagerView.java)",
+        "Renders database schema browser and metadata navigation (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/BaseBrowserView.java)",
+        "Handles database transaction management including commit and rollback operations (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/datasource/DataSourceCommitHandler.java)",
+        "Processes database output and console logging (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/DatabaseOutputView.java)",
+        "Manages external process execution and shell commands (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/process/ShellProcessView.java)",
+        "Implements connection wizards for database setup and configuration (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/dialogs/connection/ConnectionWizard.java)",
+        "Provides data export and import functionality through transfer wizards (plugins/org.jkiss.dbeaver.data.transfer/src/org/jkiss/dbeaver/tools/transfer/DataTransferWizard.java)",
+        "Handles Geographic Information System (GIS) data visualization (plugins/org.jkiss.dbeaver.data.gis/src/org/jkiss/dbeaver/model/gis/DBGeometry.java)",
+        "Supports Office document format integration for data handling (plugins/org.jkiss.dbeaver.data.office/)",
+        "Implements simple database object comparison tools (plugins/org.jkiss.dbeaver.cmp.simple/src/org/jkiss/dbeaver/tools/compare/simple/CompareObjectsExecutor.java)",
+        "Manages project configuration import and export (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/tools/project/ProjectExportWizard.java)",
+        "Provides debugging capabilities for database procedures (plugins/org.jkiss.dbeaver.debug.core/)",
+        "Handles user authentication and connection credentials (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/dialogs/connection/PasswordChangeDialog.java)",
+        "Implements network tunneling and proxy support for database connections (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/dialogs/connection/ConnectionPageNetworkHandler.java)",
+        "Manages database driver configurations and installations (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/dialogs/connection/ConnectionPageDriver.java)",
+        "Processes SQL script execution and management (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/tools/scripts/ScriptsImportWizard.java)",
+        "Provides data visualization through charts and graphs (evident from JFreeChart dependency mentioned in README)",
+        "Implements Eclipse workbench integration with perspectives and views (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/perspective/DBeaverPerspective.java)",
+        "Handles internationalization and localization support (multiple bundle_*.properties files across plugins)",
+        "Manages bookmark functionality for database objects (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/common/AddBookmarkHandler.java)",
+        "Provides preference management and configuration persistence (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/preferences/)",
+        "Implements EULA and license management (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/eula/EULAHandler.java)",
+        "Supports custom toolbar configuration and UI customization (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/ToolBarConfigurationRegistry.java)",
+        "Handles database-specific extensions for various vendors (100+ database driver plugins)"
+      ],
+      "use_cases": [
+        "Database administrators use this to manage database connections, monitor transactions, and perform administrative tasks across multiple database platforms",
+        "SQL developers use this to write, execute, and debug SQL queries with syntax highlighting and auto-completion features",
+        "Data analysts use this to visualize data through charts, export data to various formats, and browse database schemas",
+        "Database developers use this to design ER diagrams, compare database objects, and manage database migrations",
+        "System integrators use this to connect to over 100 different database types through standardized JDBC interfaces"
+      ],
+      "category": "Database Management Tool",
+      "target_audience": "Database administrators, SQL developers, data analysts, database developers, and system integrators",
+      "technical_stack": [
+        "Java (6171 .java files)",
+        "Eclipse RCP platform (evident from Eclipse dependencies in MANIFEST.MF files)",
+        "OSGI framework (MANIFEST.MF files indicate OSGI bundles)",
+        "JDBC (mentioned in README architecture section)",
+        "JSQLParser (mentioned in README architecture section)",
+        "ANTLR4 (mentioned in README architecture section)",
+        "SWT/JFace (UI framework, evident from imports in source files)",
+        "Maven (pom.xml files throughout project structure)",
+        "SSHJ (mentioned in README for networking)",
+        "Apache POI (mentioned in README for Office documents)",
+        "JFreeChart (mentioned in README for data visualization)",
+        "JTS (mentioned in README for GIS functionality)"
+      ],
+      "api_endpoints": [
+        "Eclipse Command Framework handlers for database operations (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/datasource/)",
+        "OSGI service interfaces for database connections (org.jkiss.dbeaver.registry.DataSourceDescriptorManager)",
+        "Workbench extension points for UI integration (plugin.xml files define extension points)",
+        "Database driver API for vendor-specific implementations (100+ driver plugins)"
+      ],
+      "sdk_languages": [
+        "Java"
+      ],
+      "auth_methods": [
+        "JDBC authentication",
+        "SSH tunneling",
+        "Proxy authentication",
+        "SSL/TLS connections"
+      ],
+      "integrations": [
+        "JDBC drivers for 100+ database types (evident from extensive database driver plugins)",
+        "SSH tunneling for secure connections (SSHJ library mentioned in README)",
+        "Eclipse platform integration (Eclipse RCP framework)",
+        "GIS data support through JTS library (plugins/org.jkiss.dbeaver.data.gis/)",
+        "Office document formats via Apache POI (mentioned in README)",
+        "Git integration for version control (plugins/org.jkiss.dbeaver.git.feature/)"
+      ],
+      "architecture": {
+        "pattern": "plugin-based",
+        "components": [
+          "Core platform providing database abstraction layer",
+          "OSGI plugin system with 130+ plugins for extensibility",
+          "Eclipse RCP UI framework for rich desktop interface",
+          "Database driver plugins for vendor-specific implementations",
+          "Data transfer and visualization components",
+          "Connection management and authentication layer",
+          "SQL parsing and execution engine",
+          "Preference and configuration management system"
+        ],
+        "entry_points": [
+          "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/core/DBeaverActivator.java",
+          "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/core/DesktopPlatform.java"
+        ],
+        "data_flow": "Database connections are established through JDBC drivers, metadata is fetched and cached, SQL queries are parsed using JSQLParser/ANTLR4, executed against databases, and results are rendered in Eclipse workbench views. Configuration data flows through Eclipse preference system and OSGI service registry.",
+        "persistence": "Eclipse workspace for project data, preference storage for user settings, no embedded database - connects to external databases via JDBC",
+        "concurrency_model": "Eclipse Jobs framework for background processing, SWT UI thread for user interface updates, multi-threaded connection handling",
+        "communication_patterns": "JDBC for database connectivity, OSGI service registry for inter-plugin communication, Eclipse extension points for UI integration",
+        "plugin_extension_model": "OSGI bundle system with Eclipse extension points, plugin.xml files define extensions and extension points, feature-based plugin grouping"
+      },
+      "data_model": {
+        "primary_entities": [
+          "DataSourceDescriptor",
+          "DBConnection",
+          "DatabaseMetadata",
+          "SQLQuery",
+          "DatabaseObject",
+          "Project",
+          "UserPreferences"
+        ],
+        "storage_backends": [
+          "External databases via JDBC",
+          "Eclipse workspace",
+          "File system for preferences and metadata cache"
+        ],
+        "schema_patterns": "Relational database schema introspection, metadata caching, object-oriented model representation",
+        "migration_strategy": "Plugin versioning through OSGI, preference migration handlers"
+      },
+      "algorithms": {
+        "problem_type": "Database management and SQL development with multi-vendor database support",
+        "core_patterns": [
+          "Plugin architecture",
+          "Command pattern for UI actions",
+          "Factory pattern for database drivers",
+          "Observer pattern for UI updates",
+          "Strategy pattern for database-specific implementations"
+        ],
+        "complexity_indicators": "Large codebase with 9404 files, complex plugin dependency graph, multi-threaded execution",
+        "key_algorithms": [
+          "SQL parsing using JSQLParser and ANTLR4",
+          "Database metadata introspection",
+          "Connection pooling and management",
+          "UI rendering through SWT/Eclipse RCP"
+        ],
+        "evidence": "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/registry/ contains core registry and factory implementations"
+      },
+      "security_model": {
+        "authentication": "Database-specific authentication, SSH key-based authentication, password storage",
+        "authorization": "Database-level permissions, connection-based access control",
+        "data_protection": "SSH tunneling, SSL/TLS connections, encrypted password storage",
+        "security_headers": "Not applicable for desktop application",
+        "vulnerability_handling": "SECURITY.md file present, Apache 2.0 license compliance"
+      },
+      "dependencies": {
+        "runtime": [
+          "Eclipse RCP platform",
+          "OSGI framework",
+          "JDBC drivers (100+ supported)",
+          "SWT/JFace UI libraries",
+          "JSQLParser",
+          "ANTLR4",
+          "SSHJ",
+          "Apache POI",
+          "JFreeChart",
+          "JTS"
+        ],
+        "dev": [
+          "Maven build system",
+          "Eclipse PDE for plugin development"
+        ],
+        "infrastructure": [
+          "Java Runtime Environment (OpenJDK 21 included)",
+          "External databases for connectivity"
+        ]
+      },
+      "deployment": {
+        "containerized": false,
+        "container_orchestration": "none",
+        "ci_cd": "none observed",
+        "environment_config": "Eclipse preferences system, OSGI configuration, database connection properties",
+        "scaling_model": "Desktop application - single instance per user"
+      },
+      "code_quality_signals": {
+        "has_tests": true,
+        "test_framework": "JUnit (inferred from Eclipse platform)",
+        "test_count_estimate": "154 test-related files",
+        "has_linting": false,
+        "has_type_hints": true,
+        "documentation_quality": "adequate",
+        "code_style": "Eclipse code formatter configuration present (docs/codestyle/eclipse-formatter-profile.xml)"
+      },
+      "project_health": {
+        "license": "Apache-2.0",
+        "total_commits": "1 (in extracted sample)",
+        "top_contributors": "1 (Serge Rider)",
+        "recent_activity": "Active development with merge from devel branch",
+        "community_signals": "Security policy present, comprehensive README, extensive localization support"
+      },
+      "evidence_tracking": {
+        "files_analyzed": [
+          "README.md",
+          "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/BaseBrowserView.java",
+          "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/qm/QueryManagerView.java",
+          "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/datasource/",
+          "Multiple MANIFEST.MF files",
+          "Multiple pom.xml files",
+          "plugins/org.jkiss.dbeaver.data.gis/",
+          "Directory structure analysis"
+        ],
+        "confidence_level": "High",
+        "information_gaps": [
+          "Specific database driver versions not visible in manifest files",
+          "Complete dependency tree not available from extracted pom.xml samples",
+          "Actual test framework details not explicit in file names"
+        ]
+      },
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      }
+    },
+    "extracted_data": {},
+    "source": "local_repo",
+    "source_confidence": "high",
+    "timestamp": "2026-04-10T16:39:35.373400"
+  },
+  "step2": {
+    "step1_data": {
+      "product_name": "dbeaver",
+      "url": "https://github.com/dbeaver/dbeaver.git",
+      "analysis": {
+        "summary": "DBeaver is a Java-based universal database tool built on Eclipse RCP platform with OSGI plugin architecture, providing database connectivity through JDBC drivers, SQL editing capabilities, data visualization, and administrative functions. The system processes database metadata, manages connections through a connection pool, and renders UI components through Eclipse workbench framework. It implements a modular plugin system supporting over 100 database drivers and extensible functionality through OSGI bundles.",
+        "capabilities": [
+          "Manages database connections with JDBC drivers and connection pooling (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/datasource/DataSourceConnectHandler.java)",
+          "Provides SQL query execution and management through query managers (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/qm/QueryManagerView.java)",
+          "Renders database schema browser and metadata navigation (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/BaseBrowserView.java)",
+          "Handles database transaction management including commit and rollback operations (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/datasource/DataSourceCommitHandler.java)",
+          "Processes database output and console logging (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/DatabaseOutputView.java)",
+          "Manages external process execution and shell commands (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/process/ShellProcessView.java)",
+          "Implements connection wizards for database setup and configuration (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/dialogs/connection/ConnectionWizard.java)",
+          "Provides data export and import functionality through transfer wizards (plugins/org.jkiss.dbeaver.data.transfer/src/org/jkiss/dbeaver/tools/transfer/DataTransferWizard.java)",
+          "Handles Geographic Information System (GIS) data visualization (plugins/org.jkiss.dbeaver.data.gis/src/org/jkiss/dbeaver/model/gis/DBGeometry.java)",
+          "Supports Office document format integration for data handling (plugins/org.jkiss.dbeaver.data.office/)",
+          "Implements simple database object comparison tools (plugins/org.jkiss.dbeaver.cmp.simple/src/org/jkiss/dbeaver/tools/compare/simple/CompareObjectsExecutor.java)",
+          "Manages project configuration import and export (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/tools/project/ProjectExportWizard.java)",
+          "Provides debugging capabilities for database procedures (plugins/org.jkiss.dbeaver.debug.core/)",
+          "Handles user authentication and connection credentials (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/dialogs/connection/PasswordChangeDialog.java)",
+          "Implements network tunneling and proxy support for database connections (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/dialogs/connection/ConnectionPageNetworkHandler.java)",
+          "Manages database driver configurations and installations (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/dialogs/connection/ConnectionPageDriver.java)",
+          "Processes SQL script execution and management (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/tools/scripts/ScriptsImportWizard.java)",
+          "Provides data visualization through charts and graphs (evident from JFreeChart dependency mentioned in README)",
+          "Implements Eclipse workbench integration with perspectives and views (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/perspective/DBeaverPerspective.java)",
+          "Handles internationalization and localization support (multiple bundle_*.properties files across plugins)",
+          "Manages bookmark functionality for database objects (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/common/AddBookmarkHandler.java)",
+          "Provides preference management and configuration persistence (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/preferences/)",
+          "Implements EULA and license management (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/eula/EULAHandler.java)",
+          "Supports custom toolbar configuration and UI customization (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/ToolBarConfigurationRegistry.java)",
+          "Handles database-specific extensions for various vendors (100+ database driver plugins)"
+        ],
+        "use_cases": [
+          "Database administrators use this to manage database connections, monitor transactions, and perform administrative tasks across multiple database platforms",
+          "SQL developers use this to write, execute, and debug SQL queries with syntax highlighting and auto-completion features",
+          "Data analysts use this to visualize data through charts, export data to various formats, and browse database schemas",
+          "Database developers use this to design ER diagrams, compare database objects, and manage database migrations",
+          "System integrators use this to connect to over 100 different database types through standardized JDBC interfaces"
+        ],
+        "category": "Database Management Tool",
+        "target_audience": "Database administrators, SQL developers, data analysts, database developers, and system integrators",
+        "technical_stack": [
+          "Java (6171 .java files)",
+          "Eclipse RCP platform (evident from Eclipse dependencies in MANIFEST.MF files)",
+          "OSGI framework (MANIFEST.MF files indicate OSGI bundles)",
+          "JDBC (mentioned in README architecture section)",
+          "JSQLParser (mentioned in README architecture section)",
+          "ANTLR4 (mentioned in README architecture section)",
+          "SWT/JFace (UI framework, evident from imports in source files)",
+          "Maven (pom.xml files throughout project structure)",
+          "SSHJ (mentioned in README for networking)",
+          "Apache POI (mentioned in README for Office documents)",
+          "JFreeChart (mentioned in README for data visualization)",
+          "JTS (mentioned in README for GIS functionality)"
+        ],
+        "api_endpoints": [
+          "Eclipse Command Framework handlers for database operations (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/datasource/)",
+          "OSGI service interfaces for database connections (org.jkiss.dbeaver.registry.DataSourceDescriptorManager)",
+          "Workbench extension points for UI integration (plugin.xml files define extension points)",
+          "Database driver API for vendor-specific implementations (100+ driver plugins)"
+        ],
+        "sdk_languages": [
+          "Java"
+        ],
+        "auth_methods": [
+          "JDBC authentication",
+          "SSH tunneling",
+          "Proxy authentication",
+          "SSL/TLS connections"
+        ],
+        "integrations": [
+          "JDBC drivers for 100+ database types (evident from extensive database driver plugins)",
+          "SSH tunneling for secure connections (SSHJ library mentioned in README)",
+          "Eclipse platform integration (Eclipse RCP framework)",
+          "GIS data support through JTS library (plugins/org.jkiss.dbeaver.data.gis/)",
+          "Office document formats via Apache POI (mentioned in README)",
+          "Git integration for version control (plugins/org.jkiss.dbeaver.git.feature/)"
+        ],
+        "architecture": {
+          "pattern": "plugin-based",
+          "components": [
+            "Core platform providing database abstraction layer",
+            "OSGI plugin system with 130+ plugins for extensibility",
+            "Eclipse RCP UI framework for rich desktop interface",
+            "Database driver plugins for vendor-specific implementations",
+            "Data transfer and visualization components",
+            "Connection management and authentication layer",
+            "SQL parsing and execution engine",
+            "Preference and configuration management system"
+          ],
+          "entry_points": [
+            "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/core/DBeaverActivator.java",
+            "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/core/DesktopPlatform.java"
+          ],
+          "data_flow": "Database connections are established through JDBC drivers, metadata is fetched and cached, SQL queries are parsed using JSQLParser/ANTLR4, executed against databases, and results are rendered in Eclipse workbench views. Configuration data flows through Eclipse preference system and OSGI service registry.",
+          "persistence": "Eclipse workspace for project data, preference storage for user settings, no embedded database - connects to external databases via JDBC",
+          "concurrency_model": "Eclipse Jobs framework for background processing, SWT UI thread for user interface updates, multi-threaded connection handling",
+          "communication_patterns": "JDBC for database connectivity, OSGI service registry for inter-plugin communication, Eclipse extension points for UI integration",
+          "plugin_extension_model": "OSGI bundle system with Eclipse extension points, plugin.xml files define extensions and extension points, feature-based plugin grouping"
+        },
+        "data_model": {
+          "primary_entities": [
+            "DataSourceDescriptor",
+            "DBConnection",
+            "DatabaseMetadata",
+            "SQLQuery",
+            "DatabaseObject",
+            "Project",
+            "UserPreferences"
+          ],
+          "storage_backends": [
+            "External databases via JDBC",
+            "Eclipse workspace",
+            "File system for preferences and metadata cache"
+          ],
+          "schema_patterns": "Relational database schema introspection, metadata caching, object-oriented model representation",
+          "migration_strategy": "Plugin versioning through OSGI, preference migration handlers"
+        },
+        "algorithms": {
+          "problem_type": "Database management and SQL development with multi-vendor database support",
+          "core_patterns": [
+            "Plugin architecture",
+            "Command pattern for UI actions",
+            "Factory pattern for database drivers",
+            "Observer pattern for UI updates",
+            "Strategy pattern for database-specific implementations"
+          ],
+          "complexity_indicators": "Large codebase with 9404 files, complex plugin dependency graph, multi-threaded execution",
+          "key_algorithms": [
+            "SQL parsing using JSQLParser and ANTLR4",
+            "Database metadata introspection",
+            "Connection pooling and management",
+            "UI rendering through SWT/Eclipse RCP"
+          ],
+          "evidence": "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/registry/ contains core registry and factory implementations"
+        },
+        "security_model": {
+          "authentication": "Database-specific authentication, SSH key-based authentication, password storage",
+          "authorization": "Database-level permissions, connection-based access control",
+          "data_protection": "SSH tunneling, SSL/TLS connections, encrypted password storage",
+          "security_headers": "Not applicable for desktop application",
+          "vulnerability_handling": "SECURITY.md file present, Apache 2.0 license compliance"
+        },
+        "dependencies": {
+          "runtime": [
+            "Eclipse RCP platform",
+            "OSGI framework",
+            "JDBC drivers (100+ supported)",
+            "SWT/JFace UI libraries",
+            "JSQLParser",
+            "ANTLR4",
+            "SSHJ",
+            "Apache POI",
+            "JFreeChart",
+            "JTS"
+          ],
+          "dev": [
+            "Maven build system",
+            "Eclipse PDE for plugin development"
+          ],
+          "infrastructure": [
+            "Java Runtime Environment (OpenJDK 21 included)",
+            "External databases for connectivity"
+          ]
+        },
+        "deployment": {
+          "containerized": false,
+          "container_orchestration": "none",
+          "ci_cd": "none observed",
+          "environment_config": "Eclipse preferences system, OSGI configuration, database connection properties",
+          "scaling_model": "Desktop application - single instance per user"
+        },
+        "code_quality_signals": {
+          "has_tests": true,
+          "test_framework": "JUnit (inferred from Eclipse platform)",
+          "test_count_estimate": "154 test-related files",
+          "has_linting": false,
+          "has_type_hints": true,
+          "documentation_quality": "adequate",
+          "code_style": "Eclipse code formatter configuration present (docs/codestyle/eclipse-formatter-profile.xml)"
+        },
+        "project_health": {
+          "license": "Apache-2.0",
+          "total_commits": "1 (in extracted sample)",
+          "top_contributors": "1 (Serge Rider)",
+          "recent_activity": "Active development with merge from devel branch",
+          "community_signals": "Security policy present, comprehensive README, extensive localization support"
+        },
+        "evidence_tracking": {
+          "files_analyzed": [
+            "README.md",
+            "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/BaseBrowserView.java",
+            "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/qm/QueryManagerView.java",
+            "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/datasource/",
+            "Multiple MANIFEST.MF files",
+            "Multiple pom.xml files",
+            "plugins/org.jkiss.dbeaver.data.gis/",
+            "Directory structure analysis"
+          ],
+          "confidence_level": "High",
+          "information_gaps": [
+            "Specific database driver versions not visible in manifest files",
+            "Complete dependency tree not available from extracted pom.xml samples",
+            "Actual test framework details not explicit in file names"
+          ]
+        },
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        }
+      },
+      "extracted_data": {},
+      "source": "local_repo",
+      "source_confidence": "high",
+      "timestamp": "2026-04-10T16:39:35.373400"
+    },
+    "generalization": {
+      "functional_dna": {
+        "logic_archetype": "Plugin Host",
+        "logic_archetype_evidence": "The system implements a comprehensive OSGI plugin architecture with 130+ plugins, Eclipse extension points, and a core platform that manages plugin lifecycle. The architecture specifically provides a plugin registry and factory pattern for extensible functionality across database drivers and UI components.",
+        "data_contract_strictness": "Highly Structured",
+        "data_contract_evidence": "JDBC interface standardization, OSGI bundle manifests with strict versioning, Eclipse extension point schemas, and structured metadata introspection patterns indicate rigid contract enforcement",
+        "core_algorithmic_class": "CRUD Operations",
+        "core_algorithmic_evidence": "Primary algorithms focus on database metadata introspection, SQL query parsing/execution, connection pooling, and data transfer operations. The system doesn't implement complex computational algorithms but rather orchestrates standard database operations across multiple vendors.",
+        "concurrency_requirements": "ACID Compliance Required",
+        "concurrency_evidence": "Database transaction management with commit/rollback handlers, connection pooling for concurrent access, and Eclipse Jobs framework for background processing indicate ACID compliance requirements for database consistency",
+        "abstract_problem": "Provides a unified interface layer over heterogeneous external systems with pluggable adapters, enabling standardized operations across vendor-specific implementations while maintaining connection lifecycle and metadata introspection.",
+        "data_flow_pattern": "Request-Response with connection pooling \u2192 vendor-specific adapter translation \u2192 external system interaction \u2192 metadata caching \u2192 UI state synchronization",
+        "state_complexity": "Entity-scoped",
+        "repurposing_confidence": 8,
+        "repurposing_reasoning": "The plugin architecture, connection management, and metadata introspection patterns are highly generic and could be applied to any domain requiring unified access to heterogeneous external systems. The Eclipse RCP framework provides a mature desktop application foundation. Only the JDBC-specific drivers and SQL parsing components are domain-locked, while the core plugin host, connection pooling, and UI framework are broadly reusable across API management, IoT device management, or cloud service orchestration scenarios."
+      },
+      "evidence_claims": [
+        {
+          "claim": "System implements OSGI plugin architecture with 130+ plugins",
+          "evidence": "Directory structure shows plugins/* with individual MANIFEST.MF files and plugin.xml extension point definitions",
+          "confidence": "High"
+        },
+        {
+          "claim": "Connection pooling and transaction management implemented",
+          "evidence": "DataSourceConnectHandler.java and DataSourceCommitHandler.java in datasource actions directory",
+          "confidence": "High"
+        },
+        {
+          "claim": "Supports 100+ database vendors through JDBC adapters",
+          "evidence": "README.md architecture section mentions 100+ database drivers and extensive database driver plugin directories",
+          "confidence": "High"
+        },
+        {
+          "claim": "Eclipse RCP framework provides UI foundation",
+          "evidence": "Eclipse dependencies in MANIFEST.MF files and DBeaverPerspective.java workbench integration",
+          "confidence": "High"
+        },
+        {
+          "claim": "Metadata introspection and caching system",
+          "evidence": "BaseBrowserView.java for schema navigation and DatabaseMetadata entity in data model",
+          "confidence": "Medium"
+        }
+      ],
+      "market_reach": {
+        "primary_industry": "Database Management and Development Tools",
+        "cross_industry_applications": [
+          "API Management Platforms - unified interface for heterogeneous REST/GraphQL endpoints with authentication and monitoring",
+          "IoT Device Management - standardized control interface for diverse hardware vendors with device metadata and connection lifecycle",
+          "Cloud Service Orchestration - unified management layer for multi-cloud resources with vendor-specific adapters",
+          "Enterprise Integration Platforms - connection management and data transformation across disparate business systems",
+          "Network Management Systems - unified monitoring and configuration interface for heterogeneous network equipment",
+          "Content Management Systems - pluggable storage backends with metadata indexing and connection pooling",
+          "Financial Data Aggregation - standardized interface for multiple market data feeds with real-time connection management",
+          "Healthcare Integration Platforms - unified access to diverse medical systems and devices with strict compliance requirements"
+        ],
+        "utility_score": 9,
+        "market_potential": "High"
+      },
+      "friction_report": {
+        "difficulty": "Medium",
+        "estimated_hours": 160,
+        "required_technologies": [
+          "Java",
+          "OSGI framework",
+          "Eclipse RCP platform",
+          "Maven build system",
+          "Vendor-specific adapter libraries"
+        ],
+        "complexity_factors": [
+          "Eclipse RCP learning curve",
+          "OSGI bundle configuration complexity",
+          "Plugin dependency management",
+          "Desktop UI framework constraints",
+          "Multi-threaded connection handling"
+        ],
+        "risk_level": "Medium",
+        "migration_path": "Extract core plugin host and connection management components, replace JDBC adapters with target domain adapters, adapt Eclipse RCP UI components or replace with web/mobile interface, maintain OSGI plugin architecture for extensibility"
+      },
+      "interface_map": {
+        "adapter_schema": {
+          "input": {
+            "format": "Plugin extension points",
+            "required_fields": [
+              "connection_parameters",
+              "metadata_schema",
+              "operation_handlers"
+            ],
+            "protocols": [
+              "OSGI service registry",
+              "Eclipse extension points"
+            ]
+          },
+          "output": {
+            "format": "UI events and data streams",
+            "delivery": "async"
+          },
+          "authentication": {
+            "type": "pluggable",
+            "method": "vendor-specific authentication handlers"
+          }
+        },
+        "standardization_level": "High",
+        "api_surface_area": "Large (50+)"
+      },
+      "comparable_systems": [
+        "Postman API Client - unified interface for testing heterogeneous REST APIs with collection management",
+        "Kubernetes Dashboard - standardized management interface for diverse container workloads and cluster resources",
+        "VMware vSphere Client - unified management of heterogeneous virtualization infrastructure with plugin extensions",
+        "Grafana - pluggable data source architecture for diverse monitoring and metrics systems",
+        "Jenkins - plugin-based automation platform supporting heterogeneous build tools and deployment targets"
+      ],
+      "information_gaps": [
+        "Specific plugin loading mechanism and lifecycle management details",
+        "Performance characteristics of connection pooling implementation",
+        "Exact Eclipse RCP version and API dependencies",
+        "Plugin inter-dependency resolution strategies",
+        "Metadata caching implementation and invalidation strategies"
+      ]
+    },
+    "timestamp": "2026-04-10T16:40:07.360550"
+  },
+  "errors": []
+}

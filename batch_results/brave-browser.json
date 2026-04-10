@@ -1,0 +1,431 @@
+{
+  "url": "https://github.com/brave/brave-browser.git",
+  "repo_name": "brave-browser",
+  "timestamp": "2026-04-10T16:35:20.124530",
+  "step1": {
+    "product_name": "brave-browser",
+    "url": "https://github.com/brave/brave-browser.git",
+    "analysis": {
+      "summary": "Brave Browser is a privacy-focused web browser that serves as a public-facing repository for issue tracking, releases, and documentation. This repository is a meta-repository that does not contain the actual browser source code, which resides in the brave-core repository. It functions as a centralized hub for community interaction, release management, and project coordination.",
+      "capabilities": [
+        "Manages release documentation and changelogs for multiple platforms (CHANGELOG_ANDROID.md, CHANGELOG_DESKTOP.md, CHANGELOG_iOS.md)",
+        "Provides centralized issue tracking for the Brave Browser project (README.md references GitHub issues)",
+        "Serves as a public entry point for contributors and users (README.md)",
+        "Maintains version information through npm package structure (package.json version 1.91.34)",
+        "Coordinates cross-platform browser releases for Android, iOS, Linux, macOS, and Windows (package.json description)",
+        "Hosts community guidelines and documentation links (README.md)",
+        "Manages security policy coordination (README.md references SECURITY.md in brave-core)",
+        "Provides translation coordination through Transifex integration (README.md)",
+        "Maintains licensing information under Mozilla Public License 2.0 (package-lock.json)",
+        "Facilitates community engagement through Slack and Q&A platform links (README.md)",
+        "Archives historical release information (CHANGELOG_DESKTOP_ARCHIVE.md)",
+        "Provides download coordination by directing users to official website (README.md)",
+        "Manages build versioning through automated commit system (Git metadata shows brave-builds user)",
+        "Coordinates social media presence through Twitter handle reference (README.md)",
+        "Maintains wiki documentation hosting (README.md references GitHub wiki)"
+      ],
+      "use_cases": [
+        "Open source contributors use this repository to find contribution guidelines and navigate to the actual source code repository",
+        "Users access release notes and changelogs to understand browser updates across different platforms",
+        "Community members use this as a central hub to report issues and participate in discussions about Brave Browser features",
+        "Translators coordinate localization efforts through the linked Transifex platform",
+        "Release managers use this repository to coordinate version releases across multiple platforms"
+      ],
+      "category": "Meta Repository",
+      "target_audience": "Open source contributors, Brave Browser users, community managers, and release coordinators",
+      "technical_stack": [
+        "Node.js ecosystem (package.json, package-lock.json present)",
+        "npm package management (package-lock.json lockfileVersion 3)",
+        "Git for version control",
+        "Markdown for documentation (multiple .md files)",
+        "GitHub for hosting and issue tracking"
+      ],
+      "api_endpoints": [],
+      "sdk_languages": [],
+      "auth_methods": [],
+      "integrations": [
+        "GitHub for issue tracking and wiki hosting (README.md references)",
+        "Transifex for translation management (README.md mentions explore.transifex.com/brave/brave_en/)",
+        "Slack for community communication (README.md mentions bravesoftware.slack.com)",
+        "Twitter for announcements (README.md references @brave handle)",
+        "Brave Community platform for Q&A (README.md references community.brave.app)"
+      ],
+      "architecture": {
+        "pattern": "meta repository",
+        "components": [
+          "Release management",
+          "Documentation coordination",
+          "Community hub",
+          "Issue tracking proxy"
+        ],
+        "entry_points": [
+          "README.md as primary entry point"
+        ],
+        "data_flow": "Users and contributors access this repository for information, then are directed to brave-core for actual development work or brave.com for downloads",
+        "persistence": "Git-based file storage for documentation and changelogs",
+        "concurrency_model": "static file serving",
+        "communication_patterns": "External service integration via URL references",
+        "plugin_extension_model": "Not applicable - this is a coordination repository"
+      },
+      "data_model": {
+        "primary_entities": [
+          "Release versions",
+          "Changelog entries",
+          "Documentation links"
+        ],
+        "storage_backends": [
+          "Git repository storage"
+        ],
+        "schema_patterns": "File-based documentation structure with platform-specific changelogs",
+        "migration_strategy": "Git history for version tracking"
+      },
+      "algorithms": {
+        "problem_type": "Project coordination and information distribution",
+        "core_patterns": [
+          "Repository pattern for centralized information",
+          "Proxy pattern for directing users to appropriate resources"
+        ],
+        "complexity_indicators": "Minimal complexity - primarily static file serving and link coordination",
+        "key_algorithms": [
+          "Version management through npm semantic versioning"
+        ],
+        "evidence": "package.json contains version 1.91.34 following semantic versioning"
+      },
+      "security_model": {
+        "authentication": "GitHub-based authentication for contributors",
+        "authorization": "GitHub repository permissions",
+        "data_protection": "References security policy in brave-core repository",
+        "security_headers": "Not applicable for static repository",
+        "vulnerability_handling": "Delegates to brave-core SECURITY.md policy"
+      },
+      "dependencies": {
+        "runtime": [],
+        "dev": [],
+        "infrastructure": [
+          "GitHub for hosting",
+          "Git for version control"
+        ]
+      },
+      "deployment": {
+        "containerized": false,
+        "container_orchestration": "none",
+        "ci_cd": "Automated builds via brave-builds user account",
+        "environment_config": "No environment configuration needed",
+        "scaling_model": "GitHub's infrastructure handles scaling"
+      },
+      "code_quality_signals": {
+        "has_tests": false,
+        "test_framework": "none",
+        "test_count_estimate": "0",
+        "has_linting": false,
+        "has_type_hints": false,
+        "documentation_quality": "adequate",
+        "code_style": "No code style enforcement needed for documentation repository"
+      },
+      "project_health": {
+        "license": "MPL-2.0",
+        "total_commits": "1",
+        "top_contributors": "1 (brave-builds automated account)",
+        "recent_activity": "Single commit for version 1.91.34 release coordination",
+        "community_signals": "Strong community engagement with multiple communication channels, translation support, and clear contribution guidelines"
+      },
+      "evidence_tracking": {
+        "files_analyzed": [
+          "README.md",
+          "package.json",
+          "package-lock.json",
+          "CHANGELOG_ANDROID.md",
+          "CHANGELOG_DESKTOP.md",
+          "CHANGELOG_iOS.md",
+          "CHANGELOG_DESKTOP_ARCHIVE.md",
+          "LICENSE"
+        ],
+        "confidence_level": "High",
+        "information_gaps": [
+          "Actual browser source code is in separate brave-core repository",
+          "Detailed community metrics not available from this repository alone"
+        ]
+      },
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      }
+    },
+    "extracted_data": {},
+    "source": "local_repo",
+    "source_confidence": "high",
+    "timestamp": "2026-04-10T16:35:53.789293"
+  },
+  "step2": {
+    "step1_data": {
+      "product_name": "brave-browser",
+      "url": "https://github.com/brave/brave-browser.git",
+      "analysis": {
+        "summary": "Brave Browser is a privacy-focused web browser that serves as a public-facing repository for issue tracking, releases, and documentation. This repository is a meta-repository that does not contain the actual browser source code, which resides in the brave-core repository. It functions as a centralized hub for community interaction, release management, and project coordination.",
+        "capabilities": [
+          "Manages release documentation and changelogs for multiple platforms (CHANGELOG_ANDROID.md, CHANGELOG_DESKTOP.md, CHANGELOG_iOS.md)",
+          "Provides centralized issue tracking for the Brave Browser project (README.md references GitHub issues)",
+          "Serves as a public entry point for contributors and users (README.md)",
+          "Maintains version information through npm package structure (package.json version 1.91.34)",
+          "Coordinates cross-platform browser releases for Android, iOS, Linux, macOS, and Windows (package.json description)",
+          "Hosts community guidelines and documentation links (README.md)",
+          "Manages security policy coordination (README.md references SECURITY.md in brave-core)",
+          "Provides translation coordination through Transifex integration (README.md)",
+          "Maintains licensing information under Mozilla Public License 2.0 (package-lock.json)",
+          "Facilitates community engagement through Slack and Q&A platform links (README.md)",
+          "Archives historical release information (CHANGELOG_DESKTOP_ARCHIVE.md)",
+          "Provides download coordination by directing users to official website (README.md)",
+          "Manages build versioning through automated commit system (Git metadata shows brave-builds user)",
+          "Coordinates social media presence through Twitter handle reference (README.md)",
+          "Maintains wiki documentation hosting (README.md references GitHub wiki)"
+        ],
+        "use_cases": [
+          "Open source contributors use this repository to find contribution guidelines and navigate to the actual source code repository",
+          "Users access release notes and changelogs to understand browser updates across different platforms",
+          "Community members use this as a central hub to report issues and participate in discussions about Brave Browser features",
+          "Translators coordinate localization efforts through the linked Transifex platform",
+          "Release managers use this repository to coordinate version releases across multiple platforms"
+        ],
+        "category": "Meta Repository",
+        "target_audience": "Open source contributors, Brave Browser users, community managers, and release coordinators",
+        "technical_stack": [
+          "Node.js ecosystem (package.json, package-lock.json present)",
+          "npm package management (package-lock.json lockfileVersion 3)",
+          "Git for version control",
+          "Markdown for documentation (multiple .md files)",
+          "GitHub for hosting and issue tracking"
+        ],
+        "api_endpoints": [],
+        "sdk_languages": [],
+        "auth_methods": [],
+        "integrations": [
+          "GitHub for issue tracking and wiki hosting (README.md references)",
+          "Transifex for translation management (README.md mentions explore.transifex.com/brave/brave_en/)",
+          "Slack for community communication (README.md mentions bravesoftware.slack.com)",
+          "Twitter for announcements (README.md references @brave handle)",
+          "Brave Community platform for Q&A (README.md references community.brave.app)"
+        ],
+        "architecture": {
+          "pattern": "meta repository",
+          "components": [
+            "Release management",
+            "Documentation coordination",
+            "Community hub",
+            "Issue tracking proxy"
+          ],
+          "entry_points": [
+            "README.md as primary entry point"
+          ],
+          "data_flow": "Users and contributors access this repository for information, then are directed to brave-core for actual development work or brave.com for downloads",
+          "persistence": "Git-based file storage for documentation and changelogs",
+          "concurrency_model": "static file serving",
+          "communication_patterns": "External service integration via URL references",
+          "plugin_extension_model": "Not applicable - this is a coordination repository"
+        },
+        "data_model": {
+          "primary_entities": [
+            "Release versions",
+            "Changelog entries",
+            "Documentation links"
+          ],
+          "storage_backends": [
+            "Git repository storage"
+          ],
+          "schema_patterns": "File-based documentation structure with platform-specific changelogs",
+          "migration_strategy": "Git history for version tracking"
+        },
+        "algorithms": {
+          "problem_type": "Project coordination and information distribution",
+          "core_patterns": [
+            "Repository pattern for centralized information",
+            "Proxy pattern for directing users to appropriate resources"
+          ],
+          "complexity_indicators": "Minimal complexity - primarily static file serving and link coordination",
+          "key_algorithms": [
+            "Version management through npm semantic versioning"
+          ],
+          "evidence": "package.json contains version 1.91.34 following semantic versioning"
+        },
+        "security_model": {
+          "authentication": "GitHub-based authentication for contributors",
+          "authorization": "GitHub repository permissions",
+          "data_protection": "References security policy in brave-core repository",
+          "security_headers": "Not applicable for static repository",
+          "vulnerability_handling": "Delegates to brave-core SECURITY.md policy"
+        },
+        "dependencies": {
+          "runtime": [],
+          "dev": [],
+          "infrastructure": [
+            "GitHub for hosting",
+            "Git for version control"
+          ]
+        },
+        "deployment": {
+          "containerized": false,
+          "container_orchestration": "none",
+          "ci_cd": "Automated builds via brave-builds user account",
+          "environment_config": "No environment configuration needed",
+          "scaling_model": "GitHub's infrastructure handles scaling"
+        },
+        "code_quality_signals": {
+          "has_tests": false,
+          "test_framework": "none",
+          "test_count_estimate": "0",
+          "has_linting": false,
+          "has_type_hints": false,
+          "documentation_quality": "adequate",
+          "code_style": "No code style enforcement needed for documentation repository"
+        },
+        "project_health": {
+          "license": "MPL-2.0",
+          "total_commits": "1",
+          "top_contributors": "1 (brave-builds automated account)",
+          "recent_activity": "Single commit for version 1.91.34 release coordination",
+          "community_signals": "Strong community engagement with multiple communication channels, translation support, and clear contribution guidelines"
+        },
+        "evidence_tracking": {
+          "files_analyzed": [
+            "README.md",
+            "package.json",
+            "package-lock.json",
+            "CHANGELOG_ANDROID.md",
+            "CHANGELOG_DESKTOP.md",
+            "CHANGELOG_iOS.md",
+            "CHANGELOG_DESKTOP_ARCHIVE.md",
+            "LICENSE"
+          ],
+          "confidence_level": "High",
+          "information_gaps": [
+            "Actual browser source code is in separate brave-core repository",
+            "Detailed community metrics not available from this repository alone"
+          ]
+        },
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        }
+      },
+      "extracted_data": {},
+      "source": "local_repo",
+      "source_confidence": "high",
+      "timestamp": "2026-04-10T16:35:53.789293"
+    },
+    "generalization": {
+      "functional_dna": {
+        "logic_archetype": "API Gateway",
+        "logic_archetype_evidence": "Serves as a centralized routing hub that directs users to appropriate resources (brave-core for development, brave.com for downloads) and aggregates information from multiple backend systems. Functions as a public-facing coordination layer that abstracts complex distributed project infrastructure.",
+        "data_contract_strictness": "Moderately Structured",
+        "data_contract_evidence": "Evidence: Structured markdown documentation, semantic versioning in package.json, standardized changelog formats across platforms, but flexible enough to accommodate various community communication patterns",
+        "core_algorithmic_class": "CRUD Operations",
+        "core_algorithmic_evidence": "Evidence from Git-based file operations, version management through npm semantic versioning (1.91.34), and simple read/write operations for documentation coordination with automated builds via brave-builds user",
+        "concurrency_requirements": "No Consistency Requirements",
+        "concurrency_evidence": "Evidence from static file serving architecture, GitHub's infrastructure handling scaling, and minimal complexity coordination repository with no real-time consistency needs",
+        "abstract_problem": "Coordinates distributed project information by serving as a public gateway that routes stakeholders to appropriate resources while maintaining centralized documentation, version tracking, and community communication channels across multiple platforms.",
+        "data_flow_pattern": "Static content serving with external routing: Users access central hub \u2192 retrieve information/links \u2192 get redirected to specialized backend systems (core repository, download sites, community platforms)",
+        "state_complexity": "Entity-scoped",
+        "repurposing_confidence": 9,
+        "repurposing_reasoning": "Highly reusable pattern for any multi-component project coordination. The core abstraction of centralized information routing with platform-specific changelogs, community integration, and release coordination applies to enterprise software suites, open-source ecosystems, or distributed service architectures. Only domain-specific elements are the browser-related documentation content and Brave-specific integrations - the structural coordination pattern is completely generic."
+      },
+      "evidence_claims": [
+        {
+          "claim": "Functions as a meta-repository that redirects to actual implementation",
+          "evidence": "README.md references brave-core repository for actual source code",
+          "confidence": "High"
+        },
+        {
+          "claim": "Manages multi-platform release coordination",
+          "evidence": "CHANGELOG_ANDROID.md, CHANGELOG_DESKTOP.md, CHANGELOG_iOS.md files present",
+          "confidence": "High"
+        },
+        {
+          "claim": "Integrates multiple external community platforms",
+          "evidence": "README.md references Slack, Twitter, Transifex, and community.brave.app",
+          "confidence": "High"
+        },
+        {
+          "claim": "Uses automated release management",
+          "evidence": "Git metadata shows brave-builds user for automated commits",
+          "confidence": "Medium"
+        },
+        {
+          "claim": "Follows semantic versioning",
+          "evidence": "package.json version 1.91.34 follows semver pattern",
+          "confidence": "High"
+        }
+      ],
+      "market_reach": {
+        "primary_industry": "Open Source Software Development",
+        "cross_industry_applications": [
+          "Enterprise software suites needing centralized documentation coordination across multiple products",
+          "SaaS platforms managing multi-tenant release communications and community engagement",
+          "Manufacturing companies coordinating product documentation across regional variants",
+          "Financial services managing regulatory documentation across multiple jurisdictions",
+          "Healthcare systems coordinating compliance documentation across different medical devices",
+          "E-commerce platforms managing seller onboarding and documentation across markets",
+          "Gaming companies coordinating releases across multiple platforms and regions",
+          "Automotive industry managing technical documentation across vehicle models and markets"
+        ],
+        "utility_score": 8,
+        "market_potential": "High"
+      },
+      "friction_report": {
+        "difficulty": "Low",
+        "estimated_hours": 16,
+        "required_technologies": [
+          "Git",
+          "GitHub or equivalent hosting",
+          "Markdown",
+          "npm/package management"
+        ],
+        "complexity_factors": [
+          "Setting up external service integrations",
+          "Customizing platform-specific documentation structure",
+          "Configuring automated build coordination"
+        ],
+        "risk_level": "Low",
+        "migration_path": "Clone repository structure, replace domain-specific documentation with new content, update external service links, configure automated build system for version coordination"
+      },
+      "interface_map": {
+        "adapter_schema": {
+          "input": {
+            "format": "Git commits",
+            "required_fields": [
+              "version",
+              "documentation"
+            ],
+            "protocols": [
+              "Git",
+              "HTTP"
+            ]
+          },
+          "output": {
+            "format": "Static files",
+            "delivery": "sync"
+          },
+          "authentication": {
+            "type": "GitHub-based",
+            "method": "Repository permissions"
+          }
+        },
+        "standardization_level": "High",
+        "api_surface_area": "Small (<10 endpoints)"
+      },
+      "comparable_systems": [
+        "Kubernetes project coordination hub managing multiple component repositories",
+        "Apache Foundation project umbrellas coordinating documentation across subprojects",
+        "Enterprise software release portals coordinating multiple product line documentation",
+        "Open source foundation landing pages routing to specialized development repositories",
+        "Corporate documentation hubs managing multi-regional compliance and release information"
+      ],
+      "information_gaps": [
+        "Details about automated build trigger mechanisms",
+        "Specific community engagement metrics and usage patterns",
+        "Integration complexity with external services like Transifex",
+        "Release coordination workflow details between this repo and brave-core"
+      ]
+    },
+    "timestamp": "2026-04-10T16:36:23.183609"
+  },
+  "errors": []
+}

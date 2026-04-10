@@ -1,225 +1,217 @@
 {
-  "batch_timestamp": "2026-04-09T15:27:46.727746",
+  "batch_timestamp": "2026-04-10T16:40:07.366885",
   "total_repos": 1,
   "successful": 1,
   "failed": 0,
   "results": [
     {
-      "url": "https://github.com/NationalSecurityAgency/ghidra.git",
-      "repo_name": "ghidra",
-      "timestamp": "2026-04-09T15:25:34.180563",
+      "url": "https://github.com/dbeaver/dbeaver.git",
+      "repo_name": "dbeaver",
+      "timestamp": "2026-04-10T16:38:22.398415",
       "step1": {
-        "product_name": "ghidra",
-        "url": "https://github.com/NationalSecurityAgency/ghidra.git",
+        "product_name": "dbeaver",
+        "url": "https://github.com/dbeaver/dbeaver.git",
         "analysis": {
-          "summary": "Ghidra is a comprehensive software reverse engineering framework developed by the NSA that provides disassembly, decompilation, and analysis capabilities for compiled binaries. It implements a plugin-based architecture with extensive Java and Python support, featuring a collaborative server-client model for team-based analysis. The system supports multiple processor architectures and executable formats through modular language processors and includes advanced debugging capabilities via multiple debugger agent integrations.",
+          "summary": "DBeaver is a Java-based universal database tool built on Eclipse RCP platform with OSGI plugin architecture, providing database connectivity through JDBC drivers, SQL editing capabilities, data visualization, and administrative functions. The system processes database metadata, manages connections through a connection pool, and renders UI components through Eclipse workbench framework. It implements a modular plugin system supporting over 100 database drivers and extensible functionality through OSGI bundles.",
           "capabilities": [
-            "Disassembles executable files for multiple processor architectures using modular language processors (Ghidra/Processors/)",
-            "Decompiles assembly code back to high-level C-like representations using the Decompiler framework (Ghidra/Features/Decompiler/)",
-            "Provides interactive GUI-based reverse engineering interface through the CodeBrowser tool (Ghidra/Configurations/Public_Release/src/main/resources/defaultTools/CodeBrowser.tool)",
-            "Supports collaborative analysis through Ghidra Server with multi-user project sharing and version control (Ghidra/Framework/)",
-            "Executes Python and Java scripts for automated analysis tasks (Ghidra/Features/Python/, Ghidra/RuntimeScripts/)",
-            "Integrates with multiple debuggers including GDB, LLDB, and Windows DbgEng through Python agents (Ghidra/Debug/Debugger-agent-gdb/, Ghidra/Debug/Debugger-agent-dbgeng/)",
-            "Manages debug sessions with trace recording and emulation capabilities (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerEmulationService.java)",
-            "Analyzes program structure through function identification and control flow analysis (Ghidra/Features/Base/)",
-            "Handles multiple executable formats including ELF, PE, Mach-O, and embedded firmware formats (Ghidra/Features/Base/)",
-            "Provides extensible plugin architecture with service-based component communication (Ghidra/Framework/)",
-            "Supports custom processor definition through SLEIGH language specifications (Ghidra/Processors/)",
-            "Implements graph visualization for program flow and data relationships (Ghidra/Features/GraphServices/)",
-            "Manages symbol tables, data types, and program annotations with persistence (Ghidra/Framework/SoftwareModeling/)",
-            "Processes debug information including DWARF and PDB symbols (Ghidra/Features/PDB/)",
-            "Supports headless analysis mode for batch processing and automation (Ghidra/Features/HeadlessAnalyzer/)",
-            "Implements file system browser for analyzing disk images and archives (GPL/DMG/, Ghidra/Features/FileFormats/)",
-            "Provides Python bridge (PyGhidra) for direct API access from Python scripts (Ghidra/Features/PyGhidra/)",
-            "Handles demangling of C++ and other mangled symbol names (GPL/DemanglerGnu/)",
-            "Implements memory mapping and address space management for complex binaries (Ghidra/Framework/SoftwareModeling/)",
-            "Supports GNU disassembler integration for additional architecture coverage (GPL/GnuDisassembler/)",
-            "Provides extension development support through Eclipse and VSCode integrations (GhidraBuild/EclipsePlugins/)",
-            "Implements trace-based debugging with timeline navigation and state comparison (Ghidra/Debug/)",
-            "Supports emulation of program execution for dynamic analysis (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerEmulationService.java)",
-            "Manages project data with hierarchical folder organization and version tracking (Ghidra/Framework/Project/)",
-            "Provides comprehensive help system and documentation framework (GhidraDocs/, help/ directories)"
+            "Manages database connections with JDBC drivers and connection pooling (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/datasource/DataSourceConnectHandler.java)",
+            "Provides SQL query execution and management through query managers (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/qm/QueryManagerView.java)",
+            "Renders database schema browser and metadata navigation (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/BaseBrowserView.java)",
+            "Handles database transaction management including commit and rollback operations (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/datasource/DataSourceCommitHandler.java)",
+            "Processes database output and console logging (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/DatabaseOutputView.java)",
+            "Manages external process execution and shell commands (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/process/ShellProcessView.java)",
+            "Implements connection wizards for database setup and configuration (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/dialogs/connection/ConnectionWizard.java)",
+            "Provides data export and import functionality through transfer wizards (plugins/org.jkiss.dbeaver.data.transfer/src/org/jkiss/dbeaver/tools/transfer/DataTransferWizard.java)",
+            "Handles Geographic Information System (GIS) data visualization (plugins/org.jkiss.dbeaver.data.gis/src/org/jkiss/dbeaver/model/gis/DBGeometry.java)",
+            "Supports Office document format integration for data handling (plugins/org.jkiss.dbeaver.data.office/)",
+            "Implements simple database object comparison tools (plugins/org.jkiss.dbeaver.cmp.simple/src/org/jkiss/dbeaver/tools/compare/simple/CompareObjectsExecutor.java)",
+            "Manages project configuration import and export (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/tools/project/ProjectExportWizard.java)",
+            "Provides debugging capabilities for database procedures (plugins/org.jkiss.dbeaver.debug.core/)",
+            "Handles user authentication and connection credentials (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/dialogs/connection/PasswordChangeDialog.java)",
+            "Implements network tunneling and proxy support for database connections (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/dialogs/connection/ConnectionPageNetworkHandler.java)",
+            "Manages database driver configurations and installations (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/dialogs/connection/ConnectionPageDriver.java)",
+            "Processes SQL script execution and management (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/tools/scripts/ScriptsImportWizard.java)",
+            "Provides data visualization through charts and graphs (evident from JFreeChart dependency mentioned in README)",
+            "Implements Eclipse workbench integration with perspectives and views (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/perspective/DBeaverPerspective.java)",
+            "Handles internationalization and localization support (multiple bundle_*.properties files across plugins)",
+            "Manages bookmark functionality for database objects (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/common/AddBookmarkHandler.java)",
+            "Provides preference management and configuration persistence (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/preferences/)",
+            "Implements EULA and license management (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/eula/EULAHandler.java)",
+            "Supports custom toolbar configuration and UI customization (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/ToolBarConfigurationRegistry.java)",
+            "Handles database-specific extensions for various vendors (100+ database driver plugins)"
           ],
           "use_cases": [
-            "Malware analysts use it to reverse engineer malicious software and understand attack vectors",
-            "Security researchers analyze firmware and embedded systems for vulnerability research",
-            "Software engineers examine legacy code without source availability for maintenance or porting",
-            "Incident responders analyze compromised binaries to understand attack mechanisms",
-            "Academic researchers study program analysis techniques and develop new reverse engineering methods",
-            "Government agencies perform cybersecurity analysis and threat assessment",
-            "Vulnerability researchers identify security flaws in commercial software products"
+            "Database administrators use this to manage database connections, monitor transactions, and perform administrative tasks across multiple database platforms",
+            "SQL developers use this to write, execute, and debug SQL queries with syntax highlighting and auto-completion features",
+            "Data analysts use this to visualize data through charts, export data to various formats, and browse database schemas",
+            "Database developers use this to design ER diagrams, compare database objects, and manage database migrations",
+            "System integrators use this to connect to over 100 different database types through standardized JDBC interfaces"
           ],
-          "category": "Software Reverse Engineering Framework",
-          "target_audience": "Security researchers, malware analysts, vulnerability researchers, software engineers, cybersecurity professionals, academic researchers",
+          "category": "Database Management Tool",
+          "target_audience": "Database administrators, SQL developers, data analysts, database developers, and system integrators",
           "technical_stack": [
-            "Java 21+ (build requirements in README.md and build scripts)",
-            "Python 3.9-3.14 (Ghidra/Features/PyGhidra/src/main/py/pyproject.toml, debugger agents)",
-            "Gradle 8.5+ (build.gradle files throughout, gradle wrapper)",
-            "SLEIGH language specification system (Ghidra/Processors/)",
-            "Eclipse RCP for plugin development (GhidraBuild/EclipsePlugins/)",
-            "Swing/AWT for GUI components (Java source files)",
-            "C/C++ for native components (GPL/DemanglerGnu/, Ghidra/Features/Decompiler/)",
-            "GNU Binutils integration (GPL/GnuDisassembler/)",
-            "Microsoft Visual Studio 2017+ for Windows builds (README.md)",
-            "Docker containerization support (docker/ directory)"
+            "Java (6171 .java files)",
+            "Eclipse RCP platform (evident from Eclipse dependencies in MANIFEST.MF files)",
+            "OSGI framework (MANIFEST.MF files indicate OSGI bundles)",
+            "JDBC (mentioned in README architecture section)",
+            "JSQLParser (mentioned in README architecture section)",
+            "ANTLR4 (mentioned in README architecture section)",
+            "SWT/JFace (UI framework, evident from imports in source files)",
+            "Maven (pom.xml files throughout project structure)",
+            "SSHJ (mentioned in README for networking)",
+            "Apache POI (mentioned in README for Office documents)",
+            "JFreeChart (mentioned in README for data visualization)",
+            "JTS (mentioned in README for GIS functionality)"
           ],
           "api_endpoints": [
-            "DebuggerAutoMappingService.setAutoMapSpec(AutoMapSpec) \u2014 Set auto-mapping configuration (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerAutoMappingService.java)",
-            "DebuggerConsoleService.log(Icon, String) \u2014 Log messages to debug console (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerConsoleService.java)",
-            "DebuggerControlService.createStateEditor(DebuggerCoordinates) \u2014 Create state editor for debugging (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerControlService.java)",
-            "DebuggerEmulationService.getCachedEmulator(Trace) \u2014 Access managed emulator instances (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerEmulationService.java)",
-            "Application.initializeApplication(ApplicationLayout, ApplicationConfiguration) \u2014 Initialize Ghidra framework (Ghidra/Framework/Generic/src/main/java/ghidra/framework/Application.java)",
-            "pyghidra.run_script(binary_path, script_path) \u2014 Execute Python scripts via PyGhidra (Ghidra/Features/PyGhidra/src/main/py/src/pyghidra/__main__.py)"
+            "Eclipse Command Framework handlers for database operations (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/datasource/)",
+            "OSGI service interfaces for database connections (org.jkiss.dbeaver.registry.DataSourceDescriptorManager)",
+            "Workbench extension points for UI integration (plugin.xml files define extension points)",
+            "Database driver API for vendor-specific implementations (100+ driver plugins)"
           ],
           "sdk_languages": [
-            "Java",
-            "Python"
+            "Java"
           ],
           "auth_methods": [
-            "File-based project permissions",
-            "Multi-user server authentication (Ghidra Server)",
-            "User access controls for collaborative projects"
+            "JDBC authentication",
+            "SSH tunneling",
+            "Proxy authentication",
+            "SSL/TLS connections"
           ],
           "integrations": [
-            "GDB debugger via Python agent (Ghidra/Debug/Debugger-agent-gdb/src/main/py/src/ghidragdb/)",
-            "LLDB debugger via Python agent (Ghidra/Debug/Debugger-agent-lldb/)",
-            "Windows DbgEng via Python COM interface (Ghidra/Debug/Debugger-agent-dbgeng/src/main/py/src/ghidradbg/dbgmodel/)",
-            "drgn debugger for Linux kernel debugging (Ghidra/Debug/Debugger-agent-drgn/)",
-            "GNU Binutils for additional disassembly support (GPL/GnuDisassembler/)",
-            "Eclipse IDE for plugin development (GhidraBuild/EclipsePlugins/)",
-            "Visual Studio Code for script editing (mentioned in README.md)",
-            "DWARF debug information parsing (Ghidra/Configurations/Public_Release/data/DWARF.debuginfod_urls)",
-            "PDB symbol server integration (Ghidra/Configurations/Public_Release/data/PDB_SYMBOL_SERVER_URLS.pdburl)"
+            "JDBC drivers for 100+ database types (evident from extensive database driver plugins)",
+            "SSH tunneling for secure connections (SSHJ library mentioned in README)",
+            "Eclipse platform integration (Eclipse RCP framework)",
+            "GIS data support through JTS library (plugins/org.jkiss.dbeaver.data.gis/)",
+            "Office document formats via Apache POI (mentioned in README)",
+            "Git integration for version control (plugins/org.jkiss.dbeaver.git.feature/)"
           ],
           "architecture": {
-            "pattern": "plugin-based with service-oriented architecture",
+            "pattern": "plugin-based",
             "components": [
-              "Framework core providing application lifecycle and plugin management",
-              "SoftwareModeling layer for program representation and analysis",
-              "Feature plugins for specific analysis capabilities (disassembly, decompilation, debugging)",
-              "Debug framework with trace recording and emulation services",
-              "Language processors for architecture-specific instruction handling",
-              "GUI framework built on Swing with docking window system",
-              "Extension system supporting Java and Python plugins",
-              "Project management system with collaborative server support"
+              "Core platform providing database abstraction layer",
+              "OSGI plugin system with 130+ plugins for extensibility",
+              "Eclipse RCP UI framework for rich desktop interface",
+              "Database driver plugins for vendor-specific implementations",
+              "Data transfer and visualization components",
+              "Connection management and authentication layer",
+              "SQL parsing and execution engine",
+              "Preference and configuration management system"
             ],
             "entry_points": [
-              "ghidraRun - Main GUI application launcher",
-              "support/pyGhidraRun - Python bridge launcher",
-              "Ghidra/Framework/Generic/src/main/java/ghidra/framework/Application.java - Core framework initialization"
+              "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/core/DBeaverActivator.java",
+              "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/core/DesktopPlatform.java"
             ],
-            "data_flow": "Binary files are loaded into projects, analyzed by language processors to create program representations, processed by analysis plugins for function identification and typing, stored in project database with version tracking, and presented through GUI or accessed via scripting APIs",
-            "persistence": "Custom binary database format for project storage, file-based configuration, XML-based language specifications, trace databases for debugging sessions",
-            "concurrency_model": "Multi-threaded with Swing EDT for GUI, background analysis tasks, concurrent debugging sessions, plugin service isolation",
-            "communication_patterns": "Service-based architecture with event notification, plugin-to-plugin communication via services, debugger agents use TCP/named pipes for external tool integration",
-            "plugin_extension_model": "Plugin interface with service registration, extension points for new file formats and processors, scripting interface for automation, GhidraDev Eclipse plugin for development"
+            "data_flow": "Database connections are established through JDBC drivers, metadata is fetched and cached, SQL queries are parsed using JSQLParser/ANTLR4, executed against databases, and results are rendered in Eclipse workbench views. Configuration data flows through Eclipse preference system and OSGI service registry.",
+            "persistence": "Eclipse workspace for project data, preference storage for user settings, no embedded database - connects to external databases via JDBC",
+            "concurrency_model": "Eclipse Jobs framework for background processing, SWT UI thread for user interface updates, multi-threaded connection handling",
+            "communication_patterns": "JDBC for database connectivity, OSGI service registry for inter-plugin communication, Eclipse extension points for UI integration",
+            "plugin_extension_model": "OSGI bundle system with Eclipse extension points, plugin.xml files define extensions and extension points, feature-based plugin grouping"
           },
           "data_model": {
             "primary_entities": [
-              "Program - represents analyzed binary with instructions, functions, data",
-              "Project - container for related programs and analysis data",
-              "Trace - debugging session recording with memory states over time",
-              "Language - processor architecture definition with instruction semantics",
-              "Function - identified code blocks with parameters and local variables",
-              "Symbol - named addresses including functions, labels, and variables",
-              "DataType - type information for variables and function signatures"
+              "DataSourceDescriptor",
+              "DBConnection",
+              "DatabaseMetadata",
+              "SQLQuery",
+              "DatabaseObject",
+              "Project",
+              "UserPreferences"
             ],
             "storage_backends": [
-              "Custom binary database format",
-              "File system for project structure",
-              "XML for configuration and language specs",
-              "Temporary files for analysis cache"
+              "External databases via JDBC",
+              "Eclipse workspace",
+              "File system for preferences and metadata cache"
             ],
-            "schema_patterns": "Object-oriented with hierarchical program structure, versioned project data, graph-based control flow representation",
-            "migration_strategy": "Version-aware database schema with automatic migration, backward compatibility for project formats"
+            "schema_patterns": "Relational database schema introspection, metadata caching, object-oriented model representation",
+            "migration_strategy": "Plugin versioning through OSGI, preference migration handlers"
           },
           "algorithms": {
-            "problem_type": "Static and dynamic analysis of compiled binary code with reverse engineering, control flow recovery, and semantic understanding",
+            "problem_type": "Database management and SQL development with multi-vendor database support",
             "core_patterns": [
-              "Observer pattern for plugin event notification",
-              "Service locator for plugin communication",
-              "Factory pattern for language processors",
-              "Command pattern for undoable operations",
-              "Strategy pattern for different analysis approaches",
-              "Plugin architecture with extension points"
+              "Plugin architecture",
+              "Command pattern for UI actions",
+              "Factory pattern for database drivers",
+              "Observer pattern for UI updates",
+              "Strategy pattern for database-specific implementations"
             ],
-            "complexity_indicators": "Large codebase with 15,403 Java files, complex plugin dependency management, multi-architecture support requiring extensive processor definitions",
+            "complexity_indicators": "Large codebase with 9404 files, complex plugin dependency graph, multi-threaded execution",
             "key_algorithms": [
-              "Control flow graph construction and analysis",
-              "Data flow analysis for type propagation",
-              "Function signature analysis and parameter identification",
-              "Symbol table construction and resolution",
-              "Instruction disassembly with multiple architecture support",
-              "Decompilation algorithms for high-level code recovery"
+              "SQL parsing using JSQLParser and ANTLR4",
+              "Database metadata introspection",
+              "Connection pooling and management",
+              "UI rendering through SWT/Eclipse RCP"
             ],
-            "evidence": "Ghidra/Features/Decompiler/ contains C++ decompilation engine, Ghidra/Framework/SoftwareModeling/ implements program analysis algorithms, Ghidra/Processors/ contains architecture-specific instruction handling"
+            "evidence": "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/registry/ contains core registry and factory implementations"
           },
           "security_model": {
-            "authentication": "User-based authentication for Ghidra Server collaborative projects",
-            "authorization": "Project-level access controls, read-only vs read-write permissions",
-            "data_protection": "Local project encryption options, secure communication for server mode",
+            "authentication": "Database-specific authentication, SSH key-based authentication, password storage",
+            "authorization": "Database-level permissions, connection-based access control",
+            "data_protection": "SSH tunneling, SSL/TLS connections, encrypted password storage",
             "security_headers": "Not applicable for desktop application",
-            "vulnerability_handling": "Security advisories mentioned in README.md, responsible disclosure process"
+            "vulnerability_handling": "SECURITY.md file present, Apache 2.0 license compliance"
           },
           "dependencies": {
             "runtime": [
-              "JDK 21 64-bit (minimum runtime requirement)",
-              "Python 3.9-3.14 for PyGhidra and debugger agents",
-              "Native libraries for decompiler engine"
+              "Eclipse RCP platform",
+              "OSGI framework",
+              "JDBC drivers (100+ supported)",
+              "SWT/JFace UI libraries",
+              "JSQLParser",
+              "ANTLR4",
+              "SSHJ",
+              "Apache POI",
+              "JFreeChart",
+              "JTS"
             ],
             "dev": [
-              "Gradle 8.5+ for build system",
-              "Eclipse IDE for plugin development",
-              "Microsoft Visual Studio 2017+ or Build Tools (Windows)",
-              "GCC or Clang compiler (Linux/macOS)",
-              "Python development tools and pip"
+              "Maven build system",
+              "Eclipse PDE for plugin development"
             ],
             "infrastructure": [
-              "File system for project storage",
-              "Network connectivity for Ghidra Server mode",
-              "External debuggers (GDB, LLDB, DbgEng) for debugging features"
+              "Java Runtime Environment (OpenJDK 21 included)",
+              "External databases for connectivity"
             ]
           },
           "deployment": {
-            "containerized": true,
-            "container_orchestration": "Docker support with provided Dockerfile",
-            "ci_cd": "None observed in repository",
-            "environment_config": "Environment variables for installation paths, Java system properties for configuration, XML-based tool and language configuration files",
-            "scaling_model": "Single-user desktop application, multi-user via Ghidra Server for collaborative analysis"
+            "containerized": false,
+            "container_orchestration": "none",
+            "ci_cd": "none observed",
+            "environment_config": "Eclipse preferences system, OSGI configuration, database connection properties",
+            "scaling_model": "Desktop application - single instance per user"
           },
           "code_quality_signals": {
             "has_tests": true,
-            "test_framework": "JUnit (Java), pytest patterns in Python components",
-            "test_count_estimate": "2037 test files found",
+            "test_framework": "JUnit (inferred from Eclipse platform)",
+            "test_count_estimate": "154 test-related files",
             "has_linting": false,
             "has_type_hints": true,
-            "documentation_quality": "well-documented",
-            "code_style": "Java coding standards enforced, comprehensive inline documentation"
+            "documentation_quality": "adequate",
+            "code_style": "Eclipse code formatter configuration present (docs/codestyle/eclipse-formatter-profile.xml)"
           },
           "project_health": {
             "license": "Apache-2.0",
-            "total_commits": "1",
-            "top_contributors": "1",
-            "recent_activity": "Recent merge of GhidraDev Eclipse plugin improvements",
-            "community_signals": "CONTRIBUTING.md present, security policy referenced, NSA-maintained open source project"
+            "total_commits": "1 (in extracted sample)",
+            "top_contributors": "1 (Serge Rider)",
+            "recent_activity": "Active development with merge from devel branch",
+            "community_signals": "Security policy present, comprehensive README, extensive localization support"
           },
           "evidence_tracking": {
             "files_analyzed": [
               "README.md",
-              "CONTRIBUTING.md",
-              "build.gradle files",
-              "Ghidra/Framework/Generic/src/main/java/ghidra/framework/Application.java",
-              "Ghidra/Features/PyGhidra/src/main/py/src/pyghidra/__main__.py",
-              "Ghidra/Debug/Debugger-api service interfaces",
-              "GPL module source code and build files",
-              "Directory structure analysis",
-              "Language distribution statistics"
+              "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/BaseBrowserView.java",
+              "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/qm/QueryManagerView.java",
+              "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/datasource/",
+              "Multiple MANIFEST.MF files",
+              "Multiple pom.xml files",
+              "plugins/org.jkiss.dbeaver.data.gis/",
+              "Directory structure analysis"
             ],
             "confidence_level": "High",
             "information_gaps": [
-              "Limited git history (only 1 commit visible)",
-              "Internal NSA development processes not visible",
-              "Complete dependency version information not available from build files alone"
+              "Specific database driver versions not visible in manifest files",
+              "Complete dependency tree not available from extracted pom.xml samples",
+              "Actual test framework details not explicit in file names"
             ]
           },
           "pricing": {
@@ -230,221 +222,213 @@
         "extracted_data": {},
         "source": "local_repo",
         "source_confidence": "high",
-        "timestamp": "2026-04-09T15:27:15.760753"
+        "timestamp": "2026-04-10T16:39:35.373400"
       },
       "step2": {
         "step1_data": {
-          "product_name": "ghidra",
-          "url": "https://github.com/NationalSecurityAgency/ghidra.git",
+          "product_name": "dbeaver",
+          "url": "https://github.com/dbeaver/dbeaver.git",
           "analysis": {
-            "summary": "Ghidra is a comprehensive software reverse engineering framework developed by the NSA that provides disassembly, decompilation, and analysis capabilities for compiled binaries. It implements a plugin-based architecture with extensive Java and Python support, featuring a collaborative server-client model for team-based analysis. The system supports multiple processor architectures and executable formats through modular language processors and includes advanced debugging capabilities via multiple debugger agent integrations.",
+            "summary": "DBeaver is a Java-based universal database tool built on Eclipse RCP platform with OSGI plugin architecture, providing database connectivity through JDBC drivers, SQL editing capabilities, data visualization, and administrative functions. The system processes database metadata, manages connections through a connection pool, and renders UI components through Eclipse workbench framework. It implements a modular plugin system supporting over 100 database drivers and extensible functionality through OSGI bundles.",
             "capabilities": [
-              "Disassembles executable files for multiple processor architectures using modular language processors (Ghidra/Processors/)",
-              "Decompiles assembly code back to high-level C-like representations using the Decompiler framework (Ghidra/Features/Decompiler/)",
-              "Provides interactive GUI-based reverse engineering interface through the CodeBrowser tool (Ghidra/Configurations/Public_Release/src/main/resources/defaultTools/CodeBrowser.tool)",
-              "Supports collaborative analysis through Ghidra Server with multi-user project sharing and version control (Ghidra/Framework/)",
-              "Executes Python and Java scripts for automated analysis tasks (Ghidra/Features/Python/, Ghidra/RuntimeScripts/)",
-              "Integrates with multiple debuggers including GDB, LLDB, and Windows DbgEng through Python agents (Ghidra/Debug/Debugger-agent-gdb/, Ghidra/Debug/Debugger-agent-dbgeng/)",
-              "Manages debug sessions with trace recording and emulation capabilities (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerEmulationService.java)",
-              "Analyzes program structure through function identification and control flow analysis (Ghidra/Features/Base/)",
-              "Handles multiple executable formats including ELF, PE, Mach-O, and embedded firmware formats (Ghidra/Features/Base/)",
-              "Provides extensible plugin architecture with service-based component communication (Ghidra/Framework/)",
-              "Supports custom processor definition through SLEIGH language specifications (Ghidra/Processors/)",
-              "Implements graph visualization for program flow and data relationships (Ghidra/Features/GraphServices/)",
-              "Manages symbol tables, data types, and program annotations with persistence (Ghidra/Framework/SoftwareModeling/)",
-              "Processes debug information including DWARF and PDB symbols (Ghidra/Features/PDB/)",
-              "Supports headless analysis mode for batch processing and automation (Ghidra/Features/HeadlessAnalyzer/)",
-              "Implements file system browser for analyzing disk images and archives (GPL/DMG/, Ghidra/Features/FileFormats/)",
-              "Provides Python bridge (PyGhidra) for direct API access from Python scripts (Ghidra/Features/PyGhidra/)",
-              "Handles demangling of C++ and other mangled symbol names (GPL/DemanglerGnu/)",
-              "Implements memory mapping and address space management for complex binaries (Ghidra/Framework/SoftwareModeling/)",
-              "Supports GNU disassembler integration for additional architecture coverage (GPL/GnuDisassembler/)",
-              "Provides extension development support through Eclipse and VSCode integrations (GhidraBuild/EclipsePlugins/)",
-              "Implements trace-based debugging with timeline navigation and state comparison (Ghidra/Debug/)",
-              "Supports emulation of program execution for dynamic analysis (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerEmulationService.java)",
-              "Manages project data with hierarchical folder organization and version tracking (Ghidra/Framework/Project/)",
-              "Provides comprehensive help system and documentation framework (GhidraDocs/, help/ directories)"
+              "Manages database connections with JDBC drivers and connection pooling (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/datasource/DataSourceConnectHandler.java)",
+              "Provides SQL query execution and management through query managers (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/qm/QueryManagerView.java)",
+              "Renders database schema browser and metadata navigation (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/BaseBrowserView.java)",
+              "Handles database transaction management including commit and rollback operations (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/datasource/DataSourceCommitHandler.java)",
+              "Processes database output and console logging (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/DatabaseOutputView.java)",
+              "Manages external process execution and shell commands (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/process/ShellProcessView.java)",
+              "Implements connection wizards for database setup and configuration (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/dialogs/connection/ConnectionWizard.java)",
+              "Provides data export and import functionality through transfer wizards (plugins/org.jkiss.dbeaver.data.transfer/src/org/jkiss/dbeaver/tools/transfer/DataTransferWizard.java)",
+              "Handles Geographic Information System (GIS) data visualization (plugins/org.jkiss.dbeaver.data.gis/src/org/jkiss/dbeaver/model/gis/DBGeometry.java)",
+              "Supports Office document format integration for data handling (plugins/org.jkiss.dbeaver.data.office/)",
+              "Implements simple database object comparison tools (plugins/org.jkiss.dbeaver.cmp.simple/src/org/jkiss/dbeaver/tools/compare/simple/CompareObjectsExecutor.java)",
+              "Manages project configuration import and export (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/tools/project/ProjectExportWizard.java)",
+              "Provides debugging capabilities for database procedures (plugins/org.jkiss.dbeaver.debug.core/)",
+              "Handles user authentication and connection credentials (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/dialogs/connection/PasswordChangeDialog.java)",
+              "Implements network tunneling and proxy support for database connections (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/dialogs/connection/ConnectionPageNetworkHandler.java)",
+              "Manages database driver configurations and installations (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/dialogs/connection/ConnectionPageDriver.java)",
+              "Processes SQL script execution and management (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/tools/scripts/ScriptsImportWizard.java)",
+              "Provides data visualization through charts and graphs (evident from JFreeChart dependency mentioned in README)",
+              "Implements Eclipse workbench integration with perspectives and views (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/perspective/DBeaverPerspective.java)",
+              "Handles internationalization and localization support (multiple bundle_*.properties files across plugins)",
+              "Manages bookmark functionality for database objects (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/common/AddBookmarkHandler.java)",
+              "Provides preference management and configuration persistence (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/preferences/)",
+              "Implements EULA and license management (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/eula/EULAHandler.java)",
+              "Supports custom toolbar configuration and UI customization (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/ToolBarConfigurationRegistry.java)",
+              "Handles database-specific extensions for various vendors (100+ database driver plugins)"
             ],
             "use_cases": [
-              "Malware analysts use it to reverse engineer malicious software and understand attack vectors",
-              "Security researchers analyze firmware and embedded systems for vulnerability research",
-              "Software engineers examine legacy code without source availability for maintenance or porting",
-              "Incident responders analyze compromised binaries to understand attack mechanisms",
-              "Academic researchers study program analysis techniques and develop new reverse engineering methods",
-              "Government agencies perform cybersecurity analysis and threat assessment",
-              "Vulnerability researchers identify security flaws in commercial software products"
+              "Database administrators use this to manage database connections, monitor transactions, and perform administrative tasks across multiple database platforms",
+              "SQL developers use this to write, execute, and debug SQL queries with syntax highlighting and auto-completion features",
+              "Data analysts use this to visualize data through charts, export data to various formats, and browse database schemas",
+              "Database developers use this to design ER diagrams, compare database objects, and manage database migrations",
+              "System integrators use this to connect to over 100 different database types through standardized JDBC interfaces"
             ],
-            "category": "Software Reverse Engineering Framework",
-            "target_audience": "Security researchers, malware analysts, vulnerability researchers, software engineers, cybersecurity professionals, academic researchers",
+            "category": "Database Management Tool",
+            "target_audience": "Database administrators, SQL developers, data analysts, database developers, and system integrators",
             "technical_stack": [
-              "Java 21+ (build requirements in README.md and build scripts)",
-              "Python 3.9-3.14 (Ghidra/Features/PyGhidra/src/main/py/pyproject.toml, debugger agents)",
-              "Gradle 8.5+ (build.gradle files throughout, gradle wrapper)",
-              "SLEIGH language specification system (Ghidra/Processors/)",
-              "Eclipse RCP for plugin development (GhidraBuild/EclipsePlugins/)",
-              "Swing/AWT for GUI components (Java source files)",
-              "C/C++ for native components (GPL/DemanglerGnu/, Ghidra/Features/Decompiler/)",
-              "GNU Binutils integration (GPL/GnuDisassembler/)",
-              "Microsoft Visual Studio 2017+ for Windows builds (README.md)",
-              "Docker containerization support (docker/ directory)"
+              "Java (6171 .java files)",
+              "Eclipse RCP platform (evident from Eclipse dependencies in MANIFEST.MF files)",
+              "OSGI framework (MANIFEST.MF files indicate OSGI bundles)",
+              "JDBC (mentioned in README architecture section)",
+              "JSQLParser (mentioned in README architecture section)",
+              "ANTLR4 (mentioned in README architecture section)",
+              "SWT/JFace (UI framework, evident from imports in source files)",
+              "Maven (pom.xml files throughout project structure)",
+              "SSHJ (mentioned in README for networking)",
+              "Apache POI (mentioned in README for Office documents)",
+              "JFreeChart (mentioned in README for data visualization)",
+              "JTS (mentioned in README for GIS functionality)"
             ],
             "api_endpoints": [
-              "DebuggerAutoMappingService.setAutoMapSpec(AutoMapSpec) \u2014 Set auto-mapping configuration (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerAutoMappingService.java)",
-              "DebuggerConsoleService.log(Icon, String) \u2014 Log messages to debug console (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerConsoleService.java)",
-              "DebuggerControlService.createStateEditor(DebuggerCoordinates) \u2014 Create state editor for debugging (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerControlService.java)",
-              "DebuggerEmulationService.getCachedEmulator(Trace) \u2014 Access managed emulator instances (Ghidra/Debug/Debugger-api/src/main/java/ghidra/app/services/DebuggerEmulationService.java)",
-              "Application.initializeApplication(ApplicationLayout, ApplicationConfiguration) \u2014 Initialize Ghidra framework (Ghidra/Framework/Generic/src/main/java/ghidra/framework/Application.java)",
-              "pyghidra.run_script(binary_path, script_path) \u2014 Execute Python scripts via PyGhidra (Ghidra/Features/PyGhidra/src/main/py/src/pyghidra/__main__.py)"
+              "Eclipse Command Framework handlers for database operations (plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/datasource/)",
+              "OSGI service interfaces for database connections (org.jkiss.dbeaver.registry.DataSourceDescriptorManager)",
+              "Workbench extension points for UI integration (plugin.xml files define extension points)",
+              "Database driver API for vendor-specific implementations (100+ driver plugins)"
             ],
             "sdk_languages": [
-              "Java",
-              "Python"
+              "Java"
             ],
             "auth_methods": [
-              "File-based project permissions",
-              "Multi-user server authentication (Ghidra Server)",
-              "User access controls for collaborative projects"
+              "JDBC authentication",
+              "SSH tunneling",
+              "Proxy authentication",
+              "SSL/TLS connections"
             ],
             "integrations": [
-              "GDB debugger via Python agent (Ghidra/Debug/Debugger-agent-gdb/src/main/py/src/ghidragdb/)",
-              "LLDB debugger via Python agent (Ghidra/Debug/Debugger-agent-lldb/)",
-              "Windows DbgEng via Python COM interface (Ghidra/Debug/Debugger-agent-dbgeng/src/main/py/src/ghidradbg/dbgmodel/)",
-              "drgn debugger for Linux kernel debugging (Ghidra/Debug/Debugger-agent-drgn/)",
-              "GNU Binutils for additional disassembly support (GPL/GnuDisassembler/)",
-              "Eclipse IDE for plugin development (GhidraBuild/EclipsePlugins/)",
-              "Visual Studio Code for script editing (mentioned in README.md)",
-              "DWARF debug information parsing (Ghidra/Configurations/Public_Release/data/DWARF.debuginfod_urls)",
-              "PDB symbol server integration (Ghidra/Configurations/Public_Release/data/PDB_SYMBOL_SERVER_URLS.pdburl)"
+              "JDBC drivers for 100+ database types (evident from extensive database driver plugins)",
+              "SSH tunneling for secure connections (SSHJ library mentioned in README)",
+              "Eclipse platform integration (Eclipse RCP framework)",
+              "GIS data support through JTS library (plugins/org.jkiss.dbeaver.data.gis/)",
+              "Office document formats via Apache POI (mentioned in README)",
+              "Git integration for version control (plugins/org.jkiss.dbeaver.git.feature/)"
             ],
             "architecture": {
-              "pattern": "plugin-based with service-oriented architecture",
+              "pattern": "plugin-based",
               "components": [
-                "Framework core providing application lifecycle and plugin management",
-                "SoftwareModeling layer for program representation and analysis",
-                "Feature plugins for specific analysis capabilities (disassembly, decompilation, debugging)",
-                "Debug framework with trace recording and emulation services",
-                "Language processors for architecture-specific instruction handling",
-                "GUI framework built on Swing with docking window system",
-                "Extension system supporting Java and Python plugins",
-                "Project management system with collaborative server support"
+                "Core platform providing database abstraction layer",
+                "OSGI plugin system with 130+ plugins for extensibility",
+                "Eclipse RCP UI framework for rich desktop interface",
+                "Database driver plugins for vendor-specific implementations",
+                "Data transfer and visualization components",
+                "Connection management and authentication layer",
+                "SQL parsing and execution engine",
+                "Preference and configuration management system"
               ],
               "entry_points": [
-                "ghidraRun - Main GUI application launcher",
-                "support/pyGhidraRun - Python bridge launcher",
-                "Ghidra/Framework/Generic/src/main/java/ghidra/framework/Application.java - Core framework initialization"
+                "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/core/DBeaverActivator.java",
+                "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/core/DesktopPlatform.java"
               ],
-              "data_flow": "Binary files are loaded into projects, analyzed by language processors to create program representations, processed by analysis plugins for function identification and typing, stored in project database with version tracking, and presented through GUI or accessed via scripting APIs",
-              "persistence": "Custom binary database format for project storage, file-based configuration, XML-based language specifications, trace databases for debugging sessions",
-              "concurrency_model": "Multi-threaded with Swing EDT for GUI, background analysis tasks, concurrent debugging sessions, plugin service isolation",
-              "communication_patterns": "Service-based architecture with event notification, plugin-to-plugin communication via services, debugger agents use TCP/named pipes for external tool integration",
-              "plugin_extension_model": "Plugin interface with service registration, extension points for new file formats and processors, scripting interface for automation, GhidraDev Eclipse plugin for development"
+              "data_flow": "Database connections are established through JDBC drivers, metadata is fetched and cached, SQL queries are parsed using JSQLParser/ANTLR4, executed against databases, and results are rendered in Eclipse workbench views. Configuration data flows through Eclipse preference system and OSGI service registry.",
+              "persistence": "Eclipse workspace for project data, preference storage for user settings, no embedded database - connects to external databases via JDBC",
+              "concurrency_model": "Eclipse Jobs framework for background processing, SWT UI thread for user interface updates, multi-threaded connection handling",
+              "communication_patterns": "JDBC for database connectivity, OSGI service registry for inter-plugin communication, Eclipse extension points for UI integration",
+              "plugin_extension_model": "OSGI bundle system with Eclipse extension points, plugin.xml files define extensions and extension points, feature-based plugin grouping"
             },
             "data_model": {
               "primary_entities": [
-                "Program - represents analyzed binary with instructions, functions, data",
-                "Project - container for related programs and analysis data",
-                "Trace - debugging session recording with memory states over time",
-                "Language - processor architecture definition with instruction semantics",
-                "Function - identified code blocks with parameters and local variables",
-                "Symbol - named addresses including functions, labels, and variables",
-                "DataType - type information for variables and function signatures"
+                "DataSourceDescriptor",
+                "DBConnection",
+                "DatabaseMetadata",
+                "SQLQuery",
+                "DatabaseObject",
+                "Project",
+                "UserPreferences"
               ],
               "storage_backends": [
-                "Custom binary database format",
-                "File system for project structure",
-                "XML for configuration and language specs",
-                "Temporary files for analysis cache"
+                "External databases via JDBC",
+                "Eclipse workspace",
+                "File system for preferences and metadata cache"
               ],
-              "schema_patterns": "Object-oriented with hierarchical program structure, versioned project data, graph-based control flow representation",
-              "migration_strategy": "Version-aware database schema with automatic migration, backward compatibility for project formats"
+              "schema_patterns": "Relational database schema introspection, metadata caching, object-oriented model representation",
+              "migration_strategy": "Plugin versioning through OSGI, preference migration handlers"
             },
             "algorithms": {
-              "problem_type": "Static and dynamic analysis of compiled binary code with reverse engineering, control flow recovery, and semantic understanding",
+              "problem_type": "Database management and SQL development with multi-vendor database support",
               "core_patterns": [
-                "Observer pattern for plugin event notification",
-                "Service locator for plugin communication",
-                "Factory pattern for language processors",
-                "Command pattern for undoable operations",
-                "Strategy pattern for different analysis approaches",
-                "Plugin architecture with extension points"
+                "Plugin architecture",
+                "Command pattern for UI actions",
+                "Factory pattern for database drivers",
+                "Observer pattern for UI updates",
+                "Strategy pattern for database-specific implementations"
               ],
-              "complexity_indicators": "Large codebase with 15,403 Java files, complex plugin dependency management, multi-architecture support requiring extensive processor definitions",
+              "complexity_indicators": "Large codebase with 9404 files, complex plugin dependency graph, multi-threaded execution",
               "key_algorithms": [
-                "Control flow graph construction and analysis",
-                "Data flow analysis for type propagation",
-                "Function signature analysis and parameter identification",
-                "Symbol table construction and resolution",
-                "Instruction disassembly with multiple architecture support",
-                "Decompilation algorithms for high-level code recovery"
+                "SQL parsing using JSQLParser and ANTLR4",
+                "Database metadata introspection",
+                "Connection pooling and management",
+                "UI rendering through SWT/Eclipse RCP"
               ],
-              "evidence": "Ghidra/Features/Decompiler/ contains C++ decompilation engine, Ghidra/Framework/SoftwareModeling/ implements program analysis algorithms, Ghidra/Processors/ contains architecture-specific instruction handling"
+              "evidence": "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/registry/ contains core registry and factory implementations"
             },
             "security_model": {
-              "authentication": "User-based authentication for Ghidra Server collaborative projects",
-              "authorization": "Project-level access controls, read-only vs read-write permissions",
-              "data_protection": "Local project encryption options, secure communication for server mode",
+              "authentication": "Database-specific authentication, SSH key-based authentication, password storage",
+              "authorization": "Database-level permissions, connection-based access control",
+              "data_protection": "SSH tunneling, SSL/TLS connections, encrypted password storage",
               "security_headers": "Not applicable for desktop application",
-              "vulnerability_handling": "Security advisories mentioned in README.md, responsible disclosure process"
+              "vulnerability_handling": "SECURITY.md file present, Apache 2.0 license compliance"
             },
             "dependencies": {
               "runtime": [
-                "JDK 21 64-bit (minimum runtime requirement)",
-                "Python 3.9-3.14 for PyGhidra and debugger agents",
-                "Native libraries for decompiler engine"
+                "Eclipse RCP platform",
+                "OSGI framework",
+                "JDBC drivers (100+ supported)",
+                "SWT/JFace UI libraries",
+                "JSQLParser",
+                "ANTLR4",
+                "SSHJ",
+                "Apache POI",
+                "JFreeChart",
+                "JTS"
               ],
               "dev": [
-                "Gradle 8.5+ for build system",
-                "Eclipse IDE for plugin development",
-                "Microsoft Visual Studio 2017+ or Build Tools (Windows)",
-                "GCC or Clang compiler (Linux/macOS)",
-                "Python development tools and pip"
+                "Maven build system",
+                "Eclipse PDE for plugin development"
               ],
               "infrastructure": [
-                "File system for project storage",
-                "Network connectivity for Ghidra Server mode",
-                "External debuggers (GDB, LLDB, DbgEng) for debugging features"
+                "Java Runtime Environment (OpenJDK 21 included)",
+                "External databases for connectivity"
               ]
             },
             "deployment": {
-              "containerized": true,
-              "container_orchestration": "Docker support with provided Dockerfile",
-              "ci_cd": "None observed in repository",
-              "environment_config": "Environment variables for installation paths, Java system properties for configuration, XML-based tool and language configuration files",
-              "scaling_model": "Single-user desktop application, multi-user via Ghidra Server for collaborative analysis"
+              "containerized": false,
+              "container_orchestration": "none",
+              "ci_cd": "none observed",
+              "environment_config": "Eclipse preferences system, OSGI configuration, database connection properties",
+              "scaling_model": "Desktop application - single instance per user"
             },
             "code_quality_signals": {
               "has_tests": true,
-              "test_framework": "JUnit (Java), pytest patterns in Python components",
-              "test_count_estimate": "2037 test files found",
+              "test_framework": "JUnit (inferred from Eclipse platform)",
+              "test_count_estimate": "154 test-related files",
               "has_linting": false,
               "has_type_hints": true,
-              "documentation_quality": "well-documented",
-              "code_style": "Java coding standards enforced, comprehensive inline documentation"
+              "documentation_quality": "adequate",
+              "code_style": "Eclipse code formatter configuration present (docs/codestyle/eclipse-formatter-profile.xml)"
             },
             "project_health": {
               "license": "Apache-2.0",
-              "total_commits": "1",
-              "top_contributors": "1",
-              "recent_activity": "Recent merge of GhidraDev Eclipse plugin improvements",
-              "community_signals": "CONTRIBUTING.md present, security policy referenced, NSA-maintained open source project"
+              "total_commits": "1 (in extracted sample)",
+              "top_contributors": "1 (Serge Rider)",
+              "recent_activity": "Active development with merge from devel branch",
+              "community_signals": "Security policy present, comprehensive README, extensive localization support"
             },
             "evidence_tracking": {
               "files_analyzed": [
                 "README.md",
-                "CONTRIBUTING.md",
-                "build.gradle files",
-                "Ghidra/Framework/Generic/src/main/java/ghidra/framework/Application.java",
-                "Ghidra/Features/PyGhidra/src/main/py/src/pyghidra/__main__.py",
-                "Ghidra/Debug/Debugger-api service interfaces",
-                "GPL module source code and build files",
-                "Directory structure analysis",
-                "Language distribution statistics"
+                "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/BaseBrowserView.java",
+                "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/views/qm/QueryManagerView.java",
+                "plugins/org.jkiss.dbeaver.core/src/org/jkiss/dbeaver/ui/actions/datasource/",
+                "Multiple MANIFEST.MF files",
+                "Multiple pom.xml files",
+                "plugins/org.jkiss.dbeaver.data.gis/",
+                "Directory structure analysis"
               ],
               "confidence_level": "High",
               "information_gaps": [
-                "Limited git history (only 1 commit visible)",
-                "Internal NSA development processes not visible",
-                "Complete dependency version information not available from build files alone"
+                "Specific database driver versions not visible in manifest files",
+                "Complete dependency tree not available from extracted pom.xml samples",
+                "Actual test framework details not explicit in file names"
               ]
             },
             "pricing": {
@@ -455,124 +439,128 @@
           "extracted_data": {},
           "source": "local_repo",
           "source_confidence": "high",
-          "timestamp": "2026-04-09T15:27:15.760753"
+          "timestamp": "2026-04-10T16:39:35.373400"
         },
         "generalization": {
           "functional_dna": {
             "logic_archetype": "Plugin Host",
-            "logic_archetype_evidence": "Ghidra implements a comprehensive plugin-based architecture with service-oriented communication patterns, extensive extension points for new file formats and processors, and a framework that manages plugin lifecycle and inter-plugin dependencies. The system provides a core framework that hosts specialized analysis plugins while maintaining isolation and communication through service interfaces.",
+            "logic_archetype_evidence": "The system implements a comprehensive OSGI plugin architecture with 130+ plugins, Eclipse extension points, and a core platform that manages plugin lifecycle. The architecture specifically provides a plugin registry and factory pattern for extensible functionality across database drivers and UI components.",
             "data_contract_strictness": "Highly Structured",
-            "data_contract_evidence": "Evidence: Strong Java type system with defined service interfaces, SLEIGH language specifications for processor definitions, structured XML configurations, and well-defined API endpoints with specific parameter types and return values across the debugging and analysis services.",
-            "core_algorithmic_class": "Graph Algorithms",
-            "core_algorithmic_evidence": "Evidence from control flow graph construction and analysis, data flow analysis for type propagation, graph visualization for program flow relationships, and tree/AST processing for decompilation algorithms. The system heavily relies on graph traversal and analysis patterns for understanding program structure.",
-            "concurrency_requirements": "Eventually Consistent",
-            "concurrency_evidence": "Evidence from multi-threaded architecture with background analysis tasks, collaborative server support with version control, concurrent debugging sessions, and plugin service isolation patterns that suggest eventual consistency rather than strict ACID compliance.",
-            "abstract_problem": "Transforms complex structured artifacts into interpretable representations through pluggable analysis modules, maintaining collaborative workspaces with version control while providing extensible automation interfaces for custom processing workflows.",
-            "data_flow_pattern": "Artifact ingestion \u2192 modular transformation pipeline \u2192 persistent workspace storage \u2192 collaborative synchronization with interactive query/manipulation interfaces",
+            "data_contract_evidence": "JDBC interface standardization, OSGI bundle manifests with strict versioning, Eclipse extension point schemas, and structured metadata introspection patterns indicate rigid contract enforcement",
+            "core_algorithmic_class": "CRUD Operations",
+            "core_algorithmic_evidence": "Primary algorithms focus on database metadata introspection, SQL query parsing/execution, connection pooling, and data transfer operations. The system doesn't implement complex computational algorithms but rather orchestrates standard database operations across multiple vendors.",
+            "concurrency_requirements": "ACID Compliance Required",
+            "concurrency_evidence": "Database transaction management with commit/rollback handlers, connection pooling for concurrent access, and Eclipse Jobs framework for background processing indicate ACID compliance requirements for database consistency",
+            "abstract_problem": "Provides a unified interface layer over heterogeneous external systems with pluggable adapters, enabling standardized operations across vendor-specific implementations while maintaining connection lifecycle and metadata introspection.",
+            "data_flow_pattern": "Request-Response with connection pooling \u2192 vendor-specific adapter translation \u2192 external system interaction \u2192 metadata caching \u2192 UI state synchronization",
             "state_complexity": "Entity-scoped",
             "repurposing_confidence": 8,
-            "repurposing_reasoning": "The plugin architecture, service-oriented design, and collaborative workspace patterns are highly generic and could be repurposed for any domain requiring complex artifact analysis. The core framework, project management, plugin communication, and extension systems are domain-agnostic. However, the specific analysis algorithms and language processors are specialized for binary analysis, requiring significant domain expertise to adapt."
+            "repurposing_reasoning": "The plugin architecture, connection management, and metadata introspection patterns are highly generic and could be applied to any domain requiring unified access to heterogeneous external systems. The Eclipse RCP framework provides a mature desktop application foundation. Only the JDBC-specific drivers and SQL parsing components are domain-locked, while the core plugin host, connection pooling, and UI framework are broadly reusable across API management, IoT device management, or cloud service orchestration scenarios."
           },
           "evidence_claims": [
             {
-              "claim": "System implements comprehensive plugin architecture with service communication",
-              "evidence": "Ghidra/Framework/ directory structure with plugin management, service-based component communication mentioned in architecture description",
+              "claim": "System implements OSGI plugin architecture with 130+ plugins",
+              "evidence": "Directory structure shows plugins/* with individual MANIFEST.MF files and plugin.xml extension point definitions",
               "confidence": "High"
             },
             {
-              "claim": "Supports collaborative multi-user analysis with version control",
-              "evidence": "Ghidra Server with multi-user project sharing and version control capabilities listed in summary",
+              "claim": "Connection pooling and transaction management implemented",
+              "evidence": "DataSourceConnectHandler.java and DataSourceCommitHandler.java in datasource actions directory",
               "confidence": "High"
             },
             {
-              "claim": "Provides extensible automation through scripting interfaces",
-              "evidence": "Python and Java script support in Ghidra/Features/Python/, PyGhidra bridge for API access",
+              "claim": "Supports 100+ database vendors through JDBC adapters",
+              "evidence": "README.md architecture section mentions 100+ database drivers and extensive database driver plugin directories",
               "confidence": "High"
             },
             {
-              "claim": "Implements graph-based analysis algorithms",
-              "evidence": "Graph visualization for program flow and data relationships, control flow analysis mentioned in capabilities",
+              "claim": "Eclipse RCP framework provides UI foundation",
+              "evidence": "Eclipse dependencies in MANIFEST.MF files and DBeaverPerspective.java workbench integration",
               "confidence": "High"
+            },
+            {
+              "claim": "Metadata introspection and caching system",
+              "evidence": "BaseBrowserView.java for schema navigation and DatabaseMetadata entity in data model",
+              "confidence": "Medium"
             }
           ],
           "market_reach": {
-            "primary_industry": "Cybersecurity/Software Analysis",
+            "primary_industry": "Database Management and Development Tools",
             "cross_industry_applications": [
-              "Legal document analysis - structured document processing with collaborative annotation and version tracking",
-              "Medical imaging analysis - complex artifact interpretation with specialized processing modules and collaborative diagnosis",
-              "Financial data forensics - transaction pattern analysis with pluggable detection algorithms and audit trails",
-              "Scientific data analysis - research dataset processing with extensible analysis pipelines and collaborative workspaces",
-              "Manufacturing quality control - product inspection with modular analysis components and defect tracking",
-              "Content moderation platforms - media analysis with pluggable detection modules and collaborative review workflows",
-              "Architectural/engineering design review - technical drawing analysis with specialized interpretation modules",
-              "Academic research platforms - complex dataset analysis with extensible processing capabilities and collaborative features"
+              "API Management Platforms - unified interface for heterogeneous REST/GraphQL endpoints with authentication and monitoring",
+              "IoT Device Management - standardized control interface for diverse hardware vendors with device metadata and connection lifecycle",
+              "Cloud Service Orchestration - unified management layer for multi-cloud resources with vendor-specific adapters",
+              "Enterprise Integration Platforms - connection management and data transformation across disparate business systems",
+              "Network Management Systems - unified monitoring and configuration interface for heterogeneous network equipment",
+              "Content Management Systems - pluggable storage backends with metadata indexing and connection pooling",
+              "Financial Data Aggregation - standardized interface for multiple market data feeds with real-time connection management",
+              "Healthcare Integration Platforms - unified access to diverse medical systems and devices with strict compliance requirements"
             ],
-            "utility_score": 8,
+            "utility_score": 9,
             "market_potential": "High"
           },
           "friction_report": {
-            "difficulty": "High",
-            "estimated_hours": 2000,
+            "difficulty": "Medium",
+            "estimated_hours": 160,
             "required_technologies": [
-              "Java 21+",
-              "Python 3.9-3.14",
-              "Gradle 8.5+",
-              "Swing/AWT",
-              "Custom binary database format"
+              "Java",
+              "OSGI framework",
+              "Eclipse RCP platform",
+              "Maven build system",
+              "Vendor-specific adapter libraries"
             ],
             "complexity_factors": [
-              "Complex plugin dependency management",
-              "Extensive codebase with 15,403 Java files",
-              "Custom binary database format",
-              "Multi-architecture abstraction layer",
-              "Deep integration between GUI and analysis components"
+              "Eclipse RCP learning curve",
+              "OSGI bundle configuration complexity",
+              "Plugin dependency management",
+              "Desktop UI framework constraints",
+              "Multi-threaded connection handling"
             ],
-            "risk_level": "High",
-            "migration_path": "Extract the core plugin framework and service architecture, replace domain-specific analysis modules with target domain processors, adapt the project/workspace management system, and rebuild UI components for the new domain while maintaining the collaborative and extensibility patterns."
+            "risk_level": "Medium",
+            "migration_path": "Extract core plugin host and connection management components, replace JDBC adapters with target domain adapters, adapt Eclipse RCP UI components or replace with web/mobile interface, maintain OSGI plugin architecture for extensibility"
           },
           "interface_map": {
             "adapter_schema": {
               "input": {
-                "format": "Java API/Python scripts",
+                "format": "Plugin extension points",
                 "required_fields": [
-                  "binary_path",
-                  "analysis_config"
+                  "connection_parameters",
+                  "metadata_schema",
+                  "operation_handlers"
                 ],
                 "protocols": [
-                  "Java API",
-                  "Python API",
-                  "CLI",
-                  "TCP for debugging"
+                  "OSGI service registry",
+                  "Eclipse extension points"
                 ]
               },
               "output": {
-                "format": "structured analysis results",
-                "delivery": "sync with persistent storage"
+                "format": "UI events and data streams",
+                "delivery": "async"
               },
               "authentication": {
-                "type": "file-based + server auth",
-                "method": "project permissions and multi-user server authentication"
+                "type": "pluggable",
+                "method": "vendor-specific authentication handlers"
               }
             },
-            "standardization_level": "Medium",
-            "api_surface_area": "Library API"
+            "standardization_level": "High",
+            "api_surface_area": "Large (50+)"
           },
           "comparable_systems": [
-            "Eclipse IDE platform - plugin-based extensible development environment with collaborative features",
-            "Blender 3D modeling suite - complex artifact manipulation with extensible addon architecture and scripting",
-            "QGIS geographic analysis - spatial data processing with plugin ecosystem and collaborative project management",
-            "ImageJ scientific imaging - extensible image analysis platform with plugin architecture and automation",
-            "Jupyter ecosystem - collaborative analysis notebooks with extensible kernel and extension architecture"
+            "Postman API Client - unified interface for testing heterogeneous REST APIs with collection management",
+            "Kubernetes Dashboard - standardized management interface for diverse container workloads and cluster resources",
+            "VMware vSphere Client - unified management of heterogeneous virtualization infrastructure with plugin extensions",
+            "Grafana - pluggable data source architecture for diverse monitoring and metrics systems",
+            "Jenkins - plugin-based automation platform supporting heterogeneous build tools and deployment targets"
           ],
           "information_gaps": [
-            "Complete plugin dependency resolution mechanisms",
-            "Detailed collaborative conflict resolution strategies",
-            "Performance characteristics under high concurrency",
-            "Specific database schema evolution patterns",
-            "Plugin sandboxing and security isolation details"
+            "Specific plugin loading mechanism and lifecycle management details",
+            "Performance characteristics of connection pooling implementation",
+            "Exact Eclipse RCP version and API dependencies",
+            "Plugin inter-dependency resolution strategies",
+            "Metadata caching implementation and invalidation strategies"
           ]
         },
-        "timestamp": "2026-04-09T15:27:46.723499"
+        "timestamp": "2026-04-10T16:40:07.360550"
       },
       "errors": []
     }

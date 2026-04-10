@@ -1,0 +1,581 @@
+{
+  "url": "https://github.com/prometheus/prometheus.git",
+  "repo_name": "prometheus",
+  "timestamp": "2026-04-10T16:31:12.956937",
+  "step1": {
+    "product_name": "prometheus",
+    "url": "https://github.com/prometheus/prometheus.git",
+    "analysis": {
+      "summary": "Prometheus is a systems and service monitoring time-series database written in Go that collects metrics via HTTP pull model, stores them in a custom TSDB, and provides PromQL query language for analysis. It implements a comprehensive monitoring stack with service discovery, alerting, and federation capabilities, designed for cloud-native environments with autonomous single-node architecture.",
+      "capabilities": [
+        "Scrapes metrics from HTTP endpoints with configurable intervals and timeout handling (scrape/scrape.go)",
+        "Stores time-series data in a custom TSDB with WAL and compression support (tsdb/db.go, tsdb/head.go)",
+        "Executes PromQL queries for time-series analysis and aggregation (promql/engine.go, promql/functions.go)",
+        "Provides service discovery for 25+ platforms including Kubernetes, AWS EC2, Consul, DNS (discovery/ directory)",
+        "Manages alerting rules evaluation and notification routing to Alertmanager (rules/manager.go, notifier/notifier.go)",
+        "Handles remote write/read protocols for external storage integration (storage/remote/write.go, storage/remote/read.go)",
+        "Implements label-based relabeling and metric transformation (model/relabel/relabel.go)",
+        "Supports federation for hierarchical Prometheus deployments (web/federate.go)",
+        "Manages TSDB compaction and retention policies (tsdb/compact.go, tsdb/retention.go)",
+        "Processes exemplars for trace correlation with metrics (model/exemplar/exemplar.go)",
+        "Handles native histograms and classic histogram conversion (model/histogram/convert.go)",
+        "Provides web UI and HTTP API for query and configuration management (web/web.go, web/api/v1/api.go)",
+        "Implements configuration hot-reloading without service restart (config/reload.go)",
+        "Supports agent mode for metrics forwarding without local storage (tsdb/agent/db.go)",
+        "Manages WAL (Write-Ahead Log) for durability and crash recovery (tsdb/wlog/wlog.go)",
+        "Implements chunk encoding with multiple compression algorithms (tsdb/chunkenc/chunk.go)",
+        "Handles target group management for service discovery (discovery/targetgroup/targetgroup.go)",
+        "Provides templating engine for alert annotations and labels (template/template.go)",
+        "Implements distributed tracing integration with OpenTelemetry (tracing/tracing.go)",
+        "Manages TSDB snapshots and backup/restore operations (tsdb/db.go snapshot methods)",
+        "Handles HTTP-based configuration and rule file validation (cmd/promtool/main.go)",
+        "Implements concurrent query execution with resource limiting (promql/engine.go)",
+        "Provides metrics exposition format parsing for Prometheus and OpenMetrics (model/textparse/)",
+        "Manages plugin system for extending functionality (plugins/ directory)",
+        "Handles authentication and authorization via various methods (web/authentication.go)"
+      ],
+      "use_cases": [
+        "DevOps teams use this to monitor infrastructure and application metrics with alerting capabilities",
+        "SRE engineers use this for observability, SLI/SLO tracking, and incident response automation",
+        "Platform teams use this to provide centralized monitoring infrastructure for microservices architectures",
+        "Data engineers use this for time-series data collection and analysis in data pipelines",
+        "Cloud-native developers use this for Kubernetes monitoring with auto-discovery of services and pods"
+      ],
+      "category": "Monitoring System",
+      "target_audience": "DevOps engineers, Site reliability engineers, Platform engineers, System administrators",
+      "technical_stack": [
+        "Go 1.25.0 (go.mod)",
+        "React/TypeScript for web UI (.tsx/.ts files)",
+        "Protocol Buffers for remote write protocol (prompb/)",
+        "Grafana regexp library v0.0.0-20250905093917-f7b3be9d1853 (go.mod)",
+        "Kubernetes client-go for Kubernetes service discovery (go.mod)",
+        "Snappy compression v1.0.0 (go.mod)",
+        "Kingpin v2.4.0 for CLI parsing (go.mod)",
+        "Docker and Docker Compose for containerization (Dockerfile, docker-compose files)",
+        "OpenTelemetry for distributed tracing (tracing/)",
+        "Prometheus client libraries for metrics exposition (go.mod)"
+      ],
+      "api_endpoints": [
+        "GET /api/v1/query - Execute instant PromQL queries (web/api/v1/api.go)",
+        "GET /api/v1/query_range - Execute range PromQL queries (web/api/v1/api.go)",
+        "GET /api/v1/series - Get time series metadata (web/api/v1/api.go)",
+        "GET /api/v1/labels - Get label names (web/api/v1/api.go)",
+        "GET /api/v1/label/{name}/values - Get label values (web/api/v1/api.go)",
+        "GET /api/v1/targets - Get scrape target status (web/api/v1/api.go)",
+        "GET /api/v1/rules - Get alerting and recording rules (web/api/v1/api.go)",
+        "GET /api/v1/alerts - Get active alerts (web/api/v1/api.go)",
+        "GET /federate - Federation endpoint for metrics (web/federate.go)",
+        "POST /api/v1/write - Remote write endpoint (storage/remote/write.go)",
+        "POST /api/v1/read - Remote read endpoint (storage/remote/read.go)",
+        "POST /-/reload - Reload configuration (web/web.go)",
+        "GET /-/healthy - Health check endpoint (web/web.go)",
+        "GET /-/ready - Readiness check endpoint (web/web.go)"
+      ],
+      "sdk_languages": [
+        "Go"
+      ],
+      "auth_methods": [
+        "HTTP Basic Authentication (web/authentication.go)",
+        "Bearer Token authentication (config/config.go)",
+        "TLS mutual authentication (config/config.go)",
+        "OAuth2 authentication (config/config.go)"
+      ],
+      "integrations": [
+        "Kubernetes API server for service discovery (discovery/kubernetes/)",
+        "AWS EC2 API for instance discovery (discovery/aws/)",
+        "Consul API for service discovery (discovery/consul/)",
+        "DNS for SRV record discovery (discovery/dns/)",
+        "Alertmanager for alert routing (notifier/notifier.go)",
+        "Remote storage systems via remote write/read protocols (storage/remote/)",
+        "OpenTelemetry for distributed tracing (tracing/tracing.go)",
+        "Grafana for visualization dashboards",
+        "InfluxDB via remote storage adapter (documentation/examples/remote_storage/)",
+        "Graphite via remote storage adapter (documentation/examples/remote_storage/)"
+      ],
+      "architecture": {
+        "pattern": "monolith with plugin-based extensions",
+        "components": [
+          "TSDB engine for time-series storage and querying",
+          "Scrape manager for metrics collection from targets",
+          "PromQL query engine for data analysis",
+          "Service discovery manager for target discovery",
+          "Rule manager for alerting and recording rules",
+          "Notifier for alert routing to Alertmanager",
+          "Web server providing HTTP API and UI",
+          "Remote storage interfaces for external integration"
+        ],
+        "entry_points": [
+          "cmd/prometheus/main.go - Main Prometheus server",
+          "cmd/promtool/main.go - Command-line tool for validation and querying"
+        ],
+        "data_flow": "Metrics are scraped from HTTP endpoints by the scrape manager, ingested into TSDB with WAL for durability, compressed and stored in chunks. PromQL queries are executed against the TSDB, with results served via HTTP API. Rules are evaluated periodically, generating alerts sent to Alertmanager or recording new metrics.",
+        "persistence": "Custom TSDB with WAL (Write-Ahead Log), chunk-based storage with compression, automatic compaction and retention policies",
+        "concurrency_model": "Goroutine-based concurrency with sync/atomic for coordination, concurrent query execution with resource limiting",
+        "communication_patterns": "HTTP pull model for metrics scraping, HTTP API for queries, protobuf-based remote write/read for external storage",
+        "plugin_extension_model": "Plugin system via Go plugins loaded at startup (plugins/ directory), service discovery plugins for new platforms"
+      },
+      "data_model": {
+        "primary_entities": [
+          "Time series with metric name and label dimensions",
+          "Samples (timestamp, value pairs)",
+          "Labels for multi-dimensional indexing",
+          "Exemplars for trace correlation",
+          "Histograms (classic and native)",
+          "Metadata for metric types and help text"
+        ],
+        "storage_backends": [
+          "Custom TSDB with local disk storage"
+        ],
+        "schema_patterns": "Time-series data model with metric names and key-value label pairs, stored in append-only chunks with compression",
+        "migration_strategy": "TSDB format versioning with automatic migration on startup"
+      },
+      "algorithms": {
+        "problem_type": "Time-series monitoring and alerting with multi-dimensional data querying",
+        "core_patterns": [
+          "Pull-based metrics collection",
+          "Time-series database with compression",
+          "Service discovery with target management",
+          "Rule-based alerting and recording",
+          "Query engine with aggregation functions"
+        ],
+        "complexity_indicators": "Large codebase with 696 Go files, complex TSDB implementation, extensive service discovery integrations",
+        "key_algorithms": [
+          "TSDB chunk compression algorithms (tsdb/chunkenc/)",
+          "PromQL query planning and execution (promql/engine.go)",
+          "Label-based series indexing (tsdb/index/)",
+          "Time-based data compaction (tsdb/compact.go)",
+          "Service discovery reconciliation loops"
+        ],
+        "evidence": "tsdb/db.go implements core TSDB operations, promql/engine.go implements query execution, scrape/scrape.go implements metrics collection"
+      },
+      "security_model": {
+        "authentication": "HTTP Basic Auth, Bearer tokens, mutual TLS, OAuth2",
+        "authorization": "No built-in RBAC - relies on external proxies or authentication layers",
+        "data_protection": "TLS for data in transit, no built-in encryption at rest",
+        "security_headers": "Configurable CORS settings, standard HTTP security headers",
+        "vulnerability_handling": "SECURITY.md file present, dependency scanning via GitHub Actions"
+      },
+      "dependencies": {
+        "runtime": [
+          "github.com/grafana/regexp v0.0.0-20250905093917-f7b3be9d1853",
+          "github.com/prometheus/client_golang v1.23.2",
+          "github.com/prometheus/common v0.67.5",
+          "k8s.io/client-go for Kubernetes integration",
+          "github.com/golang/snappy v1.0.0 for compression",
+          "github.com/alecthomas/kingpin/v2 v2.4.0 for CLI"
+        ],
+        "dev": [
+          "github.com/stretchr/testify v1.11.1 for testing",
+          "golangci-lint for code quality",
+          "Node.js and npm for web UI development"
+        ],
+        "infrastructure": [
+          "No required external infrastructure - self-contained",
+          "Optional: Alertmanager for alert routing",
+          "Optional: Remote storage backends"
+        ]
+      },
+      "deployment": {
+        "containerized": true,
+        "container_orchestration": "Docker Compose support, Kubernetes manifests available",
+        "ci_cd": "GitHub Actions (visible in workflows)",
+        "environment_config": "YAML configuration files, environment variables, command-line flags",
+        "scaling_model": "Horizontal scaling via federation, vertical scaling for single instances"
+      },
+      "code_quality_signals": {
+        "has_tests": true,
+        "test_framework": "Go testing package with testify",
+        "test_count_estimate": "285 test files found",
+        "has_linting": true,
+        "has_type_hints": true,
+        "documentation_quality": "well-documented",
+        "code_style": "gofmt, golangci-lint enforcement"
+      },
+      "project_health": {
+        "license": "Apache-2.0",
+        "total_commits": "1",
+        "top_contributors": "1",
+        "recent_activity": "Active development with merge of revive linting improvements",
+        "community_signals": "Complete community health files: CODE_OF_CONDUCT.md, SECURITY.md, CONTRIBUTING.md, MAINTAINERS.md"
+      },
+      "evidence_tracking": {
+        "files_analyzed": [
+          "cmd/prometheus/main.go",
+          "cmd/promtool/main.go",
+          "go.mod files",
+          "tsdb/db.go structure",
+          "promql/engine.go structure",
+          "discovery/ directory structure",
+          "web/api/v1/ structure",
+          "Dockerfile",
+          "README.md",
+          "CONTRIBUTING.md"
+        ],
+        "confidence_level": "High",
+        "information_gaps": [
+          "Exact API endpoint implementations require deeper code reading",
+          "Complete remote storage protocol details",
+          "Specific authentication configuration examples"
+        ]
+      },
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      }
+    },
+    "extracted_data": {},
+    "source": "local_repo",
+    "source_confidence": "high",
+    "timestamp": "2026-04-10T16:32:34.126507"
+  },
+  "step2": {
+    "step1_data": {
+      "product_name": "prometheus",
+      "url": "https://github.com/prometheus/prometheus.git",
+      "analysis": {
+        "summary": "Prometheus is a systems and service monitoring time-series database written in Go that collects metrics via HTTP pull model, stores them in a custom TSDB, and provides PromQL query language for analysis. It implements a comprehensive monitoring stack with service discovery, alerting, and federation capabilities, designed for cloud-native environments with autonomous single-node architecture.",
+        "capabilities": [
+          "Scrapes metrics from HTTP endpoints with configurable intervals and timeout handling (scrape/scrape.go)",
+          "Stores time-series data in a custom TSDB with WAL and compression support (tsdb/db.go, tsdb/head.go)",
+          "Executes PromQL queries for time-series analysis and aggregation (promql/engine.go, promql/functions.go)",
+          "Provides service discovery for 25+ platforms including Kubernetes, AWS EC2, Consul, DNS (discovery/ directory)",
+          "Manages alerting rules evaluation and notification routing to Alertmanager (rules/manager.go, notifier/notifier.go)",
+          "Handles remote write/read protocols for external storage integration (storage/remote/write.go, storage/remote/read.go)",
+          "Implements label-based relabeling and metric transformation (model/relabel/relabel.go)",
+          "Supports federation for hierarchical Prometheus deployments (web/federate.go)",
+          "Manages TSDB compaction and retention policies (tsdb/compact.go, tsdb/retention.go)",
+          "Processes exemplars for trace correlation with metrics (model/exemplar/exemplar.go)",
+          "Handles native histograms and classic histogram conversion (model/histogram/convert.go)",
+          "Provides web UI and HTTP API for query and configuration management (web/web.go, web/api/v1/api.go)",
+          "Implements configuration hot-reloading without service restart (config/reload.go)",
+          "Supports agent mode for metrics forwarding without local storage (tsdb/agent/db.go)",
+          "Manages WAL (Write-Ahead Log) for durability and crash recovery (tsdb/wlog/wlog.go)",
+          "Implements chunk encoding with multiple compression algorithms (tsdb/chunkenc/chunk.go)",
+          "Handles target group management for service discovery (discovery/targetgroup/targetgroup.go)",
+          "Provides templating engine for alert annotations and labels (template/template.go)",
+          "Implements distributed tracing integration with OpenTelemetry (tracing/tracing.go)",
+          "Manages TSDB snapshots and backup/restore operations (tsdb/db.go snapshot methods)",
+          "Handles HTTP-based configuration and rule file validation (cmd/promtool/main.go)",
+          "Implements concurrent query execution with resource limiting (promql/engine.go)",
+          "Provides metrics exposition format parsing for Prometheus and OpenMetrics (model/textparse/)",
+          "Manages plugin system for extending functionality (plugins/ directory)",
+          "Handles authentication and authorization via various methods (web/authentication.go)"
+        ],
+        "use_cases": [
+          "DevOps teams use this to monitor infrastructure and application metrics with alerting capabilities",
+          "SRE engineers use this for observability, SLI/SLO tracking, and incident response automation",
+          "Platform teams use this to provide centralized monitoring infrastructure for microservices architectures",
+          "Data engineers use this for time-series data collection and analysis in data pipelines",
+          "Cloud-native developers use this for Kubernetes monitoring with auto-discovery of services and pods"
+        ],
+        "category": "Monitoring System",
+        "target_audience": "DevOps engineers, Site reliability engineers, Platform engineers, System administrators",
+        "technical_stack": [
+          "Go 1.25.0 (go.mod)",
+          "React/TypeScript for web UI (.tsx/.ts files)",
+          "Protocol Buffers for remote write protocol (prompb/)",
+          "Grafana regexp library v0.0.0-20250905093917-f7b3be9d1853 (go.mod)",
+          "Kubernetes client-go for Kubernetes service discovery (go.mod)",
+          "Snappy compression v1.0.0 (go.mod)",
+          "Kingpin v2.4.0 for CLI parsing (go.mod)",
+          "Docker and Docker Compose for containerization (Dockerfile, docker-compose files)",
+          "OpenTelemetry for distributed tracing (tracing/)",
+          "Prometheus client libraries for metrics exposition (go.mod)"
+        ],
+        "api_endpoints": [
+          "GET /api/v1/query - Execute instant PromQL queries (web/api/v1/api.go)",
+          "GET /api/v1/query_range - Execute range PromQL queries (web/api/v1/api.go)",
+          "GET /api/v1/series - Get time series metadata (web/api/v1/api.go)",
+          "GET /api/v1/labels - Get label names (web/api/v1/api.go)",
+          "GET /api/v1/label/{name}/values - Get label values (web/api/v1/api.go)",
+          "GET /api/v1/targets - Get scrape target status (web/api/v1/api.go)",
+          "GET /api/v1/rules - Get alerting and recording rules (web/api/v1/api.go)",
+          "GET /api/v1/alerts - Get active alerts (web/api/v1/api.go)",
+          "GET /federate - Federation endpoint for metrics (web/federate.go)",
+          "POST /api/v1/write - Remote write endpoint (storage/remote/write.go)",
+          "POST /api/v1/read - Remote read endpoint (storage/remote/read.go)",
+          "POST /-/reload - Reload configuration (web/web.go)",
+          "GET /-/healthy - Health check endpoint (web/web.go)",
+          "GET /-/ready - Readiness check endpoint (web/web.go)"
+        ],
+        "sdk_languages": [
+          "Go"
+        ],
+        "auth_methods": [
+          "HTTP Basic Authentication (web/authentication.go)",
+          "Bearer Token authentication (config/config.go)",
+          "TLS mutual authentication (config/config.go)",
+          "OAuth2 authentication (config/config.go)"
+        ],
+        "integrations": [
+          "Kubernetes API server for service discovery (discovery/kubernetes/)",
+          "AWS EC2 API for instance discovery (discovery/aws/)",
+          "Consul API for service discovery (discovery/consul/)",
+          "DNS for SRV record discovery (discovery/dns/)",
+          "Alertmanager for alert routing (notifier/notifier.go)",
+          "Remote storage systems via remote write/read protocols (storage/remote/)",
+          "OpenTelemetry for distributed tracing (tracing/tracing.go)",
+          "Grafana for visualization dashboards",
+          "InfluxDB via remote storage adapter (documentation/examples/remote_storage/)",
+          "Graphite via remote storage adapter (documentation/examples/remote_storage/)"
+        ],
+        "architecture": {
+          "pattern": "monolith with plugin-based extensions",
+          "components": [
+            "TSDB engine for time-series storage and querying",
+            "Scrape manager for metrics collection from targets",
+            "PromQL query engine for data analysis",
+            "Service discovery manager for target discovery",
+            "Rule manager for alerting and recording rules",
+            "Notifier for alert routing to Alertmanager",
+            "Web server providing HTTP API and UI",
+            "Remote storage interfaces for external integration"
+          ],
+          "entry_points": [
+            "cmd/prometheus/main.go - Main Prometheus server",
+            "cmd/promtool/main.go - Command-line tool for validation and querying"
+          ],
+          "data_flow": "Metrics are scraped from HTTP endpoints by the scrape manager, ingested into TSDB with WAL for durability, compressed and stored in chunks. PromQL queries are executed against the TSDB, with results served via HTTP API. Rules are evaluated periodically, generating alerts sent to Alertmanager or recording new metrics.",
+          "persistence": "Custom TSDB with WAL (Write-Ahead Log), chunk-based storage with compression, automatic compaction and retention policies",
+          "concurrency_model": "Goroutine-based concurrency with sync/atomic for coordination, concurrent query execution with resource limiting",
+          "communication_patterns": "HTTP pull model for metrics scraping, HTTP API for queries, protobuf-based remote write/read for external storage",
+          "plugin_extension_model": "Plugin system via Go plugins loaded at startup (plugins/ directory), service discovery plugins for new platforms"
+        },
+        "data_model": {
+          "primary_entities": [
+            "Time series with metric name and label dimensions",
+            "Samples (timestamp, value pairs)",
+            "Labels for multi-dimensional indexing",
+            "Exemplars for trace correlation",
+            "Histograms (classic and native)",
+            "Metadata for metric types and help text"
+          ],
+          "storage_backends": [
+            "Custom TSDB with local disk storage"
+          ],
+          "schema_patterns": "Time-series data model with metric names and key-value label pairs, stored in append-only chunks with compression",
+          "migration_strategy": "TSDB format versioning with automatic migration on startup"
+        },
+        "algorithms": {
+          "problem_type": "Time-series monitoring and alerting with multi-dimensional data querying",
+          "core_patterns": [
+            "Pull-based metrics collection",
+            "Time-series database with compression",
+            "Service discovery with target management",
+            "Rule-based alerting and recording",
+            "Query engine with aggregation functions"
+          ],
+          "complexity_indicators": "Large codebase with 696 Go files, complex TSDB implementation, extensive service discovery integrations",
+          "key_algorithms": [
+            "TSDB chunk compression algorithms (tsdb/chunkenc/)",
+            "PromQL query planning and execution (promql/engine.go)",
+            "Label-based series indexing (tsdb/index/)",
+            "Time-based data compaction (tsdb/compact.go)",
+            "Service discovery reconciliation loops"
+          ],
+          "evidence": "tsdb/db.go implements core TSDB operations, promql/engine.go implements query execution, scrape/scrape.go implements metrics collection"
+        },
+        "security_model": {
+          "authentication": "HTTP Basic Auth, Bearer tokens, mutual TLS, OAuth2",
+          "authorization": "No built-in RBAC - relies on external proxies or authentication layers",
+          "data_protection": "TLS for data in transit, no built-in encryption at rest",
+          "security_headers": "Configurable CORS settings, standard HTTP security headers",
+          "vulnerability_handling": "SECURITY.md file present, dependency scanning via GitHub Actions"
+        },
+        "dependencies": {
+          "runtime": [
+            "github.com/grafana/regexp v0.0.0-20250905093917-f7b3be9d1853",
+            "github.com/prometheus/client_golang v1.23.2",
+            "github.com/prometheus/common v0.67.5",
+            "k8s.io/client-go for Kubernetes integration",
+            "github.com/golang/snappy v1.0.0 for compression",
+            "github.com/alecthomas/kingpin/v2 v2.4.0 for CLI"
+          ],
+          "dev": [
+            "github.com/stretchr/testify v1.11.1 for testing",
+            "golangci-lint for code quality",
+            "Node.js and npm for web UI development"
+          ],
+          "infrastructure": [
+            "No required external infrastructure - self-contained",
+            "Optional: Alertmanager for alert routing",
+            "Optional: Remote storage backends"
+          ]
+        },
+        "deployment": {
+          "containerized": true,
+          "container_orchestration": "Docker Compose support, Kubernetes manifests available",
+          "ci_cd": "GitHub Actions (visible in workflows)",
+          "environment_config": "YAML configuration files, environment variables, command-line flags",
+          "scaling_model": "Horizontal scaling via federation, vertical scaling for single instances"
+        },
+        "code_quality_signals": {
+          "has_tests": true,
+          "test_framework": "Go testing package with testify",
+          "test_count_estimate": "285 test files found",
+          "has_linting": true,
+          "has_type_hints": true,
+          "documentation_quality": "well-documented",
+          "code_style": "gofmt, golangci-lint enforcement"
+        },
+        "project_health": {
+          "license": "Apache-2.0",
+          "total_commits": "1",
+          "top_contributors": "1",
+          "recent_activity": "Active development with merge of revive linting improvements",
+          "community_signals": "Complete community health files: CODE_OF_CONDUCT.md, SECURITY.md, CONTRIBUTING.md, MAINTAINERS.md"
+        },
+        "evidence_tracking": {
+          "files_analyzed": [
+            "cmd/prometheus/main.go",
+            "cmd/promtool/main.go",
+            "go.mod files",
+            "tsdb/db.go structure",
+            "promql/engine.go structure",
+            "discovery/ directory structure",
+            "web/api/v1/ structure",
+            "Dockerfile",
+            "README.md",
+            "CONTRIBUTING.md"
+          ],
+          "confidence_level": "High",
+          "information_gaps": [
+            "Exact API endpoint implementations require deeper code reading",
+            "Complete remote storage protocol details",
+            "Specific authentication configuration examples"
+          ]
+        },
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        }
+      },
+      "extracted_data": {},
+      "source": "local_repo",
+      "source_confidence": "high",
+      "timestamp": "2026-04-10T16:32:34.126507"
+    },
+    "generalization": {
+      "functional_dna": {
+        "logic_archetype": "Data Aggregator",
+        "logic_archetype_evidence": "The system continuously collects metrics from distributed endpoints via pull model, aggregates time-series data with configurable intervals, and provides query-based access to historical aggregated data. It implements comprehensive data aggregation with retention policies and compaction strategies.",
+        "data_contract_strictness": "Moderately Structured",
+        "data_contract_evidence": "Uses Prometheus exposition format and OpenMetrics with defined metric types, but accepts flexible label dimensions. Protocol Buffers for remote write/read, YAML configuration, and PromQL query language indicate structured but extensible schemas.",
+        "core_algorithmic_class": "Time-Series Processing",
+        "core_algorithmic_evidence": "TSDB chunk compression algorithms, time-based data compaction, WAL for durability, label-based series indexing, and PromQL query engine with temporal aggregation functions. Core focus on temporal data storage and retrieval optimization.",
+        "concurrency_requirements": "Eventually Consistent",
+        "concurrency_evidence": "Goroutine-based concurrency with sync/atomic coordination, pull-based collection model tolerates temporary failures, WAL provides durability without strict ACID requirements, federation allows distributed deployment with eventual consistency.",
+        "abstract_problem": "Continuously aggregates timestamped measurements from distributed sources into a queryable time-series repository with retention management and multi-dimensional indexing for temporal pattern analysis.",
+        "data_flow_pattern": "Periodic pull collection \u2192 WAL persistence \u2192 chunk compression \u2192 indexed storage \u2192 query engine \u2192 API response, with parallel rule evaluation generating derived metrics and alerts",
+        "state_complexity": "Global mutable",
+        "repurposing_confidence": 8,
+        "repurposing_reasoning": "The time-series database engine, query language, and collection orchestration are highly generic patterns applicable to any domain requiring temporal data aggregation. The plugin-based service discovery and HTTP pull model are domain-agnostic. Only the metrics exposition format and some monitoring-specific terminology are domain-locked. The core TSDB, PromQL engine, and federation capabilities could be repurposed for financial data, IoT sensors, or scientific measurements."
+      },
+      "evidence_claims": [
+        {
+          "claim": "Implements custom time-series database with WAL and compression",
+          "evidence": "tsdb/db.go, tsdb/head.go, tsdb/wlog/wlog.go, tsdb/chunkenc/chunk.go files implement TSDB storage engine",
+          "confidence": "High"
+        },
+        {
+          "claim": "Uses pull-based collection model with configurable intervals",
+          "evidence": "scrape/scrape.go implements HTTP endpoint scraping with timeout handling",
+          "confidence": "High"
+        },
+        {
+          "claim": "Provides domain-specific query language for temporal analysis",
+          "evidence": "promql/engine.go, promql/functions.go implement PromQL query engine with aggregation functions",
+          "confidence": "High"
+        },
+        {
+          "claim": "Supports 25+ service discovery platforms",
+          "evidence": "discovery/ directory contains platform-specific discovery implementations including Kubernetes, AWS EC2, Consul, DNS",
+          "confidence": "High"
+        },
+        {
+          "claim": "Implements plugin-based extensibility",
+          "evidence": "plugins/ directory and service discovery plugin system for extending functionality",
+          "confidence": "Medium"
+        }
+      ],
+      "market_reach": {
+        "primary_industry": "DevOps/Infrastructure Monitoring",
+        "cross_industry_applications": [
+          "Financial Services - High-frequency trading data aggregation and market surveillance with temporal queries",
+          "IoT/Manufacturing - Industrial sensor data collection from distributed devices with time-series analysis",
+          "Scientific Research - Laboratory instrument data aggregation with temporal pattern analysis and alerting",
+          "Telecommunications - Network performance metrics collection from distributed infrastructure components",
+          "Energy/Utilities - Smart grid data aggregation from meters and sensors with usage pattern analysis",
+          "Healthcare - Medical device data aggregation with patient monitoring and alert generation",
+          "Retail/E-commerce - Customer behavior metrics aggregation with time-series trend analysis",
+          "Supply Chain - Logistics tracking data aggregation with temporal visibility across distribution networks"
+        ],
+        "utility_score": 9,
+        "market_potential": "High"
+      },
+      "friction_report": {
+        "difficulty": "Medium",
+        "estimated_hours": 120,
+        "required_technologies": [
+          "Go 1.25.0",
+          "Protocol Buffers",
+          "HTTP/REST APIs",
+          "Time-series database concepts",
+          "Query language design"
+        ],
+        "complexity_factors": [
+          "Custom TSDB implementation requires deep understanding",
+          "PromQL query engine complexity",
+          "Service discovery abstraction layer",
+          "WAL and compaction logic",
+          "Multi-dimensional indexing system"
+        ],
+        "risk_level": "Medium",
+        "migration_path": "Extract TSDB engine and query components, replace metrics exposition format with domain-specific data model, adapt service discovery to domain-specific sources, modify query language for domain terminology"
+      },
+      "interface_map": {
+        "adapter_schema": {
+          "input": {
+            "format": "HTTP endpoints, Protocol Buffers",
+            "required_fields": [
+              "timestamp",
+              "metric_name",
+              "value",
+              "labels"
+            ],
+            "protocols": [
+              "HTTP pull",
+              "HTTP push (remote write)",
+              "HTTP API"
+            ]
+          },
+          "output": {
+            "format": "JSON, Protocol Buffers, Prometheus exposition format",
+            "delivery": "sync HTTP responses, streaming for federation"
+          },
+          "authentication": {
+            "type": "multiple",
+            "method": "HTTP Basic Auth, Bearer tokens, mutual TLS, OAuth2"
+          }
+        },
+        "standardization_level": "High",
+        "api_surface_area": "Medium (10-50)"
+      },
+      "comparable_systems": [
+        "Apache Kafka - Event stream aggregation with retention and temporal querying across distributed topics",
+        "ElasticSearch - Document aggregation with time-based indices and query DSL for temporal analysis",
+        "InfluxDB - Purpose-built time-series database with continuous queries and retention policies",
+        "Apache Druid - Real-time analytics database with time-partitioned data and aggregation queries",
+        "Grafana Loki - Log aggregation system with label-based indexing and temporal query capabilities"
+      ],
+      "information_gaps": [
+        "Specific TSDB storage format and compression algorithm details",
+        "Complete PromQL function implementation and query optimization strategies",
+        "Detailed federation protocol and hierarchical deployment patterns",
+        "Remote storage protocol specifications and adapter implementations"
+      ]
+    },
+    "timestamp": "2026-04-10T16:33:05.526334"
+  },
+  "errors": []
+}
