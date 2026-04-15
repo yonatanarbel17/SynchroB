@@ -1,0 +1,21 @@
+{
+  "description": "Demo example for SynchroB presentation — single focused need with strong matches",
+  "request": {
+    "filters": {
+      "category": "Business Intelligence"
+    },
+    "prompt": "I need a self-service business intelligence tool where non-technical business analysts can visually explore data, build interactive dashboards with charts, tables and filters, and share reports across their organization. It should connect to SQL databases like PostgreSQL, support embedding into our React web app, and have a modern, intuitive UI. We have large datasets so query performance matters.",
+    "buyer_context": "React/TypeScript frontend, Python FastAPI backend, PostgreSQL + ClickHouse, deployed on Kubernetes. 10-person engineering team.",
+    "top_n": 3
+  },
+  "expected_results": {
+    "top_match": "Metabase (92%) — React SDK embedding, visual query builder, best for non-technical users",
+    "second_match": "Superset (85%) — more powerful, 40+ DB connectors, but more complex setup",
+    "demo_talking_points": [
+      "Engine narrows 28 products to 2 candidates using category filter",
+      "AI ranks them with specific capabilities and file evidence from the codebase",
+      "Each result has a tailored 5-step integration roadmap for the buyer's exact stack",
+      "Trade-off analysis: Metabase wins on UX, Superset wins on power"
+    ]
+  }
+}
