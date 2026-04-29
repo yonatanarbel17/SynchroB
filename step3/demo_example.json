@@ -1,21 +1,15 @@
 {
-  "description": "Demo example for SynchroB presentation — single focused need with strong matches",
-  "request": {
-    "filters": {
-      "category": "Business Intelligence"
-    },
-    "prompt": "I need a self-service business intelligence tool where non-technical business analysts can visually explore data, build interactive dashboards with charts, tables and filters, and share reports across their organization. It should connect to SQL databases like PostgreSQL, support embedding into our React web app, and have a modern, intuitive UI. We have large datasets so query performance matters.",
-    "buyer_context": "React/TypeScript frontend, Python FastAPI backend, PostgreSQL + ClickHouse, deployed on Kubernetes. 10-person engineering team.",
-    "top_n": 3
-  },
-  "expected_results": {
-    "top_match": "Metabase (92%) — React SDK embedding, visual query builder, best for non-technical users",
-    "second_match": "Superset (85%) — more powerful, 40+ DB connectors, but more complex setup",
+  "description": "Demo example for SynchroB presentation — feature-building prompt with curated response (hardcoded, no API call)",
+  "prompt": "I want to add real-time notifications and alerting rules that users can configure themselves",
+  "notes": {
+    "how_it_works": "This exact prompt is matched in matching_engine.py and returns a curated response without calling the Claude API. Any other prompt still uses the live LLM.",
     "demo_talking_points": [
-      "Engine narrows 28 products to 2 candidates using category filter",
-      "AI ranks them with specific capabilities and file evidence from the codebase",
-      "Each result has a tailored 5-step integration roadmap for the buyer's exact stack",
-      "Trade-off analysis: Metabase wins on UX, Superset wins on power"
+      "Prompt describes a FEATURE to build, not a service to buy — SynchroB recommends code to learn from",
+      "Grafana (92%) — study their visual rule builder and notification routing",
+      "Sentry (85%) — study their smart event grouping and escalation policies",
+      "Prometheus (74%) — study their rule evaluation engine and alert suppression",
+      "Three products, three different lessons for building the same feature",
+      "Each recommendation includes specific capabilities with file paths as evidence"
     ]
   }
 }

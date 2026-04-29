@@ -373,6 +373,131 @@ Rules:
 
 
 # ---------------------------------------------------------------------------
+# Curated Demo Responses
+# ---------------------------------------------------------------------------
+
+CURATED_RESPONSES = {
+    "i want to add real-time notifications and alerting rules that users can configure themselves": {
+        "total_products": None,  # filled dynamically
+        "after_filters": None,   # filled dynamically
+        "filters_applied": {},
+        "mode": "curated",
+        "analysis_summary": "Building a user-configurable alerting system is a complex feature that several mature products have solved in distinct ways. Grafana provides the most complete reference implementation with a visual rule builder, multi-channel notification routing, and silence/mute scheduling — ideal if you want users to configure alerts through a UI without writing code. Sentry approaches alerting from an event-processing angle, with intelligent grouping that reduces noise and escalation policies that route critical issues to the right people. Prometheus takes a lower-level approach with a dedicated AlertManager component that evaluates rules against time-series metrics — powerful but more infrastructure-focused. Together, these three codebases cover the full spectrum of alerting patterns you can adapt for your own product.",
+        "recommendations": [
+            {
+                "rank": 1,
+                "product_name": "Grafana",
+                "product_id": "grafana",
+                "match_score": 92,
+                "match_reasoning": "Grafana's alerting engine is the most complete reference for building user-configurable alerting rules. It features a visual rule builder where users define conditions, thresholds, and evaluation intervals without writing code. The notification system supports routing alerts to different channels (email, Slack, PagerDuty, webhooks) based on labels and severity, with built-in silencing and mute timings to prevent alert fatigue.",
+                "recommended_capabilities": [
+                    "Visual alert rule editor where users define conditions, thresholds, and evaluation frequency through a web UI (pkg/services/ngalert/)",
+                    "Multi-channel notification routing with configurable contact points and routing policies (pkg/services/notifications/)",
+                    "Alert grouping and deduplication to prevent notification storms when multiple rules fire simultaneously",
+                    "Silence and mute timing system that lets users suppress alerts during maintenance windows",
+                    "Alert state management with history tracking — firing, pending, resolved — with full audit trail"
+                ],
+                "integration_roadmap": {
+                    "steps": [
+                        "Step 1: Study Grafana's alert rule data model — how rules, conditions, and thresholds are stored and evaluated",
+                        "Step 2: Adapt the rule evaluation engine for your domain — replace metric queries with your product's data sources",
+                        "Step 3: Implement the notification routing layer with support for email, Slack, and webhook delivery",
+                        "Step 4: Build a rule builder UI inspired by Grafana's visual editor — let users set conditions without code",
+                        "Step 5: Add alert state management with history, silencing, and escalation logic"
+                    ],
+                    "estimated_hours": 120,
+                    "required_technologies": ["Go", "React", "TypeScript", "PostgreSQL"],
+                    "risks": [
+                        "Alert evaluation at scale requires careful performance optimization",
+                        "Notification delivery reliability needs retry logic and failure handling"
+                    ],
+                    "quick_wins": "Start with a simple threshold-based rule engine and email notifications — can be prototyped in 2-3 days"
+                }
+            },
+            {
+                "rank": 2,
+                "product_name": "Sentry",
+                "product_id": "sentry",
+                "match_score": 85,
+                "match_reasoning": "Sentry's alerting system excels at intelligent event processing — rather than simple threshold rules, it groups similar events using fingerprinting algorithms, detects frequency spikes, and applies user-defined conditions like 'alert me when this error happens more than 10 times in 5 minutes.' Its escalation policies ensure critical issues reach the right team members, and the digest system batches low-priority alerts to reduce noise.",
+                "recommended_capabilities": [
+                    "Smart event grouping with fingerprinting algorithms that cluster similar alerts automatically",
+                    "User-configurable alert rules with conditions based on frequency, first occurrence, and regression detection",
+                    "Escalation policies that route alerts to different team members based on severity and response time",
+                    "Alert digest system that batches non-critical notifications to reduce noise for users",
+                    "Issue ownership rules that automatically assign alerts to the right team based on code paths and tags"
+                ],
+                "integration_roadmap": {
+                    "steps": [
+                        "Step 1: Study Sentry's event fingerprinting system — how it groups similar events to avoid duplicate alerts",
+                        "Step 2: Implement frequency-based alert rules — let users define conditions like 'more than X events in Y minutes'",
+                        "Step 3: Build an escalation pipeline that routes alerts based on severity and adds time-based escalation",
+                        "Step 4: Add alert digests that batch non-urgent notifications into periodic summaries",
+                        "Step 5: Implement ownership rules so alerts automatically route to the right team or person"
+                    ],
+                    "estimated_hours": 160,
+                    "required_technologies": ["Python", "Django", "PostgreSQL", "Redis"],
+                    "risks": [
+                        "Event fingerprinting algorithms are complex to get right for your specific domain",
+                        "Balancing alert sensitivity — too many alerts cause fatigue, too few miss critical issues"
+                    ],
+                    "quick_wins": "Basic frequency-based alerting with email delivery can be built in 3-4 days"
+                }
+            },
+            {
+                "rank": 3,
+                "product_name": "Prometheus",
+                "product_id": "prometheus",
+                "match_score": 74,
+                "match_reasoning": "Prometheus provides a dedicated AlertManager component with a rule evaluation engine that processes alerting rules against time-series data. While more infrastructure-focused, its patterns for rule evaluation, alert grouping, inhibition (suppressing alerts when a related higher-severity alert is firing), and silence management are well-architected and can be adapted for product alerting features.",
+                "recommended_capabilities": [
+                    "Rule evaluation engine that periodically checks conditions against data and fires alerts when thresholds are breached",
+                    "AlertManager with grouping, inhibition, and silencing — reduces noise by intelligently managing related alerts",
+                    "Recording rules that pre-compute expensive queries for faster alert evaluation at scale",
+                    "Multi-tenant alert routing with receiver configurations for different notification channels",
+                    "Alert lifecycle management — pending, firing, resolved — with configurable evaluation intervals"
+                ],
+                "integration_roadmap": {
+                    "steps": [
+                        "Step 1: Study AlertManager's grouping and inhibition logic — how it prevents alert storms from cascading failures",
+                        "Step 2: Adapt the rule evaluation loop for your product — replace PromQL with queries against your data model",
+                        "Step 3: Implement alert grouping so related alerts are bundled into a single notification",
+                        "Step 4: Build inhibition rules that suppress low-severity alerts when a high-severity parent alert is active",
+                        "Step 5: Add silence management so users can mute specific alerts during planned maintenance"
+                    ],
+                    "estimated_hours": 100,
+                    "required_technologies": ["Go", "YAML configuration", "HTTP API"],
+                    "risks": [
+                        "PromQL-specific patterns need significant adaptation for non-metrics use cases",
+                        "Infrastructure-focused design may not translate directly to product-level alerting"
+                    ],
+                    "quick_wins": "The rule evaluation loop pattern can be extracted and adapted for basic threshold alerts in 2 days"
+                }
+            }
+        ]
+    }
+}
+
+
+def _check_curated_response(prompt: Optional[str], total_products: int) -> Optional[dict]:
+    """Check if the prompt matches a curated demo response."""
+    if not prompt:
+        return None
+
+    prompt_clean = prompt.strip().lower().rstrip(".")
+
+    for curated_prompt, response in CURATED_RESPONSES.items():
+        if prompt_clean == curated_prompt.lower():
+            # Fill in dynamic fields
+            result = dict(response)
+            result["total_products"] = total_products
+            result["after_filters"] = total_products
+            return result
+
+    return None
+
+
+# ---------------------------------------------------------------------------
 # Orchestrator
 # ---------------------------------------------------------------------------
 
@@ -403,6 +528,11 @@ def recommend(
     """
     products = load_index()
     total = len(products)
+
+    # Check for curated demo responses first
+    curated = _check_curated_response(prompt, total)
+    if curated:
+        return curated
 
     # Phase A: Apply hard filters
     if filters:
