@@ -1,0 +1,4 @@
+https://github.com/mastodon/mastodon.git
+https://github.com/ClickHouse/ClickHouse.git
+https://github.com/woocommerce/woocommerce.git
+https://github.com/pingcap/tidb.git

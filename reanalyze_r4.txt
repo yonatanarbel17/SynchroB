@@ -1,0 +1,4 @@
+https://github.com/magento/magento2.git
+https://github.com/getsentry/sentry.git
+https://github.com/NationalSecurityAgency/ghidra.git
+https://github.com/keycloak/keycloak.git

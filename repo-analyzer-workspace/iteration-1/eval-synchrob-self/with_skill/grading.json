@@ -1,0 +1,32 @@
+{
+  "eval_id": "synchrob-self-analysis",
+  "configuration": "with_skill",
+  "expectations": [
+    {
+      "text": "Output is valid JSON matching the skill's specified schema (all required top-level keys present)",
+      "passed": true,
+      "evidence": "Output contains all required top-level keys: summary, capabilities, category, technical_stack, api_endpoints, sdk_languages, auth_methods, integrations, architecture, algorithms, dependencies, deployment, code_quality_signals, evidence_tracking. Valid JSON format confirmed."
+    },
+    {
+      "text": "Technical stack includes technologies confirmed from dependency files (pydantic, tenacity, google-genai or openai)",
+      "passed": true,
+      "evidence": "Technical stack section includes: 'Pydantic (pydantic>=2.0.0 in requirements.txt)', 'Tenacity (tenacity>=8.2.0 in requirements.txt)', 'OpenAI API (openai>=1.0.0 in requirements.txt)', 'Google Gemini (google-genai>=1.65.0 in requirements.txt)'. All required dependencies confirmed."
+    },
+    {
+      "text": "Capabilities include file path evidence (e.g., parenthetical file references like (src/discovery/orchestrator.py))",
+      "passed": true,
+      "evidence": "All 9 capabilities include file path citations in parentheses: 'src/discovery/orchestrator.py, src/discovery/merger.py', 'src/ingestion/firecrawl_client.py, step1_cli.py:40-60', 'src/analysis/openai_client.py, src/analysis/gemini_client.py', etc. Strong evidence pattern throughout."
+    },
+    {
+      "text": "Architecture section identifies the pipeline/monolith pattern and mentions the step1/step2 flow",
+      "passed": true,
+      "evidence": "Architecture section explicitly states 'pattern: monolith with modular pipelines'. Data flow describes: 'Discovery sources → Merger → Step 1 Processor → JSON output → Step 2 Generalizer → Final fingerprint'. Entry points list step1_cli.py, step2_cli.py, and batch_analyze.py. Step1/step2 flow clearly documented."
+    },
+    {
+      "text": "Summary and capabilities are free of marketing superlatives (powerful, revolutionary, cutting-edge, etc.)",
+      "passed": true,
+      "evidence": "Summary uses factual language: 'analyzes software products to extract their functional essence and technical DNA, stripping marketing noise'. Capabilities use technical descriptors without superlatives. No instances of 'powerful', 'revolutionary', 'cutting-edge', or similar marketing language found. Tone is technical and factual."
+    }
+  ],
+  "overall_pass": true
+}

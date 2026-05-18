@@ -1,0 +1,4 @@
+https://github.com/metabase/metabase.git
+https://github.com/apache/superset.git
+https://github.com/go-gitea/gitea.git
+https://github.com/neovim/neovim.git

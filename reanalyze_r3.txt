@@ -1,0 +1,4 @@
+https://github.com/appsmithorg/appsmith.git
+https://github.com/frappe/erpnext.git
+https://github.com/magento/magento2.git
+https://github.com/getsentry/sentry.git

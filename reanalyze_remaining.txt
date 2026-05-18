@@ -1,0 +1,11 @@
+https://github.com/pingcap/tidb.git
+https://github.com/metabase/metabase.git
+https://github.com/go-gitea/gitea.git
+https://github.com/neovim/neovim.git
+https://github.com/zulip/zulip.git
+https://github.com/appsmithorg/appsmith.git
+https://github.com/frappe/erpnext.git
+https://github.com/magento/magento2.git
+https://github.com/getsentry/sentry.git
+https://github.com/NationalSecurityAgency/ghidra.git
+https://github.com/keycloak/keycloak.git

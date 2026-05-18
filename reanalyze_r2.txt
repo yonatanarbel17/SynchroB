@@ -1,0 +1,4 @@
+https://github.com/go-gitea/gitea.git
+https://github.com/neovim/neovim.git
+https://github.com/zulip/zulip.git
+https://github.com/appsmithorg/appsmith.git

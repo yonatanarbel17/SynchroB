@@ -1,0 +1,32 @@
+{
+  "eval_id": 0,
+  "eval_name": "synchrob-self-analysis",
+  "prompt": "Analyze the SynchroB repo itself using the repo-analyzer skill. This is a Python project with an AI pipeline for B2B integration analysis.",
+  "assertions": [
+    {
+      "id": "schema_compliance",
+      "text": "Output is valid JSON matching the skill's specified schema (all required top-level keys present)",
+      "type": "structural"
+    },
+    {
+      "id": "tech_stack_from_deps",
+      "text": "Technical stack includes technologies confirmed from dependency files (pydantic, tenacity, google-genai or openai)",
+      "type": "accuracy"
+    },
+    {
+      "id": "evidence_citations",
+      "text": "Capabilities include file path evidence (e.g., parenthetical file references like (src/discovery/orchestrator.py))",
+      "type": "quality"
+    },
+    {
+      "id": "architecture_identified",
+      "text": "Architecture section identifies the pipeline/monolith pattern and mentions the step1/step2 flow",
+      "type": "accuracy"
+    },
+    {
+      "id": "no_marketing_language",
+      "text": "Summary and capabilities are free of marketing superlatives (powerful, revolutionary, cutting-edge, etc.)",
+      "type": "quality"
+    }
+  ]
+}

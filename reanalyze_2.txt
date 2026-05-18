@@ -1,0 +1,4 @@
+https://github.com/home-assistant/core.git
+https://github.com/odoo/odoo.git
+https://github.com/grafana/grafana.git
+https://github.com/RocketChat/Rocket.Chat.git

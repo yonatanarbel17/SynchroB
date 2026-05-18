@@ -1,0 +1,4 @@
+https://github.com/zulip/zulip.git
+https://github.com/appsmithorg/appsmith.git
+https://github.com/frappe/erpnext.git
+https://github.com/magento/magento2.git

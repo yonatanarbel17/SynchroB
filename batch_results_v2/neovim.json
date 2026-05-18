@@ -1,0 +1,558 @@
+{
+  "url": "https://github.com/neovim/neovim.git",
+  "repo_name": "neovim",
+  "timestamp": "2026-03-25T15:01:37.829609",
+  "step1": {
+    "product_name": "neovim",
+    "url": "https://github.com/neovim/neovim.git",
+    "analysis": {
+      "summary": "Neovim is a modern text editor and IDE built as an extensible refactor of Vim, implementing a client-server architecture with embedded Lua scripting, asynchronous job control, and a comprehensive RPC API. It processes text editing operations through a plugin-based architecture with tree-sitter parsing for syntax highlighting, supports multiple UI frontends via msgpack-rpc protocol, and provides extensive Vimscript compatibility while enabling modern development workflows.",
+      "capabilities": [
+        "Provides comprehensive text editing API with buffer manipulation functions (src/nvim/api/buffer.c)",
+        "Implements autocommand system for event-driven editor behavior (src/nvim/api/autocmd.c)",
+        "Processes command-line interface with argument parsing and execution (src/nvim/api/command.c)",
+        "Manages multiple buffer instances with line counting and content access (src/nvim/api/buffer.c:nvim_buf_line_count)",
+        "Supports real-time buffer change notifications via event callbacks (src/nvim/api/buffer.c:nvim_buf_attach)",
+        "Executes Lua code directly within the editor runtime (src/nvim/api/deprecated.c:nvim_execute_lua)",
+        "Maintains backward compatibility with deprecated Vim API functions (src/nvim/api/deprecated.c)",
+        "Provides syntax highlighting through tree-sitter integration (runtime/queries/ directory)",
+        "Implements comprehensive filetype detection and handling (runtime/ftplugin/, runtime/syntax/)",
+        "Supports language-specific indentation and formatting (runtime/indent/ directory)",
+        "Manages color schemes and visual themes (runtime/colors/ directory)",
+        "Processes compiler integration for multiple programming languages (runtime/compiler/ directory)",
+        "Implements terminal emulator functionality within editor windows (documented in README)",
+        "Supports asynchronous job control for external process management (README mentions job control)",
+        "Provides extensive plugin system with Lua and Vimscript support (runtime/plugin/, runtime/lua/)",
+        "Implements shared data persistence across editor instances (README mentions shada)",
+        "Supports XDG base directory specification for configuration (README mentions XDG support)",
+        "Manages spell checking with multiple language dictionaries (runtime/spell/ directory)",
+        "Provides interactive tutorial system for learning editor features (runtime/tutor/ directory)",
+        "Implements comprehensive help documentation system (runtime/doc/ directory)",
+        "Supports multiple keymap layouts and input methods (runtime/keymap/ directory)",
+        "Processes msgpack-rpc communication for client-server architecture (src/nvim/msgpack_rpc/)",
+        "Implements cross-platform OS abstraction layer (src/nvim/os/ directory)",
+        "Provides built-in terminal user interface (src/nvim/tui/ directory)",
+        "Manages extensive test suite with functional and unit testing (test/ directory with 947 test files)"
+      ],
+      "use_cases": [
+        "Software developers use this as a primary text editor and IDE with modern features like LSP integration and tree-sitter syntax highlighting",
+        "System administrators use this for configuration file editing with powerful text manipulation and scripting capabilities",
+        "Plugin developers use this to create editor extensions using Lua or Vimscript APIs",
+        "UI developers use this to build custom editor frontends via the RPC API",
+        "Power users migrate from Vim to gain asynchronous capabilities while maintaining familiar keybindings and workflows"
+      ],
+      "category": "Text Editor",
+      "target_audience": "Software developers, system administrators, power users, and plugin developers",
+      "technical_stack": [
+        "C (primary implementation language - 217 C files)",
+        "Lua (embedded scripting - 775 Lua files)",
+        "CMake (build system - CMakeLists.txt files)",
+        "LibUV (async I/O library - cmake.deps/cmake/BuildLibuv.cmake)",
+        "Tree-sitter (syntax parsing - cmake.deps/cmake/BuildTreesitter.cmake)",
+        "LuaJIT (Lua runtime - cmake.deps/cmake/BuildLuajit.cmake)",
+        "msgpack (serialization - src/mpack/)",
+        "UTF8proc (Unicode handling - cmake.deps/cmake/BuildUTF8proc.cmake)",
+        "Unibilium (terminal library - cmake.deps/cmake/BuildUnibilium.cmake)"
+      ],
+      "api_endpoints": [
+        "nvim_get_autocmds(opts) \u2014 Gets autocommands matching criteria (src/nvim/api/autocmd.c:69)",
+        "nvim_buf_line_count(buffer) \u2014 Returns number of lines in buffer (src/nvim/api/buffer.c:59)",
+        "nvim_buf_attach(buffer, send_buffer, opts) \u2014 Activates buffer update events (src/nvim/api/buffer.c:73)",
+        "nvim_parse_cmd(str, opts) \u2014 Parse command line string (src/nvim/api/command.c:64)",
+        "nvim_exec(src, output) \u2014 Execute Vimscript code (src/nvim/api/deprecated.c:18)",
+        "nvim_buf_add_highlight(buffer, ns_id, hl_group, line, col_start, col_end) \u2014 Add syntax highlighting (src/nvim/api/deprecated.c:80)"
+      ],
+      "sdk_languages": [
+        "C/C++ (native API access)",
+        "Lua (embedded scripting)",
+        "Python (provider support - runtime/autoload/provider/python3.vim)",
+        "Ruby (provider support - runtime/autoload/provider/ruby.vim)",
+        "Node.js (provider support - runtime/autoload/provider/node.vim)",
+        "Perl (provider support - runtime/autoload/provider/perl.vim)"
+      ],
+      "auth_methods": [],
+      "integrations": [
+        "LibUV for asynchronous I/O operations (cmake.deps/cmake/BuildLibuv.cmake)",
+        "Tree-sitter for syntax highlighting and parsing (cmake.deps/cmake/BuildTreesitter.cmake)",
+        "LuaJIT for embedded Lua scripting (cmake.deps/cmake/BuildLuajit.cmake)",
+        "System clipboard integration (runtime/autoload/provider/clipboard.vim)",
+        "External language servers via LSP protocol (implied by modern editor features)",
+        "Terminal emulator integration for job control (README mentions embedded terminal)"
+      ],
+      "architecture": {
+        "pattern": "plugin-based with client-server architecture",
+        "components": [
+          "API subsystem for external communication (src/nvim/api/)",
+          "Event-loop subsystem for asynchronous operations (src/nvim/event/)",
+          "Lua subsystem for embedded scripting (src/nvim/lua/)",
+          "Vimscript evaluation engine (src/nvim/eval/)",
+          "msgpack-rpc communication layer (src/nvim/msgpack_rpc/)",
+          "Terminal user interface (src/nvim/tui/)",
+          "OS abstraction layer (src/nvim/os/)",
+          "Generic data structures library (src/nvim/lib/)"
+        ],
+        "entry_points": [
+          "Main application entry (implied from build system)",
+          "API dispatch system (src/nvim/api/ modules)",
+          "Lua execution entry points (src/nvim/lua/)"
+        ],
+        "data_flow": "Text editing commands flow through the API layer to buffer management, triggering autocommands and events. Changes are propagated to attached UI clients via msgpack-rpc. Lua scripts can intercept and modify this flow through callbacks and hooks.",
+        "persistence": "Uses custom file formats for buffer storage, supports swap files, undo history, and shared data (shada) persistence across sessions",
+        "concurrency_model": "event-loop based asynchronous processing with LibUV, supporting non-blocking I/O and job control",
+        "communication_patterns": "msgpack-rpc for client-server communication, internal event system for plugin notifications",
+        "plugin_extension_model": "Comprehensive plugin system supporting both Lua and Vimscript plugins, with autocommand hooks, user commands, and API access"
+      },
+      "data_model": {
+        "primary_entities": [
+          "Buffers (text content containers)",
+          "Windows (viewport into buffers)",
+          "Tabpages (window layout containers)",
+          "Autocommands (event-driven triggers)",
+          "Highlight groups and extmarks",
+          "User-defined commands and mappings"
+        ],
+        "storage_backends": [
+          "File system for buffer content",
+          "Memory-mapped files for large buffers",
+          "Swap files for crash recovery",
+          "Shada files for session persistence"
+        ],
+        "schema_patterns": "Hierarchical model with buffers containing lines, windows displaying buffer ranges, and tabpages organizing window layouts",
+        "migration_strategy": "Backward compatibility maintained through API versioning and deprecated function support"
+      },
+      "algorithms": {
+        "problem_type": "Interactive text editing with real-time syntax highlighting, extensible plugin architecture, and multi-client support",
+        "core_patterns": [
+          "Observer pattern for autocommands and events",
+          "Plugin pattern for extensibility",
+          "Command pattern for user actions",
+          "Provider pattern for language integrations",
+          "Visitor pattern for syntax tree traversal"
+        ],
+        "complexity_indicators": "Large codebase with 3703 files, extensive test suite (947 test files), complex build system with dependency management",
+        "key_algorithms": [
+          "Tree-sitter incremental parsing for syntax highlighting",
+          "Event-driven processing with LibUV event loop",
+          "Buffer change tracking and notification system",
+          "Command parsing and dispatch algorithms"
+        ],
+        "evidence": "src/nvim/api/ modules demonstrate API dispatch patterns, test/ directory shows comprehensive testing approach, cmake.deps/ shows dependency management complexity"
+      },
+      "security_model": {
+        "authentication": "No user authentication required for local editor usage",
+        "authorization": "Plugin sandboxing and restricted API access for untrusted code",
+        "data_protection": "Local file system permissions, no network encryption by default",
+        "security_headers": "Not applicable for desktop editor application",
+        "vulnerability_handling": "Community-driven security through GitHub issue tracking and code review process"
+      },
+      "dependencies": {
+        "runtime": [
+          "LibUV (asynchronous I/O)",
+          "LuaJIT (Lua runtime)",
+          "Tree-sitter (parsing)",
+          "UTF8proc (Unicode processing)",
+          "Unibilium (terminal handling)",
+          "msgpack (serialization)"
+        ],
+        "dev": [
+          "CMake (build system)",
+          "Ninja (build tool - mentioned in CONTRIBUTING.md)",
+          "GCC/Clang (C compiler)",
+          "Test frameworks for Lua and C code"
+        ],
+        "infrastructure": [
+          "No external databases required",
+          "File system for persistence",
+          "Terminal/TTY for user interface"
+        ]
+      },
+      "deployment": {
+        "containerized": false,
+        "container_orchestration": "none",
+        "ci_cd": "GitHub Actions (implied by modern GitHub project)",
+        "environment_config": "CMake configuration files, environment variables, and runtime configuration files",
+        "scaling_model": "Single-user desktop application, no horizontal scaling"
+      },
+      "code_quality_signals": {
+        "has_tests": true,
+        "test_framework": "Custom test framework with Lua and C components",
+        "test_count_estimate": "947 test files",
+        "has_linting": true,
+        "has_type_hints": false,
+        "documentation_quality": "well-documented",
+        "code_style": "Consistent C and Lua formatting with contribution guidelines"
+      },
+      "project_health": {
+        "license": "Apache-2.0",
+        "total_commits": "1",
+        "top_contributors": "1",
+        "recent_activity": "Active development with recent fixes for window locking and memory management",
+        "community_signals": "Comprehensive contribution guidelines (CONTRIBUTING.md), build documentation (BUILD.md), maintenance guides (MAINTAIN.md)"
+      },
+      "evidence_tracking": {
+        "files_analyzed": [
+          "src/nvim/api/autocmd.c",
+          "src/nvim/api/buffer.c",
+          "src/nvim/api/command.c",
+          "src/nvim/api/deprecated.c",
+          "README.md",
+          "CONTRIBUTING.md",
+          "CMakeLists.txt",
+          "cmake.deps/ directory structure",
+          "runtime/ directory structure",
+          "test/ directory structure"
+        ],
+        "confidence_level": "High",
+        "information_gaps": [
+          "Exact version numbers for most dependencies",
+          "Specific LSP implementation details",
+          "Complete UI client protocol specification",
+          "Performance characteristics and benchmarks"
+        ]
+      },
+      "pricing": {
+        "model": "open-source",
+        "free_tier": "true"
+      }
+    },
+    "extracted_data": {},
+    "source": "local_repo",
+    "source_confidence": "high",
+    "timestamp": "2026-03-25T15:02:41.748515"
+  },
+  "step2": {
+    "step1_data": {
+      "product_name": "neovim",
+      "url": "https://github.com/neovim/neovim.git",
+      "analysis": {
+        "summary": "Neovim is a modern text editor and IDE built as an extensible refactor of Vim, implementing a client-server architecture with embedded Lua scripting, asynchronous job control, and a comprehensive RPC API. It processes text editing operations through a plugin-based architecture with tree-sitter parsing for syntax highlighting, supports multiple UI frontends via msgpack-rpc protocol, and provides extensive Vimscript compatibility while enabling modern development workflows.",
+        "capabilities": [
+          "Provides comprehensive text editing API with buffer manipulation functions (src/nvim/api/buffer.c)",
+          "Implements autocommand system for event-driven editor behavior (src/nvim/api/autocmd.c)",
+          "Processes command-line interface with argument parsing and execution (src/nvim/api/command.c)",
+          "Manages multiple buffer instances with line counting and content access (src/nvim/api/buffer.c:nvim_buf_line_count)",
+          "Supports real-time buffer change notifications via event callbacks (src/nvim/api/buffer.c:nvim_buf_attach)",
+          "Executes Lua code directly within the editor runtime (src/nvim/api/deprecated.c:nvim_execute_lua)",
+          "Maintains backward compatibility with deprecated Vim API functions (src/nvim/api/deprecated.c)",
+          "Provides syntax highlighting through tree-sitter integration (runtime/queries/ directory)",
+          "Implements comprehensive filetype detection and handling (runtime/ftplugin/, runtime/syntax/)",
+          "Supports language-specific indentation and formatting (runtime/indent/ directory)",
+          "Manages color schemes and visual themes (runtime/colors/ directory)",
+          "Processes compiler integration for multiple programming languages (runtime/compiler/ directory)",
+          "Implements terminal emulator functionality within editor windows (documented in README)",
+          "Supports asynchronous job control for external process management (README mentions job control)",
+          "Provides extensive plugin system with Lua and Vimscript support (runtime/plugin/, runtime/lua/)",
+          "Implements shared data persistence across editor instances (README mentions shada)",
+          "Supports XDG base directory specification for configuration (README mentions XDG support)",
+          "Manages spell checking with multiple language dictionaries (runtime/spell/ directory)",
+          "Provides interactive tutorial system for learning editor features (runtime/tutor/ directory)",
+          "Implements comprehensive help documentation system (runtime/doc/ directory)",
+          "Supports multiple keymap layouts and input methods (runtime/keymap/ directory)",
+          "Processes msgpack-rpc communication for client-server architecture (src/nvim/msgpack_rpc/)",
+          "Implements cross-platform OS abstraction layer (src/nvim/os/ directory)",
+          "Provides built-in terminal user interface (src/nvim/tui/ directory)",
+          "Manages extensive test suite with functional and unit testing (test/ directory with 947 test files)"
+        ],
+        "use_cases": [
+          "Software developers use this as a primary text editor and IDE with modern features like LSP integration and tree-sitter syntax highlighting",
+          "System administrators use this for configuration file editing with powerful text manipulation and scripting capabilities",
+          "Plugin developers use this to create editor extensions using Lua or Vimscript APIs",
+          "UI developers use this to build custom editor frontends via the RPC API",
+          "Power users migrate from Vim to gain asynchronous capabilities while maintaining familiar keybindings and workflows"
+        ],
+        "category": "Text Editor",
+        "target_audience": "Software developers, system administrators, power users, and plugin developers",
+        "technical_stack": [
+          "C (primary implementation language - 217 C files)",
+          "Lua (embedded scripting - 775 Lua files)",
+          "CMake (build system - CMakeLists.txt files)",
+          "LibUV (async I/O library - cmake.deps/cmake/BuildLibuv.cmake)",
+          "Tree-sitter (syntax parsing - cmake.deps/cmake/BuildTreesitter.cmake)",
+          "LuaJIT (Lua runtime - cmake.deps/cmake/BuildLuajit.cmake)",
+          "msgpack (serialization - src/mpack/)",
+          "UTF8proc (Unicode handling - cmake.deps/cmake/BuildUTF8proc.cmake)",
+          "Unibilium (terminal library - cmake.deps/cmake/BuildUnibilium.cmake)"
+        ],
+        "api_endpoints": [
+          "nvim_get_autocmds(opts) \u2014 Gets autocommands matching criteria (src/nvim/api/autocmd.c:69)",
+          "nvim_buf_line_count(buffer) \u2014 Returns number of lines in buffer (src/nvim/api/buffer.c:59)",
+          "nvim_buf_attach(buffer, send_buffer, opts) \u2014 Activates buffer update events (src/nvim/api/buffer.c:73)",
+          "nvim_parse_cmd(str, opts) \u2014 Parse command line string (src/nvim/api/command.c:64)",
+          "nvim_exec(src, output) \u2014 Execute Vimscript code (src/nvim/api/deprecated.c:18)",
+          "nvim_buf_add_highlight(buffer, ns_id, hl_group, line, col_start, col_end) \u2014 Add syntax highlighting (src/nvim/api/deprecated.c:80)"
+        ],
+        "sdk_languages": [
+          "C/C++ (native API access)",
+          "Lua (embedded scripting)",
+          "Python (provider support - runtime/autoload/provider/python3.vim)",
+          "Ruby (provider support - runtime/autoload/provider/ruby.vim)",
+          "Node.js (provider support - runtime/autoload/provider/node.vim)",
+          "Perl (provider support - runtime/autoload/provider/perl.vim)"
+        ],
+        "auth_methods": [],
+        "integrations": [
+          "LibUV for asynchronous I/O operations (cmake.deps/cmake/BuildLibuv.cmake)",
+          "Tree-sitter for syntax highlighting and parsing (cmake.deps/cmake/BuildTreesitter.cmake)",
+          "LuaJIT for embedded Lua scripting (cmake.deps/cmake/BuildLuajit.cmake)",
+          "System clipboard integration (runtime/autoload/provider/clipboard.vim)",
+          "External language servers via LSP protocol (implied by modern editor features)",
+          "Terminal emulator integration for job control (README mentions embedded terminal)"
+        ],
+        "architecture": {
+          "pattern": "plugin-based with client-server architecture",
+          "components": [
+            "API subsystem for external communication (src/nvim/api/)",
+            "Event-loop subsystem for asynchronous operations (src/nvim/event/)",
+            "Lua subsystem for embedded scripting (src/nvim/lua/)",
+            "Vimscript evaluation engine (src/nvim/eval/)",
+            "msgpack-rpc communication layer (src/nvim/msgpack_rpc/)",
+            "Terminal user interface (src/nvim/tui/)",
+            "OS abstraction layer (src/nvim/os/)",
+            "Generic data structures library (src/nvim/lib/)"
+          ],
+          "entry_points": [
+            "Main application entry (implied from build system)",
+            "API dispatch system (src/nvim/api/ modules)",
+            "Lua execution entry points (src/nvim/lua/)"
+          ],
+          "data_flow": "Text editing commands flow through the API layer to buffer management, triggering autocommands and events. Changes are propagated to attached UI clients via msgpack-rpc. Lua scripts can intercept and modify this flow through callbacks and hooks.",
+          "persistence": "Uses custom file formats for buffer storage, supports swap files, undo history, and shared data (shada) persistence across sessions",
+          "concurrency_model": "event-loop based asynchronous processing with LibUV, supporting non-blocking I/O and job control",
+          "communication_patterns": "msgpack-rpc for client-server communication, internal event system for plugin notifications",
+          "plugin_extension_model": "Comprehensive plugin system supporting both Lua and Vimscript plugins, with autocommand hooks, user commands, and API access"
+        },
+        "data_model": {
+          "primary_entities": [
+            "Buffers (text content containers)",
+            "Windows (viewport into buffers)",
+            "Tabpages (window layout containers)",
+            "Autocommands (event-driven triggers)",
+            "Highlight groups and extmarks",
+            "User-defined commands and mappings"
+          ],
+          "storage_backends": [
+            "File system for buffer content",
+            "Memory-mapped files for large buffers",
+            "Swap files for crash recovery",
+            "Shada files for session persistence"
+          ],
+          "schema_patterns": "Hierarchical model with buffers containing lines, windows displaying buffer ranges, and tabpages organizing window layouts",
+          "migration_strategy": "Backward compatibility maintained through API versioning and deprecated function support"
+        },
+        "algorithms": {
+          "problem_type": "Interactive text editing with real-time syntax highlighting, extensible plugin architecture, and multi-client support",
+          "core_patterns": [
+            "Observer pattern for autocommands and events",
+            "Plugin pattern for extensibility",
+            "Command pattern for user actions",
+            "Provider pattern for language integrations",
+            "Visitor pattern for syntax tree traversal"
+          ],
+          "complexity_indicators": "Large codebase with 3703 files, extensive test suite (947 test files), complex build system with dependency management",
+          "key_algorithms": [
+            "Tree-sitter incremental parsing for syntax highlighting",
+            "Event-driven processing with LibUV event loop",
+            "Buffer change tracking and notification system",
+            "Command parsing and dispatch algorithms"
+          ],
+          "evidence": "src/nvim/api/ modules demonstrate API dispatch patterns, test/ directory shows comprehensive testing approach, cmake.deps/ shows dependency management complexity"
+        },
+        "security_model": {
+          "authentication": "No user authentication required for local editor usage",
+          "authorization": "Plugin sandboxing and restricted API access for untrusted code",
+          "data_protection": "Local file system permissions, no network encryption by default",
+          "security_headers": "Not applicable for desktop editor application",
+          "vulnerability_handling": "Community-driven security through GitHub issue tracking and code review process"
+        },
+        "dependencies": {
+          "runtime": [
+            "LibUV (asynchronous I/O)",
+            "LuaJIT (Lua runtime)",
+            "Tree-sitter (parsing)",
+            "UTF8proc (Unicode processing)",
+            "Unibilium (terminal handling)",
+            "msgpack (serialization)"
+          ],
+          "dev": [
+            "CMake (build system)",
+            "Ninja (build tool - mentioned in CONTRIBUTING.md)",
+            "GCC/Clang (C compiler)",
+            "Test frameworks for Lua and C code"
+          ],
+          "infrastructure": [
+            "No external databases required",
+            "File system for persistence",
+            "Terminal/TTY for user interface"
+          ]
+        },
+        "deployment": {
+          "containerized": false,
+          "container_orchestration": "none",
+          "ci_cd": "GitHub Actions (implied by modern GitHub project)",
+          "environment_config": "CMake configuration files, environment variables, and runtime configuration files",
+          "scaling_model": "Single-user desktop application, no horizontal scaling"
+        },
+        "code_quality_signals": {
+          "has_tests": true,
+          "test_framework": "Custom test framework with Lua and C components",
+          "test_count_estimate": "947 test files",
+          "has_linting": true,
+          "has_type_hints": false,
+          "documentation_quality": "well-documented",
+          "code_style": "Consistent C and Lua formatting with contribution guidelines"
+        },
+        "project_health": {
+          "license": "Apache-2.0",
+          "total_commits": "1",
+          "top_contributors": "1",
+          "recent_activity": "Active development with recent fixes for window locking and memory management",
+          "community_signals": "Comprehensive contribution guidelines (CONTRIBUTING.md), build documentation (BUILD.md), maintenance guides (MAINTAIN.md)"
+        },
+        "evidence_tracking": {
+          "files_analyzed": [
+            "src/nvim/api/autocmd.c",
+            "src/nvim/api/buffer.c",
+            "src/nvim/api/command.c",
+            "src/nvim/api/deprecated.c",
+            "README.md",
+            "CONTRIBUTING.md",
+            "CMakeLists.txt",
+            "cmake.deps/ directory structure",
+            "runtime/ directory structure",
+            "test/ directory structure"
+          ],
+          "confidence_level": "High",
+          "information_gaps": [
+            "Exact version numbers for most dependencies",
+            "Specific LSP implementation details",
+            "Complete UI client protocol specification",
+            "Performance characteristics and benchmarks"
+          ]
+        },
+        "pricing": {
+          "model": "open-source",
+          "free_tier": "true"
+        }
+      },
+      "extracted_data": {},
+      "source": "local_repo",
+      "source_confidence": "high",
+      "timestamp": "2026-03-25T15:02:41.748515"
+    },
+    "generalization": {
+      "functional_dna": {
+        "logic_archetype": "Plugin Host",
+        "logic_archetype_evidence": "Implements comprehensive plugin system supporting both Lua and Vimscript plugins with autocommand hooks, user commands, and API access. Provides event-driven architecture where plugins can intercept and modify text editing operations through callbacks and hooks.",
+        "data_contract_strictness": "Moderately Structured",
+        "data_contract_evidence": "API endpoints have defined signatures (nvim_buf_line_count, nvim_buf_attach) and msgpack-rpc protocol specification, but supports flexible plugin extension model with both typed API calls and dynamic Lua/Vimscript execution",
+        "core_algorithmic_class": "Tree/AST Processing",
+        "core_algorithmic_evidence": "Tree-sitter incremental parsing for syntax highlighting, buffer change tracking algorithms, command parsing and dispatch algorithms, and visitor pattern for syntax tree traversal",
+        "concurrency_requirements": "Eventually Consistent",
+        "concurrency_evidence": "Event-loop based asynchronous processing with LibUV for non-blocking I/O, real-time buffer change notifications via callbacks, and multi-client synchronization through msgpack-rpc without strict ACID requirements",
+        "abstract_problem": "Maintains a hierarchical structured document with real-time incremental parsing, multi-client synchronization, and extensible transformation pipeline where plugins can intercept, modify, and react to document mutations through event-driven callbacks.",
+        "data_flow_pattern": "Document mutations \u2192 incremental parsing \u2192 event dispatch \u2192 plugin transformation pipeline \u2192 client notification broadcast",
+        "state_complexity": "Entity-scoped",
+        "repurposing_confidence": 8,
+        "repurposing_reasoning": "The core pattern of structured document management with incremental parsing, plugin extensibility, and multi-client synchronization is highly generic. The API abstraction layer, event system, and plugin architecture are domain-agnostic. However, text-specific optimizations (line-based operations, syntax highlighting) and Vim compatibility layer create some domain coupling. The msgpack-rpc communication layer and LibUV async foundation are broadly reusable."
+      },
+      "evidence_claims": [
+        {
+          "claim": "Implements comprehensive plugin system with event hooks",
+          "evidence": "runtime/plugin/, runtime/lua/ directories and autocommand system (src/nvim/api/autocmd.c)",
+          "confidence": "High"
+        },
+        {
+          "claim": "Uses tree-sitter for incremental parsing",
+          "evidence": "cmake.deps/cmake/BuildTreesitter.cmake and runtime/queries/ directory",
+          "confidence": "High"
+        },
+        {
+          "claim": "Supports multi-client architecture via RPC",
+          "evidence": "src/nvim/msgpack_rpc/ directory and client-server architecture description",
+          "confidence": "High"
+        },
+        {
+          "claim": "Event-driven asynchronous processing",
+          "evidence": "LibUV integration (cmake.deps/cmake/BuildLibuv.cmake) and event-loop subsystem (src/nvim/event/)",
+          "confidence": "High"
+        }
+      ],
+      "market_reach": {
+        "primary_industry": "Software Development Tools",
+        "cross_industry_applications": [
+          "Legal Document Management - structured document editing with collaborative review workflows",
+          "Medical Records Systems - hierarchical patient data with real-time updates and audit trails",
+          "Configuration Management - structured config files with syntax validation and multi-environment sync",
+          "Scientific Data Analysis - structured dataset manipulation with plugin-based analysis pipelines",
+          "Financial Trading Platforms - real-time structured data feeds with extensible indicator calculations",
+          "Game Development Tools - level editors with hierarchical scene graphs and plugin-based asset processors",
+          "CAD/Engineering - structured design documents with incremental validation and collaborative editing",
+          "Content Management - structured content with real-time preview and plugin-based publishing workflows"
+        ],
+        "utility_score": 8,
+        "market_potential": "High"
+      },
+      "friction_report": {
+        "difficulty": "Medium",
+        "estimated_hours": 120,
+        "required_technologies": [
+          "LibUV",
+          "msgpack",
+          "CMake",
+          "C compiler",
+          "Lua runtime"
+        ],
+        "complexity_factors": [
+          "Complex build system with multiple dependencies",
+          "C codebase requires systems programming expertise",
+          "Event-loop architecture needs careful async handling",
+          "Plugin API surface area is extensive"
+        ],
+        "risk_level": "Medium",
+        "migration_path": "Extract core API layer and event system, replace text-specific buffer operations with domain-specific document structures, adapt tree-sitter parsing to domain schemas, maintain plugin architecture with domain-specific extensions"
+      },
+      "interface_map": {
+        "adapter_schema": {
+          "input": {
+            "format": "msgpack-rpc",
+            "required_fields": [
+              "method",
+              "params"
+            ],
+            "protocols": [
+              "TCP",
+              "Unix sockets",
+              "stdio"
+            ]
+          },
+          "output": {
+            "format": "msgpack-rpc",
+            "delivery": "async"
+          },
+          "authentication": {
+            "type": "none",
+            "method": "local process communication"
+          }
+        },
+        "standardization_level": "High",
+        "api_surface_area": "Large (50+)"
+      },
+      "comparable_systems": [
+        "Blender's modifier stack system - hierarchical data transformation with plugin extensibility",
+        "Unity's component system - entity-based architecture with event-driven updates and inspector plugins",
+        "Eclipse IDE platform - plugin host architecture with document management and incremental compilation",
+        "AutoCAD's ObjectARX - structured drawing database with event-driven modifications and plugin API",
+        "Figma's plugin system - collaborative document editing with real-time sync and extensible transformations"
+      ],
+      "information_gaps": [
+        "Specific LSP protocol implementation details",
+        "Performance characteristics and memory usage patterns",
+        "Complete msgpack-rpc protocol specification",
+        "Plugin API versioning and compatibility guarantees",
+        "Multi-client conflict resolution strategies"
+      ]
+    },
+    "timestamp": "2026-03-25T15:03:31.372436"
+  },
+  "errors": []
+}
